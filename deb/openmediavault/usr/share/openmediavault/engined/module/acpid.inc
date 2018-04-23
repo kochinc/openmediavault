@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,23 +38,11 @@ class OMVModuleAcpid extends \OMV\Engine\Module\ServiceAbstract
 	}
 
 	/**
-	 * Stop the managed service.
-	 */
-	public function stopService() {
-		$systemCtl = new \OMV\System\SystemCtl("acpid");
-		$systemCtl->stop();
-	}
-
-	/**
 	 * Start the managed service.
 	 */
 	public function startService() {
-		$db = \OMV\Config\Database::getInstance();
-		$object = $db->get("conf.system.powermngmnt");
-		if (TRUE !== $object->get("powerbtn"))
-			return;
 		$systemCtl = new \OMV\System\SystemCtl("acpid");
-		$systemCtl->start();
+		$systemCtl->restart();
 	}
 
 	/**

@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -92,7 +92,7 @@ abstract class ModuleAbstract {
 	 * @param id The identifier of the task type.
 	 * @param name The name of the class method to be executed.
 	 * @param params The parameters passed to the method when it is executed.
-	 * @return None.
+	 * @return void
 	 */
 	final protected function addTask($id, $name, $params) {
 		// Check if class method exists.
@@ -107,12 +107,13 @@ abstract class ModuleAbstract {
 		$filename = sprintf("/var/lib/openmediavault/%s_tasks.json",
 		  $this->getName());
 		$jsonFile = new \OMV\Json\File($filename);
-		$exists = $jsonFile->exists();
 		$jsonFile->open("c+");
-		if ($exists)
-			$tasks = $jsonFile->read();
-		else
-			$tasks = [];
+		// Make sure we have a valid JSON file. Keep in mind that the file
+		// is empty if it was created by the \OMV\Json\File::open method.
+		if ($jsonFile->isEmpty())
+			$jsonFile->write([]);
+		// Read the file content.
+		$tasks = $jsonFile->read();
 		// Add the new task to the list of pending tasks.
 		$tasks[] = [
 			"id" => $id,
@@ -127,7 +128,7 @@ abstract class ModuleAbstract {
 	/**
 	 * Execute the tasks with the given identifier.
 	 * @param id The identifier of the tasks to be executed.
-	 * @return None.
+	 * @return void
 	 */
 	final protected function execTasks($id) {
 		$filename = sprintf("/var/lib/openmediavault/%s_tasks.json",

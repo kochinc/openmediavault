@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,22 +52,20 @@ Ext.define("OMV.module.admin.dashboard.view.ServiceStatus", {
 				stateful: true,
 				stateId: "08ee3b76-e325-11e3-ad0a-00221568ca88",
 				columns: [{
+					xtype: "textcolumn",
 					text: _("Service"),
 					sortable: true,
 					dataIndex: "title",
 					stateId: "title",
 					flex: 1
 				},{
-					xtype: "booleaniconcolumn",
+					xtype: "enabledcolumn",
 					text: _("Enabled"),
 					sortable: true,
 					dataIndex: "enabled",
-					stateId: "enabled",
-					width: 80,
-					resizable: false,
-					align: "center",
-					iconCls:  Ext.baseCSSPrefix + "grid-cell-booleaniconcolumn-switch"
+					stateId: "enabled"
 				},{
+					xtype: "fonticoncolumn",
 					text: _("Running"),
 					sortable: true,
 					dataIndex: "running",
@@ -75,25 +73,22 @@ Ext.define("OMV.module.admin.dashboard.view.ServiceStatus", {
 					width: 80,
 					resizable: false,
 					align: "center",
-					renderer: function(value, metaData, record) {
-						var iconCls;
+					getFontIconCls: function(value, metaData, record) {
+						var cls = ["mdi mdi-checkbox-blank-circle"];
 						switch (record.get("enabled")) {
 						case 1:
 						case true: // Service enabled
-							iconCls = (true == value) ?
-							  "grid-cell-booleaniconcolumn-led-green" :
-							  "grid-cell-booleaniconcolumn-led-red";
+							Ext.Array.push(cls, (true == value) ?
+								Ext.baseCSSPrefix + "color-boolean-true" :
+								Ext.baseCSSPrefix + "color-error");
 							break;
 						default: // Service disabled
-							iconCls = (true == value) ?
-							  "grid-cell-booleaniconcolumn-led-green" :
-							  "grid-cell-booleaniconcolumn-led-gray";
+							Ext.Array.push(cls, (true == value) ?
+								Ext.baseCSSPrefix + "color-boolean-true" :
+								Ext.baseCSSPrefix + "color-boolean-false");
 							break;
 						}
-						metaData.tdCls = Ext.baseCSSPrefix +
-						  "grid-cell-booleaniconcolumn" + " " +
-						  Ext.baseCSSPrefix + iconCls;
-						return "";
+						return cls;
 					}
 				}],
 				viewConfig: {

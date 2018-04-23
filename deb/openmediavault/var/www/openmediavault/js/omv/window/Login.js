@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,10 +42,10 @@ Ext.define("OMV.window.Login", {
 
 	title: _("Login"),
 	layout: "fit",
-	width: 320,
+	width: 350,
 	closable: false,
-	resizable: false,
 	buttonAlign: "center",
+	enableResponsiveness: false,
 
 	constructor: function() {
 		var me = this;

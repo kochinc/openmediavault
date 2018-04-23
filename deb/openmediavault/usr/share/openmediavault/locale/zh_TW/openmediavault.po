@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the openmediavault package.
 # 
 # Translators:
-# kochin <kochinc@outlook.com>, 2013-2016
+# kochin <kochinc@outlook.com>, 2013-2018
 # kochin <kochinc@outlook.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 06:19+0100\n"
-"PO-Revision-Date: 2016-12-06 22:09+0000\n"
+"POT-Creation-Date: 2018-01-21 11:50+0100\n"
+"PO-Revision-Date: 2018-01-26 11:18+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/votdev/openmediavault/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -44,6 +44,9 @@ msgstr "1 - 最低用電量、待機狀態 (停止轉動)"
 msgid "1 day"
 msgstr "1 天"
 
+msgid "1 minute"
+msgstr "1 分鐘"
+
 msgid "1 month"
 msgstr "1 月"
 
@@ -72,6 +75,9 @@ msgstr "127 - 中等用電量、待機狀態"
 msgid "128 - Minimum power usage without standby (no spindown)"
 msgstr "128 - 最低用電量、非待機狀態(未停止轉動)"
 
+msgid "15 minutes"
+msgstr "15 分鐘"
+
 msgid "15 years"
 msgstr "15 年"
 
@@ -83,6 +89,9 @@ msgstr "192 - 中等用電量、非待機狀態"
 
 msgid "2 days"
 msgstr "2 天"
+
+msgid "2 minutes"
+msgstr "2 分鐘"
 
 msgid "2 weeks"
 msgstr "2 週"
@@ -111,6 +120,9 @@ msgstr "255 - 停用"
 msgid "3 days"
 msgstr "3 天"
 
+msgid "3 minutes"
+msgstr "3 分鐘"
+
 msgid "3 months"
 msgstr "3 月"
 
@@ -131,6 +143,9 @@ msgstr "330 分鐘"
 
 msgid "4 days"
 msgstr "4 天"
+
+msgid "4 minutes"
+msgstr "4 分鐘"
 
 msgid "4 years"
 msgstr "4 年"
@@ -295,21 +310,12 @@ msgstr "阿爾及利亞"
 msgid "All"
 msgstr "全部"
 
-msgid "Allow client access to accounts that have null passwords"
-msgstr "允許客戶取用擁有空密碼的帳戶"
-
 msgid ""
 "Allow clients to attempt to store OS/2 style extended attributes on a share."
 msgstr "允許客戶試著在一項共存上儲存 OS/2 形式的擴展屬性。"
 
 msgid "Allow clients to resume interrupted uploads and downloads"
 msgstr "允許客戶恢復被中斷的上傳和下載"
-
-msgid "Allow new files"
-msgstr "允許新檔案"
-
-msgid "Allow new files to be created."
-msgstr "允許新檔案被建立"
 
 msgid ""
 "Allow this server to advertise itself as a time server to Windows clients"
@@ -418,26 +424,20 @@ msgstr "驗證過的用戶 ID"
 msgid "Authentication"
 msgstr "驗證"
 
-msgid "Authentication and no privacy"
-msgstr "驗證及無隱私"
-
-msgid "Authentication and privacy"
-msgstr "驗證及隱私"
-
 msgid "Authentication method"
 msgstr "驗證方式"
-
-msgid "Authentication passphrase"
-msgstr "驗證密語"
 
 msgid "Authentication required"
 msgstr "必須驗證"
 
-msgid "Authentication type"
-msgstr "驗證型式"
-
 msgid "Auto"
 msgstr "自動"
+
+msgid "Auto logout"
+msgstr "自動登出"
+
+msgid "Auto logout after the specified idle period."
+msgstr "過了所指定的閒置時段後自動登出。"
 
 msgid "Automatic Acoustic Management"
 msgstr "自動聲響管理"
@@ -493,9 +493,6 @@ msgstr "二進位碼"
 msgid "Block layer cache [%s, %s]"
 msgstr "區塊層緩存 [%s, %s]"
 
-msgid "Blocksize"
-msgstr "區塊大小"
-
 msgid "Bolivia"
 msgstr "玻利維亞"
 
@@ -541,9 +538,6 @@ msgstr "布基納法索"
 msgid "Burundi"
 msgstr "布隆迪"
 
-msgid "By default, only files that already exist are allowed to be uploaded."
-msgstr "預設是只有已經存在的檔案才被允許上傳。"
-
 msgid "CPU usage"
 msgstr "處理器使用量"
 
@@ -578,13 +572,13 @@ msgid "Certain date"
 msgstr "某個日期"
 
 msgid "Certificate"
-msgstr "證書"
+msgstr "憑證"
 
 msgid "Certificate details"
-msgstr "證書詳細資訊"
+msgstr "憑證詳細資訊"
 
 msgid "Certificates"
-msgstr "證書"
+msgstr "憑證"
 
 msgid "Chad"
 msgstr "查德"
@@ -649,9 +643,6 @@ msgstr "註釋"
 msgid "Common Name"
 msgstr "通用名稱"
 
-msgid "Community"
-msgstr "社群"
-
 msgid "Community-maintained updates."
 msgstr "社群維護的更新。"
 
@@ -697,14 +688,6 @@ msgstr "剛果(金沙薩)"
 msgid "Connections"
 msgstr "連線"
 
-msgid "Contact"
-msgstr "聯絡"
-
-msgid ""
-"Contact information, e.g. name or email address of the person responsible "
-"for this system."
-msgstr "聯絡資料，例如此系統負責人的姓名或電子郵件地址。"
-
 msgid "Conveyance self-test"
 msgstr "運送自我測試"
 
@@ -730,7 +713,7 @@ msgid "Create file system"
 msgstr "新建檔案系統"
 
 msgid "Create self-signed SSL certificate"
-msgstr "新建自我簽名的 SSL 證書"
+msgstr "新建自我簽名的 SSL 憑證"
 
 msgid "Creating the file system, please wait ..."
 msgstr "創建檔案系統中，請稍待 ..."
@@ -834,11 +817,6 @@ msgstr "目的地共享檔案夾"
 msgid "Detail"
 msgstr "詳細資料"
 
-msgid ""
-"Determine the default timeout, in microseconds, before the first packet is "
-"retransmitted."
-msgstr "決定在重新傳送第一個數據包之前的預設逾時時間，這是以微秒計算。"
-
 msgid "Device"
 msgstr "裝置"
 
@@ -899,8 +877,14 @@ msgstr "不允許用戶修改自己的帳戶。"
 msgid "Disk usage"
 msgstr "磁碟使用量"
 
+msgid "Disks"
+msgstr "磁碟"
+
 msgid "Displaying items {0} - {1} of {2}"
 msgstr "顯示項目 {0} - {1} 總共 {2}"
+
+msgid "Displaying {0} - {1} of {2}"
+msgstr "目前顯示 {0} - {1} 總共 {2}"
 
 msgid "Djibouti"
 msgstr "吉布提"
@@ -1023,10 +1007,10 @@ msgid "Edit"
 msgstr "編輯"
 
 msgid "Edit SSH certificate"
-msgstr "編輯 SSL 證書"
+msgstr "編輯 SSL 憑證"
 
 msgid "Edit SSL certificate"
-msgstr "編輯 SSL 證書"
+msgstr "編輯 SSL 憑證"
 
 msgid "Edit VLAN connection"
 msgstr "編輯 VLAN 連線"
@@ -1063,6 +1047,9 @@ msgstr "編輯預定工作"
 
 msgid "Edit scheduled test"
 msgstr "編輯預定測試"
+
+msgid "Edit service"
+msgstr "編輯服務"
 
 msgid "Edit share"
 msgstr "編輯共享"
@@ -1191,6 +1178,9 @@ msgstr "錯誤"
 
 msgid "Error #"
 msgstr "錯誤 #"
+
+msgid "Errors"
+msgstr "錯誤"
 
 msgid "Estonia"
 msgstr "愛沙尼亞"
@@ -1323,6 +1313,9 @@ msgstr "防火牆"
 
 msgid "Firmware version"
 msgstr "韌體版本"
+
+msgid "First Page"
+msgstr "第一頁"
 
 msgid "Flags"
 msgstr "旗標"
@@ -1582,10 +1575,10 @@ msgid "Import"
 msgstr "匯入"
 
 msgid "Import SSH certificate"
-msgstr "匯入 SSL 證書"
+msgstr "匯入 SSL 憑證"
 
 msgid "Import SSL certificate"
-msgstr "匯入 SSL 證書"
+msgstr "匯入 SSL 憑證"
 
 msgid "Import groups"
 msgstr "匯入群組"
@@ -1766,6 +1759,9 @@ msgstr "語言"
 msgid "Laos"
 msgstr "寮國"
 
+msgid "Last Page"
+msgstr "最後頁"
+
 msgid "Latvia"
 msgstr "拉托維亞"
 
@@ -1824,9 +1820,6 @@ msgstr "本地主控瀏覽器"
 
 msgid "Location"
 msgstr "位置"
-
-msgid "Location information, e.g. physical location of this system."
-msgstr "位置資訊，例如：本系統的實體位置。"
 
 msgid "Log level"
 msgstr "日誌層級"
@@ -2114,6 +2107,9 @@ msgstr "新卡里多尼亞"
 msgid "New Zealand"
 msgstr "紐西蘭"
 
+msgid "Next Page"
+msgstr "下一頁"
+
 msgid "Nicaragua"
 msgstr "尼加拉瓜"
 
@@ -2135,14 +2131,14 @@ msgstr "禁止存取"
 msgid "No action"
 msgstr "無動作"
 
-msgid "No authentication and no privacy"
-msgstr "無驗證及無隱私"
-
 msgid "No certificate request"
-msgstr "不提出證書請求"
+msgstr "不提出憑證請求"
 
 msgid "No connections"
 msgstr "沒有連線"
+
+msgid "No data to display"
+msgstr "無資料可顯示"
 
 msgid "No items to display"
 msgstr "無項目可顯示"
@@ -2200,9 +2196,6 @@ msgstr "通知"
 
 msgid "November"
 msgstr "十一月"
-
-msgid "Null passwords"
-msgstr "空密碼"
 
 msgid "Num"
 msgstr "號碼"
@@ -2267,6 +2260,9 @@ msgstr "太平洋島嶼託管領地"
 msgid "Package information"
 msgstr "套件資訊"
 
+msgid "Page"
+msgstr "頁"
+
 msgid "Page not found"
 msgstr "未找到網頁"
 
@@ -2310,7 +2306,7 @@ msgid "Passwords don't match"
 msgstr "密碼不相符"
 
 msgid "Paste a RSA certificate in X.509 PEM format here."
-msgstr "貼上 X.509 PEM 格式的 RSA 證書。"
+msgstr "貼上 X.509 PEM 格式的 RSA 憑證。"
 
 msgid "Paste an private RSA key in X.509 PEM format here."
 msgstr "貼上私人 X.509 PEM 格式的 RSA 密鑰。"
@@ -2354,9 +2350,6 @@ msgstr "秘魯"
 msgid "Philippines"
 msgstr "菲律賓"
 
-msgid "Physical Disks"
-msgstr "實體磁碟"
-
 msgid "Physical disk properties"
 msgstr "實體磁碟屬性"
 
@@ -2367,12 +2360,6 @@ msgid ""
 "Please check the <a href='http://linux.die.net/man/5/exports' "
 "target='_blank'>manual page</a> for more details."
 msgstr "詳情請查看<a href='http://linux.die.net/man/5/exports' target='_blank'>手冊頁</a>。"
-
-msgid ""
-"Please check the <a href='http://www.openbsd.org/cgi-"
-"bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>manual page</a> for"
-" more details."
-msgstr "詳情請查看<a href='http://www.openbsd.org/cgi-bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>手冊頁</a>。"
 
 msgid ""
 "Please check the <a href='http://www.proftpd.org/docs/contrib/mod_tls.html' "
@@ -2406,16 +2393,16 @@ msgid ""
 "target='_blank'>manual page</a> for more details."
 msgstr "詳情請查看<a href='http://www.samba.org/samba/docs/man/manpages-3/smb.conf.5.html' target='_blank'>手冊頁</a>。"
 
+msgid ""
+"Please check the <a href='https://man.openbsd.org/sshd_config.5' "
+"target='_blank'>manual page</a> for more details."
+msgstr "詳情請查看<a href='https://man.openbsd.org/sshd_config.5' target='_blank'>手冊頁</a>。"
+
 msgid "Please choose the method to wipe the device or 'Cancel' to abort."
 msgstr "請選擇抹除裝置的方式或選 '取消' 來中止。"
 
 msgid "Please first select a device."
 msgstr "請先選擇一個裝置。"
-
-msgid ""
-"Please make sure that the shared folder is publicly writable if new files "
-"are allowed."
-msgstr "如果允許新增檔案，請確定該共享檔案夾是公開可寫入。"
 
 msgid ""
 "Please note that no communication with the system is possible during this "
@@ -2441,9 +2428,6 @@ msgstr "波蘭"
 
 msgid "Port"
 msgstr "通訊埠"
-
-msgid "Port to listen on."
-msgstr "要監聽的通訊埠。"
 
 msgid "Portugal"
 msgstr "葡萄牙"
@@ -2486,19 +2470,16 @@ msgid ""
 "want.</li><li>Idle - Check the device unless it is in SLEEP, STANDBY or IDLE"
 " mode. In the IDLE state, most disks are still spinning, so this is probably"
 " not what you want.</li></ul>"
-msgstr "當定時查驗磁碟時，避免它開始轉動。<br/><ul><li>允不 - 查驗裝置，不論它的耗電模式是什麼。當進行檢查時，這可能會造成已經停止轉動的磁碟開始轉動。</li><li>睡眠 - 檢查裝置，除非它正處於睡眠模式。</li><li>待機 - 檢查裝置，除非它正處於睡眠或待機模式。在這些模式下大多數磁碟都沒有轉動，所以如果你想避免磁碟在每次查驗時開始轉動，這可能就是你想要的。</li><li>閒置 - 檢查裝置，除非它正處於睡眠、待機或閒置模式。在閒置狀態下，大多數磁碟都還在轉動，所以這可能不是你想要的。</li></ul>"
+msgstr "當做定時查驗時，避免磁碟開始轉動。<br/><ul><li>永不 - 查驗(檢查)裝置，不論它的耗電模式是什麼。當進行檢查時，這可能會造成已經停止轉動的磁碟開始轉動。</li><li>睡眠 - 檢查裝置，除非它正處於睡眠模式。</li><li>待機 - 檢查裝置，除非它正處於睡眠或待機模式。在這些模式下大多數磁碟都沒有轉動，所以如果你想避免磁碟在每次查驗時開始轉動，這可能就是你想要的。</li><li>閒置 - 檢查裝置，除非它正處於睡眠、待機或閒置模式。在閒置狀態下，大多數磁碟都還在轉動，所以這可能不是你想要的。</li></ul>"
+
+msgid "Previous Page"
+msgstr "前一頁"
 
 msgid "Primary"
 msgstr "主要"
 
 msgid "Primary email"
 msgstr "主要電子郵件"
-
-msgid "Privacy passphrase"
-msgstr "隱私密語"
-
-msgid "Privacy type"
-msgstr "隱私型式"
 
 msgid "Private key"
 msgstr "私有密鑰"
@@ -2704,9 +2685,6 @@ msgstr "結果"
 msgid "Resume"
 msgstr "恢復"
 
-msgid "Retry timeout"
-msgstr "重試逾時時間"
-
 msgid "Reunion"
 msgstr "留尼旺"
 
@@ -2769,15 +2747,6 @@ msgstr "SMTP 伺服器"
 
 msgid "SMTP settings"
 msgstr "SMTP 設定"
-
-msgid "SNMP"
-msgstr "SNMP"
-
-msgid "SNMP version 1/2c"
-msgstr "SNMP 第 1/2c 版"
-
-msgid "SNMP version 3"
-msgstr "SNMP 第 3 版"
 
 msgid "SSH"
 msgstr "SSH"
@@ -2866,14 +2835,11 @@ msgstr "安全"
 msgid "Secure connection"
 msgstr "安全連線"
 
-msgid "Security level"
-msgstr "安全性層級"
-
 msgid "Select a SSH certificate ..."
-msgstr "選擇一份 SSL 證書 ..."
+msgstr "選擇一份 SSL 憑證 ..."
 
 msgid "Select a SSL certificate ..."
-msgstr "選擇一份 SSL 證書 ..."
+msgstr "選擇一份 SSL 憑證 ..."
 
 msgid "Select a country ..."
 msgstr "選擇一個國家 ..."
@@ -2983,9 +2949,6 @@ msgstr "作業階段已逾時"
 msgid "Session not authenticated."
 msgstr "作業階段未通過驗證"
 
-msgid "Session timeout"
-msgstr "作業階段逾時時間"
-
 msgid "Set browseable"
 msgstr "設為可瀏覽"
 
@@ -3041,7 +3004,7 @@ msgid "Short self-test"
 msgstr "簡短自我測試"
 
 msgid "Show certificate"
-msgstr "顯示證書"
+msgstr "顯示憑證"
 
 msgid "Show changelog"
 msgstr "顯示變更日誌"
@@ -3138,11 +3101,6 @@ msgid ""
 "masquerade address by resolving the IP address. Set this value to 0 to "
 "disable this option."
 msgstr "指定經由解析 IP 位址來做偽裝位址的檢查與更新之間的時間，以秒為單位。設此值為 0 來停用這選項。"
-
-msgid ""
-"Specifies the maximum permitted block size. The permitted range for this "
-"parameter is from 512 to 65464."
-msgstr "指定最大允許的區塊大小。這個參數的允許範圍是從 512 到 65464。"
 
 msgid "Specifies the time in hh:mm:ss after which the ban expires."
 msgstr "以 hh:mm:ss 的格式來指定時間。在這時間之後，禁止就過期了。"
@@ -3277,9 +3235,6 @@ msgstr "TAR"
 msgid "TCP forwarding"
 msgstr "TCP 轉送"
 
-msgid "TFTP"
-msgstr "TFTP"
-
 msgid "Taiwan"
 msgstr "台灣"
 
@@ -3314,7 +3269,7 @@ msgid "The SSH certificate used for authentication."
 msgstr "用來鑑別的 SSH 憑證"
 
 msgid "The SSL certificate."
-msgstr "SSL 證書。"
+msgstr "SSL 憑證。"
 
 msgid "The action to be done when pressing the power button."
 msgstr "當按下電源按鈕時，將執行的動作。"
@@ -3373,7 +3328,7 @@ msgid "The name of the share."
 msgstr "該共享的名稱。"
 
 msgid "The number of days the certificate is valid for."
-msgstr "證書有效的天數。"
+msgstr "憑證有效的天數。"
 
 msgid "The page will reload now to let the changes take effect."
 msgstr "現在網頁將重新載入頁面以讓更改生效。"
@@ -3414,9 +3369,11 @@ msgid ""
 "for data connections is not required."
 msgstr "從控制連線來的 SSL 作業階段須被重用做資料連線的需求將不被要求。"
 
-msgid ""
-"The session timeout time in minutes. Set to 0 to disable automatic logout."
-msgstr "作業階段的逾時時間，以分鐘為單位。設定為 0 來停用自動登出。"
+msgid "The session IP address has been changed."
+msgstr "該作業階段的 IP 地址已經被改變。"
+
+msgid "The session user no longer exists."
+msgstr "該作業階段的用戶不再存在。"
 
 msgid ""
 "The source remote server, e.g. [USER@]HOST:SRC, [USER@]HOST::SRC or "
@@ -3540,9 +3497,15 @@ msgstr "此欄位應該只包含數字"
 msgid "This field should only contain numbers separated by <,> or <;>"
 msgstr "此欄位應該只包含以 <,> 或 <;> 分隔的數字"
 
+msgid "This field should only contain options separated by <,>"
+msgstr "此欄位應該只含有以 <,> 分隔的選項"
+
 msgid ""
 "This field should only contain ports (0 - 65535) separated by <,> or <;>"
 msgstr "此欄位應該只包含以 <,> 或 <;> 分隔的通訊埠(0 - 65535)"
+
+msgid "This field should only contain strings separated by <,>"
+msgstr "此欄位應該只含有以 <,> 分隔的字串"
 
 msgid "This field should only contain strings separated by <,> or <;>"
 msgstr "此欄位應該只包含以 <,> 或 <;> 分隔的字串"
@@ -3564,7 +3527,7 @@ msgstr "這可更有效率地使用系統的 CPU，並使 Samba 執行更快。�
 msgid ""
 "This option causes the server to not send a certificate request during a SSL"
 " handshake."
-msgstr "此選項會導致伺服器在 SSL 握手過程不要發送證書請求。"
+msgstr "此選項會導致伺服器在 SSL 握手過程不要發送憑證請求。"
 
 msgid ""
 "This option determines if this module should be listed when the client asks "
@@ -3701,9 +3664,6 @@ msgstr "傳輸時間"
 
 msgid "Transfer type"
 msgstr "傳輸型式"
-
-msgid "Traps"
-msgstr "捕捉"
 
 msgid "Treshold"
 msgstr "定限值"
@@ -4010,6 +3970,9 @@ msgstr "唯寫"
 msgid "Write/Execute"
 msgstr "寫/執行"
 
+msgid "Xen virtual disk device"
+msgstr "Xen 虛擬磁碟裝置"
+
 msgid "Yearly"
 msgstr "每年"
 
@@ -4018,6 +3981,9 @@ msgstr "葉門"
 
 msgid "Yes"
 msgstr "是"
+
+msgid "You need to commit or cancel your changes"
+msgstr "您必須確定或取消您的變更"
 
 msgid "Zambia"
 msgstr "尚比亞"
@@ -4048,6 +4014,9 @@ msgstr "分"
 
 msgid "n/a"
 msgstr "n/a"
+
+msgid "of {0}"
+msgstr "總共 {0} 頁"
 
 msgid "old-age"
 msgstr "老齡"

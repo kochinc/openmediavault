@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,6 +30,7 @@
 // require("js/omv/data/Store.js")
 // require("js/omv/data/Model.js")
 // require("js/omv/data/proxy/Rpc.js")
+// require("js/omv/toolbar/Tip.js")
 
 /**
  * @class OMV.module.admin.privilege.group.group.General
@@ -113,12 +114,14 @@ Ext.define("OMV.module.admin.privilege.group.group.Members", {
 		})
 	}],
 	columns: [{
+		xtype: "textcolumn",
 		text: _("Name"),
 		sortable: true,
 		dataIndex: "name",
 		stateId: "name",
 		flex: 2
 	},{
+		xtype: "textcolumn",
 		text: _("UID"),
 		sortable: true,
 		dataIndex: "uid",
@@ -224,7 +227,7 @@ Ext.define("OMV.module.admin.privilege.group.Group", {
 	rpcSetMethod: "setGroup",
 
 	width: 420,
-	height: 300,
+	height: 350,
 
 	getTabItems: function() {
 		var me = this;
@@ -243,6 +246,9 @@ Ext.define("OMV.module.admin.privilege.group.Group", {
  */
 Ext.define("OMV.module.admin.privilege.group.Import", {
 	extend: "OMV.workspace.window.TextArea",
+	uses: [
+		"OMV.toolbar.Tip"
+	],
 
 	title: _("Import groups"),
 	width: 580,
@@ -299,6 +305,9 @@ Ext.define("OMV.module.admin.privilege.group.SharedFolderPrivileges", {
 	extend: "OMV.workspace.window.Grid",
 	requires: [
 		"OMV.grid.PrivilegesByRole"
+	],
+	uses: [
+		"OMV.toolbar.Tip"
 	],
 
 	rpcService: "ShareMgmt",
@@ -390,11 +399,13 @@ Ext.define("OMV.module.admin.privilege.group.Groups", {
 	stateful: true,
 	stateId: "d7c66fd9-2ef5-4107-9a6f-562dcdc2643a",
 	columns: [{
+		xtype: "textcolumn",
 		text: _("Name"),
 		sortable: true,
 		dataIndex: "name",
 		stateId: "name"
 	},{
+		xtype: "textcolumn",
 		text: _("Comment"),
 		sortable: true,
 		dataIndex: "comment",
@@ -450,8 +461,7 @@ Ext.define("OMV.module.admin.privilege.group.Groups", {
 			id: me.getId() + "-add",
 			xtype: "splitbutton",
 			text: me.addButtonText,
-			icon: me.addButtonIcon,
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: me.addButtonIconCls,
 			handler: function(c) {
 				c.showMenu();
 			},
@@ -473,8 +483,7 @@ Ext.define("OMV.module.admin.privilege.group.Groups", {
 			id: me.getId() + "-privileges",
 			xtype: "button",
 			text: _("Privileges"),
-			icon: "images/share.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-share-alt",
 			handler: me.onPrivilegesButton,
 			scope: me,
 			disabled: true,
@@ -559,8 +568,7 @@ OMV.WorkspaceManager.registerNode({
 	id: "group",
 	path: "/privilege",
 	text: _("Group"),
-	icon16: "images/group.png",
-	iconSvg: "images/group.svg",
+	iconCls: "mdi mdi-account-multiple",
 	position: 20
 });
 

@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -78,7 +78,7 @@ class LogFileSpec {
 	 * @param id The identifier of the log file specification, e.g.
 	 *   'syslog' or 'auth'.
 	 * @param spec The log file specification.
-	 * @return None
+	 * @return void
 	 */
 	public static function registerSpecification($id, array $spec) {
 		// Validate the specification.
@@ -95,7 +95,7 @@ class LogFileSpec {
 	/**
 	 * Checks if a log file specification is registered.
 	 * @param id The identifier of the log file specification.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\AssertException
 	 */
 	public static function assertIsRegistered($id) {

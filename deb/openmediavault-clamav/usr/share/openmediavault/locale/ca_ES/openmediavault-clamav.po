@@ -1,15 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-clamav package.
 # 
 # Translators:
+# Quim Farriol <quim@iscinformatica.cat>, 2018
 # Quim Farriol <quim@iscinformatica.cat>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-23 19:15+0200\n"
-"PO-Revision-Date: 2017-02-03 20:47+0000\n"
+"POT-Creation-Date: 2017-11-18 11:05+0100\n"
+"PO-Revision-Date: 2018-01-01 19:08+0000\n"
 "Last-Translator: Quim Farriol <quim@iscinformatica.cat>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/votdev/openmediavault/language/ca_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -18,8 +19,11 @@ msgstr ""
 "Language: ca_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Add job"
-msgstr "Afegir tasca"
+msgid "Add on-access scan"
+msgstr "Afegiu escanejar al accedir"
+
+msgid "Add scheduled job"
+msgstr "Afegeix feina programada"
 
 msgid "Algorithmic detection"
 msgstr "Detecció Algorítmica"
@@ -56,8 +60,14 @@ msgstr "Detectar PUA"
 msgid "Detect broken executables"
 msgstr "Detectar executables trencats"
 
-msgid "Edit job"
-msgstr "Editar la tasca"
+msgid "Done ..."
+msgstr "Fet ..."
+
+msgid "Edit on-access scan"
+msgstr "Edita l'escaneix al accedir"
+
+msgid "Edit scheduled job"
+msgstr "Edita feina programada"
 
 msgid "Enable"
 msgstr "Habilitar"
@@ -103,8 +113,8 @@ msgstr "Cada N hores"
 msgid "Every N minute"
 msgstr "Cada N minuts"
 
-msgid "Execute cron job"
-msgstr "Executar tasca programada"
+msgid "Execute scheduled job"
+msgstr "Executa feina programada"
 
 msgid "Extra options"
 msgstr "Opcions addicionals"
@@ -130,9 +140,6 @@ msgstr "Hora"
 msgid "Infected files"
 msgstr "Fitxers infectats"
 
-msgid "Jobs"
-msgstr "Tasques"
-
 msgid "Log clean files"
 msgstr "Log de fitxers nets"
 
@@ -157,6 +164,9 @@ msgstr "Multiscan"
 msgid "Number of database update checks per day. Set to 0 to disable."
 msgstr "Nombre de consultes d'actualització de la BBDD per dia. Poseu 0 per deshabilitar-ho."
 
+msgid "On Access Scans"
+msgstr "Escaneja al accedir"
+
 msgid "On-access"
 msgstr "Quan s'accedeixi"
 
@@ -164,9 +174,10 @@ msgid "Perform a deeper analysis of executable files."
 msgstr "Fer un anàlisis profund dels executables"
 
 msgid ""
-"Please check the <a href='http://linux.die.net/man/5/clamd.conf' "
-"target='_blank'>manual page</a> for more details."
-msgstr "Per la resta de detalls visiteu la <a href='http://linux.die.net/man/5/clamd.conf' target='_blank'>pàgina del manual</a>."
+"Please check the <a href='https://github.com/vrtadmin/clamav-"
+"faq/raw/master/manual/clamdoc.pdf' target='_blank'>manual page</a> for more "
+"details."
+msgstr "Si us plau, consulteu la <a href='https://github.com/vrtadmin/clamav-faq/raw/master/manual/clamdoc.pdf' target='_blank'>pàgina del manual</a> per obtenir més informació."
 
 msgid "Quarantine"
 msgstr "Quarantena"
@@ -195,6 +206,9 @@ msgstr "Escanejar fitxers"
 msgid "Scan the directory contents in parallel using available threads."
 msgstr "Escanejar el contingut dels directoris en paral·lel usant tots els fils disponibles."
 
+msgid "Scheduled Jobs"
+msgstr "Feines programades"
+
 msgid "Send command output via email"
 msgstr "Enviar el resultat de la comanda per e-mail"
 
@@ -206,6 +220,9 @@ msgstr "Opcions"
 
 msgid "Shared folder"
 msgstr "Carpeta compartida"
+
+msgid "The location of the files to scan on-access."
+msgstr "La ubicació dels fitxers per escanejar en l'accés."
 
 msgid "The location of the files to scan."
 msgstr "Ubicació dels fitxers que s'han de comprovar"

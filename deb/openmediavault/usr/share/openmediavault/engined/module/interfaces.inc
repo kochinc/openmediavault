@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,7 +57,7 @@ class OMVModuleInterfaces extends \OMV\Engine\Module\ServiceAbstract
 	 * @param type The event message type.
 	 * @param path The event message path.
 	 * @param object The configuration object.
-	 * @return None.
+	 * @return void
 	 */
 	final public function onDeleteInterface($type, $path, $object) {
 		if ("bond" == $object['type'])
@@ -69,11 +69,10 @@ class OMVModuleInterfaces extends \OMV\Engine\Module\ServiceAbstract
 	 * @param params The method parameters.
 	 */
 	final public function deleteBondInterface($params) {
-		// Note, this may not be necessary in Debian Jessie.
-		// See http://backdrift.org/manage-linux-bonding-without-ifenslave-using-sysfs
-		$cmd = sprintf("echo '-%s' > /sys/class/net/bonding_masters",
-		  $params['devicename']);
-		$this->exec($cmd);
+		$iface = new \OMV\System\Net\NetworkInterfaceBond(
+			$params['devicename']);
+		if ($iface->exists())
+			$iface->delete();
 	}
 
 	/**
@@ -97,5 +96,5 @@ class OMVModuleInterfaces extends \OMV\Engine\Module\ServiceAbstract
 		  OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
 		  "org.openmediavault.conf.system.network.interface",
 		  [ $moduleMngr->getModule("networking"), "setDirty" ]);
-    }
+	}
 }

@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -101,7 +101,8 @@ class Manager implements \IteratorAggregate {
 	 * Enumerate all network interfaces.
 	 * @param type Defines the network interface type, e.g. ethernet, vlan or
 	 *   bond. Defaults to OMV_NETWORK_INTERFACE_TYPE_ALL.
-	 * @return A list of network interfaces, e.g. eth0 or lo, otherwise FALSE.
+	 * @return A list of network interface names, e.g. eth0 or lo,
+	 *   otherwise FALSE.
 	 */
 	final public function enumerate($type = OMV_NETWORK_INTERFACE_TYPE_ALL) {
 		$result = [];
@@ -126,7 +127,7 @@ class Manager implements \IteratorAggregate {
 	 * (e.g. bond interfaces).
 	 * @param type Defines the network interface type. Defaults to
 	 *   OMV_NETWORK_INTERFACE_TYPE_ALL.
-	 * @return A list of network interfaces, otherwise FALSE.
+	 * @return A list of network interface names, otherwise FALSE.
 	 */
 	final public function enumerateUnused($type = OMV_NETWORK_INTERFACE_TYPE_ALL) {
 		// Get all existing network interfaces of the given type.
@@ -155,7 +156,7 @@ class Manager implements \IteratorAggregate {
 	 * interface.
 	 * @param type Defines the network interface type. Defaults to
 	 *   OMV_NETWORK_INTERFACE_TYPE_ALL.
-	 * @return A list of network interfaces, otherwise FALSE.
+	 * @return A list of network interface names, otherwise FALSE.
 	 */
 	final public function enumerateUsed($type = OMV_NETWORK_INTERFACE_TYPE_ALL) {
 		$result = [];

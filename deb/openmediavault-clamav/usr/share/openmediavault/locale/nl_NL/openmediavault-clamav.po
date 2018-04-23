@@ -1,17 +1,17 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-clamav package.
 # 
 # Translators:
-# Milan Toet <milantoet@gmail.com>, 2012-2013
+# Milan Toet <milantoet@gmail.com>, 2012-2013,2017
 # sebak <seba.kerckhof@gmail.com>, 2012
 # Tim <co_ti@hotmail.com>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-23 19:15+0200\n"
-"PO-Revision-Date: 2014-11-30 01:10+0000\n"
+"POT-Creation-Date: 2017-11-18 11:05+0100\n"
+"PO-Revision-Date: 2017-11-18 10:08+0000\n"
 "Last-Translator: Volker <votdev@gmx.de>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/votdev/openmediavault/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -20,8 +20,11 @@ msgstr ""
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Add job"
-msgstr "Taak toevoegen"
+msgid "Add on-access scan"
+msgstr ""
+
+msgid "Add scheduled job"
+msgstr ""
 
 msgid "Algorithmic detection"
 msgstr "Algoritmische detectie"
@@ -58,8 +61,14 @@ msgstr "PUA waarnemen"
 msgid "Detect broken executables"
 msgstr "Defecte uitvoerbare bestanden waarnemen"
 
-msgid "Edit job"
-msgstr "Taak aanpassen"
+msgid "Done ..."
+msgstr ""
+
+msgid "Edit on-access scan"
+msgstr ""
+
+msgid "Edit scheduled job"
+msgstr ""
 
 msgid "Enable"
 msgstr "Inschakelen"
@@ -105,8 +114,8 @@ msgstr "Iedere N uren"
 msgid "Every N minute"
 msgstr "Iedere N minuten"
 
-msgid "Execute cron job"
-msgstr "Geplande taak uitvoeren"
+msgid "Execute scheduled job"
+msgstr ""
 
 msgid "Extra options"
 msgstr "Extra opties"
@@ -132,9 +141,6 @@ msgstr "Uur"
 msgid "Infected files"
 msgstr "Besmette bestanden"
 
-msgid "Jobs"
-msgstr "Taken"
-
 msgid "Log clean files"
 msgstr "Schone bestanden loggen"
 
@@ -159,6 +165,9 @@ msgstr "Meervoudig aftasten"
 msgid "Number of database update checks per day. Set to 0 to disable."
 msgstr "Aantal database updatecontroles per dag. Zet op 0 om te deactiveren."
 
+msgid "On Access Scans"
+msgstr ""
+
 msgid "On-access"
 msgstr "On-access"
 
@@ -166,9 +175,10 @@ msgid "Perform a deeper analysis of executable files."
 msgstr "Uitvoerbare bestanden grondiger analyseren."
 
 msgid ""
-"Please check the <a href='http://linux.die.net/man/5/clamd.conf' "
-"target='_blank'>manual page</a> for more details."
-msgstr "Ga naar de <a href='http://linux.die.net/man/5/clamd.conf' target='_blank'>handleidingspagina</a> voor verdere details."
+"Please check the <a href='https://github.com/vrtadmin/clamav-"
+"faq/raw/master/manual/clamdoc.pdf' target='_blank'>manual page</a> for more "
+"details."
+msgstr "Ga naar de <a href='https://github.com/vrtadmin/clamav-faq/raw/master/manual/clamdoc.pdf' target='_blank'>handleiding pagina</a> voor verdere details."
 
 msgid "Quarantine"
 msgstr "Quarantaine"
@@ -197,6 +207,9 @@ msgstr "Archieven aftasten"
 msgid "Scan the directory contents in parallel using available threads."
 msgstr "De inhoud van de map parallel aftasten door meerdere ingangen te gebruiken."
 
+msgid "Scheduled Jobs"
+msgstr ""
+
 msgid "Send command output via email"
 msgstr "Verzend de uitvoer van de opdrachten via e-mail"
 
@@ -208,6 +221,9 @@ msgstr "Instellingen"
 
 msgid "Shared folder"
 msgstr "Gedeelde map"
+
+msgid "The location of the files to scan on-access."
+msgstr ""
 
 msgid "The location of the files to scan."
 msgstr "De locatie van de af te tasten bestanden"

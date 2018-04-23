@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,16 +38,21 @@ try {
 	// Make sure the data models are loaded.
 	$modelMngr = \OMV\DataModel\Manager::getInstance();
 	$modelMngr->load();
-	// Get session timeout from the configuration.
+	// Get the configured timezone.
 	$db = &\OMV\Config\Database::getInstance();
 	$object = $db->get("conf.system.time");
-	if (in_array($object->get("timezone"), timezone_identifiers_list())) {
+	// According to http://php.net/manual/en/timezones.others.php
+	// some of the time zones that the Debian installer supports are
+	// deprectated. To prevent errors we support them to (ALL_WITH_BC).
+	if (in_array($object->get("timezone"), \DateTimeZone::listIdentifiers(
+			\DateTimeZone::ALL_WITH_BC))) {
 		date_default_timezone_set($object->get("timezone"));
 	} else {
 		// See http://php.net/manual/en/timezones.others.php for more
 		// information.
-		syslog(LOG_ERR, sprintf("Unknown or unsupported timezone [tz=%s]",
-		  $object->get("timezone")));
+		syslog(LOG_ERR, sprintf("Unknown or deprecated time zone [tz=%s]. ".
+			"Please reconfigure your time zone settings.",
+			$object->get("timezone")));
 	}
 } catch(\Exception $e) {
 	// Nothing to do here.

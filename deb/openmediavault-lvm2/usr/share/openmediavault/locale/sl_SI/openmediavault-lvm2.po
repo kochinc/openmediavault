@@ -1,0 +1,135 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the openmediavault-lvm2 package.
+# 
+# Translators:
+# Miha Bezjak <miha@bezjak.info>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-30 08:41+0200\n"
+"PO-Revision-Date: 2017-11-17 09:21+0000\n"
+"Last-Translator: Miha Bezjak <miha@bezjak.info>\n"
+"Language-Team: Slovenian (Slovenia) (http://www.transifex.com/votdev/openmediavault/language/sl_SI/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sl_SI\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+
+msgid "Active"
+msgstr "Aktivno"
+
+msgid "Add physical volume"
+msgstr ""
+
+msgid ""
+"After the logical volume has been extended you can resize the containing "
+"filesystem."
+msgstr ""
+
+msgid "Available"
+msgstr "Na voljo"
+
+msgid "Capacity"
+msgstr "Kapaciteta"
+
+msgid "Confirmation"
+msgstr "Potrditev"
+
+msgid "Create logical volume"
+msgstr ""
+
+msgid "Create volume group"
+msgstr ""
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "Device"
+msgstr "Naprava"
+
+msgid "Devices"
+msgstr "Naprave"
+
+msgid "Do you really want to create the logical volume?"
+msgstr ""
+
+msgid "Do you really want to create the physical volume?"
+msgstr ""
+
+msgid "Do you really want to create the volume group?"
+msgstr ""
+
+msgid "Do you really want to resize the selected physical volume?"
+msgstr ""
+
+msgid "Edit logical volume"
+msgstr ""
+
+msgid "Edit volume group"
+msgstr ""
+
+msgid "Extend"
+msgstr "Razširi"
+
+msgid "Extend logical volume"
+msgstr ""
+
+msgid "Extend volume group"
+msgstr ""
+
+msgid "Free"
+msgstr "Prosto"
+
+msgid "Invalid name"
+msgstr "Neveljavno ime"
+
+msgid "Logical Volume Management"
+msgstr ""
+
+msgid "Logical volumes"
+msgstr ""
+
+msgid "Name"
+msgstr "Ime"
+
+msgid "No free space available to create a logical volume."
+msgstr ""
+
+msgid "No free space available to extend the logical volume."
+msgstr ""
+
+msgid "Physical volumes"
+msgstr ""
+
+msgid "Reduce"
+msgstr ""
+
+msgid "Reduce volume group"
+msgstr ""
+
+msgid "Resize"
+msgstr "Spremeni velikost"
+
+msgid "Select a volume group ..."
+msgstr ""
+
+msgid "Select an device ..."
+msgstr "Izberi napravo ..."
+
+msgid "Size"
+msgstr "Velikost"
+
+msgid "Snapshot"
+msgstr "Snapshot"
+
+msgid "Used"
+msgstr "Porabljeno"
+
+msgid "Volume group"
+msgstr ""
+
+msgid "Volume groups"
+msgstr ""

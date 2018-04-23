@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -198,7 +198,7 @@ class Database {
 	 * @param object The configuration object to use.
 	 * @param quiet If set to TRUE, then no notification message is send.
 	 *   Defaults to FALSE.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\Config\DatabaseException
 	 */
 	public function set(ConfigObject &$object, $quiet = FALSE) {
@@ -257,7 +257,7 @@ class Database {
 	 * @param object The configuration object to use.
 	 * @param quiet If set to TRUE, then no notification message is send.
 	 *   Defaults to FALSE.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\Config\DatabaseException
 	 */
 	public function delete(ConfigObject $object, $quiet = FALSE) {
@@ -324,19 +324,34 @@ class Database {
 	 *     ]
 	 * ]
 	 * @endcode
-	 * @return None.
+	 * @param quiet If set to TRUE, then no notification message is send.
+	 *   Defaults to FALSE.
+	 * @return void
 	 * @throw \OMV\Config\DatabaseException
 	 */
-	public function deleteByFilter($id, $filter) {
+	public function deleteByFilter($id, $filter, $quiet = FALSE) {
 		// Get the specified data model.
 		$mngr = \OMV\DataModel\Manager::getInstance();
 		$model = $mngr->getModel($id);
+		// Get the objects to be deleted.
+		$objects = [];
+		if (FALSE === $quiet)
+			$objects = $this->getByFilter($id, $filter);
 		// Create the query builder.
 		$queryBuilder = new DatabaseBackendQueryBuilder($id);
 		$xpath = $queryBuilder->buildQueryByFilter($filter);
 		if (FALSE === $this->getBackend()->delete($xpath)) {
 			throw new DatabaseException("Failed to execute XPath query '%s'.",
 			  $xpath);
+		}
+		// Submit the notification message.
+		if (FALSE === $quiet) {
+			$notifyDispatcher = \OMV\Engine\Notify\Dispatcher::getInstance();
+			foreach ($objects as $objectk => $objectv) {
+				$notifyDispatcher->notify(OMV_NOTIFY_DELETE,
+					$model->getNotificationId(),
+					$objectv->getAssoc());
+			}
 		}
 	}
 
@@ -360,7 +375,7 @@ class Database {
 	/**
 	 * Assert that the specified configuration object is referenced.
 	 * @param object The configuration object to use.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\AssertException
 	 */
 	public function assertIsReferenced(ConfigObject $object) {
@@ -374,7 +389,7 @@ class Database {
 	/**
 	 * Assert that the specified configuration object is not referenced.
 	 * @param object The configuration object to use.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\AssertException
 	 */
 	public function assertIsNotReferenced(ConfigObject $object) {
@@ -472,7 +487,7 @@ class Database {
 	 * property is unique.
 	 * @param object The configuration object to use.
 	 * @param property The name of the data model property.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\AssertException
 	 */
 	public function assertIsUnique(ConfigObject $object, $property) {
@@ -490,7 +505,7 @@ class Database {
 	 * @param object The configuration object to use.
 	 * @param filter A filter specifying constraints on the objects
 	 *   to check.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\AssertException
 	 */
 	public function assertIsUniqueByFilter(ConfigObject $object, $filter) {
@@ -512,7 +527,7 @@ class Database {
 	/**
 	 * Revert changes. All existing revision files will be deleted.
 	 * @param filename The revision file. Defaults to NONE.
-	 * @return None.
+	 * @return void
 	 */
 	public function revert($filename) {
 		$this->getBackend()->revert($filename);

@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,8 +50,8 @@ Ext.define("OMV.module.admin.service.usbbackup.Job", {
 	plugins: [{
 		ptype: "configobject"
 	}],
-	width: 570,
-	height: 400,
+	width: 600,
+	height: 450,
 
 	/**
 	 * The class constructor.
@@ -160,7 +160,6 @@ Ext.define("OMV.module.admin.service.usbbackup.Job", {
 			name: "usesubdir",
 			fieldLabel: "&nbsp",
 			checked: true,
-			inputValue: 1,
 			boxLabel: _("Synchronise from/to directory on external storage device."),
 			plugins: [{
 				ptype: "fieldinfo",
@@ -276,26 +275,25 @@ Ext.define("OMV.module.admin.service.usbbackup.Jobs", {
 	stateful: true,
 	stateId: "693bddb2-7765-11e2-8c62-00221568ca88",
 	columns: [{
-		xtype: "booleaniconcolumn",
+		xtype: "enabledcolumn",
 		text: _("Enabled"),
 		sortable: true,
 		dataIndex: "enable",
-		stateId: "enable",
-		align: "center",
-		width: 80,
-		resizable: false,
-		iconCls:  Ext.baseCSSPrefix + "grid-cell-booleaniconcolumn-switch"
+		stateId: "enable"
 	},{
+		xtype: "textcolumn",
 		text: _("Shared folder"),
 		sortable: true,
 		dataIndex: "sharedfoldername",
 		stateId: "sharedfoldername"
 	},{
+		xtype: "textcolumn",
 		text: _("External storage device"),
 		sortable: true,
 		dataIndex: "devicefile",
 		stateId: "devicefile"
 	},{
+		xtype: "textcolumn",
 		text: _("Comment"),
 		sortable: true,
 		dataIndex: "comment",
@@ -343,8 +341,7 @@ Ext.define("OMV.module.admin.service.usbbackup.Jobs", {
 			id: me.getId() + "-run",
 			xtype: "button",
 			text: _("Run"),
-			icon: "images/play.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-play",
 			handler: Ext.Function.bind(me.onRunButton, me, [ me ]),
 			scope: me,
 			disabled: true,
@@ -404,7 +401,7 @@ Ext.define("OMV.module.admin.service.usbbackup.Jobs", {
 	onRunButton: function() {
 		var me = this;
 		var record = me.getSelected();
-		Ext.create("OMV.window.Execute", {
+		var wnd = Ext.create("OMV.window.Execute", {
 			title: _("Execute backup job"),
 			infoText: _("Please note that the web interface is blocked until the manually started backup job has been finished. However the backup job is automatically executed in the background when the storage device is connected to the host."),
 			rpcService: "UsbBackup",
@@ -414,6 +411,9 @@ Ext.define("OMV.module.admin.service.usbbackup.Jobs", {
 			},
 			listeners: {
 				scope: me,
+				finish: function(wnd, response) {
+					wnd.appendValue(_("Done ..."));
+				},
 				exception: function(wnd, error) {
 					OMV.MessageBox.error(null, error);
 				}

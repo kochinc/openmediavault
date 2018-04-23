@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,10 +57,11 @@ Ext.define("OMV.module.admin.system.cron.Job", {
 
 	getFormConfig: function() {
 		return {
-			layout: {
-				type: "vbox",
-				align: "stretch"
-			},
+// ToDo: EXTJS-13864 bug, see http://www.sencha.com/forum/showthread.php?286026-4.2.2-Form-field-height-incorrect-with-afterSubTpl-flex-and-layout-vbox&p=1046055&viewfull=1#post1046055
+//			layout: {
+//				type: "vbox",
+//				align: "stretch"
+//			},
 			plugins: [{
 				ptype: "linkedfields",
 				correlations: [{
@@ -293,31 +294,30 @@ Ext.define("OMV.module.admin.system.cron.Jobs", {
 	stateful: true,
 	stateId: "a882a76d-6804-4632-b31b-8b48c0ea6dde",
 	columns: [{
-		xtype: "booleaniconcolumn",
+		xtype: "enabledcolumn",
 		text: _("Enabled"),
 		sortable: true,
 		dataIndex: "enable",
-		stateId: "enable",
-		align: "center",
-		width: 80,
-		resizable: false,
-		iconCls:  Ext.baseCSSPrefix + "grid-cell-booleaniconcolumn-switch"
+		stateId: "enable"
 	},{
 		xtype: "cronscheduling",
 		text: _("Scheduling"),
 		sortable: true,
 		stateId: "scheduling"
 	},{
+		xtype: "textcolumn",
 		text: _("User"),
 		sortable: true,
 		dataIndex: "username",
 		stateId: "username"
 	},{
+		xtype: "textcolumn",
 		text: _("Command"),
 		sortable: true,
 		dataIndex: "command",
 		stateId: "command"
 	},{
+		xtype: "textcolumn",
 		text: _("Comment"),
 		sortable: true,
 		dataIndex: "comment",
@@ -378,8 +378,7 @@ Ext.define("OMV.module.admin.system.cron.Jobs", {
 			id: me.getId() + "-run",
 			xtype: "button",
 			text: _("Run"),
-			icon: "images/play.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-play",
 			handler: Ext.Function.bind(me.onRunButton, me, [ me ]),
 			scope: me,
 			disabled: true,
@@ -459,8 +458,7 @@ OMV.WorkspaceManager.registerNode({
 	id: "cron",
 	path: "/system",
 	text: _("Scheduled Jobs"),
-	icon16: "images/alarm.png",
-	iconSvg: "images/alarm.svg",
+	iconCls: "mdi mdi-calendar-clock",
 	position: 70
 });
 

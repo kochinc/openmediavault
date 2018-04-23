@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,6 @@ OMV.WorkspaceManager.registerPanel({
 	path: "/diagnostic",
 	text: _("Dashboard"),
 	position: 1,
-	icon16: "images/grid.png",
-	iconSvg: "images/grid.svg",
+	iconCls: "mdi mdi-view-dashboard",
 	className: "OMV.module.admin.dashboard.Dashboard"
 });

@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -146,9 +146,11 @@ class OMVRpcServicePluginMgmt extends \OMV\Rpc\ServiceAbstract {
 			$cmd = new \OMV\System\Process("apt-get", $cmdArgs);
 			$cmd->setEnv("DEBIAN_FRONTEND", "noninteractive");
 			$cmd->setRedirect2to1();
-			$cmdLine = $cmd->getCommandLine();
-			if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename))
-				throw new \OMV\ExecException($cmdLine, $output);
+			if (0 !== ($exitStatus = $this->exec($cmd->getCommandLine(),
+				$output, $bgOutputFilename))) {
+				throw new \OMV\ExecException($cmd->getCommandLine(), $output,
+					$exitStatus);
+			}
 			return $output;
 		});
 	}
@@ -160,7 +162,7 @@ class OMVRpcServicePluginMgmt extends \OMV\Rpc\ServiceAbstract {
 	 *   \em filename The original name of the file.
 	 *   \em filepath The path to the uploaded file.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\Exception
 	 */
 	function upload($params, $context) {
@@ -233,9 +235,11 @@ class OMVRpcServicePluginMgmt extends \OMV\Rpc\ServiceAbstract {
 			$cmd = new \OMV\System\Process("apt-get", $cmdArgs);
 			$cmd->setEnv("DEBIAN_FRONTEND", "noninteractive");
 			$cmd->setRedirect2to1();
-			$cmdLine = $cmd->getCommandLine();
-			if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename))
-				throw new \OMV\ExecException($cmdLine, $output);
+			if (0 !== ($exitStatus = $this->exec($cmd->getCommandLine(),
+				$output, $bgOutputFilename))) {
+				throw new \OMV\ExecException($cmd->getCommandLine(), $output,
+					$exitStatus);
+			}
 			return $output;
 		});
 	}

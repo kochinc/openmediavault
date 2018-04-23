@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ namespace OMV\System\Storage\Backend;
 abstract class BackendAbstract {
 	/**
 	 * Get the type of the storage device backend, e.g.
-	 * OMV_STORAGE_DEVICE_TYPE_HDD, OMV_STORAGE_DEVICE_TYPE_HBA, ...
+	 * OMV_STORAGE_DEVICE_TYPE_DISK, OMV_STORAGE_DEVICE_TYPE_HBA, ...
 	 */
 	abstract function getType();
 
@@ -105,8 +105,7 @@ abstract class BackendAbstract {
 	}
 
 	/**
-	 * Return the device file to be used to create a filesystem.
-	 * @note Only one partition per storage device is supported.
+	 * Return the device file to be used to create a file system.
 	 * @param string $deviceFile Specifies the device file, e.g.
 	 *   <ul>
 	 *   \li /dev/sdb => /dev/sdb1
@@ -115,10 +114,11 @@ abstract class BackendAbstract {
 	 *   \li /dev/dm-0 => /dev/dm-0
 	 *   \li /dev/md0 => /dev/md0
 	 *   </ul>
-	 * @return The device file. Defaults to /dev/xxx1.
+	 * @param number $partition The partition number. Defaults to 1.
+	 * @return Returns the device file, e.g. /dev/sda5.
 	 */
-	public function fsDeviceFile($deviceFile) {
-		return sprintf("%s1", $deviceFile);
+	public function fsDeviceFile($deviceFile, $partition = 1) {
+		return sprintf("%s%d", $deviceFile, $partition);
 	}
 
 	/**
@@ -126,7 +126,7 @@ abstract class BackendAbstract {
 	 * device backend via the /proc filesystem.
 	 * @param string $regex The regular expression used to identify the devices
 	 *   represented by this storage backend.
-	 * @return A list of devicefile names, otherwise FALSE.
+	 * @return A list of devicefile names.
 	 */
 	final protected function enumerateProcFs($regex) {
 		$result = [];
@@ -149,7 +149,7 @@ abstract class BackendAbstract {
 	final protected function isTypeOfByName($deviceFile, $regex) {
 		// If the device file looks like /dev/disk/by-(id|label|path|uuid)/*
 		// then it is necessary to get the /dev/xxx equivalent.
-		if (1 == preg_match("/^\/dev\/disk\/by-.+$/", $deviceFile))
+		if (TRUE === is_devicefile_by($deviceFile))
 			$deviceFile = realpath($deviceFile);
 		// Extract the device name, e.g.:
 		// - /dev/sdb => sdb

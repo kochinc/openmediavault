@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -267,6 +267,7 @@ Ext.define("OMV.module.admin.system.network.interface.window.Generic", {
 				allowBlank: false,
 				allowDecimals: false,
 				minValue: 0,
+				maxValue: 65535,
 				value: 0
 			},{
 				xtype: "checkbox",
@@ -448,12 +449,14 @@ Ext.define("OMV.module.admin.system.network.interface.window.Bond", {
 					stateful: true,
 					stateId: "0c92444c-a911-11e2-ba78-00221568ca88",
 					columns: [{
+						xtype: "textcolumn",
 						text: _("Device"),
 						sortable: true,
 						dataIndex: "devicename",
 						stateId: "devicename",
 						flex: 1
 					},{
+						xtype: "textcolumn",
 						text: _("MAC address"),
 						sortable: true,
 						dataIndex: "ether",
@@ -899,6 +902,7 @@ Ext.define("OMV.module.admin.system.network.interface.Interfaces", {
 	stateful: true,
 	stateId: "85093f5d-9f9f-45bf-a46f-ead6bc36884a",
 	columns: [{
+		xtype: "textcolumn",
 		text: _("Name"),
 		sortable: true,
 		dataIndex: "devicename",
@@ -917,6 +921,7 @@ Ext.define("OMV.module.admin.system.network.interface.Interfaces", {
 					  var methods = {
 						  manual: _("Disabled"),
 						  dhcp: _("DHCP"),
+						  auto: _("Auto"),
 						  static: _("Static")
 					  };
 					  return Ext.util.Format.defaultValue(methods[value], "-");
@@ -961,16 +966,18 @@ Ext.define("OMV.module.admin.system.network.interface.Interfaces", {
 		sortable: true,
 		dataIndex: "mtu",
 		stateId: "mtu",
-		width: 45,
-		minValue: 1
+		width: 60,
+		minValue: 1,
+		maxValue: 65535
 	},{
 		xtype: "booleantextcolumn",
 		text: _("WOL"),
 		sortable: true,
 		dataIndex: "wol",
 		stateId: "wol",
-		width: 45
+		width: 60
 	},{
+		xtype: "textcolumn",
 		text: _("Comment"),
 		sortable: true,
 		hidden: true,
@@ -1030,8 +1037,7 @@ Ext.define("OMV.module.admin.system.network.interface.Interfaces", {
 			id: me.getId() + "-add",
 			xtype: "splitbutton",
 			text: _("Add"),
-			icon: "images/add.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-plus",
 			handler: function() {
 				this.showMenu();
 			},
@@ -1050,17 +1056,12 @@ Ext.define("OMV.module.admin.system.network.interface.Interfaces", {
 				}
 			})
 		}]);
-		// Override 'Edit' button in top toolbar.
-		Ext.apply(items[1], {
-			icon: "images/edit.png"
-		});
 		// Add 'Identify' button to top toolbar.
 		Ext.Array.insert(items, 2, [{
 			id: me.getId() + "-identify",
 			xtype: "button",
 			text: _("Identify"),
-			icon: "images/search.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-search",
 			handler: Ext.Function.bind(me.onIdentifyButton, me, [ me ]),
 			scope: me,
 			disabled: true

@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ Ext.define("OMV.data.Download", {
 	 * @param service The name/class of the service to be executed.
 	 * @param method The method name to be executed.
 	 * @param params The parameters of the method to be executed as object.
-	 * @return None.
+	 * @return void
 	 */
 	request: function(service, method, params) {
 		var me = this;

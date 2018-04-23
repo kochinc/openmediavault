@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -465,7 +465,7 @@ Ext.define("OMV.module.admin.system.certificate.ssl.Edit", {
 			// certificate is processed.
 			hidden: !me.isNew(),
 			disabled: !me.isNew(),
-			height: 150,
+			minHeight: 150,
 			flex: 1,
 			plugins: [{
 				ptype: "fieldinfo",
@@ -480,7 +480,7 @@ Ext.define("OMV.module.admin.system.certificate.ssl.Edit", {
 			// Set this field to read-only when an existing certificate
 			// is processed.
 			readOnly: !me.isNew(),
-			height: 150,
+			minHeight: 150,
 			flex: 1,
 			plugins: [{
 				ptype: "fieldinfo",
@@ -538,6 +538,7 @@ Ext.define("OMV.module.admin.system.certificate.ssl.Certificates", {
 	stateful: true,
 	stateId: "af67e357-d388-4b92-a6d1-076f834c1a0f",
 	columns: [{
+		xtype: "textcolumn",
 		text: _("Name"),
 		sortable: true,
 		dataIndex: "name",
@@ -549,6 +550,7 @@ Ext.define("OMV.module.admin.system.certificate.ssl.Certificates", {
 		dataIndex: "validto",
 		stateId: "validto"
 	},{
+		xtype: "textcolumn",
 		text: _("Comment"),
 		sortable: true,
 		dataIndex: "comment",
@@ -596,8 +598,7 @@ Ext.define("OMV.module.admin.system.certificate.ssl.Certificates", {
 			id: me.getId() + "-add",
 			xtype: "splitbutton",
 			text: _("Add"),
-			icon: "images/add.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-plus",
 			handler: function() {
 				this.showMenu();
 			},
@@ -619,8 +620,7 @@ Ext.define("OMV.module.admin.system.certificate.ssl.Certificates", {
 			id: me.getId() + "-detail",
 			xtype: "button",
 			text: _("Detail"),
-			icon: "images/details.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-info",
 			handler: Ext.Function.bind(me.onDetailButton, me, [ me ]),
 			scope: me,
 			disabled: true,

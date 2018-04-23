@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -89,7 +89,7 @@ class OMVRpcServiceShareMgmt extends \OMV\Rpc\ServiceAbstract {
 			// Skip file systems that do not implement the required interface
 			// to be handled as shared folder candidate.
 			if (FALSE === ($fs instanceof
-				\OMV\System\Filesystem\ISharedFolderCandidate))
+				\OMV\System\Filesystem\SharedFolderCandidateInterface))
 				continue;
 			// Append the shared folder candidate.
 			$result[] = [
@@ -293,7 +293,8 @@ class OMVRpcServiceShareMgmt extends \OMV\Rpc\ServiceAbstract {
 		]);
 		if (FALSE === $object->isNew()) {
 			// Get the existing configuration object.
-			$oldObject = $db->get("conf.system.sharedfolder", $params['uuid']);
+			$oldObject = $db->get("conf.system.sharedfolder",
+				$object->getIdentifier());
 			// Copy the privileges.
 			if (FALSE === $oldObject->isEmpty("privileges"))
 				$object->set("privileges", $oldObject->get("privileges"));
@@ -986,12 +987,11 @@ class OMVRpcServiceShareMgmt extends \OMV\Rpc\ServiceAbstract {
 			// Execute command to set the file access control lists.
 			$cmd = new \OMV\System\Process("setfacl", $cmdArgs);
 			$cmd->setRedirect2to1();
-			$cmdLine = $cmd->getCommandLine();
-			// Execute the command.
-			$exitStatus = $this->exec($cmdLine, $output, $bgOutputFilename);
-			// Check the exit status.
-			if (0 !== $exitStatus)
-				throw new \OMV\ExecException($cmdLine, $output, $exitStatus);
+			if (0 !== ($exitStatus = $this->exec($cmd->getCommandLine(),
+				$output, $bgOutputFilename))) {
+				throw new \OMV\ExecException($cmd->getCommandLine(), $output,
+					$exitStatus);
+			}
 			return $output;
 		}, NULL, function() use ($aclSpecFile) {
 			// Cleanup ACL entries file.

@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -54,11 +54,12 @@ Ext.define("OMV.module.admin.dashboard.view.NetworkInterfaces", {
 				stateful: true,
 				stateId: "85bc79a2-f7f5-11e4-a5ad-0002b3a176b4",
 				columns: [{
+					xtype: "textcolumn",
 					text: _("Name"),
 					sortable: true,
 					dataIndex: "devicename",
 					stateId: "devicename",
-					width: 45
+					flex: 1
 				},{
 					xtype: "templatecolumn",
 					text: _("Address"),
@@ -102,7 +103,7 @@ Ext.define("OMV.module.admin.dashboard.view.NetworkInterfaces", {
 					sortable: true,
 					dataIndex: "mtu",
 					stateId: "mtu",
-					width: 45
+					width: 60
 				},{
 					text: _("Speed"),
 					sortable: true,
@@ -115,15 +116,21 @@ Ext.define("OMV.module.admin.dashboard.view.NetworkInterfaces", {
 					},
 					flex: 1
 				},{
-					xtype: "booleaniconcolumn",
+					xtype: "booleanfonticoncolumn",
 					text: _("Link"),
 					sortable: true,
 					dataIndex: "link",
 					stateId: "link",
-					align: "center",
 					width: 80,
 					resizable: false,
-					iconCls:  Ext.baseCSSPrefix + "grid-cell-booleaniconcolumn-rj45"
+					trueCls: [
+						"mdi mdi-ethernet",
+						Ext.baseCSSPrefix + "color-boolean-true"
+					].join(" "),
+					falseCls: [
+						"mdi mdi-ethernet",
+						Ext.baseCSSPrefix + "color-boolean-false"
+					].join(" ")
 				}],
 				viewConfig: {
 					markDirty: false,

@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,7 +18,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with OpenMediaVault. If not, see <http://www.gnu.org/licenses/>.
-import os
 import os.path
 import sys
 import argparse
@@ -40,7 +39,8 @@ class Command(openmediavault.confdbadm.ICommand,
 			description=self.description)
 		parser.add_argument("id", type=self.argparse_is_datamodel_id,
 			help="The data model ID, e.g. 'conf.service.ssh'")
-		parser.add_argument("data", type=self.argparse_is_json)
+		parser.add_argument("data", type=self.argparse_is_json_stdin,
+			help="The JSON data. Set to '-' to read from STDIN.")
 		cmd_args = parser.parse_args(args[2:])
 		# Create the configuration object.
 		obj = openmediavault.config.Object(cmd_args.id)

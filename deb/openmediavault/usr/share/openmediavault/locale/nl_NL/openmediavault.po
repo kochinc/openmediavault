@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the openmediavault package.
 # 
 # Translators:
-# Milan Toet <milantoet@gmail.com>, 2012-2014,2016
+# Milan Toet <milantoet@gmail.com>, 2012-2014,2016-2017
 # sebak <seba.kerckhof@gmail.com>, 2012
 # stokerh <stoker.pc@home.nl>, 2012
-# Tim <co_ti@hotmail.com>, 2013-2014,2016
+# Tim <co_ti@hotmail.com>, 2013-2014,2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 06:19+0100\n"
-"PO-Revision-Date: 2016-12-06 05:21+0000\n"
+"POT-Creation-Date: 2018-01-21 11:50+0100\n"
+"PO-Revision-Date: 2018-01-21 10:50+0000\n"
 "Last-Translator: Volker <votdev@gmx.de>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/votdev/openmediavault/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -46,6 +46,9 @@ msgstr "1 - Minimaal stroomgebruik tijdens stand-by (spindown)"
 msgid "1 day"
 msgstr "1 dag"
 
+msgid "1 minute"
+msgstr ""
+
 msgid "1 month"
 msgstr "1 maand"
 
@@ -74,6 +77,9 @@ msgstr "127 - Intermediair stroomgebruik met stand-by"
 msgid "128 - Minimum power usage without standby (no spindown)"
 msgstr "128 - Minimaal stroomgebruik zonder stand-by (geen spindown)"
 
+msgid "15 minutes"
+msgstr ""
+
 msgid "15 years"
 msgstr "15 jaren"
 
@@ -85,6 +91,9 @@ msgstr "192 - Intermediair stroomverbruik zonder stand-by"
 
 msgid "2 days"
 msgstr "2 dagen"
+
+msgid "2 minutes"
+msgstr ""
 
 msgid "2 weeks"
 msgstr "2 weken"
@@ -113,6 +122,9 @@ msgstr "255 - uitgeschakeld"
 msgid "3 days"
 msgstr "3 dagen"
 
+msgid "3 minutes"
+msgstr ""
+
 msgid "3 months"
 msgstr "3 maanden"
 
@@ -129,10 +141,13 @@ msgid "300 minutes"
 msgstr "300 minuten"
 
 msgid "330 minutes"
-msgstr ""
+msgstr "330 minuten"
 
 msgid "4 days"
 msgstr "4 dagen"
+
+msgid "4 minutes"
+msgstr ""
 
 msgid "4 years"
 msgstr "4 jaren"
@@ -171,7 +186,7 @@ msgid "About"
 msgstr "Over"
 
 msgid "Absolute Path"
-msgstr ""
+msgstr "Absoluut pad"
 
 msgid "Abstract"
 msgstr "Abstractie"
@@ -297,21 +312,12 @@ msgstr "Algerije"
 msgid "All"
 msgstr "Iedereen"
 
-msgid "Allow client access to accounts that have null passwords"
-msgstr "Cliënten toegang tot accounts met \"null\" (blanco) wachtwoord toestaan"
-
 msgid ""
 "Allow clients to attempt to store OS/2 style extended attributes on a share."
 msgstr "Clienten toestaan om OS/2-stijl uitgebreide attributen op te slaan op een gedeelde bron."
 
 msgid "Allow clients to resume interrupted uploads and downloads"
 msgstr "Cliënten toestaan om onderbroken uploads en downloads te hervatten"
-
-msgid "Allow new files"
-msgstr "Nieuwe bestanden toestaan"
-
-msgid "Allow new files to be created."
-msgstr "Het aanmaken van nieuwe bestanden toestaan."
 
 msgid ""
 "Allow this server to advertise itself as a time server to Windows clients"
@@ -420,26 +426,20 @@ msgstr "Authenticated user ID"
 msgid "Authentication"
 msgstr "Authenticatie"
 
-msgid "Authentication and no privacy"
-msgstr "Authenticatie en geen privacy"
-
-msgid "Authentication and privacy"
-msgstr "Authenticatie en privacy"
-
 msgid "Authentication method"
 msgstr "Authenticatiemethode"
-
-msgid "Authentication passphrase"
-msgstr "Authenticatie wachtwoord"
 
 msgid "Authentication required"
 msgstr "Authenticatie vereist"
 
-msgid "Authentication type"
-msgstr "Authenticatie type"
-
 msgid "Auto"
 msgstr "Auto"
+
+msgid "Auto logout"
+msgstr ""
+
+msgid "Auto logout after the specified idle period."
+msgstr ""
 
 msgid "Automatic Acoustic Management"
 msgstr "Automatic Acoustic Management"
@@ -495,9 +495,6 @@ msgstr "Binair"
 msgid "Block layer cache [%s, %s]"
 msgstr "Block layer cache [%s, %s]"
 
-msgid "Blocksize"
-msgstr "Blokgrootte"
-
 msgid "Bolivia"
 msgstr "Bolivia"
 
@@ -542,9 +539,6 @@ msgstr "Burkina Faso"
 
 msgid "Burundi"
 msgstr "Burundi"
-
-msgid "By default, only files that already exist are allowed to be uploaded."
-msgstr "Standaard worden alleen de bestanden die reeds bestaan ​​toegestaan om geüpload te worden."
 
 msgid "CPU usage"
 msgstr "CPU-gebruik"
@@ -651,9 +645,6 @@ msgstr "Opmerking"
 msgid "Common Name"
 msgstr "Algemene naam"
 
-msgid "Community"
-msgstr "Gemeenschap"
-
 msgid "Community-maintained updates."
 msgstr "Door de gemeenschap onderhouden updates"
 
@@ -698,14 +689,6 @@ msgstr "Congo (Kinshasa)"
 
 msgid "Connections"
 msgstr "Verbindingen"
-
-msgid "Contact"
-msgstr "Contact"
-
-msgid ""
-"Contact information, e.g. name or email address of the person responsible "
-"for this system."
-msgstr "Contactgegevens, bijv. naam of e-mailadres van de verantwoordelijke persoon voor dit systeem."
 
 msgid "Conveyance self-test"
 msgstr "Overdrachtszelftest"
@@ -836,11 +819,6 @@ msgstr "Bestemming gedeelde map"
 msgid "Detail"
 msgstr "Detail"
 
-msgid ""
-"Determine the default timeout, in microseconds, before the first packet is "
-"retransmitted."
-msgstr "Bepaal de standaard time-out, in microseconden, voordat het eerste pakket is verstuurd."
-
 msgid "Device"
 msgstr "Apparaat"
 
@@ -848,7 +826,7 @@ msgid "Device Mapper %s [%s, %s]"
 msgstr "Apparaatmapper %s [%s, %s]"
 
 msgid "Device Symlinks"
-msgstr ""
+msgstr "Apparaat symlinks"
 
 msgid "Device has a few bad sectors"
 msgstr "Apparaat bevat een aantal slechte sectoren"
@@ -901,8 +879,14 @@ msgstr "De gebruiker niet toestaan om dit account te wijzigen."
 msgid "Disk usage"
 msgstr "Schijfgebruik"
 
+msgid "Disks"
+msgstr ""
+
 msgid "Displaying items {0} - {1} of {2}"
 msgstr "Items {0} - {1} van {2} worden getoond"
+
+msgid "Displaying {0} - {1} of {2}"
+msgstr "{0} - {1} van {2} worden getoond"
 
 msgid "Djibouti"
 msgstr "Djibouti"
@@ -1066,6 +1050,9 @@ msgstr "Geplande taak aanpassen"
 msgid "Edit scheduled test"
 msgstr "Geplande test aanpassen"
 
+msgid "Edit service"
+msgstr "Dienst aanpassen"
+
 msgid "Edit share"
 msgstr "Gedeelde bron aanpassen"
 
@@ -1193,6 +1180,9 @@ msgstr "Fout"
 
 msgid "Error #"
 msgstr "Fout #"
+
+msgid "Errors"
+msgstr "Fouten"
 
 msgid "Estonia"
 msgstr "Estland"
@@ -1325,6 +1315,9 @@ msgstr "Firewall"
 
 msgid "Firmware version"
 msgstr "Firmware versie"
+
+msgid "First Page"
+msgstr "Eerste Pagina"
 
 msgid "Flags"
 msgstr "Vlaggen"
@@ -1768,6 +1761,9 @@ msgstr "Taal"
 msgid "Laos"
 msgstr "Laos"
 
+msgid "Last Page"
+msgstr "Laatste Pagina"
+
 msgid "Latvia"
 msgstr "Letland"
 
@@ -1826,9 +1822,6 @@ msgstr "Lokale hoofdbrowser"
 
 msgid "Location"
 msgstr "Locatie"
-
-msgid "Location information, e.g. physical location of this system."
-msgstr "Locatieinformatie, bijv. fysieke locatie van dit systeem "
 
 msgid "Log level"
 msgstr "Logniveau"
@@ -2060,7 +2053,7 @@ msgid "Mount"
 msgstr "Koppelen"
 
 msgid "Mount Point"
-msgstr ""
+msgstr "Koppelpunt"
 
 msgid "Mounted"
 msgstr "Gekoppeld"
@@ -2116,6 +2109,9 @@ msgstr "Nieuw-Caledonië"
 msgid "New Zealand"
 msgstr "Nieuw-Zeeland"
 
+msgid "Next Page"
+msgstr "Volgende Pagina"
+
 msgid "Nicaragua"
 msgstr "Nicaragua"
 
@@ -2137,14 +2133,14 @@ msgstr "Geen toegang"
 msgid "No action"
 msgstr "Geen handeling"
 
-msgid "No authentication and no privacy"
-msgstr "Geen authenticatie en geen privacy"
-
 msgid "No certificate request"
 msgstr "Geen certificaat vereist"
 
 msgid "No connections"
 msgstr "Geen verbindingen"
+
+msgid "No data to display"
+msgstr "Geen gegevens om weer te geven"
 
 msgid "No items to display"
 msgstr "Geen items om weer te geven"
@@ -2202,9 +2198,6 @@ msgstr "Meldingen"
 
 msgid "November"
 msgstr "November"
-
-msgid "Null passwords"
-msgstr "Blanco wachtwoorden"
 
 msgid "Num"
 msgstr "Num"
@@ -2268,6 +2261,9 @@ msgstr "Pacifische Eilanden Trust Territorium"
 
 msgid "Package information"
 msgstr "Pakketinformatie"
+
+msgid "Page"
+msgstr "Pagina"
 
 msgid "Page not found"
 msgstr "Pagina niet gevonden"
@@ -2356,9 +2352,6 @@ msgstr "Peru"
 msgid "Philippines"
 msgstr "Filipijnen"
 
-msgid "Physical Disks"
-msgstr "Fysieke schijven"
-
 msgid "Physical disk properties"
 msgstr "Fysieke disk eigenschappen"
 
@@ -2369,12 +2362,6 @@ msgid ""
 "Please check the <a href='http://linux.die.net/man/5/exports' "
 "target='_blank'>manual page</a> for more details."
 msgstr "Raadpleeg de <a href='http://linux.die.net/man/5/exports' target='_blank'>handleiding</a> voor meer details."
-
-msgid ""
-"Please check the <a href='http://www.openbsd.org/cgi-"
-"bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>manual page</a> for"
-" more details."
-msgstr "Raadpleeg de <a href='http://www.openbsd.org/cgi-bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>handleidingspagina</a> voor meer details."
 
 msgid ""
 "Please check the <a href='http://www.proftpd.org/docs/contrib/mod_tls.html' "
@@ -2408,16 +2395,16 @@ msgid ""
 "target='_blank'>manual page</a> for more details."
 msgstr "Raadpleeg de <a href='http://www.samba.org/samba/docs/man/manpages-3/smb.conf.5.html' target='_blank'>handleidingspagina</a> voor meer details."
 
+msgid ""
+"Please check the <a href='https://man.openbsd.org/sshd_config.5' "
+"target='_blank'>manual page</a> for more details."
+msgstr ""
+
 msgid "Please choose the method to wipe the device or 'Cancel' to abort."
 msgstr "Kies een methode om het apparaat te wissen of 'Annuleren' om af te breken"
 
 msgid "Please first select a device."
 msgstr "Selecteer eerst een apparaat."
-
-msgid ""
-"Please make sure that the shared folder is publicly writable if new files "
-"are allowed."
-msgstr "Controleer of de gedeelde map schrijfrechten heeft indien nieuwe bestanden zijn toegestaan"
 
 msgid ""
 "Please note that no communication with the system is possible during this "
@@ -2443,9 +2430,6 @@ msgstr "Polen"
 
 msgid "Port"
 msgstr "Poort"
-
-msgid "Port to listen on."
-msgstr "Poort om te beluisteren."
 
 msgid "Portugal"
 msgstr "Portugal"
@@ -2490,17 +2474,14 @@ msgid ""
 " not what you want.</li></ul>"
 msgstr "Voorkom dat een schijf een spin-up doet wanner het periodiek wordt aangeroepen.<br/><ul><li>Voer nooit - Poll(check)- uit ondanks de powerstatus. Het kan dan gebeuren dat een schijf de spin-up is de status spin-down geeft.</li><li>Sleep-Check het apparaat tenzij deze zich in SLEEP-modus bevindt.</li><li>Standby - Check het apparaat tenzij het zich in SLEEP of STANDBY-modus bevindt. In deze modi zullen de meeste apparaten niet spinnen, dus als u wilt voorkomen dat schijven spinnen na elke aanroep, dan is dit waarschijnlijk de instelling die u zoekt. </li><li>Idle - Check het apparaat tenzij het zich in SLEEP, STANDBY of IDLE-modus bevindt. In IDLE-modus spinnen de meeste schijven nog, dus dit is waarschijnlijk niet wat u zoekt.</li></ul>"
 
+msgid "Previous Page"
+msgstr "Vorige Pagina"
+
 msgid "Primary"
 msgstr "Primair"
 
 msgid "Primary email"
 msgstr "Primaire e-mail"
-
-msgid "Privacy passphrase"
-msgstr "Privacy wachtwoord"
-
-msgid "Privacy type"
-msgstr "Privacy type"
 
 msgid "Private key"
 msgstr "Privé-sleutel"
@@ -2635,7 +2616,7 @@ msgid "Refresh"
 msgstr "Verversen"
 
 msgid "Relative Path"
-msgstr ""
+msgstr "Relatief pad"
 
 msgid "Reload"
 msgstr "Herladen"
@@ -2706,9 +2687,6 @@ msgstr "Uitslag"
 msgid "Resume"
 msgstr "Hervatten"
 
-msgid "Retry timeout"
-msgstr "Time-out tijdens opnieuw proberen"
-
 msgid "Reunion"
 msgstr "Reünie"
 
@@ -2755,7 +2733,7 @@ msgid "S.M.A.R.T. monitoring must be activated for the selected device."
 msgstr "S.M.A.R.T.-controle moet worden geactiveerd op het geselecteerde apparaat."
 
 msgid "S/N"
-msgstr ""
+msgstr "S/N"
 
 msgid "SMB/CIFS"
 msgstr "SMB/CIFS"
@@ -2771,15 +2749,6 @@ msgstr "SMTPserver"
 
 msgid "SMTP settings"
 msgstr "SMTP-instellingen"
-
-msgid "SNMP"
-msgstr "SNMP"
-
-msgid "SNMP version 1/2c"
-msgstr "SNMP-versie 1/2c"
-
-msgid "SNMP version 3"
-msgstr "SNMP-versie 3"
 
 msgid "SSH"
 msgstr "SSH"
@@ -2867,9 +2836,6 @@ msgstr "Veilig"
 
 msgid "Secure connection"
 msgstr "Veilige verbinding"
-
-msgid "Security level"
-msgstr "Veiligheidsniveau"
 
 msgid "Select a SSH certificate ..."
 msgstr "Een SSH-certificaat selecteren ..."
@@ -2984,9 +2950,6 @@ msgstr "Sessie verlopen"
 
 msgid "Session not authenticated."
 msgstr "Sessie niet toegestaan"
-
-msgid "Session timeout"
-msgstr "Sessie timeout"
 
 msgid "Set browseable"
 msgstr "Browseable aan"
@@ -3141,11 +3104,6 @@ msgid ""
 "disable this option."
 msgstr "Geeft de tijdsduur in seconden aan, tussen het controleren en het bijwerken van het masquerade address door het herleiden van het IP-adres. Stel de waarde op 0 in om deze optie uit te schakelen."
 
-msgid ""
-"Specifies the maximum permitted block size. The permitted range for this "
-"parameter is from 512 to 65464."
-msgstr "Specifieert de maximum toegestaane blokgrootte. Het toegestane bereik voor deze parameter loopt van 512 tot 65464."
-
 msgid "Specifies the time in hh:mm:ss after which the ban expires."
 msgstr "Geeft de tijd weer, in uu:mm:ss, wanneer de uitsluiting opgeheven wordt."
 
@@ -3278,9 +3236,6 @@ msgstr "TAR"
 
 msgid "TCP forwarding"
 msgstr "TCP-forwarden"
-
-msgid "TFTP"
-msgstr "TFTP"
 
 msgid "Taiwan"
 msgstr "Taiwan"
@@ -3416,9 +3371,11 @@ msgid ""
 "for data connections is not required."
 msgstr "De eis dat de SSL-sessie van de control verbinding wordt hergebruikt voor data-verbindingen is niet verplicht."
 
-msgid ""
-"The session timeout time in minutes. Set to 0 to disable automatic logout."
-msgstr "De sessieverlooptijd in minuten. Stel de waarde op 0 in om automatisch afmelden uit te schakelen."
+msgid "The session IP address has been changed."
+msgstr ""
+
+msgid "The session user no longer exists."
+msgstr ""
 
 msgid ""
 "The source remote server, e.g. [USER@]HOST:SRC, [USER@]HOST::SRC or "
@@ -3542,9 +3499,15 @@ msgstr "Dit veld mag alleen getallen bevatten"
 msgid "This field should only contain numbers separated by <,> or <;>"
 msgstr "Dit veld dient alleen nummers te bevatten die gescheiden worden door een <,> of een <;>"
 
+msgid "This field should only contain options separated by <,>"
+msgstr ""
+
 msgid ""
 "This field should only contain ports (0 - 65535) separated by <,> or <;>"
 msgstr "Dit veld dient alleen poortnummers (0-65535) te bevatten, gescheiden door een <,> of een <;>"
+
+msgid "This field should only contain strings separated by <,>"
+msgstr ""
 
 msgid "This field should only contain strings separated by <,> or <;>"
 msgstr "Dit veld dient alleen tekenreeksen te bevatten, gescheiden door <,> of een <;>"
@@ -3703,9 +3666,6 @@ msgstr "Overdrachtstijd"
 
 msgid "Transfer type"
 msgstr "Overdrachtstype"
-
-msgid "Traps"
-msgstr "Valluiken"
 
 msgid "Treshold"
 msgstr "Grens"
@@ -4012,6 +3972,9 @@ msgstr "Alleen lezen"
 msgid "Write/Execute"
 msgstr "Schrijven/Uitvoeren"
 
+msgid "Xen virtual disk device"
+msgstr ""
+
 msgid "Yearly"
 msgstr "Jaarlijks"
 
@@ -4020,6 +3983,9 @@ msgstr "Yemen"
 
 msgid "Yes"
 msgstr "Ja"
+
+msgid "You need to commit or cancel your changes"
+msgstr "U dient de wijzigingen in te dienen, of te laten vervallen"
 
 msgid "Zambia"
 msgstr "Zambia"
@@ -4050,6 +4016,9 @@ msgstr "minuten"
 
 msgid "n/a"
 msgstr "n.v.t."
+
+msgid "of {0}"
+msgstr "van {0}"
 
 msgid "old-age"
 msgstr "ouderdomssporen"

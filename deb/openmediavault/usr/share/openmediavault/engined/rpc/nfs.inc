@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -186,7 +186,8 @@ class OMVRpcServiceNfs extends \OMV\Rpc\ServiceAbstract {
 						$meObject->get("dir"), $sfObject->get("reldirpath")),
 					"dir" => $dir,
 					"type" => "none",
-					"opts" => "bind,nofail",
+					"opts" => implode(",", ["bind", \OMV\Environment::get(
+						"OMV_FSTAB_MNTOPS_BIND")]),
 					"freq" => 0,
 					"passno" => 0
 				]);
@@ -236,11 +237,11 @@ class OMVRpcServiceNfs extends \OMV\Rpc\ServiceAbstract {
 		if (FALSE === $db->exists("conf.service.nfs.share", [
 			"operator" => "stringEquals",
 			"arg0" => "mntentref",
-			"arg1" => $object['mntentref']
+			"arg1" => $object->get('mntentref')
 		])) {
 			  // Delete the associated mount point.
 			  \OMV\Rpc\Rpc::call("FsTab", "delete", [
-				  "uuid" => $object['mntentref']
+				  "uuid" => $object->get('mntentref')
 			  ], $context);
 		  }
 		// Return the deleted configuration object.

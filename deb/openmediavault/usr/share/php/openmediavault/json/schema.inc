@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ require_once("openmediavault/functions.inc");
  * @see http://json-schema.org/latest/json-schema-validation.html
  */
 class Schema {
-	use \OMV\Debugable;
+	use \OMV\DebugTrait;
 
 	private $schema = [];
 
@@ -240,7 +240,7 @@ class Schema {
 	 * @param value The value to validate.
 	 * @param name The JSON path of the entity to validate, e.g. 'aa.bb.cc',
 	 *   defaults to an empty string. Use an empty value for the root.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\Json\SchemaException
 	 * @throw \OMV\Json\SchemaValidationException
 	 */

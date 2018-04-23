@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -189,14 +189,14 @@ class OMVRpcServiceRaidMgmt extends \OMV\Rpc\ServiceAbstract {
 			// Check if the device is referenced/used by a plugin.
 			$db = \OMV\Config\Database::getInstance();
 			if (TRUE === $db->exists("conf.service", [
-				  "operator" => "stringContains",
-				  "arg0" => "devicefile",
-				  "arg1" => $sd->getDeviceFile()
-			  ]))
+					"operator" => "stringContains",
+					"arg0" => "devicefile",
+					"arg1" => $sd->getDeviceFile()
+				]))
 				continue;
 			// Does this device already contain a filesystem?
 			if (FALSE !== \OMV\System\Filesystem\Filesystem::hasFileSystem(
-			  $sd->getDeviceFile()))
+				$sd->getDeviceFile()))
 				continue;
 			// The device is a potential candidate to be a member of a
 			// Software RAID.
@@ -220,7 +220,7 @@ class OMVRpcServiceRaidMgmt extends \OMV\Rpc\ServiceAbstract {
 	 *   \em level The RAID level, e.g. stripe, mirror, linear ,raid10,
 	 *   raid5 or raid6.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 */
 	public function create($params, $context) {
 		// Validate the RPC caller context.
@@ -271,7 +271,7 @@ class OMVRpcServiceRaidMgmt extends \OMV\Rpc\ServiceAbstract {
 	 *   \em devices The devices to be added. The devices must be seperated
 	 *   by comma.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 */
 	public function grow($params, $context) {
 		// Validate the RPC caller context.
@@ -333,7 +333,7 @@ class OMVRpcServiceRaidMgmt extends \OMV\Rpc\ServiceAbstract {
 	 *   \em devices The devices to be added. The devices must be seperated
 	 *   by comma.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 */
 	public function add($params, $context) {
 		// Validate the RPC caller context.
@@ -385,7 +385,7 @@ class OMVRpcServiceRaidMgmt extends \OMV\Rpc\ServiceAbstract {
 	 *   \em devices The devices to be removed. The devices must be seperated
 	 *   by comma.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 */
 	public function remove($params, $context) {
 		// Validate the RPC caller context.
@@ -446,7 +446,7 @@ class OMVRpcServiceRaidMgmt extends \OMV\Rpc\ServiceAbstract {
 	 * @param params An array containing the following fields:
 	 *   \em devicefile The RAID device file to be deleted, e.g. /dev/md0.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 */
 	public function delete($params, $context) {
 		// Validate the RPC caller context.

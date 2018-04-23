@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,6 +34,7 @@ Ext.define("OMV.workspace.dashboard.Part", {
 
 	config: {
 		icon: "",
+		iconCls: "mdi mdi-widgets",
 		title: "",
 		viewXType: "",
 		showAtFirstStartup: false
@@ -47,10 +48,15 @@ Ext.define("OMV.workspace.dashboard.Part", {
 
 	buildViewTemplate: function() {
 		var me = this;
+		var icon = me.getIcon();
+		var iconCls = me.getIconCls();
+		if (!Ext.isEmpty(icon)) {
+			iconCls = Ext.baseCSSPrefix + "workspace-dashboard-widget-icon"
+		}
 		return {
 			frame: false,
-			icon: me.getIcon(),
-			iconCls: Ext.baseCSSPrefix + "workspace-dashboard-widget-icon",
+			icon: icon,
+			iconCls: iconCls,
 			title: me.getTitle(),
 			items: [{
 				xtype: me.getViewXType()

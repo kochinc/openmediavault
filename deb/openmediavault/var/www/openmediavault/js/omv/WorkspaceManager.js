@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,8 +41,7 @@ Ext.define("OMV.WorkspaceManager", {
 			path: "/",
 			text: _("Overview"),
 			leaf: false,
-			icon16: "images/home.png",
-			iconSvg: "images/home.svg"
+			iconCls: "mdi mdi-home"
 		});
 	},
 
@@ -157,7 +156,7 @@ Ext.define("OMV.WorkspaceManager", {
 		}
 		// Find the parent node.
 		var parent = me.getNodeByPath(config.path);
-		if(null == parent) {
+		if(!Ext.isObject(parent)) {
 			// Extract and rebuild node path.
 			var parts = me.explodeNodePath(config.path);
 			var id = parts.pop();

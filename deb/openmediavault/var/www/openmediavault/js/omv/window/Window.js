@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,6 +29,34 @@ Ext.define("OMV.window.Window", {
 	extend: "Ext.window.Window",
 
 	config: {
-		helpId: null
+		helpId: null,
+		enableResponsiveness: true
+	},
+
+	cls: OMV.baseCSSPrefix + "window",
+
+	initComponent: function() {
+		var me = this;
+		me.initResponsiveConfig();
+		me.callParent(arguments);
+	},
+
+	initResponsiveConfig: function() {
+		var me = this;
+		if (!me.getEnableResponsiveness())
+			return;
+		Ext.apply(me, {
+			responsiveConfig: {
+				"phone || tablet || touch": {
+					maximized: true,
+					maximizable: true
+				}
+			}
+		});
+		if (!Ext.isDefined(me.plugins))
+			me.plugins = [];
+		if (!Ext.isArray(me.plugins))
+			me.plugins = [me.plugins];
+		Ext.Array.push(me.plugins, "responsive");
 	}
 });

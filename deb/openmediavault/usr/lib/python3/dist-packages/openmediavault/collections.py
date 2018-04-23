@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,6 +23,8 @@ __all__ = [
 	"DotDict",
 	"DotCollapsedDict"
 ]
+
+import re
 
 def flatten(d, seperator="."):
 	"""
@@ -74,26 +76,85 @@ class DotDict(dict):
 		return default
 
 	def __getitem__(self, key):
-		if key is None or "." not in key:
+		matches = re.match(r'(\w+)\[(\d+)\](.(\S+))?', key)
+		if not matches is None:
+			first = matches.group(1)
+			index = int(matches.group(2))
+			rest = matches.group(4)
+			branch = dict.__getitem__(self, first)
+			if not isinstance(branch, list):
+				raise TypeError("Expected list.")
+			if rest is None:
+				return branch[index]
+			# We have to access data within the list.
+			branch = branch[index]
+			if not isinstance(branch, DotDict):
+				raise TypeError("Expected dictionary.")
+			return branch[rest]
+		elif key is None or "." not in key:
 			return dict.__getitem__(self, key)
-		first, rest = key.split(".", 1)
-		branch = dict.__getitem__(self, first)
-		if isinstance(branch, list):
-			first, rest = rest.split(".", 1)
-			if not first.isdigit():
-				raise KeyError("Key '%s' must be a number".format(first))
-			branch = branch[int(first)]
-		if not isinstance(branch, DotDict):
-			raise KeyError("Can't get '%s' in '%s' (%s)".format(
-				rest, first, str(branch)))
-		return branch[rest]
+		else:
+			first, rest = key.split(".", 1)
+			branch = dict.__getitem__(self, first)
+			if isinstance(branch, list):
+				index = rest
+				if "." not in index:
+					rest = None
+				else:
+					index, rest = index.split(".", 1)
+				if not index.isdigit():
+					raise KeyError("Key '{}' must be a number.".format(index))
+				branch = branch[int(index)]
+				if rest is None:
+					return branch
+			if not isinstance(branch, DotDict):
+				raise KeyError("Can't get '{}' in '{}' ({}).".format(
+					rest, first, str(branch)))
+			return branch[rest]
 
 	__getattr__ = __getitem__
 
 	def __setitem__(self, key, value):
-		if not key is None and "." in key:
+		matches = re.match(r'(\w+)\[(\d+)\](.(\S+))?', key)
+		if not matches is None:
+			first = matches.group(1)
+			index = int(matches.group(2))
+			rest = matches.group(4)
+			branch = self.setdefault(first, list())
+			# Auto-expand list if necessary.
+			size = len(branch)
+			if index >= size:
+				branch.extend(DotDict() for _ in range(size, index + 1))
+			# Populate the list at the given index.
+			if rest is None:
+				branch[index] = DotDict(value) if isinstance(value, dict) else value
+			else:
+				if not isinstance(branch[index], DotDict):
+					raise TypeError("Expected dictionary.")
+				branch[index][rest] = value
+		elif not key is None and "." in key:
 			first, rest = key.split(".", 1)
-			branch = self.setdefault(first, DotDict())
+			# Is it a list?
+			matches = re.match(r'(\d+)(.(\S+))?', rest)
+			if not matches:
+				branch = self.setdefault(first, DotDict())
+			else:
+				branch = self.setdefault(first, list())
+				if not isinstance(branch, list):
+					raise TypeError("Expected list.")
+				index = int(matches.group(1))
+				rest = matches.group(3)
+				# Auto-expand list if necessary.
+				size = len(branch)
+				if index >= size:
+					branch.extend(DotDict() for _ in range(size, index + 1))
+				# Populate the list at the given index.
+				if rest is None:
+					branch[index] = DotDict(value) if isinstance(value, dict) else value
+					return
+				if not isinstance(branch[index], DotDict):
+					raise TypeError("Expected dictionary.")
+				branch = branch[index]
 			if not isinstance(branch, DotDict):
 				branch = DotDict()
 			branch[rest] = value
@@ -108,9 +169,21 @@ class DotDict(dict):
 	__setattr__ = __setitem__
 
 	def __contains__(self, key):
-		if key is None or not "." in key:
-			return dict.__contains__(self, key)
-		first, rest = key.split(".", 1)
+		matches = re.match(r'(\w+)\[(\d+)\](.(\S+))?', key)
+		if not matches is None:
+			first = matches.group(1)
+			index = int(matches.group(2))
+			rest = matches.group(4)
+			branch = dict.__getitem__(self, first)
+			if rest is None:
+				return index in branch
+			branch = branch[index]
+			return rest in branch
+		else:
+			if key is None or not "." in key:
+				return dict.__contains__(self, key)
+			else:
+				first, rest = key.split(".", 1)
 		if not dict.__contains__(self, first):
 			return False
 		branch = dict.__getitem__(self, first)

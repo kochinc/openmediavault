@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -209,7 +209,7 @@ class Btrfs extends Filesystem {
 
 		$cmdArgs = [];
 		$cmdArgs[] = escapeshellarg($this->getDeviceFile());
-		$cmd = new \OMV\System\Process("btrfs-show-super", $cmdArgs);
+		$cmd = new \OMV\System\Process("btrfs inspect-internal dump-super", $cmdArgs);
 		$cmd->setRedirect2to1();
 		$cmd->execute($output);
 
@@ -268,7 +268,7 @@ class Btrfs extends Filesystem {
 
 	/**
 	 * Remove the filesystem.
-	 * @return None.
+	 * @return void
 	 */
 	public function remove() {
 		$this->getData();

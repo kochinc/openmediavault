@@ -1,17 +1,19 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-clamav package.
 # 
 # Translators:
 # Ádám Balajti <balajtiadam@gmail.com>, 2012
-# Grawens <szabolcs.szanyi@gmail.com>, 2014
+# Sári Gábor <sari.gabor@gmail.com>, 2017
+# Gyuris Gellért <bubu@ujevangelizacio.hu>, 2017
+# Grawens <szabolcs.szanyi@gmail.com>, 2014,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-23 19:15+0200\n"
-"PO-Revision-Date: 2014-11-30 01:10+0000\n"
-"Last-Translator: Volker <votdev@gmx.de>\n"
+"POT-Creation-Date: 2017-11-18 11:05+0100\n"
+"PO-Revision-Date: 2017-11-20 17:55+0000\n"
+"Last-Translator: Gyuris Gellért <bubu@ujevangelizacio.hu>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/votdev/openmediavault/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,8 +21,11 @@ msgstr ""
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Add job"
-msgstr "Feladat hozzáadása"
+msgid "Add on-access scan"
+msgstr "Hozzáférési átvizsgálás hozzáadása"
+
+msgid "Add scheduled job"
+msgstr "Ütemezett feladat hozzáadása"
 
 msgid "Algorithmic detection"
 msgstr "Algoritmikus észlelés"
@@ -57,8 +62,14 @@ msgstr "PUA észlelése"
 msgid "Detect broken executables"
 msgstr "Hibás futtatható fájlok észlelése"
 
-msgid "Edit job"
-msgstr "Feladat szerkesztése"
+msgid "Done ..."
+msgstr "Kész..."
+
+msgid "Edit on-access scan"
+msgstr "Hozzáférési átvizsgálás szerkesztése"
+
+msgid "Edit scheduled job"
+msgstr "Ütemezett feladat szerkesztése"
 
 msgid "Enable"
 msgstr "Engedélyezés"
@@ -104,8 +115,8 @@ msgstr "Minden N órában"
 msgid "Every N minute"
 msgstr "Minden N percben"
 
-msgid "Execute cron job"
-msgstr "Cron feladat végrehajtása"
+msgid "Execute scheduled job"
+msgstr "Ütemezett feladat végrehajtása"
 
 msgid "Extra options"
 msgstr "Extra beállítások"
@@ -131,14 +142,11 @@ msgstr "Óra"
 msgid "Infected files"
 msgstr "Fertőzött fájlok"
 
-msgid "Jobs"
-msgstr "Feladatok"
-
 msgid "Log clean files"
-msgstr "Megtisztított fájlok naplózása"
+msgstr "Fájlok tisztításának naplózása"
 
 msgid "Log clean files. This drastically increases the log size."
-msgstr "Megtisztított fájlok naplózása. Ez drasztikusan növeli a napló méretét."
+msgstr "Fájlok tisztításának naplózása. Ez drasztikusan megnöveli a napló méretét."
 
 msgid "Message"
 msgstr "Üzenet"
@@ -156,7 +164,10 @@ msgid "Multiscan"
 msgstr "Bővebb vizsgálat"
 
 msgid "Number of database update checks per day. Set to 0 to disable."
-msgstr "Az adatbázis frissítés ellenőrzésének száma naponta. A 0 beállítás tiltja a funkciót."
+msgstr "Adatbázis frissítés ellenőrzések száma naponta. A 0 beállítás tiltja a funkciót."
+
+msgid "On Access Scans"
+msgstr "Hozzáférési átvizsgálás"
 
 msgid "On-access"
 msgstr "Hozzáférés"
@@ -165,9 +176,10 @@ msgid "Perform a deeper analysis of executable files."
 msgstr "Mélyre ható elemzés elvégzése futtatható fájlok esetén."
 
 msgid ""
-"Please check the <a href='http://linux.die.net/man/5/clamd.conf' "
-"target='_blank'>manual page</a> for more details."
-msgstr "Kérlek tekintsd meg a <a href='http://linux.die.net/man/5/clamd.conf' target='_blank'>kézikönyvet</a> a további részletekért."
+"Please check the <a href='https://github.com/vrtadmin/clamav-"
+"faq/raw/master/manual/clamdoc.pdf' target='_blank'>manual page</a> for more "
+"details."
+msgstr "Kérlek tekintsd meg a <a href='https://github.com/vrtadmin/clamav-faq/raw/master/manual/clamdoc.pdf' target='_blank'>kézikönyvet</a> a további részletekért."
 
 msgid "Quarantine"
 msgstr "Karantén"
@@ -196,6 +208,9 @@ msgstr "Archívumok átvizsgálása"
 msgid "Scan the directory contents in parallel using available threads."
 msgstr "Könyvtár tartalmának vizsgálata az elérhető szálak párhuzamos használatával."
 
+msgid "Scheduled Jobs"
+msgstr "Ütemezett feladatok"
+
 msgid "Send command output via email"
 msgstr "Parancssori kimenet küldése emailben"
 
@@ -208,8 +223,11 @@ msgstr "Beállítások"
 msgid "Shared folder"
 msgstr "Megosztott mappa"
 
+msgid "The location of the files to scan on-access."
+msgstr "A fájok helyének átvizsgálása hozzáféréskor."
+
 msgid "The location of the files to scan."
-msgstr "A fájlok helye az átvizsgáláshoz."
+msgstr "Átvizsgálandó fájlok helye."
 
 msgid "The location which is used as quarantine."
 msgstr "Karanténnak használható hely."

@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ class PhysicalVolume {
 	/**
 	 * Get the physical volume detailed informations.
 	 * @private
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	private function getData() {
@@ -83,7 +83,7 @@ class PhysicalVolume {
 
 	/**
 	 * Refresh the cached informations.
-	 * @return None.
+	 * @return void
 	 */
 	public function refresh() {
 		$this->dataCached = FALSE;
@@ -105,7 +105,7 @@ class PhysicalVolume {
 
 	/**
 	 * Assert that the volume group exists.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\AssertException
 	 */
 	public function assertExists() {
@@ -121,6 +121,29 @@ class PhysicalVolume {
 	 */
 	public function getDeviceFile() {
 		return $this->deviceFile;
+	}
+
+	/**
+	 * Get the canonical device file, e.g. <ul>
+	 * \li /dev/mapper/vg0-lv0 -> /dev/dm-0
+	 * </ul>
+	 * @return Returns the canonical device file.
+	 */
+	public function getCanonicalDeviceFile() {
+		return realpath($this->deviceFile);
+	}
+
+	/**
+	 * Get the device file to present in the UI, e.g.:
+	 * <ul>
+	 * \li /dev/disk/by-id/xxx
+	 * \li /dev/disk/by-path/xxx
+	 * \li /dev/xxx
+	 * </ul>
+	 * @return Returns a device file.
+	 */
+	public function getPreferredDeviceFile() {
+		return $this->getCanonicalDeviceFile();
 	}
 
 	/**
@@ -192,13 +215,13 @@ class PhysicalVolume {
 	 */
 	public function getDescription() {
 		$this->getData();
-		return sprintf("LVM physical volume [%s, %s]", $this->getDeviceFile(),
-		  binary_format($this->getSize()));
+		return sprintf("LVM physical volume [%s, %s]",
+		  $this->getPreferredDeviceFile(), binary_format($this->getSize()));
 	}
 
 	/**
 	 * Create the physical volume.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function create() {
@@ -211,7 +234,7 @@ class PhysicalVolume {
 
 	/**
 	 * Remove the physical volume.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function remove() {
@@ -226,7 +249,7 @@ class PhysicalVolume {
 
 	/**
 	 * Resize the physical volume.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function resize() {

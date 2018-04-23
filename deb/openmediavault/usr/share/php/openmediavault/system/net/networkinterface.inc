@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,13 +29,13 @@ require_once("openmediavault/functions.inc");
  */
 class NetworkInterface {
 	protected $name = "";
-	protected $ifconfig = null;
 	protected $ip = null;
 	protected $ethtool = null;
 	protected $regex = [
 		"ipv4" => '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}',
-		"ipv6" => '[a-f0-9:]+',
-		"ipv6cidr" => '([a-f0-9:]+)\/(\d{1,2})',
+		"ipv4cidr" => '(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\/(\d{1,2})',
+		"ipv6" => '[a-f0-9:.]+',
+		"ipv6cidr" => '([a-f0-9:.]+)\/(\d{1,3})',
 		"state" => 'UP|DOWN|UNKNOWN'
 	];
 
@@ -50,21 +50,11 @@ class NetworkInterface {
 	/**
 	 * Get the network interface configuration
 	 * @private
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	private function getData($type) {
 		switch ($type) {
-		case "ifconfig":
-			if (!is_null($this->ifconfig))
-				return;
-			$cmdArgs = [];
-			$cmdArgs[] = escapeshellarg($this->getDeviceName());
-			$cmd = new \OMV\System\Process("ifconfig", $cmdArgs);
-			$cmd->setRedirect2to1();
-			$cmd->execute($output);
-			$this->ifconfig = implode("|", $output);
-			break;
 		case "ip":
 			if (!is_null($this->ip))
 				return;
@@ -76,6 +66,15 @@ class NetworkInterface {
 			$cmd = new \OMV\System\Process("ip", $cmdArgs);
 			$cmd->setRedirect2to1();
 			$cmd->execute($output);
+			// Process command output for easier parsing.
+			// 2: ens6: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+			//     link/ether 52:54:00:a6:76:53 brd ff:ff:ff:ff:ff:ff
+			//     inet 192.168.121.38/24 brd 192.168.121.255 scope global dynamic ens6
+			//        valid_lft 3583sec preferred_lft 3583sec
+			//     inet6 ::ffff:192.168.121.38/64 scope global
+			//        valid_lft forever preferred_lft forever
+			//     inet6 fe80::5054:ff:fea6:7653/64 scope link
+			//        valid_lft forever preferred_lft forever
 			foreach ($output as $outputk => &$outputv)
 				$outputv = trim($outputv);
 			$this->ip = implode("|", $output);
@@ -109,7 +108,7 @@ class NetworkInterface {
 	 */
 	public function exists() {
 		try {
-			$this->getData("ifconfig");
+			$this->getData("ip");
 		} catch(\Exception $e) {
 			return FALSE;
 		}
@@ -122,9 +121,10 @@ class NetworkInterface {
 	 * @throw \OMV\ExecException
 	 */
 	public function getIP() {
-		$this->getData("ifconfig");
-		if (1 !== preg_match("/inet addr:\s*({$this->regex['ipv4']})/i",
-		  $this->ifconfig, $matches))
+		$this->getData("ip");
+		$regex = sprintf("/inet\s+%s\s+.+\s+scope global/i",
+			$this->regex['ipv4cidr']);
+		if (1 !== preg_match($regex, $this->ip, $matches))
 			return FALSE;
 		return $matches[1];
 	}
@@ -135,24 +135,52 @@ class NetworkInterface {
 	 * @throw \OMV\ExecException
 	 */
 	public function getIP6() {
-		$this->getData("ifconfig");
-		if (1 !== preg_match("/inet6 addr:\s*({$this->regex['ipv6cidr']})".
-		  "\s*Scope:Global/i", $this->ifconfig, $matches))
+		$this->getData("ip");
+		$regex = sprintf("/inet6\s+%s\s+scope global/i",
+			$this->regex['ipv6cidr']);
+		if (1 !== preg_match($regex, $this->ip, $matches))
 			return FALSE;
-		return $matches[2];
+		return $matches[1];
 	}
 
 	/**
-	 * Get the network interface mask.
-	 * @return The network interface mask, otherwise FALSE.
+	 * Get the network interface IPv4 prefix length.
+	 * @return The network interface prefix, otherwise FALSE.
 	 * @throw \OMV\ExecException
 	 */
-	public function getMask() {
-		$this->getData("ifconfig");
-		if (1 !== preg_match("/Mask:\s*({$this->regex['ipv4']})/i",
-		  $this->ifconfig, $matches))
+	public function getPrefix() {
+		$this->getData("ip");
+		$regex = sprintf("/inet\s+%s\s+.+\s+scope global/i",
+			$this->regex['ipv4cidr']);
+		if (1 !== preg_match($regex, $this->ip, $matches))
 			return FALSE;
-		return $matches[1];
+		return intval($matches[2]);
+	}
+
+	/**
+	 * Get the network interface IPv6 prefix length.
+	 * @return The network interface IPv6 mask/prefix length as integer,
+	 *   otherwise FALSE.
+	 * @throw \OMV\ExecException
+	 */
+	public function getPrefix6() {
+		$this->getData("ip");
+		$regex = sprintf("/inet6\s+%s\s+scope global/i",
+			$this->regex['ipv6cidr']);
+		if (1 !== preg_match($regex, $this->ip, $matches))
+			return FALSE;
+		return intval($matches[2]);
+	}
+
+	/**
+	 * Get the network interface IPv4 netmask.
+	 * @return The network interface netmask, otherwise FALSE.
+	 * @throw \OMV\ExecException
+	 */
+	public function getNetmask() {
+		if (FALSE === ($prefix = $this->getPrefix()))
+			return FALSE;
+		return long2ip(ip2long("255.255.255.255") << (32 - $prefix));
 	}
 
 	/**
@@ -161,12 +189,23 @@ class NetworkInterface {
 	 *   otherwise FALSE.
 	 * @throw \OMV\ExecException
 	 */
+	public function getNetmask6() {
+		// ToDo: Return the real netmask and not the prefix length here.
+		return $this->getPrefix6();
+	}
+
+	/**
+	 * @deprecated Will be removed in OMV5.
+	 */
+	public function getMask() {
+		return $this->getNetmask();
+	}
+
+	/**
+	 * @deprecated Will be removed in OMV5.
+	 */
 	public function getMask6() {
-		$this->getData("ifconfig");
-		if (1 !== preg_match("/inet6 addr:\s*({$this->regex['ipv6cidr']})".
-		  "\s*Scope:Global/i", $this->ifconfig, $matches))
-			return FALSE;
-		return intval($matches[3]);
+		return $this->getNetmask6();
 	}
 
 	/**

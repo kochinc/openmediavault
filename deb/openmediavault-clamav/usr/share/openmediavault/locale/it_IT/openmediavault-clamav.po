@@ -1,16 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-clamav package.
 # 
 # Translators:
 # maurorulli <mauro.rulli@gmail.com>, 2012
-# Paolo Velati <paolo.velati@gmail.com>, 2013-2015
+# Paolo Velati <paolo.velati@gmail.com>, 2013-2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-23 19:15+0200\n"
-"PO-Revision-Date: 2015-05-25 17:31+0000\n"
+"POT-Creation-Date: 2017-11-18 11:05+0100\n"
+"PO-Revision-Date: 2017-11-20 22:19+0000\n"
 "Last-Translator: Paolo Velati <paolo.velati@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/votdev/openmediavault/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -19,8 +19,11 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Add job"
-msgstr "Aggiungi job"
+msgid "Add on-access scan"
+msgstr "Aggiungi scansione all'accesso"
+
+msgid "Add scheduled job"
+msgstr "Aggiungi processo pianificato"
 
 msgid "Algorithmic detection"
 msgstr "Rilevamento algoritmico"
@@ -57,8 +60,14 @@ msgstr "Rileva PUA"
 msgid "Detect broken executables"
 msgstr "Rileva eseguibili danneggiati"
 
-msgid "Edit job"
-msgstr "Modifica job"
+msgid "Done ..."
+msgstr "Fatto ..."
+
+msgid "Edit on-access scan"
+msgstr "Modifica scansione all'accesso"
+
+msgid "Edit scheduled job"
+msgstr "Modifica processo pianificato"
 
 msgid "Enable"
 msgstr "Abilita"
@@ -104,8 +113,8 @@ msgstr "Ogni N ore"
 msgid "Every N minute"
 msgstr "Ogni N minuti"
 
-msgid "Execute cron job"
-msgstr "Esegui cron job"
+msgid "Execute scheduled job"
+msgstr "Esegui processo pianificato"
 
 msgid "Extra options"
 msgstr "Opzioni extra"
@@ -131,9 +140,6 @@ msgstr "Ora"
 msgid "Infected files"
 msgstr "File infetti"
 
-msgid "Jobs"
-msgstr "Job"
-
 msgid "Log clean files"
 msgstr "Logga i file puliti"
 
@@ -158,6 +164,9 @@ msgstr "Multiscansione"
 msgid "Number of database update checks per day. Set to 0 to disable."
 msgstr "Numero di controlli di aggiornamenti del database giornalieri. Impostare a 0 per disabilitarli."
 
+msgid "On Access Scans"
+msgstr "Scansioni all'accesso"
+
 msgid "On-access"
 msgstr "All'accesso"
 
@@ -165,9 +174,10 @@ msgid "Perform a deeper analysis of executable files."
 msgstr "Esegui un'analisi approfondita dei file eseguibili."
 
 msgid ""
-"Please check the <a href='http://linux.die.net/man/5/clamd.conf' "
-"target='_blank'>manual page</a> for more details."
-msgstr "Per favore consulta la <a href='http://linux.die.net/man/5/clamd.conf' target='_blank'>pagina del manuale</a> per ulteriori dettagli."
+"Please check the <a href='https://github.com/vrtadmin/clamav-"
+"faq/raw/master/manual/clamdoc.pdf' target='_blank'>manual page</a> for more "
+"details."
+msgstr "Per favore consulta la <a href='https://github.com/vrtadmin/clamav-faq/raw/master/manual/clamdoc.pdf' target='_blank'>pagina del manuale</a> per ulteriori dettagli."
 
 msgid "Quarantine"
 msgstr "Quarantena"
@@ -196,6 +206,9 @@ msgstr "Scan archivi"
 msgid "Scan the directory contents in parallel using available threads."
 msgstr "Scansione del contenuto della directory in parallelo utilizzando i thread disponibili."
 
+msgid "Scheduled Jobs"
+msgstr "Job pianificati"
+
 msgid "Send command output via email"
 msgstr "Invia l'output del comando via email"
 
@@ -207,6 +220,9 @@ msgstr "Impostazioni"
 
 msgid "Shared folder"
 msgstr "Cartella condivisa"
+
+msgid "The location of the files to scan on-access."
+msgstr "Il percorso dei file da controllare all'accesso."
 
 msgid "The location of the files to scan."
 msgstr "Il percorso dei file da controllare."

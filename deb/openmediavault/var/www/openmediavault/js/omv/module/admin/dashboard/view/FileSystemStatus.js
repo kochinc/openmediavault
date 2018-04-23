@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -74,6 +74,7 @@ Ext.define("OMV.module.admin.dashboard.view.FileSystemStatus", {
 					hidden: true,
 					flex: 1
 				},{
+					xtype: "textcolumn",
 					text: _("Label"),
 					sortable: true,
 					dataIndex: "label",
@@ -106,9 +107,9 @@ Ext.define("OMV.module.admin.dashboard.view.FileSystemStatus", {
 						if (-1 == percentage)
 							return _("n/a");
 						var text = Ext.String.format("{0}% [{1}]",
-						  percentage, value);
+							percentage, value);
 						var renderer = OMV.util.Format.progressBarRenderer(
-						  percentage / 100, text);
+							percentage / 100, text, 0.85);
 						return renderer.apply(this, arguments);
 					}
 				}],

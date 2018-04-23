@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -112,16 +112,19 @@ Ext.define("OMV.module.admin.system.network.route.Routes", {
 	stateful: true,
 	stateId: "a6faec48-f389-11e1-8b67-00221568ca88",
 	columns: [{
+		xtype: "textcolumn",
 		text: _("Network"),
 		sortable: true,
 		dataIndex: "network",
 		stateId: "network"
 	},{
+		xtype: "textcolumn",
 		text: _("Gateway"),
 		sortable: true,
 		dataIndex: "gateway",
 		stateId: "gateway"
 	},{
+		xtype: "textcolumn",
 		text: _("Comment"),
 		sortable: true,
 		dataIndex: "comment",

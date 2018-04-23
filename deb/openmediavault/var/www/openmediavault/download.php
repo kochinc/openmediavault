@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,8 +51,8 @@ if (array_keys_exists(array("service", "method"), $_POST)) {
 		if (isset($server))
 			$server->cleanup();
 		header("Content-Type: text/html");
-		printf("Error #".$e->getCode().":<br/>%s", str_replace("\n", "<br/>",
-		  $e->__toString()));
+		printf("Error #%s:<br/>%s", strval($e->getCode()),
+			str_replace("\n", "<br/>", htmlentities($e->__toString())));
 	}
 } else {
 	// Return the HTML code of the form containing the fields required

@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -81,7 +81,7 @@ class OMVRpcServiceWebGui extends \OMV\Rpc\ServiceAbstract {
 	 * @param params An array containing the following fields:
 	 *   \em password The new password.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 */
 	function setPassword($params, $context) {
 		// Validate the RPC caller context.

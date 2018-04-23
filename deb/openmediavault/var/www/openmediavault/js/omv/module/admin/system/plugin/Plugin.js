@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,13 +55,11 @@ Ext.define("OMV.module.admin.system.plugin.Plugins", {
 		ftype: "grouping"
 	}],
 	columns: [{
-		xtype: "booleaniconcolumn",
+		xtype: "enabledcolumn",
 		text: _("Installed"),
 		sortable: true,
 		dataIndex: "installed",
-		stateId: "installed",
-		resizable: false,
-		width: 80
+		stateId: "installed"
 	},{
 		xtype: "templatecolumn",
 		text: _("Package information"),
@@ -87,6 +85,7 @@ Ext.define("OMV.module.admin.system.plugin.Plugins", {
 			_("Repository") + ': {[Ext.String.htmlEncode(values.repository)]}<br/>' +
 		  '</tpl>'
 	},{
+		xtype: "textcolumn",
 		text: _("Section"),
 		sortable: true,
 		dataIndex: "pluginsection",
@@ -94,6 +93,7 @@ Ext.define("OMV.module.admin.system.plugin.Plugins", {
 		flex: 1,
 		hidden: true
 	},{
+		xtype: "textcolumn",
 		text: _("Name"),
 		sortable: true,
 		dataIndex: "name",
@@ -101,6 +101,7 @@ Ext.define("OMV.module.admin.system.plugin.Plugins", {
 		width: 180,
 		hidden: true
 	},{
+		xtype: "textcolumn",
 		text: _("Version"),
 		sortable: false,
 		dataIndex: "version",
@@ -108,6 +109,7 @@ Ext.define("OMV.module.admin.system.plugin.Plugins", {
 		width: 120,
 		hidden: true
 	},{
+		xtype: "textcolumn",
 		text: _("Repository"),
 		sortable: true,
 		dataIndex: "repository",
@@ -115,6 +117,7 @@ Ext.define("OMV.module.admin.system.plugin.Plugins", {
 		width: 160,
 		hidden: true
 	},{
+		xtype: "textcolumn",
 		text: _("Abstract"),
 		sortable: true,
 		dataIndex: "abstract",
@@ -138,6 +141,7 @@ Ext.define("OMV.module.admin.system.plugin.Plugins", {
 		width: 80,
 		hidden: true
 	},{
+		xtype: "textcolumn",
 		text: _("Maintainer"),
 		sortable: true,
 		dataIndex: "maintainer",
@@ -217,24 +221,21 @@ Ext.define("OMV.module.admin.system.plugin.Plugins", {
 			id: me.getId() + "-check",
 			xtype: "button",
 			text: _("Check"),
-			icon: "images/refresh.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-refresh",
 			handler: Ext.Function.bind(me.onCheckButton, me, [ me ]),
 			scope: me
 		},{
 			id: me.getId() + "-upload",
 			xtype: "button",
 			text: _("Upload"),
-			icon: "images/upload.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-upload",
 			handler: Ext.Function.bind(me.onUploadButton, me, [ me ]),
 			scope: me
 		},{
 			id: me.getId() + "-install",
 			xtype: "button",
 			text: _("Install"),
-			icon: "images/add.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-plus",
 			handler: Ext.Function.bind(me.onInstallButton, me, [ me ]),
 			scope: me,
 			disabled: true,
@@ -273,7 +274,6 @@ Ext.define("OMV.module.admin.system.plugin.Plugins", {
 			onTrigger1Click: function() {
 				// Reset the filter settings.
 				this.reset();
-				this.onTrigger2Click();
 			},
 			onTrigger2Click: function() {
 				// Get the entered text that should be searched for.
@@ -302,10 +302,9 @@ Ext.define("OMV.module.admin.system.plugin.Plugins", {
 				}
 			},
 			listeners: {
-				specialkey: function(field, e){
-					if (e.getKey() == e.ENTER) {
-						field.onTrigger2Click();
-					}
+				// Implement a combobox type ahead logic.
+				change: function(field, e) {
+					field.onTrigger2Click();
 				}
 			}
 		}]);
@@ -444,7 +443,7 @@ Ext.define("OMV.module.admin.system.plugin.Plugins", {
 								fn: function() {
 									// Reload the page.
 									OMV.confirmPageUnload = false;
-									document.location.reload();
+									document.location.reload(true);
 								}
 							});
 						}
@@ -502,7 +501,7 @@ Ext.define("OMV.module.admin.system.plugin.Plugins", {
 								fn: function() {
 									// Reload the page.
 									OMV.confirmPageUnload = false;
-									document.location.reload();
+									document.location.reload(true);
 								}
 							});
 						},
@@ -523,8 +522,7 @@ OMV.WorkspaceManager.registerNode({
 	id: "plugin",
 	path: "/system",
 	text: _("Plugins"),
-	icon16: "images/puzzle.png",
-	iconSvg: "images/puzzle.svg",
+	iconCls: "x-fa fa-puzzle-piece",
 	position: 90
 });
 

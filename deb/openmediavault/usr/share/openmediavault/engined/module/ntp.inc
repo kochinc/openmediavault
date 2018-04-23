@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,12 +41,8 @@ class OMVModuleNtp extends \OMV\Engine\Module\ServiceAbstract
 	 * Stop the managed service.
 	 */
 	public function stopService() {
-		// Disable NTP.
-		$cmd = new \OMV\System\Process("timedatectl", "set-ntp no");
-		$cmd->setRedirect2to1();
-		$cmd->execute();
 		// Stop the timesyncd daemon.
-		$systemCtl = new \OMV\System\SystemCtl("systemd-timesyncd");
+		$systemCtl = new \OMV\System\SystemCtl("ntp");
 		$systemCtl->disable(TRUE);
 	}
 
@@ -58,12 +54,8 @@ class OMVModuleNtp extends \OMV\Engine\Module\ServiceAbstract
 		$object = $db->get("conf.system.time");
 		if (TRUE !== $object->get("ntp.enable"))
 			return;
-		// Enable NTP.
-		$cmd = new \OMV\System\Process("timedatectl", "set-ntp yes");
-		$cmd->setRedirect2to1();
-		$cmd->execute();
 		// Start the timesyncd daemon.
-		$systemCtl = new \OMV\System\SystemCtl("systemd-timesyncd");
+		$systemCtl = new \OMV\System\SystemCtl("ntp");
 		$systemCtl->enable(TRUE);
 	}
 
@@ -75,5 +67,5 @@ class OMVModuleNtp extends \OMV\Engine\Module\ServiceAbstract
 		  OMV_NOTIFY_MODIFY,
 		  "org.openmediavault.conf.system.time",
 		  [ $this, "setDirty" ]);
-    }
+	}
 }

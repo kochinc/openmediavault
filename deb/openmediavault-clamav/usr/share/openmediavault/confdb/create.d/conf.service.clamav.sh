@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,7 +29,9 @@ set -e
 #   <services>
 #     <clamav>
 #       <enable>0</enable>
-#       <quarantine_sharedfolderref>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</quarantine_sharedfolderref>
+#       <quarantine>
+#         <sharedfolderref>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</sharedfolderref>
+#       </quarantine>
 #       <clamd>
 #         <logclean>0</logclean>
 #         <scanpe>1</scanpe>
@@ -76,6 +78,15 @@ set -e
 #         </job>
 #         -->
 #       </jobs>
+#       <onaccesspaths>
+#         <!--
+#         <onaccesspath>
+#           <uuid>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</uuid>
+#           <enable>0|1</enable>
+#           <sharedfolderref>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</sharedfolderref>
+#         </onaccesspath>
+#         -->
+#       </onaccesspaths>
 #     </clamav>
 #   </services>
 # </config>
@@ -83,7 +94,8 @@ set -e
 if ! omv_config_exists "/config/services/clamav"; then
 	omv_config_add_node "/config/services" "clamav"
 	omv_config_add_key "/config/services/clamav" "enable" "0"
-	omv_config_add_key "/config/services/clamav" "quarantine_sharedfolderref" ""
+	omv_config_add_node "/config/services/clamav" "quarantine"
+	omv_config_add_key "/config/services/clamav/quarantine" "sharedfolderref" ""
 	omv_config_add_node "/config/services/clamav" "clamd"
 	omv_config_add_key "/config/services/clamav/clamd" "logclean" "0"
 	omv_config_add_key "/config/services/clamav/clamd" "scanpe" "1"
@@ -102,6 +114,7 @@ if ! omv_config_exists "/config/services/clamav"; then
 	omv_config_add_key "/config/services/clamav/freshclam" "enable" "1"
 	omv_config_add_key "/config/services/clamav/freshclam" "checks" "24"
 	omv_config_add_node "/config/services/clamav" "jobs"
+	omv_config_add_node "/config/services/clamav" "onaccesspaths"
 fi
 
 exit 0

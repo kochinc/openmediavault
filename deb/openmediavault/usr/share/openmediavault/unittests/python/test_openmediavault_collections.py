@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -76,6 +76,18 @@ class DotDictTestCase(unittest.TestCase):
 		d = self._get_dict()
 		self.assertEqual(d['y.z.0.bb'], "2")
 
+	def test_8(self):
+		d = self._get_dict()
+		self.assertEqual(d.y.z[0].bb, "2")
+
+	def test_9(self):
+		d = self._get_dict()
+		self.assertEqual(d['k.2'], "o")
+
+	def test_10(self):
+		d = self._get_dict()
+		self.assertEqual(d.k[2], "o")
+
 	def test_in(self):
 		d = self._get_dict()
 		self.assertTrue("a.b.c" in d)
@@ -83,6 +95,58 @@ class DotDictTestCase(unittest.TestCase):
 	def test_in_fail(self):
 		d = self._get_dict()
 		self.assertFalse("a.x" in d)
+
+	def test_set_1(self):
+		d = self._get_dict()
+		d.y.z[0].bb = "bb"
+		self.assertEqual(d.y.z[0], {'aa': '1', 'bb': 'bb', 'cc': '3'})
+
+	def test_set_2(self):
+		d = self._get_dict()
+		d["y.z[0].bb"] = "bb"
+		self.assertEqual(d["y.z[0]"], {'aa': '1', 'bb': 'bb', 'cc': '3'})
+
+	def test_set_3(self):
+		d = self._get_dict()
+		d.y.z[0].dd = "dd"
+		self.assertEqual(d.y.z[0], {'aa': '1', 'bb': '2', 'cc': '3',
+			'dd': 'dd'})
+
+	def test_set_4(self):
+		d = self._get_dict()
+		d["y.z[0].dd"] = "dd"
+		self.assertEqual(d["y.z[0]"], {'aa': '1', 'bb': '2', 'cc': '3',
+			'dd': 'dd'})
+
+	def test_set_5(self):
+		d = openmediavault.collections.DotDict({'jobs': {'job': []}})
+		d["jobs.job.0"] = {'acls': 0}
+		self.assertEqual(d["jobs.job"], [{'acls': 0}])
+		d["jobs.job.0.comment"] = ""
+		d["jobs.job[0].enable"] = False
+		self.assertEqual(d["jobs.job"], [{'acls': 0, 'comment': '',
+			'enable': False}])
+
+	def test_set_6(self):
+		d = openmediavault.collections.DotDict({'modules': {'module': []}})
+		self.assertIsInstance(d.modules, object)
+		self.assertIsInstance(d['modules.module'], list)
+		d['modules.module[0]'] = {
+			'enable': False,
+			'readonly': True,
+			'users': {
+				'user': []
+			}
+		}
+		self.assertIsInstance(d['modules.module.0.users'], object)
+		self.assertIsInstance(d.modules.module[0].users.user, list)
+		self.assertEqual(len(d.modules.module[0].users.user), 0)
+		d['modules.module.0.users.user.0.name'] = "user01"
+		d['modules.module.0.users.user.0.password'] = "test"
+		self.assertIsInstance(d['modules.module.0.users'], object)
+		self.assertIsInstance(d['modules.module[0].users.user'], list)
+		self.assertEqual(len(d.modules.module[0].users.user), 1)
+		self.assertIsInstance(d['modules.module.0.users.user[0].name'], str)
 
 	def test_flatten(self):
 		d = self._get_dict()

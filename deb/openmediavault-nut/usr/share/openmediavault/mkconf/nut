@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -43,10 +43,10 @@ OMV_NUT_UPSD_MAXCONN=${OMV_NUT_UPSD_MAXCONN:-"1024"}
 OMV_NUT_UPSD_PORT=${OMV_NUT_UPSD_PORT:-"3493"}
 OMV_NUT_UPSDUSERS_CONFIG=${OMV_NUT_UPSDUSERS_CONFIG:-"/etc/nut/upsd.users"}
 OMV_NUT_UPSDUSERS_ADMIN_USER=${OMV_NUT_UPSDUSERS_ADMIN_USER:-"admin"}
-OMV_NUT_UPSDUSERS_ADMIN_PASSWORD=${OMV_NUT_UPSDUSERS_ADMIN_PASSWORD:-"$(openssl rand -hex 16)"}
+OMV_NUT_UPSDUSERS_ADMIN_PASSWORD=${OMV_NUT_UPSDUSERS_ADMIN_PASSWORD:-"$(omv_pwgen 16)"}
 OMV_NUT_UPSDUSERS_ADMIN_INSTCMDS=${OMV_NUT_UPSDUSERS_ADMIN_INSTCMDS:-"ALL"}
 OMV_NUT_UPSDUSERS_MONITOR_USER=${OMV_NUT_UPSDUSERS_MONITOR_USER:-"monmaster"}
-OMV_NUT_UPSDUSERS_MONITOR_PASSWORD=${OMV_NUT_UPSDUSERS_MONITOR_PASSWORD:-"$(openssl rand -hex 16)"}
+OMV_NUT_UPSDUSERS_MONITOR_PASSWORD=${OMV_NUT_UPSDUSERS_MONITOR_PASSWORD:-"$(omv_pwgen 16)"}
 OMV_NUT_UPSMON_CONFIG=${OMV_NUT_UPSMON_CONFIG:-"/etc/nut/upsmon.conf"}
 OMV_NUT_UPSMON_MINSUPPLIES=${OMV_NUT_UPSMON_MINSUPPLIES:-"1"}
 OMV_NUT_UPSMON_SHUTDOWNCMD=${OMV_NUT_UPSMON_SHUTDOWNCMD:-"/sbin/shutdown -h +0"}
@@ -61,6 +61,8 @@ OMV_NUT_UPSMON_NOCOMMWARNTIME=${OMV_NUT_UPSMON_NOCOMMWARNTIME:-"300"}
 OMV_NUT_UPSMON_FINALDELAY=${OMV_NUT_UPSMON_FINALDELAY:-"5"}
 OMV_NUT_UPSSCHED_CONFIG=${OMV_NUT_UPSSCHED_CONFIG:-"/etc/nut/upssched.conf"}
 OMV_NUT_UPSSCHED_CMDSCRIPT=${OMV_NUT_UPSSCHED_CMDSCRIPT:-"/usr/bin/upssched-cmd"}
+OMV_NUT_UPSSCHED_PIPEFN=${OMV_NUT_UPSSCHED_PIPEFN:-"/var/run/nut/upssched.pipe"}
+OMV_NUT_UPSSCHED_LOCKFN=${OMV_NUT_UPSSCHED_LOCKFN:-"/var/run/nut/upssched.lock"}
 OMV_NUT_UDEV_RULE_CONFIG=${OMV_NUT_UDEV_RULE_CONFIG:-"/etc/udev/rules.d/99-openmediavault-nut-serialups.rules"}
 OMV_NUT_UDEV_RULE_GROUP=${OMV_NUT_UDEV_RULE_GROUP:-"nut"}
 
@@ -101,7 +103,7 @@ EOF
 	  -o "password = ${OMV_NUT_UPSDUSERS_ADMIN_PASSWORD}" -n \
 	  -o "actions = set" -n \
 	  -o "actions = fsd" -n \
-	  -o "instcmds ${OMV_NUT_UPSDUSERS_ADMIN_INSTCMDS}" -n \
+	  -o "instcmds = ${OMV_NUT_UPSDUSERS_ADMIN_INSTCMDS}" -n \
 	  -n \
 	  -o "[${OMV_NUT_UPSDUSERS_MONITOR_USER}]" -n \
 	  -o "password = ${OMV_NUT_UPSDUSERS_MONITOR_PASSWORD}" -n \
@@ -152,8 +154,8 @@ EOF
 	# Create '/etc/nut/upssched.conf'
 	cat <<EOF > ${OMV_NUT_UPSSCHED_CONFIG}
 CMDSCRIPT ${OMV_NUT_UPSSCHED_CMDSCRIPT}
-PIPEFN /var/run/nut/upssched.pipe
-LOCKFN /var/run/nut/upssched.lock
+PIPEFN ${OMV_NUT_UPSSCHED_PIPEFN}
+LOCKFN ${OMV_NUT_UPSSCHED_LOCKFN}
 AT COMMOK * EXECUTE notify
 AT COMMBAD * EXECUTE notify
 AT REPLBATT * EXECUTE notify

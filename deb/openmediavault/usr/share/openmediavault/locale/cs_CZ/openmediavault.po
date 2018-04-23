@@ -4,13 +4,13 @@
 # 
 # Translators:
 # Jan Štourač <wormsik666@gmail.com>, 2014-2015
-# Pavel Borecki <pavel.borecki@gmail.com>, 2014-2016
+# Pavel Borecki <pavel.borecki@gmail.com>, 2014-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 06:19+0100\n"
-"PO-Revision-Date: 2016-12-06 23:02+0000\n"
+"POT-Creation-Date: 2018-01-21 11:50+0100\n"
+"PO-Revision-Date: 2018-01-21 17:40+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/votdev/openmediavault/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
@@ -44,6 +44,9 @@ msgstr "1 – nejnižší spotřeba energie s pohotovostním režimem (zastaven�
 msgid "1 day"
 msgstr "1 den"
 
+msgid "1 minute"
+msgstr "1 munuta"
+
 msgid "1 month"
 msgstr "1 měsíc"
 
@@ -72,6 +75,9 @@ msgstr "127 – střední spotřeba energie s pohotovostním režimem"
 msgid "128 - Minimum power usage without standby (no spindown)"
 msgstr "128 – nejnižší spotřeba energie bez přechodu do pohotovostního režimu (bez zastavení otáčení ploten)"
 
+msgid "15 minutes"
+msgstr "15 minut"
+
 msgid "15 years"
 msgstr "15 let"
 
@@ -83,6 +89,9 @@ msgstr "192 – střední spotřeba energie bez přechodu do pohotovostního re�
 
 msgid "2 days"
 msgstr "2 dny"
+
+msgid "2 minutes"
+msgstr "2 minuty"
 
 msgid "2 weeks"
 msgstr "2 týdny"
@@ -111,6 +120,9 @@ msgstr "255 – správa napájení vypnutá"
 msgid "3 days"
 msgstr "3 dny"
 
+msgid "3 minutes"
+msgstr "3 minuty"
+
 msgid "3 months"
 msgstr "3 měsíce"
 
@@ -131,6 +143,9 @@ msgstr "330 minut"
 
 msgid "4 days"
 msgstr "4 dny"
+
+msgid "4 minutes"
+msgstr "4 minuty"
 
 msgid "4 years"
 msgstr "4 roky"
@@ -295,21 +310,12 @@ msgstr "Alžírsko"
 msgid "All"
 msgstr "Vše"
 
-msgid "Allow client access to accounts that have null passwords"
-msgstr "Umožnit přístup k účtům nechráněným heslem"
-
 msgid ""
 "Allow clients to attempt to store OS/2 style extended attributes on a share."
 msgstr "Na sdílení umožnit klientům pokoušet se uložit rozšířené atributy jako v systému OS/2."
 
 msgid "Allow clients to resume interrupted uploads and downloads"
 msgstr "Umožnit klientům pokračovat v přerušeném stahování nebo nahrávání"
-
-msgid "Allow new files"
-msgstr "Umožnit vytváření nových souborů"
-
-msgid "Allow new files to be created."
-msgstr "Umožnit vytváření nových souborů."
 
 msgid ""
 "Allow this server to advertise itself as a time server to Windows clients"
@@ -418,26 +424,20 @@ msgstr "Identifikátor přihlášeného uživatele"
 msgid "Authentication"
 msgstr "Ověřování"
 
-msgid "Authentication and no privacy"
-msgstr "Ověřování a žádné soukromí"
-
-msgid "Authentication and privacy"
-msgstr "Ověřování a soukromí"
-
 msgid "Authentication method"
 msgstr "Metoda ověřování"
-
-msgid "Authentication passphrase"
-msgstr "Přihlašovací heslo"
 
 msgid "Authentication required"
 msgstr "Vyžaduje přihlášení"
 
-msgid "Authentication type"
-msgstr "Typ ověřování"
-
 msgid "Auto"
 msgstr "Automatické"
+
+msgid "Auto logout"
+msgstr "Automatické odhlášení"
+
+msgid "Auto logout after the specified idle period."
+msgstr "Po uplynutí zadaného období nečinnosti automaticky odhlásit."
 
 msgid "Automatic Acoustic Management"
 msgstr "Automatická správa hlučnosti"
@@ -493,9 +493,6 @@ msgstr "Binární"
 msgid "Block layer cache [%s, %s]"
 msgstr "Mezipaměť blokové vrstvy [%s, %s]"
 
-msgid "Blocksize"
-msgstr "Velikost bloku"
-
 msgid "Bolivia"
 msgstr "Bolívie"
 
@@ -540,9 +537,6 @@ msgstr "Burkina Faso"
 
 msgid "Burundi"
 msgstr "Burundi"
-
-msgid "By default, only files that already exist are allowed to be uploaded."
-msgstr "Ve výchozím stavu mohou být nahrávány pouze soubory nazvané stejně, jako ty už existující."
 
 msgid "CPU usage"
 msgstr "Spotřeba výpočet. výkonu"
@@ -649,9 +643,6 @@ msgstr "Komentář"
 msgid "Common Name"
 msgstr "Adresa stroje"
 
-msgid "Community"
-msgstr "Komunita"
-
 msgid "Community-maintained updates."
 msgstr "Aktualizace spravované komunitou."
 
@@ -696,14 +687,6 @@ msgstr "Demokratická republika Kongo (Kinhasa)"
 
 msgid "Connections"
 msgstr "Spojení"
-
-msgid "Contact"
-msgstr "Kontakt"
-
-msgid ""
-"Contact information, e.g. name or email address of the person responsible "
-"for this system."
-msgstr "Kontaktní informace, např. jméno nebo e-mailová adresa osoby odpovědné za tento systém."
 
 msgid "Conveyance self-test"
 msgstr "Kontrola případného poškození při přepravě"
@@ -834,11 +817,6 @@ msgstr "Cílová sdílená složka"
 msgid "Detail"
 msgstr "Podrobnosti"
 
-msgid ""
-"Determine the default timeout, in microseconds, before the first packet is "
-"retransmitted."
-msgstr "Určuje výchozí časový limit (v mikrosekundách), po jehož překročení je opakován přenos prvního paketu."
-
 msgid "Device"
 msgstr "Zařízení"
 
@@ -899,8 +877,14 @@ msgstr "Neumožnit uživateli upravovat svůj účet."
 msgid "Disk usage"
 msgstr "Využití disku"
 
+msgid "Disks"
+msgstr "Jednotky datových úložišť"
+
 msgid "Displaying items {0} - {1} of {2}"
 msgstr "Zobrazeno položek {0} - {1} z {2}"
+
+msgid "Displaying {0} - {1} of {2}"
+msgstr "Zobrazení {0} - {1} z {2}"
 
 msgid "Djibouti"
 msgstr "Džibutsko"
@@ -1064,6 +1048,9 @@ msgstr "Upravit naplánovanou úlohu"
 msgid "Edit scheduled test"
 msgstr "Upravit naplánovaný test"
 
+msgid "Edit service"
+msgstr "Upravit službu"
+
 msgid "Edit share"
 msgstr "Upravit sdílení"
 
@@ -1191,6 +1178,9 @@ msgstr "Chyba"
 
 msgid "Error #"
 msgstr "Chyba č."
+
+msgid "Errors"
+msgstr "Chyby"
 
 msgid "Estonia"
 msgstr "Estonsko"
@@ -1323,6 +1313,9 @@ msgstr "Brána firewall"
 
 msgid "Firmware version"
 msgstr "Verze firmware"
+
+msgid "First Page"
+msgstr "První stránka"
 
 msgid "Flags"
 msgstr "Příznaky"
@@ -1766,6 +1759,9 @@ msgstr "Jazyk"
 msgid "Laos"
 msgstr "Laos"
 
+msgid "Last Page"
+msgstr "Poslední stránka"
+
 msgid "Latvia"
 msgstr "Lotyšsko"
 
@@ -1824,9 +1820,6 @@ msgstr "Místní hlavní prohlížeč (WINS)"
 
 msgid "Location"
 msgstr "Umístění"
-
-msgid "Location information, e.g. physical location of this system."
-msgstr "Informace o umístění, např. kde se stroj fyzicky nachází."
 
 msgid "Log level"
 msgstr "Úroveň podrobnosti záznamu událostí"
@@ -2114,6 +2107,9 @@ msgstr "Nová Kaledonie"
 msgid "New Zealand"
 msgstr "Nový Zéland"
 
+msgid "Next Page"
+msgstr "Následující stránka"
+
 msgid "Nicaragua"
 msgstr "Nikaragua"
 
@@ -2135,14 +2131,14 @@ msgstr "Žádný přístup"
 msgid "No action"
 msgstr "Žádná akce"
 
-msgid "No authentication and no privacy"
-msgstr "Žádné ověřování a soukromí"
-
 msgid "No certificate request"
 msgstr "Žádný požadavek na certifikát"
 
 msgid "No connections"
 msgstr "Žádná spojení"
+
+msgid "No data to display"
+msgstr "Chybí data – není co zobrazovat"
 
 msgid "No items to display"
 msgstr "Žádné položky k zobrazení"
@@ -2200,9 +2196,6 @@ msgstr "Upozorňování"
 
 msgid "November"
 msgstr "Listopad"
-
-msgid "Null passwords"
-msgstr "Prázdná (žádná) hesla"
 
 msgid "Num"
 msgstr "Číslo"
@@ -2266,6 +2259,9 @@ msgstr "Poručenské území Tichomořské ostrovy"
 
 msgid "Package information"
 msgstr "Informace o balíčku"
+
+msgid "Page"
+msgstr "Stránka"
 
 msgid "Page not found"
 msgstr "Stránka nebyla nalezena"
@@ -2354,9 +2350,6 @@ msgstr "Peru"
 msgid "Philippines"
 msgstr "Filipíny"
 
-msgid "Physical Disks"
-msgstr "Fyzická úložná zařízení"
-
 msgid "Physical disk properties"
 msgstr "Vlastnosti fyzického úložného zařízení"
 
@@ -2367,12 +2360,6 @@ msgid ""
 "Please check the <a href='http://linux.die.net/man/5/exports' "
 "target='_blank'>manual page</a> for more details."
 msgstr "Podrobnosti naleznete v <a href='http://linux.die.net/man/5/exports' target='_blank'>manuálové stránce</a> (v angličtině)."
-
-msgid ""
-"Please check the <a href='http://www.openbsd.org/cgi-"
-"bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>manual page</a> for"
-" more details."
-msgstr "Podrobnosti naleznete v <a href='http://www.openbsd.org/cgi-bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>manuálové stránce</a> (v angličtině)."
 
 msgid ""
 "Please check the <a href='http://www.proftpd.org/docs/contrib/mod_tls.html' "
@@ -2406,16 +2393,16 @@ msgid ""
 "target='_blank'>manual page</a> for more details."
 msgstr "Podrobnosti naleznete v <a href='http://www.samba.org/samba/docs/man/manpages-3/smb.conf.5.html' target='_blank'>manuálové stránce</a> (v angličtině)."
 
+msgid ""
+"Please check the <a href='https://man.openbsd.org/sshd_config.5' "
+"target='_blank'>manual page</a> for more details."
+msgstr "Další podrobnosti naleznete v <a href='https://man.openbsd.org/sshd_config.5' target='_blank'>manuálové stránce</a>."
+
 msgid "Please choose the method to wipe the device or 'Cancel' to abort."
 msgstr "Zvolte způsob kompletního smazání zařízení nebo celou akci zrušte kliknutím na „Zrušit“."
 
 msgid "Please first select a device."
 msgstr "Nejprve je třeba zvolit zařízení."
-
-msgid ""
-"Please make sure that the shared folder is publicly writable if new files "
-"are allowed."
-msgstr "V případě, že zde umožníte vytváření nových souborů ověřte, zda je sdílená složka zapisovatelná komukoliv."
 
 msgid ""
 "Please note that no communication with the system is possible during this "
@@ -2441,9 +2428,6 @@ msgstr "Polsko"
 
 msgid "Port"
 msgstr "Port"
-
-msgid "Port to listen on."
-msgstr "Port, na kterém očekávat spojení."
 
 msgid "Portugal"
 msgstr "Portugalsko"
@@ -2488,17 +2472,14 @@ msgid ""
 " not what you want.</li></ul>"
 msgstr "Zamezit roztáčení zastavených disků jen kvůli pravidelnému dotazování v případě:<br/><ul><li>Nikdy – Dotázat zařízení bez ohledu na stav napájení, ve kterém se nachází. Může způsobovat zbytečné roztáčení stojích disků.</li><li>Spánku – Dotázat se zařízení jen pokud se nenachází v režimu SPÁNKU.</li><li>Pohotovosti – Dotázat se zařízení jen pokud se nenachází v režimu SPÁNKU či POHOTOVOSTI.<br/>(V těchto režimech bývá většina disků zastavena, takže když chcete zabránit zbytečnému roztáčení disků, je tato volba nejspíš nejvhodnější.)</li><li>Nečinnosti – Zkontrolovat zařízení pouze pokud se nenachází v režimu SPÁNKU, POHOTOVOSTI či NEČINNOSTI.<br/>(Ve stavu NEČINNOSTI se ale většina disků stejně točí, takže toto nejspíš není to, co potřebujete.)</li></ul>"
 
+msgid "Previous Page"
+msgstr "Předchozí stránka"
+
 msgid "Primary"
 msgstr "Hlavní"
 
 msgid "Primary email"
 msgstr "Hlavní e-mail"
-
-msgid "Privacy passphrase"
-msgstr "Heslo k soukromí"
-
-msgid "Privacy type"
-msgstr "Typ soukromí"
 
 msgid "Private key"
 msgstr "Soukromá část klíče"
@@ -2704,9 +2685,6 @@ msgstr "Výsledek"
 msgid "Resume"
 msgstr "Pokračovat"
 
-msgid "Retry timeout"
-msgstr "Časový limit pro opětovný pokus"
-
 msgid "Reunion"
 msgstr "Opětovné spojení"
 
@@ -2769,15 +2747,6 @@ msgstr "SMTP server"
 
 msgid "SMTP settings"
 msgstr "Nastavení protokolu SMTP"
-
-msgid "SNMP"
-msgstr "SNMP"
-
-msgid "SNMP version 1/2c"
-msgstr "SNMP verze 1/2c"
-
-msgid "SNMP version 3"
-msgstr "SNMP verze 3"
 
 msgid "SSH"
 msgstr "SSH"
@@ -2865,9 +2834,6 @@ msgstr "Zabezpečené"
 
 msgid "Secure connection"
 msgstr "Zabezpečené spojení"
-
-msgid "Security level"
-msgstr "Úroveň zabezpečení"
 
 msgid "Select a SSH certificate ..."
 msgstr "Vyberte SSH certifikát…"
@@ -2982,9 +2948,6 @@ msgstr "Platnost relace skončila."
 
 msgid "Session not authenticated."
 msgstr "Relace nebyla ověřena."
-
-msgid "Session timeout"
-msgstr "Prodleva nečinné relace"
 
 msgid "Set browseable"
 msgstr "Umožnit procházení"
@@ -3139,11 +3102,6 @@ msgid ""
 "disable this option."
 msgstr "Určuje časové rozmezí (v sekundách) jednotlivých zjišťování a aktualizací vnější veřejné IP adresy (dotazem do jmenné služby DNS), na které probíhá překlad na vnitřní, neveřejné (NAT). Pokud se adresa nemění, můžete toto zjišťování vypnout nastavením na 0 (nula)."
 
-msgid ""
-"Specifies the maximum permitted block size. The permitted range for this "
-"parameter is from 512 to 65464."
-msgstr "Určuje nejvyšší umožněnou velikost bloku. Ta může nabývat hodnot z rozsahu 512 až 65464."
-
 msgid "Specifies the time in hh:mm:ss after which the ban expires."
 msgstr "Určuje lhůtu (ve formátu hh:mm:ss), po jejímž uplynutí skončí platnost vyloučení."
 
@@ -3276,9 +3234,6 @@ msgstr "TAR"
 
 msgid "TCP forwarding"
 msgstr "Přeposílání TCP"
-
-msgid "TFTP"
-msgstr "TFTP"
 
 msgid "Taiwan"
 msgstr "Taiwan"
@@ -3414,9 +3369,11 @@ msgid ""
 "for data connections is not required."
 msgstr "Není vyžadováno, aby SSL relace z řídícího spojení byla následně použita i pro to datové."
 
-msgid ""
-"The session timeout time in minutes. Set to 0 to disable automatic logout."
-msgstr "Při nečinnosti uživatele, za jak dlouho (v minutách) ukončit jeho relaci. Toto automatické odhlašování je možné vypnout nastavením na hodnotu 0 (nula)."
+msgid "The session IP address has been changed."
+msgstr "IP adresa relace byla změněna."
+
+msgid "The session user no longer exists."
+msgstr "Uživatel této relace už neexistuje."
 
 msgid ""
 "The source remote server, e.g. [USER@]HOST:SRC, [USER@]HOST::SRC or "
@@ -3540,9 +3497,15 @@ msgstr "Tato kolonka by měla obsahovat pouze čísla"
 msgid "This field should only contain numbers separated by <,> or <;>"
 msgstr "Tato kolonka by měla obsahovat číslice, oddělené znaky <,> (čárka) nebo <;> (středník)"
 
+msgid "This field should only contain options separated by <,>"
+msgstr "Tato kolonka by měla obsahovat pouze předvolby oddělované znakem <,> (čárka)"
+
 msgid ""
 "This field should only contain ports (0 - 65535) separated by <,> or <;>"
 msgstr "Tato kolonka by měla obsahovat pouze čísla portů (0 - 65535), oddělená znaky <,> (čárka) nebo <;> (středník)"
+
+msgid "This field should only contain strings separated by <,>"
+msgstr "Tato kolonka by měla obsahovat pouze řetězce oddělované znakem <,> (čárka)"
 
 msgid "This field should only contain strings separated by <,> or <;>"
 msgstr "Tato kolonka by měla obsahovat pouze řetězce znaků, oddělených znaky <,> (čárka) nebo <;> (středník)"
@@ -3701,9 +3664,6 @@ msgstr "Čas přenosu"
 
 msgid "Transfer type"
 msgstr "Typ přenosu"
-
-msgid "Traps"
-msgstr "Hlášení událostí (SNMP trap)"
 
 msgid "Treshold"
 msgstr "Práh"
@@ -4010,6 +3970,9 @@ msgstr "Pouze pro zápis"
 msgid "Write/Execute"
 msgstr "Zápis/spouštění"
 
+msgid "Xen virtual disk device"
+msgstr "Úložné zařízení poskytované virtualizací Xen"
+
 msgid "Yearly"
 msgstr "Každoročně"
 
@@ -4018,6 +3981,9 @@ msgstr "Jemen"
 
 msgid "Yes"
 msgstr "Ano"
+
+msgid "You need to commit or cancel your changes"
+msgstr "Změny je třeba buď použít nebo zahodit"
 
 msgid "Zambia"
 msgstr "Zambie"
@@ -4048,6 +4014,9 @@ msgstr "minuty"
 
 msgid "n/a"
 msgstr "neaplikovatelné"
+
+msgid "of {0}"
+msgstr "z {0}"
 
 msgid "old-age"
 msgstr "v minulosti"

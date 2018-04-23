@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -116,21 +116,19 @@ Ext.define("OMV.module.admin.service.ftp.Shares", {
 	stateful: true,
 	stateId: "9889057b-b1c0-4c48-a4c1-8c8b4fb54d7b",
 	columns: [{
-		xtype: "booleaniconcolumn",
+		xtype: "enabledcolumn",
 		text: _("Enabled"),
 		sortable: true,
 		dataIndex: "enable",
-		stateId: "enable",
-		align: "center",
-		width: 80,
-		resizable: false,
-		iconCls:  Ext.baseCSSPrefix + "grid-cell-booleaniconcolumn-switch"
+		stateId: "enable"
 	},{
+		xtype: "textcolumn",
 		text: _("Shared folder"),
 		sortable: true,
 		dataIndex: "sharedfoldername",
 		stateId: "sharedfoldername"
 	},{
+		xtype: "textcolumn",
 		text: _("Comment"),
 		sortable: true,
 		dataIndex: "comment",
@@ -146,6 +144,7 @@ Ext.define("OMV.module.admin.service.ftp.Shares", {
 					idProperty: "uuid",
 					fields: [
 						{ name: "uuid", type: "string" },
+						{ name: "enable", type: "boolean" },
 						{ name: "sharedfoldername", type: "string" },
 						{ name: "comment", type: "string" }
 					]

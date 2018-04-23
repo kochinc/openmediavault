@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,6 +38,10 @@ class OMVRpcServiceClamAV extends \OMV\Rpc\ServiceAbstract {
 		$this->registerMethod("setJob");
 		$this->registerMethod("deleteJob");
 		$this->registerMethod("executeJob");
+		$this->registerMethod("getOnAccessPathList");
+		$this->registerMethod("getOnAccessPath");
+		$this->registerMethod("setOnAccessPath");
+		$this->registerMethod("deleteOnAccessPath");
 	}
 
 	/**
@@ -59,7 +63,7 @@ class OMVRpcServiceClamAV extends \OMV\Rpc\ServiceAbstract {
 		$result['enable'] = $object->get("enable");
 		$result['checks'] = $object->get("freshclam.checks");
 		$result['quarantine_sharedfolderref'] = $object->get(
-		  "quarantine_sharedfolderref");
+		  "quarantine.sharedfolderref");
 		return $result;
 	}
 
@@ -82,7 +86,7 @@ class OMVRpcServiceClamAV extends \OMV\Rpc\ServiceAbstract {
 		$object = $db->get("conf.service.clamav");
 		$object->setFlatAssoc([
 			"enable" => $params['enable'],
-			"quarantine_sharedfolderref" => $params[
+			"quarantine.sharedfolderref" => $params[
 			  'quarantine_sharedfolderref'],
 			"clamd.logclean" => $params['logclean'],
 			"clamd.scanpe" => $params['scanpe'],
@@ -103,7 +107,7 @@ class OMVRpcServiceClamAV extends \OMV\Rpc\ServiceAbstract {
 		]);
 		// Do some validations:
 		// - Check if quarantine shared folder is referenced and required.
-		if (TRUE === $object->isEmpty("quarantine_sharedfolderref")) {
+		if (TRUE === $object->isEmpty("quarantine.sharedfolderref")) {
 			if (TRUE === $db->exists("conf.service.clamav.job", [
 				"operator" => "stringEquals",
 				"arg0" => "virusaction",
@@ -197,12 +201,11 @@ class OMVRpcServiceClamAV extends \OMV\Rpc\ServiceAbstract {
 		$db = \OMV\Config\Database::getInstance();
 		if ("quarantine" === $object->get("virusaction")) {
 			$object2 = $db->get("conf.service.clamav");
-			if ($object2->isEmpty("quarantine_sharedfolderref")) {
+			if ($object2->isEmpty("quarantine.sharedfolderref")) {
 				throw new \OMV\Exception("No quarantine folder is set.");
 			}
 		}
 		// Set the configuration object.
-		$db = \OMV\Config\Database::getInstance();
 		$db->set($object);
 		// Return the configuration object.
 		return $object->getAssoc();
@@ -272,5 +275,109 @@ class OMVRpcServiceClamAV extends \OMV\Rpc\ServiceAbstract {
 				throw new \OMV\ExecException($cmdLine, $output, $exitStatus);
 			return $output;
 		});
+	}
+
+	/**
+	 * Get the list of shared folders for on-access scanning.
+	 * @param params The method parameters.
+	 * @param context The context of the caller.
+	 * @return An array of shared folder objects.
+	 */
+	public function getOnAccessPathList($params, $context) {
+		// Validate the RPC caller context.
+		$this->validateMethodContext($context, [
+			"role" => OMV_ROLE_ADMINISTRATOR
+		]);
+		// Validate the parameters of the RPC service method.
+		$this->validateMethodParams($params, "rpc.common.getlist");
+		// Get the configuration objects.
+		$db = \OMV\Config\Database::getInstance();
+		$objects = $db->get("conf.service.clamav.onaccesspath");
+		// Add additional share information.
+		$objectsAssoc = [];
+		foreach ($objects as $objectk => &$objectv) {
+			// Add the new property 'sharedfoldername'.
+			$objectv->add("sharedfoldername", "string", gettext("n/a"));
+			// Get the shared folder configuration object.
+			$sfObject = $db->get("conf.system.sharedfolder",
+				$objectv->get("sharedfolderref"));
+			// Update the 'sharedfoldername' property.
+			$objectv->set("sharedfoldername", $sfObject->get("name"));
+			$objectsAssoc[] = $objectv->getAssoc();
+		}
+		// Filter the result.
+		return $this->applyFilter($objectsAssoc, $params['start'],
+			$params['limit'], $params['sortfield'], $params['sortdir']);
+	}
+
+	/**
+	 * Get a on-access scanning path configuration object.
+	 * @param params An array containing the following fields:
+	 *   \em uuid The UUID of the configuration object.
+	 * @param context The context of the caller.
+	 * @return The requested configuration object.
+	 */
+	function getOnAccessPath($params, $context) {
+		// Validate the RPC caller context.
+		$this->validateMethodContext($context, [
+			"role" => OMV_ROLE_ADMINISTRATOR
+		]);
+		// Validate the parameters of the RPC service method.
+		$this->validateMethodParams($params, "rpc.common.objectuuid");
+		// Get the configuration object.
+		$db = \OMV\Config\Database::getInstance();
+		return $db->getAssoc("conf.service.clamav.onaccesspath",
+			$params['uuid']);
+	}
+
+	/**
+	 * Set a on-access scanning path configuration object.
+	 * @param params An array containing the following fields:
+	 *   \em uuid The UUID of the configuration object.
+	 *   \em enable TRUE if this on-access scanning directory enabled,
+	 *     otherwise FALSE.
+	 *   \em sharedfolderref The UUID of the shared folder configuration
+	 *     object.
+	 * @param context The context of the caller.
+	 * @return The stored configuration object.
+	 */
+	public function setOnAccessPath($params, $context) {
+		// Validate the RPC caller context.
+		$this->validateMethodContext($context, [
+			"role" => OMV_ROLE_ADMINISTRATOR
+		]);
+		// Validate the parameters of the RPC service method.
+		$this->validateMethodParams($params, "rpc.clamav.setOnAccessPath");
+		// Prepare the configuration object.
+		$object = new \OMV\Config\ConfigObject(
+			"conf.service.clamav.onaccesspath");
+		$object->setAssoc($params);
+		// Set the configuration object.
+		$db = \OMV\Config\Database::getInstance();
+		$db->set($object);
+		// Return the configuration object.
+		return $object->getAssoc();
+	}
+
+	/**
+	 * Delete a on-access scanning path configuration object.
+	 * @param params An array containing the following fields:
+	 *   \em uuid The UUID of the configuration object.
+	 * @param context The context of the caller.
+	 * @return The deleted configuration object.
+	 */
+	public function deleteOnAccessPath($params, $context) {
+		// Validate the RPC caller context.
+		$this->validateMethodContext($context, [
+			"role" => OMV_ROLE_ADMINISTRATOR
+		]);
+		// Validate the parameters of the RPC service method.
+		$this->validateMethodParams($params, "rpc.common.objectuuid");
+		// Delete the configuration object.
+		$db = \OMV\Config\Database::getInstance();
+		$object = $db->get("conf.service.clamav.onaccesspath", $params['uuid']);
+		$db->delete($object);
+		// Return the deleted configuration object.
+		return $object->getAssoc();
 	}
 }

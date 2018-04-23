@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -91,8 +91,8 @@ class OMVRpcServiceNetwork extends \OMV\Rpc\ServiceAbstract {
 			$gateway6 = $iface->getGateway6();
 			$address = $iface->getIP();
 			$address6 = $iface->getIP6();
-			$netmask = $iface->getMask();
-			$netmask6 = $iface->getMask6();
+			$netmask = $iface->getNetmask();
+			$netmask6 = $iface->getNetmask6();
 			$ether = $iface->getMAC();
 			$state = $iface->getState();
 			$speed = $iface->getSpeed();
@@ -100,6 +100,8 @@ class OMVRpcServiceNetwork extends \OMV\Rpc\ServiceAbstract {
 			$obj['gateway6'] = !$gateway6 ? "" : $gateway6;
 			$obj['address'] = !$address ? "" : $address;
 			$obj['address6'] = !$address6 ? "" : $address6;
+			$obj['prefix'] = $iface->getPrefix();
+			$obj['prefix6'] = $iface->getPrefix6();
 			$obj['netmask'] = !$netmask ? "" : $netmask;
 			$obj['netmask6'] = !$netmask6 ? -1 : $netmask6;
 			$obj['ether'] = !$ether ? "" : $ether;
@@ -378,9 +380,11 @@ class OMVRpcServiceNetwork extends \OMV\Rpc\ServiceAbstract {
 			$cmdArgs[] = $params['seconds'];
 			$cmd = new \OMV\System\Process("ethtool", $cmdArgs);
 			$cmd->setRedirect2to1();
-			$cmdLine = $cmd->getCommandLine();
-			if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename))
-				throw new \OMV\ExecException($cmdLine, $output);
+			if (0 !== ($exitStatus = $this->exec($cmd->getCommandLine(),
+				$output, $bgOutputFilename))) {
+				throw new \OMV\ExecException($cmd->getCommandLine(), $output,
+					$exitStatus);
+			}
 			return $output;
 		});
 	}
@@ -717,8 +721,8 @@ class OMVRpcServiceNetwork extends \OMV\Rpc\ServiceAbstract {
 				}
 			}
 			// Get the next free device name.
-			$params['devicename'] = \OMV\System\System::getNextDevice(
-			  "iface", "bond");
+			$params['devicename'] = \OMV\System\Net\NetworkInterfaceBond::
+				getNextDeviceName();
 		}
 		// Set the configuration object.
 		return $this->setInterfaceConfig($params, [

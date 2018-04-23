@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -30,8 +30,9 @@ OMV_CONFIG_TEMPLATE_FILE=${OMV_CONFIG_TEMPLATE_FILE:-"/usr/share/openmediavault/
 # Install the configuration database.
 if [ ! -e "${OMV_CONFIG_FILE}" ]; then
 	cp ${OMV_CONFIG_TEMPLATE_FILE} ${OMV_CONFIG_FILE}
-	chmod 660 ${OMV_CONFIG_FILE}
-	chown :openmediavault-config ${OMV_CONFIG_FILE}
 fi
+# Always update the file permissions.
+chmod 660 ${OMV_CONFIG_FILE}
+chown :openmediavault-config ${OMV_CONFIG_FILE}
 
 exit 0

@@ -1,3 +1,53 @@
+openmediavault-forkeddaapd (4.0.7-1) stable; urgency=low
+
+  * Issue #62: Monit config for forked-daapd causes monit to think forked-daapd
+    is not running.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Sat, 17 Mar 2018 09:06:09 +0100
+
+openmediavault-forkeddaapd (4.0.6-1) stable; urgency=low
+
+  * Fix postrm script.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Tue, 06 Mar 2018 19:25:19 +0100
+
+openmediavault-forkeddaapd (4.0.5-1) stable; urgency=low
+
+  * Update locales.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Sat, 03 Mar 2018 07:21:42 +0100
+
+openmediavault-forkeddaapd (4.0.4-1) stable; urgency=low
+
+  * Various improvements.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Mon, 27 Nov 2017 07:36:15 +0100
+
+openmediavault-forkeddaapd (4.0.3-1) stable; urgency=low
+
+  * Remove configuration in database when package is purged.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Mon, 20 Nov 2017 18:43:03 +0100
+
+openmediavault-forkeddaapd (4.0.2-1) stable; urgency=low
+
+  * Update locales.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Sat, 18 Nov 2017 10:03:33 +0100
+
+openmediavault-forkeddaapd (4.0.1-1) stable; urgency=low
+
+  * Update locales.
+  * Use Material Design icons.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Wed, 15 Nov 2017 22:13:20 +0100
+
+openmediavault-forkeddaapd (4.0-1) stable; urgency=low
+
+  * Adapt to Debian 9 (Stretch).
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Sun, 20 Aug 2017 13:13:29 +0200
+
 openmediavault-forkeddaapd (3.1.8) stable; urgency=low
 
   * Mantis 0001692: Fix bug causing a fatal error.

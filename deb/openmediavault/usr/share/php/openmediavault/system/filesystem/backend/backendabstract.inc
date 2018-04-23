@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,11 +55,11 @@ abstract class BackendAbstract {
 	 * is not identified by the block device identification library.
 	 * This method is only called when the method \ref isBlkidEnumerated
 	 * returns FALSE.
-	 * @return An array of objects with the fields \em devicefile, \em uuid,
-	 *   \em label and \em type, otherwise FALSE.
+	 * @return An array of associative arrays with the fields \em devicefile,
+	 *   \em uuid, \em label and \em type.
 	 */
 	public function enumerate() {
-		return FALSE;
+		return [];
 	}
 
 	/**
@@ -72,6 +72,19 @@ abstract class BackendAbstract {
 	 */
 	public function isBlkidEnumerated() {
 		return TRUE;
+	}
+
+	/**
+	 * Process the filesystems that are identified by the block device
+	 * identification library.
+	 * @param enums An array of associative arrays of the detected
+	 *   filesystems. An associative array contains at least the fields
+	 *   \em devicefile, \em uuid, \em label and \em type.
+	 * @return Returns an array of associative arrays of the processed
+	 *   filesystems.
+	 */
+	public function enumerateByBlkid(array $enums) {
+		return $enums;
 	}
 
 	/**

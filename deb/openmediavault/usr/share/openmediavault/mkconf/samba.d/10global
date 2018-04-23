@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -87,8 +87,6 @@ xmlstarlet sel -t -m "//services/smb" \
     -o "aio read size = ${OMV_SAMBA_AIOREADSIZE}" -n \
     -o "aio write size = ${OMV_SAMBA_AIOWRITESIZE}" -n \
   -b \
-  -i "nullpasswords[. = '1']" -o "null passwords = yes" -n -b \
-  -i "nullpasswords[. = '0']" -o "null passwords = no" -n -b \
   -i "localmaster[. = '1']" -o "local master = yes" -n -b \
   -i "localmaster[. = '0']" -o "local master = no" -n -b \
   -i "timeserver[. = '1']" -o "time server = yes" -n -b \

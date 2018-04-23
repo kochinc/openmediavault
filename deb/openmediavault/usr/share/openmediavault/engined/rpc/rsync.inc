@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -74,12 +74,12 @@ class OMVRpcServiceRsync extends \OMV\Rpc\ServiceAbstract {
 				// Get the shared folder configuration object and update the
 				// 'srcname' property.
 				$sfObject = $db->get("conf.system.sharedfolder",
-				  $objectv->get("src"));
+				  $objectv->get("src.sharedfolderref"));
 				$objectv->set("srcname", $sfObject->get("name"));
 				// Get the shared folder configuration object and update the
 				// 'destname' property.
 				$sfObject = $db->get("conf.system.sharedfolder",
-				  $objectv->get("dest"));
+				  $objectv->get("dest.sharedfolderref"));
 				$objectv->set("destname", $sfObject->get("name"));
 				break;
 			case "remote":
@@ -87,18 +87,18 @@ class OMVRpcServiceRsync extends \OMV\Rpc\ServiceAbstract {
 				case "push":
 					// Get the shared folder config object.
 					$sfObject = $db->get("conf.system.sharedfolder",
-					  $objectv->get("src"));
+					  $objectv->get("src.sharedfolderref"));
 					// Set the additional 'srcname' and 'destname' properties.
 					$objectv->set("srcname", $sfObject->get("name"));
-					$objectv->copy("dest", "destname");
+					$objectv->copy("dest.uri", "destname");
 					break;
 				case "pull":
 					// Get the shared folder config object.
 					$sfObject = $db->get("conf.system.sharedfolder",
-					  $objectv->get("dest"));
+					  $objectv->get("dest.sharedfolderref"));
 					// Set the additional 'srcname' and 'destname' properties.
 					$objectv->set("destname", $sfObject->get("name"));
-					$objectv->copy("src", "srcname");
+					$objectv->copy("src.uri", "srcname");
 					break;
 				}
 				break;
@@ -130,18 +130,18 @@ class OMVRpcServiceRsync extends \OMV\Rpc\ServiceAbstract {
 		// Add additional information.
 		switch ($object->get("type")) {
 		case "local":
-			$object->copy("src", "srcsharedfolderref");
-			$object->copy("dest", "destsharedfolderref");
+			$object->copy("src.sharedfolderref", "srcsharedfolderref");
+			$object->copy("dest.sharedfolderref", "destsharedfolderref");
 			break;
 		case "remote":
 			switch ($object->get("mode")) {
 			case "push":
-				$object->copy("src", "srcsharedfolderref");
-				$object->copy("dest", "desturi");
+				$object->copy("src.sharedfolderref", "srcsharedfolderref");
+				$object->copy("dest.uri", "desturi");
 				break;
 			case "pull":
-				$object->copy("src", "srcuri");
-				$object->copy("dest", "destsharedfolderref");
+				$object->copy("src.uri", "srcuri");
+				$object->copy("dest.sharedfolderref", "destsharedfolderref");
 				break;
 			}
 			break;
@@ -167,18 +167,28 @@ class OMVRpcServiceRsync extends \OMV\Rpc\ServiceAbstract {
 		$object->setAssoc($params, TRUE, TRUE);
 		switch ($params['type']) {
 		case "local":
-			$object->set("src", $params['srcsharedfolderref']);
-			$object->set("dest", $params['destsharedfolderref']);
+			$object->set("src.sharedfolderref", $params[
+				'srcsharedfolderref']);
+			$object->set("src.uri", "");
+			$object->set("dest.sharedfolderref", $params[
+				'destsharedfolderref']);
+			$object->set("dest.uri", "");
 			break;
 		case "remote":
 			switch ($params['mode']) {
 			case "push":
-				$object->set("src", $params['srcsharedfolderref']);
-				$object->set("dest", $params['desturi']);
+				$object->set("src.sharedfolderref", $params[
+					'srcsharedfolderref']);
+				$object->set("src.uri", "");
+				$object->set("dest.sharedfolderref", "");
+				$object->set("dest.uri", $params['desturi']);
 				break;
 			case "pull":
-				$object->set("src", $params['srcuri']);
-				$object->set("dest", $params['destsharedfolderref']);
+				$object->set("src.sharedfolderref", "");
+				$object->set("src.uri", $params['srcuri']);
+				$object->set("dest.sharedfolderref", $params[
+					'destsharedfolderref']);
+				$object->set("dest.uri", "");
 				break;
 			}
 			break;
@@ -246,12 +256,11 @@ class OMVRpcServiceRsync extends \OMV\Rpc\ServiceAbstract {
 			$cmd = new \OMV\System\Process("sudo", $cmdArgs);
 			$cmd->setEnv("SHELL", "/bin/sh");
 			$cmd->setRedirect2to1();
-			$cmdLine = $cmd->getCommandLine();
-			// Execute the command.
-			$exitStatus = $this->exec($cmdLine, $output, $bgOutputFilename);
-			// Check the exit status.
-			if (0 !== $exitStatus)
-				throw new \OMV\ExecException($cmdLine, $output, $exitStatus);
+			if (0 !== ($exitStatus = $this->exec($cmd->getCommandLine(),
+				$output, $bgOutputFilename))) {
+				throw new \OMV\ExecException($cmd->getCommandLine(), $output,
+					$exitStatus);
+			}
 			return $output;
 		});
 	}

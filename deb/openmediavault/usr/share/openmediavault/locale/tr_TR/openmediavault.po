@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the openmediavault package.
 # 
 # Translators:
-# Serhat SUT <serhat.sut@gmail.com>, 2012-2016
+# Serhat SUT <serhat.sut@gmail.com>, 2012-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 06:19+0100\n"
-"PO-Revision-Date: 2016-12-06 05:21+0000\n"
-"Last-Translator: Volker <votdev@gmx.de>\n"
+"POT-Creation-Date: 2018-01-21 11:50+0100\n"
+"PO-Revision-Date: 2018-01-24 17:56+0000\n"
+"Last-Translator: Serhat SUT <serhat.sut@gmail.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/votdev/openmediavault/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr_TR\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #, javascript-format
 msgid "% completed ..."
@@ -42,6 +42,9 @@ msgstr "1 - Minimum güç kullanımı - Bekleme (dönüş durması) ile"
 
 msgid "1 day"
 msgstr "1 gün"
+
+msgid "1 minute"
+msgstr "1 dakika"
 
 msgid "1 month"
 msgstr "1 ay"
@@ -71,6 +74,9 @@ msgstr "127 - Orta düzey güç kullanımı - Bekleme ile"
 msgid "128 - Minimum power usage without standby (no spindown)"
 msgstr "128 - En az güç kullanımı - Bekleme (dönüş durması) olmaksızın"
 
+msgid "15 minutes"
+msgstr "15 dakika"
+
 msgid "15 years"
 msgstr "15 yıl"
 
@@ -82,6 +88,9 @@ msgstr "192 - Orta düzey güç kullanımı - bekleme olmaksızın"
 
 msgid "2 days"
 msgstr "2 gün"
+
+msgid "2 minutes"
+msgstr "2 dakika"
 
 msgid "2 weeks"
 msgstr "2 hafta"
@@ -110,6 +119,9 @@ msgstr "255 - Kapatılmış"
 msgid "3 days"
 msgstr "3 gün"
 
+msgid "3 minutes"
+msgstr "3 dakika"
+
 msgid "3 months"
 msgstr "3 ay"
 
@@ -126,10 +138,13 @@ msgid "300 minutes"
 msgstr "300 dakika"
 
 msgid "330 minutes"
-msgstr ""
+msgstr "330 dakika"
 
 msgid "4 days"
 msgstr "4 gün"
+
+msgid "4 minutes"
+msgstr "4 dakika"
 
 msgid "4 years"
 msgstr "4 yıl"
@@ -294,21 +309,12 @@ msgstr "Cezayir"
 msgid "All"
 msgstr "Tüm"
 
-msgid "Allow client access to accounts that have null passwords"
-msgstr "Kullanıcıların hesaplarına boş şifre ile ulaşmalarına izin ver"
-
 msgid ""
 "Allow clients to attempt to store OS/2 style extended attributes on a share."
 msgstr "Kullanıcıların paylaşımda OS/2 stili genişletilmiş özellikler saklamasına izin ver."
 
 msgid "Allow clients to resume interrupted uploads and downloads"
 msgstr "Kullanıcıların kesilmiş yükleme ve indirmelerine devam etmesine izin ver"
-
-msgid "Allow new files"
-msgstr "Yeni dosyalara izin ver"
-
-msgid "Allow new files to be created."
-msgstr "Yeni dosyaların yaratılmasına izin ver."
 
 msgid ""
 "Allow this server to advertise itself as a time server to Windows clients"
@@ -417,26 +423,20 @@ msgstr "Onaylanmış kullanıcı kimliği"
 msgid "Authentication"
 msgstr "Onaylama"
 
-msgid "Authentication and no privacy"
-msgstr "Kimlik denetimi ve gizlilik olmaması"
-
-msgid "Authentication and privacy"
-msgstr "Kimlik denetimi ve gizlilik"
-
 msgid "Authentication method"
 msgstr "Doğrulama metodu"
-
-msgid "Authentication passphrase"
-msgstr "Onaylama parolası"
 
 msgid "Authentication required"
 msgstr "Onaylama gereklidir"
 
-msgid "Authentication type"
-msgstr "Onaylana tipi"
-
 msgid "Auto"
 msgstr "Otomatik"
+
+msgid "Auto logout"
+msgstr "Otomatik çıkış"
+
+msgid "Auto logout after the specified idle period."
+msgstr "Belirlenmiş süre sonunda otomatik çıkış."
 
 msgid "Automatic Acoustic Management"
 msgstr "Otomatik Akustik Yönetimi"
@@ -492,9 +492,6 @@ msgstr "İkili sayı sistemi"
 msgid "Block layer cache [%s, %s]"
 msgstr "Blok katman arabelleği [%s, %s]"
 
-msgid "Blocksize"
-msgstr "Blok ebadı"
-
 msgid "Bolivia"
 msgstr "Bolivya"
 
@@ -539,9 +536,6 @@ msgstr "Burkina Faso"
 
 msgid "Burundi"
 msgstr "Burundi"
-
-msgid "By default, only files that already exist are allowed to be uploaded."
-msgstr "Standart olarak, sadece şu anda mevcut olan dosyalar yüklenebilir."
 
 msgid "CPU usage"
 msgstr "CPU kullanımı"
@@ -648,9 +642,6 @@ msgstr "Açıklama"
 msgid "Common Name"
 msgstr "Genel İsim"
 
-msgid "Community"
-msgstr "Topluluk"
-
 msgid "Community-maintained updates."
 msgstr "Topluluk tarafından yönetilen güncellemeler."
 
@@ -695,14 +686,6 @@ msgstr "Kongo (Kinsaşa)"
 
 msgid "Connections"
 msgstr "Bağlantılar"
-
-msgid "Contact"
-msgstr "İletişim"
-
-msgid ""
-"Contact information, e.g. name or email address of the person responsible "
-"for this system."
-msgstr "İletişim bilgisi, örn. sistem sorumlusunun adı ve e-mail adresi."
 
 msgid "Conveyance self-test"
 msgstr "Geri bildirimli iç kontrol"
@@ -833,11 +816,6 @@ msgstr "Hedef paylaşılmış klasör"
 msgid "Detail"
 msgstr "Detay"
 
-msgid ""
-"Determine the default timeout, in microseconds, before the first packet is "
-"retransmitted."
-msgstr "Birinci paketin tekrar gönderilmesinden önce geçerli zaman aşımını milisaniye cinsinden tanımlayınız."
-
 msgid "Device"
 msgstr "Aygıt"
 
@@ -845,7 +823,7 @@ msgid "Device Mapper %s [%s, %s]"
 msgstr "Aygıt Bağlantılandırıcısı %s [%s, %s]"
 
 msgid "Device Symlinks"
-msgstr ""
+msgstr "Aygıt Sembolik Linkleri"
 
 msgid "Device has a few bad sectors"
 msgstr "Aygıtta az bir miktar bozuk sektör var"
@@ -898,8 +876,14 @@ msgstr "Kullanıcıların bu hesabı değiştirmesini engelle."
 msgid "Disk usage"
 msgstr "Disk kullanımı"
 
+msgid "Disks"
+msgstr "Diskler"
+
 msgid "Displaying items {0} - {1} of {2}"
 msgstr "Ögeler gösteriliyor {0} - {1} / {2}"
+
+msgid "Displaying {0} - {1} of {2}"
+msgstr "Gösteriliyor {0} - {1} / {2}"
 
 msgid "Djibouti"
 msgstr "Cibuti"
@@ -1063,6 +1047,9 @@ msgstr "Zamanlanmış görevi düzenle"
 msgid "Edit scheduled test"
 msgstr "Zamanlanmış test düzenle"
 
+msgid "Edit service"
+msgstr "Servisi düzenle"
+
 msgid "Edit share"
 msgstr "Paylaşım düzenle"
 
@@ -1190,6 +1177,9 @@ msgstr "Hata"
 
 msgid "Error #"
 msgstr "Hata #"
+
+msgid "Errors"
+msgstr "Hatalar"
 
 msgid "Estonia"
 msgstr "Estonya"
@@ -1322,6 +1312,9 @@ msgstr "Güvenlik duvarı"
 
 msgid "Firmware version"
 msgstr "Gömülü yazılım sürümü"
+
+msgid "First Page"
+msgstr "İlk sayfa"
 
 msgid "Flags"
 msgstr "Flamalar"
@@ -1765,6 +1758,9 @@ msgstr "Dil"
 msgid "Laos"
 msgstr "Laos"
 
+msgid "Last Page"
+msgstr "Son sayfa"
+
 msgid "Latvia"
 msgstr "Letonya"
 
@@ -1823,9 +1819,6 @@ msgstr "Yerel ana tarayıcı"
 
 msgid "Location"
 msgstr "Yerleşim"
-
-msgid "Location information, e.g. physical location of this system."
-msgstr "Yerleşim bilgisi, örneğin sistemin fiziksel yerleşimi."
 
 msgid "Log level"
 msgstr "Kayıt seviyesi"
@@ -2113,6 +2106,9 @@ msgstr "Yeni Kaledonya"
 msgid "New Zealand"
 msgstr "Yeni Zellanda"
 
+msgid "Next Page"
+msgstr "Sonraki sayfa"
+
 msgid "Nicaragua"
 msgstr "Nikaragua"
 
@@ -2134,14 +2130,14 @@ msgstr "Erişim yok"
 msgid "No action"
 msgstr "İşlem yapma"
 
-msgid "No authentication and no privacy"
-msgstr "Kimlik doğrulama ve gizlilik yok"
-
 msgid "No certificate request"
 msgstr "Sertifika talebi yok"
 
 msgid "No connections"
 msgstr "Baülantı yok"
+
+msgid "No data to display"
+msgstr "Gösterilecek bilgi yok"
 
 msgid "No items to display"
 msgstr "Gösterilecek herhangi bir öge yok"
@@ -2199,9 +2195,6 @@ msgstr "Uyarılar"
 
 msgid "November"
 msgstr "Kasım"
-
-msgid "Null passwords"
-msgstr "Boş şifreler"
 
 msgid "Num"
 msgstr "Rakam"
@@ -2265,6 +2258,9 @@ msgstr "Pasifik Adaları Ortaklığı Bölgesi"
 
 msgid "Package information"
 msgstr "Paket bilgisi"
+
+msgid "Page"
+msgstr "Sayfa"
 
 msgid "Page not found"
 msgstr "Sayfa bulunamadı"
@@ -2353,9 +2349,6 @@ msgstr "Peru"
 msgid "Philippines"
 msgstr "Filipinler"
 
-msgid "Physical Disks"
-msgstr "Fiziksel Disk"
-
 msgid "Physical disk properties"
 msgstr "Fiziksel disk özellikleri"
 
@@ -2366,12 +2359,6 @@ msgid ""
 "Please check the <a href='http://linux.die.net/man/5/exports' "
 "target='_blank'>manual page</a> for more details."
 msgstr "Daha fazla bilgi için lütfen <a href='http://linux.die.net/man/5/exports' target='_blank'>manual page</a> adresini ziyaret ediniz."
-
-msgid ""
-"Please check the <a href='http://www.openbsd.org/cgi-"
-"bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>manual page</a> for"
-" more details."
-msgstr "Daha fazla bilgi için lütfen <a href='http://www.openbsd.org/cgi-bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>manual page</a> adresini ziyaret ediniz."
 
 msgid ""
 "Please check the <a href='http://www.proftpd.org/docs/contrib/mod_tls.html' "
@@ -2405,16 +2392,16 @@ msgid ""
 "target='_blank'>manual page</a> for more details."
 msgstr "Daha fazla bilgi için lütfen <a href='http://www.samba.org/ftp/rsync/rsyncd.conf.html' target='_blank'>manual page</a> adresini ziyaret ediniz."
 
+msgid ""
+"Please check the <a href='https://man.openbsd.org/sshd_config.5' "
+"target='_blank'>manual page</a> for more details."
+msgstr "Daha fazla bilgi için lütfen <a href='https://man.openbsd.org/sshd_config.5' target='_blank'>manual page</a> adresini ziyaret ediniz."
+
 msgid "Please choose the method to wipe the device or 'Cancel' to abort."
 msgstr "Lütfen aygıtı silmek için bir metod seçiniz ya da iptal etmek için \"İptal\" tuşuna basınız."
 
 msgid "Please first select a device."
 msgstr "Lütfen önce bir aygıt seçiniz."
-
-msgid ""
-"Please make sure that the shared folder is publicly writable if new files "
-"are allowed."
-msgstr "Yeni dosyalara izin verilmiş ise paylaşılan klasörün herkes tarafından yazılabilir olduğundan emin olunuz."
 
 msgid ""
 "Please note that no communication with the system is possible during this "
@@ -2440,9 +2427,6 @@ msgstr "Polonya"
 
 msgid "Port"
 msgstr "Port"
-
-msgid "Port to listen on."
-msgstr "Dinlenen port"
 
 msgid "Portugal"
 msgstr "Portekiz"
@@ -2487,17 +2471,14 @@ msgid ""
 " not what you want.</li></ul>"
 msgstr "Düzenli konttroller sırasında diskin tekrar dönmesini önler.<br/><ul><li>Asla - Aygıtı güç durumuna bakmaksızın kontrol eder. Bu dönmesi durdurulmuş bir diskin tekrar dönmeye başlamasına neden olabilir.</li><li>Uyku - Aygıtı UYKU durumu dışında ise kontrol eder.</li><li>Bekleme - Aygıtı UYKU veya BEKLEME durumları dışında ise kontrol eder. Bu modlarda pek çok disk dönmemektedir, yani her kontrolde disklerin tekrar dönmeye başlamasını istemiyor iseniz, bu size en uygun seçenektir.</li><li>Hazır - Aygıtı UYKU, BEKLEME yada HAZIR modlarında kontrol eder. HAZIR durumunda pek çok disk hala dönmektedir, yani bu muhtemelen sizin isteğinize uygun değildir.</li><ul>"
 
+msgid "Previous Page"
+msgstr "Önceki sayfa"
+
 msgid "Primary"
 msgstr "Birincil"
 
 msgid "Primary email"
 msgstr "Birincil e-posta"
-
-msgid "Privacy passphrase"
-msgstr "Gizlilik parolası"
-
-msgid "Privacy type"
-msgstr "Gizlilik tipi"
 
 msgid "Private key"
 msgstr "Gizli anahtar"
@@ -2703,9 +2684,6 @@ msgstr "Sonuç"
 msgid "Resume"
 msgstr "Devam et"
 
-msgid "Retry timeout"
-msgstr "Tekrar deneme zaman aşımı"
-
 msgid "Reunion"
 msgstr "Birleşmek"
 
@@ -2768,15 +2746,6 @@ msgstr "SMTP sunucu"
 
 msgid "SMTP settings"
 msgstr "SMTP ayarları"
-
-msgid "SNMP"
-msgstr "SNMP"
-
-msgid "SNMP version 1/2c"
-msgstr "SNMP sürüm 1/2c"
-
-msgid "SNMP version 3"
-msgstr "SNMP sürüm 3"
 
 msgid "SSH"
 msgstr "SSH"
@@ -2864,9 +2833,6 @@ msgstr "Güvenli"
 
 msgid "Secure connection"
 msgstr "Güvenli bağlantı"
-
-msgid "Security level"
-msgstr "Güvenlik seviyesi"
 
 msgid "Select a SSH certificate ..."
 msgstr "SSH sertifikası seçiniz ..."
@@ -2981,9 +2947,6 @@ msgstr "Oturum zaman aşımına uğradı"
 
 msgid "Session not authenticated."
 msgstr "Oturum onaylanmadı"
-
-msgid "Session timeout"
-msgstr "Oturum zamanaşımı"
 
 msgid "Set browseable"
 msgstr "Taranabilir yap"
@@ -3138,11 +3101,6 @@ msgid ""
 "disable this option."
 msgstr "Gizli adresin IP adresi çözülerek güncellenmesi için geçen süreyi saniye cinsinden belirtir. Bu opsiyonu kapatmak için 0 değerini giriniz."
 
-msgid ""
-"Specifies the maximum permitted block size. The permitted range for this "
-"parameter is from 512 to 65464."
-msgstr "İzin verilen en büyük blok büyüklüğünü belirler. Bu değişken için kullanılabiliecek değerler 512 ila 65464 arasındadır."
-
 msgid "Specifies the time in hh:mm:ss after which the ban expires."
 msgstr "Yasaklamanın kalkacağı zamanı SS:dd:ss cinsinden tanımlar."
 
@@ -3275,9 +3233,6 @@ msgstr "TAR"
 
 msgid "TCP forwarding"
 msgstr "TCP yönlendirme"
-
-msgid "TFTP"
-msgstr "TFTP"
 
 msgid "Taiwan"
 msgstr "Tayvan"
@@ -3413,9 +3368,11 @@ msgid ""
 "for data connections is not required."
 msgstr "Kontrol bağlantılarındaki SSL oturumlarının data bağlantılarında yeniden kullanılması gerekli değildir."
 
-msgid ""
-"The session timeout time in minutes. Set to 0 to disable automatic logout."
-msgstr "Dakika olarak oturum sonlandırma süresi. Otomatik çıkışı iptal etmek için değeri 0 olarak ayarlayınız."
+msgid "The session IP address has been changed."
+msgstr "Oturum IP adresi deiğişmiştir."
+
+msgid "The session user no longer exists."
+msgstr "Oturum artık geçerli değildir."
 
 msgid ""
 "The source remote server, e.g. [USER@]HOST:SRC, [USER@]HOST::SRC or "
@@ -3539,9 +3496,15 @@ msgstr "Bu alan sadece rakam içerebilir"
 msgid "This field should only contain numbers separated by <,> or <;>"
 msgstr "Bu alan sadece <,> veya <;> ile ayrılmış rakam içerebilir"
 
+msgid "This field should only contain options separated by <,>"
+msgstr "Bu alan sadece <,> ile ayrılmış seçenekleri içerebilir."
+
 msgid ""
 "This field should only contain ports (0 - 65535) separated by <,> or <;>"
 msgstr "Bu alan sadece <,> veya <;> ile ayrılmış port (0 - 65535) numarası içerebilir"
+
+msgid "This field should only contain strings separated by <,>"
+msgstr "Bu alan sadece <,> ile ayrılmış değerleri içerebilir."
 
 msgid "This field should only contain strings separated by <,> or <;>"
 msgstr "Bu alan sadece <,> veya <;> ile ayrılmış değer içerebilir"
@@ -3700,9 +3663,6 @@ msgstr "Aktarım zamanı"
 
 msgid "Transfer type"
 msgstr "Aktarım tipi"
-
-msgid "Traps"
-msgstr "Kapan"
 
 msgid "Treshold"
 msgstr "Eşik değer"
@@ -4009,6 +3969,9 @@ msgstr "Sadece yazılabilir"
 msgid "Write/Execute"
 msgstr "Yaz/Çalıştır"
 
+msgid "Xen virtual disk device"
+msgstr "Xen sanal disk aygıtı"
+
 msgid "Yearly"
 msgstr "Yılda bir"
 
@@ -4017,6 +3980,9 @@ msgstr "Yemen"
 
 msgid "Yes"
 msgstr "Evet"
+
+msgid "You need to commit or cancel your changes"
+msgstr "Yaptığınız değişiklikleri onaylamalı ya da iptal etmelisiniz"
 
 msgid "Zambia"
 msgstr "Zambiya"
@@ -4047,6 +4013,9 @@ msgstr "dakika"
 
 msgid "n/a"
 msgstr "yok"
+
+msgid "of {0}"
+msgstr "/ {0}"
 
 msgid "old-age"
 msgstr "Yaşlı"

@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,9 +39,11 @@ OMV.util.Format = function() {
 			 */
 			boolean: function(value) {
 				var trueValue = [ true, 1, "true", "ok", "1", "y",
-				  "yes", "on" ];
+					"yes", "on" ];
+				if (Ext.isString(value))
+					value = value.toLowerCase();
 				return Ext.Array.contains(trueValue, value) ?
-				  _("Yes") : _("No");
+					_("Yes") : _("No");
 			},
 
 			/**
@@ -200,9 +202,12 @@ OMV.util.Format = function() {
 			 * Returns a rendering function that displays a progress bar.
 			 * @param percentage A floating point value between 0 and 1.
 			 * @param text The text shown in the progress bar.
+			 * @param warningThreshold A floating point value between 0 and 1.
+			 *   When the \em percentage value is above this value, the
+			 *   progress bar will be rendered in a warning color.
 			 * @return The rendering function.
 			 */
-			progressBarRenderer: function(percentage, text) {
+			progressBarRenderer: function(percentage, text, warningThreshold) {
 				return function(value, metaData, record, rowIndex, colIndex,
 				  store, view) {
 					var id = Ext.id();
@@ -210,12 +215,18 @@ OMV.util.Format = function() {
 					var fn = function() {
 						// Make sure the element already exists. If not,
 						// then trigger this function delayed again.
-						if(null == Ext.get(id)) {
+						if (null == Ext.get(id)) {
 							Ext.Function.defer(fn, 50);
 							return;
 						}
+						cls = ""
+						if (Ext.isDefined(warningThreshold)) {
+							if (percentage >= warningThreshold)
+								cls = Ext.baseCSSPrefix + "progress-warning";
+						}
 						Ext.widget("progressbar", {
 							renderTo: id,
+							cls: cls,
 							value: percentage,
 							text: text,
 							listeners: {

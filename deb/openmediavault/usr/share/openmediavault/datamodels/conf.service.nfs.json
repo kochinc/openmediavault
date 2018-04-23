@@ -45,7 +45,8 @@
 								"type": "string"
 							},
 							"extraoptions": {
-								"type": "string"
+								"type": "string",
+								"pattern": "/^(([a-zA-Z_]+)(=([\\w@:\\/]+))?[,])*([a-zA-Z_]+)(=([\\w@:\\/]+))?$/"
 							}
 						}
 					}

@@ -1,20 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-clamav package.
 # 
 # Translators:
 # Alexander Savchenko, 2012,2014
 # Alexander Savchenko <>, 2012
 # Alexander Savchenko, 2014
 # mictian <ffrants@gmail.com>, 2012
+# Volker <votdev@gmx.de>, 2017
 # Артур Мудрых <arturmon82@gmail.com>, 2012-2013
+# Артур Мудрых <arturmon82@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-23 19:15+0200\n"
-"PO-Revision-Date: 2015-03-04 20:15+0000\n"
-"Last-Translator: Alexander Savchenko\n"
+"POT-Creation-Date: 2017-11-18 11:05+0100\n"
+"PO-Revision-Date: 2017-11-27 07:23+0000\n"
+"Last-Translator: Артур Мудрых <arturmon82@gmail.com>\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/votdev/openmediavault/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,8 +24,11 @@ msgstr ""
 "Language: ru_RU\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-msgid "Add job"
-msgstr "Добавить задание"
+msgid "Add on-access scan"
+msgstr "Добавить проверку доступа"
+
+msgid "Add scheduled job"
+msgstr "Добавить запланированное задание"
 
 msgid "Algorithmic detection"
 msgstr "Алгоритмическое обнаружение"
@@ -60,8 +65,14 @@ msgstr "Обнаружение PUA"
 msgid "Detect broken executables"
 msgstr "Обнаружение повреждённых исполняемых файлов"
 
-msgid "Edit job"
-msgstr "Редактировать задание"
+msgid "Done ..."
+msgstr "Выполнено..."
+
+msgid "Edit on-access scan"
+msgstr "Редактировать проверку доступа"
+
+msgid "Edit scheduled job"
+msgstr "Изменить запланированное задание"
 
 msgid "Enable"
 msgstr "Включить"
@@ -107,8 +118,8 @@ msgstr "Каждый N час"
 msgid "Every N minute"
 msgstr "Каждую N минуту"
 
-msgid "Execute cron job"
-msgstr "Выполнение cron задания"
+msgid "Execute scheduled job"
+msgstr "Выполнение запланированного задания"
 
 msgid "Extra options"
 msgstr "Дополнительные опции"
@@ -134,9 +145,6 @@ msgstr "Час"
 msgid "Infected files"
 msgstr "Зараженные файлы"
 
-msgid "Jobs"
-msgstr "Задания"
-
 msgid "Log clean files"
 msgstr "Записывать в лог чистые файлы"
 
@@ -161,6 +169,9 @@ msgstr "Мультисканирование"
 msgid "Number of database update checks per day. Set to 0 to disable."
 msgstr "Количество проверок обновлений базы данных в день. Установите в 0 для отключения."
 
+msgid "On Access Scans"
+msgstr "Проверка доступа"
+
 msgid "On-access"
 msgstr "При обращении"
 
@@ -168,9 +179,10 @@ msgid "Perform a deeper analysis of executable files."
 msgstr "Выполнить более глубокий анализ исполняемых файлов."
 
 msgid ""
-"Please check the <a href='http://linux.die.net/man/5/clamd.conf' "
-"target='_blank'>manual page</a> for more details."
-msgstr "Пожалуйста, проверьте <a href='http://linux.die.net/man/5/clamd.conf' target='_blank'>страницу руководства</a> для более подробной информации."
+"Please check the <a href='https://github.com/vrtadmin/clamav-"
+"faq/raw/master/manual/clamdoc.pdf' target='_blank'>manual page</a> for more "
+"details."
+msgstr "Пожалуйста, проверьте <a href='https://github.com/vrtadmin/clamav-faq/raw/master/manual/clamdoc.pdf' target='_blank'>страницу руководства</a> для более подробной информации."
 
 msgid "Quarantine"
 msgstr "Карантин"
@@ -199,17 +211,23 @@ msgstr "Сканировать архивы"
 msgid "Scan the directory contents in parallel using available threads."
 msgstr "Сканировать содержимое каталога параллельно, используя доступные потоки."
 
+msgid "Scheduled Jobs"
+msgstr "Запланированные задания"
+
 msgid "Send command output via email"
 msgstr "Отправить вывод комманды по электронной почте"
 
 msgid "Send email"
-msgstr "Отпавить электронное письмо"
+msgstr "Отправить электронное письмо"
 
 msgid "Settings"
 msgstr "Настройки"
 
 msgid "Shared folder"
 msgstr "Общая папка"
+
+msgid "The location of the files to scan on-access."
+msgstr "Расположение файлов для сканирования по доступу."
 
 msgid "The location of the files to scan."
 msgstr "Расположение файлов для сканирования."

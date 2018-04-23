@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -30,21 +30,12 @@ OMV_INTERFACES_WOL_OPTION=${OMV_INTERFACES_WOL_OPTION:-"g"}
 xmlstarlet sel -t \
   -m "//system/network/interfaces/interface[type='vlan']" \
 	  -n \
-      -v "concat('# ',vlanrawdevice,'.',vlanid,' network interface')" -n \
-      -v "concat('auto ',vlanrawdevice,'.',vlanid)" -n \
-      -v "concat('iface ',vlanrawdevice,'.',vlanid,' inet ',method)" -n \
-      -v "concat('    vlan-raw-device ',vlanrawdevice)" -n \
+	  -v "concat('# ',vlanrawdevice,'.',vlanid,' network interface')" -n \
+	  -v "concat('auto ',vlanrawdevice,'.',vlanid)" -n \
+	  -v "concat('iface ',vlanrawdevice,'.',vlanid,' inet ',method)" -n \
+	  -v "concat('    vlan-raw-device ',vlanrawdevice)" -n \
 	  -i "method = 'manual'" \
 		  -o "    pre-down ip -4 addr flush dev \$IFACE" -n \
-		  -i "string-length(mtu) > 0 and mtu > 0" \
-			  -v "concat('    mtu ',mtu)" -n \
-		  -b \
-		  -i "wol = 1" \
-			  -o "    pre-down ethtool -s \$IFACE wol ${OMV_INTERFACES_WOL_OPTION}" -n \
-		  -b \
-		  -i "string-length(options) > 0" \
-			  -v "concat('    pre-up ethtool -s \$IFACE ',options)" -n \
-		  -b \
 	  -b \
 	  -i "method = 'static'" \
 		  -v "concat('    address ',address)" -n \
@@ -56,7 +47,7 @@ xmlstarlet sel -t \
 	  -i "method = 'dhcp'" \
 	  -b \
 	  -i "string-length(mtu) > 0 and mtu > 0" \
-		  -v "concat('    post-up /sbin/ifconfig \$IFACE mtu ',mtu)" -n \
+		  -v "concat('    mtu ',mtu)" -n \
 	  -b \
 	  -i "string-length(dnsnameservers) > 0" \
 		  -v "concat('    dns-nameservers ',dnsnameservers)" -n \
@@ -73,8 +64,8 @@ xmlstarlet sel -t \
 	  -i "string-length(options) > 0" \
 		  -v "concat('    pre-up ethtool -s \$IFACE ',options)" -n \
 	  -b \
-      -v "concat('iface ',vlanrawdevice,'.',vlanid,' inet6 ',method6)" -n \
-      -v "concat('    vlan-raw-device ',vlanrawdevice)" -n \
+	  -v "concat('iface ',vlanrawdevice,'.',vlanid,' inet6 ',method6)" -n \
+	  -v "concat('    vlan-raw-device ',vlanrawdevice)" -n \
 	  -i "method6 = 'manual'" \
 		  -o "    pre-down ip -6 addr flush dev \$IFACE" -n \
 	  -b \

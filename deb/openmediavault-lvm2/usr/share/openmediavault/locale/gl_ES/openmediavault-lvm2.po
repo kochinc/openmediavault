@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-lvm2 package.
 # 
 # Translators:
 # Miguel Anxo Bouzada <mbouzada@gmail.com>, 2013
@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-23 19:15+0200\n"
-"PO-Revision-Date: 2016-04-23 17:16+0000\n"
+"POT-Creation-Date: 2017-08-30 08:41+0200\n"
+"PO-Revision-Date: 2017-09-19 17:07+0000\n"
 "Last-Translator: Volker <votdev@gmx.de>\n"
 "Language-Team: Galician (Spain) (http://www.transifex.com/votdev/openmediavault/language/gl_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: gl_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Active"
+msgstr ""
 
 msgid "Add physical volume"
 msgstr "Engadir un volume físico"
@@ -120,6 +123,9 @@ msgstr "Seleccione un dispositivo ..."
 
 msgid "Size"
 msgstr "Tamaño"
+
+msgid "Snapshot"
+msgstr ""
 
 msgid "Used"
 msgstr "Usado"

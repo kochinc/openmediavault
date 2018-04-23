@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,22 +68,25 @@ Ext.define("OMV.grid.Panel", {
 			};
 		}
 		// Disable mask after data has been loaded the first time?
-		me.store.on("load", function(store, records, options) {
-			if(me.disableLoadMaskOnLoad) {
-				if(Ext.isObject(me.view)) {
-					if(Ext.isObject(me.view.loadMask)) {
-						me.view.loadMask.bindStore(null);
-						delete me.view.loadMask;
+		if (me.disableLoadMaskOnLoad) {
+			me.store.on({
+				single: true,
+				load: function(store, records, options) {
+					if (Ext.isObject(me.view)) {
+						if (Ext.isObject(me.view.loadMask)) {
+							me.view.loadMask.bindStore(null);
+							delete me.view.loadMask;
+						} else {
+							me.view.loadMask = false;
+						}
 					} else {
-						me.view.loadMask = false;
+						Ext.apply(me.viewConfig, {
+							loadMask: false
+						});
 					}
-				} else {
-					Ext.apply(me.viewConfig, {
-						loadMask: false
-					});
 				}
-			}
-		});
+			});
+		}
 		// Reload grid content when panel is activated?
 		if(me.reloadOnActivate) {
 			me.on("activate", function() {
@@ -144,7 +147,7 @@ Ext.define("OMV.grid.Panel", {
 	/**
 	 * Loads an array of data straight into the grid.
 	 * @param values The values to load into the grids store.
-	 * @return None.
+	 * @return void
 	 */
 	setValues: function(values) {
 		var me = this;
@@ -165,6 +168,7 @@ Ext.define("OMV.grid.Panel", {
 
 	/**
 	 * Load the grid content.
+	 * @return void
 	 */
 	doLoad: function() {
 		var me = this;
@@ -173,9 +177,14 @@ Ext.define("OMV.grid.Panel", {
 
 	/**
 	 * Reload the grid content.
+	 * @return void
 	 */
 	doReload: function() {
 		var me = this;
+		// Do not reload the store if it is currently performing a
+		// load operation.
+		if (me.getStore().isLoading())
+			return;
 		me.getStore().reload();
 	}
 });

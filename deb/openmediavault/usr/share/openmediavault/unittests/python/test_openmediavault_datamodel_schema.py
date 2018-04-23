@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -77,9 +77,14 @@ class SchemaTestCase(unittest.TestCase):
 		schema._check_format("/dev/disk/by-id/wwn-0x5020c298d81c1c3a",
 			{ "format": "devicefile" }, "field1")
 
-	def test_check_format_dirpath(self):
+	def test_check_format_dirpath_1(self):
 		schema = openmediavault.datamodel.Schema({})
 		schema._check_format("/media/a/b/c/@data",
+			{ "format": "dirpath" }, "field1")
+
+	def test_check_format_dirpath_2(self):
+		schema = openmediavault.datamodel.Schema({})
+		schema._check_format("Library/App Support/Logs/",
 			{ "format": "dirpath" }, "field1")
 
 	def test_check_format_dirpath_fail(self):

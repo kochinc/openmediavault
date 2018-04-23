@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,9 +64,12 @@ class SystemCtl {
 	 * @param command The command to execute, e.g. start, stop, restart, ...
 	 * @param options A list of optional command options.
 	 * @param quiet Do not throw an error on failure. Defaults to FALSE.
+	 * @param output If the output argument is present, then the specified
+	 *   array will be filled with every line of output from the command.
 	 * @return The exit code if \em quite is set to TRUE.
 	 */
-	private function exec($command, array $options = null, $quiet = FALSE) {
+	private function exec($command, array $options = NULL, $quiet = FALSE,
+			array &$output = NULL) {
 		$cmdArgs = [];
 		// Append (global) command options.
 		if (!empty($this->options) && is_array($this->options))
@@ -75,7 +78,7 @@ class SystemCtl {
 		if (!empty($options) && is_array($options))
 			$cmdArgs = array_merge($cmdArgs, $options);
 		$cmdArgs[] = $command;
-		$cmdArgs[] = $this->getName();
+		$cmdArgs[] = escapeshellarg($this->getName());
 		// Execute the command.
 		$cmd = new \OMV\System\Process("systemctl", $cmdArgs);
 		$cmd->setRedirect2to1();
@@ -96,9 +99,9 @@ class SystemCtl {
 			$options[] = "--now";
 		$this->exec("enable", $options, $quiet);
 */
-		$this->exec("enable", null, $quiet);
+		$this->exec("enable", NULL, $quiet);
 		if (TRUE === $now)
-			$this->exec("start", null, $quiet);
+			$this->exec("start", NULL, $quiet);
 	}
 
 	/**
@@ -113,16 +116,16 @@ class SystemCtl {
 			$options[] = "--now";
 		$this->exec("disable", $options, $quiet);
 */
-		$this->exec("disable", null, $quiet);
+		$this->exec("disable", NULL, $quiet);
 		if (TRUE === $now)
-			$this->exec("stop", null, $quiet);
+			$this->exec("stop", NULL, $quiet);
 	}
 
 	/**
 	 * Reenable the specified unit file.
 	 */
 	public function reenable($quiet = FALSE) {
-		$this->exec("reenable", null, $quiet);
+		$this->exec("reenable", NULL, $quiet);
 	}
 
 	/**
@@ -130,49 +133,63 @@ class SystemCtl {
 	 * @return TRUE if the unit is enabled, otherwise FALSE.
 	 */
 	public function isEnabled() {
-		return (0 == $this->exec("is-enabled", null, TRUE));
+		$exitStatus = $this->exec("is-enabled", NULL, TRUE, $output);
+		if (0 !== $exitStatus)
+			return FALSE;
+		return "enabled" == trim($output[0]);
 	}
 
 	/**
 	 * Start (activate) the specified unit.
 	 */
 	public function start($quiet = FALSE) {
-		$this->exec("start", null, $quiet);
+		$this->exec("start", NULL, $quiet);
 	}
 
 	/**
 	 * Stop (deactivate) the specified unit.
 	 */
 	public function stop($quiet = FALSE) {
-		$this->exec("stop", null, $quiet);
+		$this->exec("stop", NULL, $quiet);
 	}
 
 	/**
 	 * Restart the specified unit.
 	 */
 	public function restart($quiet = FALSE) {
-		$this->exec("restart", null, $quiet);
+		$this->exec("restart", NULL, $quiet);
 	}
 
 	/**
 	 * Asks the specified unit to reload its configuration.
 	 */
 	public function reload($quiet = FALSE) {
-		$this->exec("reload", null, $quiet);
+		$this->exec("reload", NULL, $quiet);
+	}
+
+	/**
+	 * Checks whether the specified unit file is masked.
+	 * @return TRUE if the unit is masked, otherwise FALSE.
+	 */
+	public function isMasked() {
+		$exitStatus = $this->exec("is-enabled", NULL, TRUE, $output);
+		if (0 == $exitStatus)
+			return FALSE;
+		return "masked" == trim($output[0]);
 	}
 
 	/**
 	 * Mask the specified unit file.
 	 */
 	public function mask($quiet = FALSE) {
-		$this->exec("mask", null, $quiet);
+		$this->exec("mask", NULL, $quiet);
 	}
 
 	/**
 	 * Unmask the specified unit file.
 	 */
 	public function unmask($quiet = FALSE) {
-		$this->exec("unmask", null, $quiet);
+		$this->exec("unmask", NULL, $quiet);
 	}
 
 	/**
@@ -180,14 +197,14 @@ class SystemCtl {
 	 * @return TRUE if the unit is active, otherwise FALSE.
 	 */
 	public function isActive() {
-		return (0 == $this->exec("is-active", null, TRUE));
+		return (0 == $this->exec("is-active", NULL, TRUE));
 	}
 
 	/**
 	 * Wait until the specified unit is active. If the unit is not active
 	 * within the given time, then an exception is thrown.
 	 * @param timeout Timeout in seconds to wait for an active unit.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\Exception
 	 */
 	public function waitUntilActive($timeout) {
@@ -212,5 +229,23 @@ class SystemCtl {
 		$options = [];
 		$options[] = sprintf("--signal=%s", $signal);
 		return (0 == $this->exec("kill", $options, $quiet));
+	}
+
+	/**
+	 * Escape strings for usage in system unit names.
+	 * @see https://www.freedesktop.org/software/systemd/man/systemd-escape.html
+	 * @param str The string to escape.
+	 * @param options An array of 'systemd-escape' options.
+	 * @return Returns the escaped string.
+	 * @throw \OMV\Exception
+	 */
+	public static function escape($str, $options) {
+		$cmdArgs = [];
+		if (!empty($options) && is_array($options))
+			$cmdArgs = array_merge($cmdArgs, $options);
+		$cmdArgs[] = escapeshellarg($str);
+		$cmd = new \OMV\System\Process("systemd-escape", $cmdArgs);
+		$cmd->setRedirect2to1();
+		return $cmd->execute();
 	}
 }

@@ -51,15 +51,18 @@
 			},
 			"dnsnameservers": {
 			   "type": "string",
+			   "pattern": "/^((\\S+[,;])*\\S+)?$/i",
 			   "required": true
 			},
 			"dnssearch": {
 			   "type": "string",
+			   "pattern": "/^((\\S+[,;])*\\S+)?$/i",
 			   "required": true
 			},
 			"mtu": {
 			   "type": "integer",
 			   "minimum": 0,
+			   "maximum": 65535,
 			   "required": true
 			},
 			"wol": {
@@ -129,14 +132,18 @@
 			},
 			"dnsnameservers": {
 			   "type": "string",
+			   "pattern": "/^((\\S+[,;])*\\S+)?$/i",
 			   "required": true
 			},
 			"dnssearch": {
 			   "type": "string",
+			   "pattern": "/^((\\S+[,;])*\\S+)?$/i",
 			   "required": true
 			},
 			"mtu": {
-			   "type": [ "integer", "string" ],
+			   "type": "integer",
+			   "minimum": 0,
+			   "maximum": 65535,
 			   "required": true
 			},
 			"wol": {
@@ -235,14 +242,18 @@
 			},
 			"dnsnameservers": {
 			   "type": "string",
+			   "pattern": "/^((\\S+[,;])*\\S+)?$/i",
 			   "required": true
 			},
 			"dnssearch": {
 			   "type": "string",
+			   "pattern": "/^((\\S+[,;])*\\S+)?$/i",
 			   "required": true
 			},
 			"mtu": {
-			   "type": [ "integer", "string" ],
+			   "type": "integer",
+			   "minimum": 0,
+			   "maximum": 65535,
 			   "required": true
 			},
 			"wol": {
@@ -322,14 +333,18 @@
 			},
 			"dnsnameservers": {
 			   "type": "string",
+			   "pattern": "/^((\\S+[,;])*\\S+)?$/i",
 			   "required": true
 			},
 			"dnssearch": {
 			   "type": "string",
+			   "pattern": "/^((\\S+[,;])*\\S+)?$/i",
 			   "required": true
 			},
 			"mtu": {
-			   "type": [ "integer", "string" ],
+			   "type": "integer",
+			   "minimum": 0,
+			   "maximum": 65535,
 			   "required": true
 			},
 			"wol": {

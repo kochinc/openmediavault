@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -35,7 +35,19 @@ class ProductInfo(object):
 			"/usr/share/openmediavault/productinfo.xml")
 		tree = xml.etree.ElementTree.parse(prod_file)
 		for child in tree.iter():
+			# Skip all elements with children.
+			if list(child):
+				continue
 			self._dict[child.tag] = child.text
+
+	def as_dict(self):
+		"""
+		Get the product information as Python dictionary.
+		:returns: Returns the product information as Python dictionary.
+		"""
+		result = self._dict.copy()
+		result['version'] = self.version
+		return result;
 
 	@property
 	def name(self):

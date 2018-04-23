@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 // require("js/omv/Rpc.js")
 // require("js/omv/data/Store.js")
 // require("js/omv/data/Model.js")
-// require("js/omv/data/proxy/Rpc.js")
+// require("js/omv/data/proxy/RpcBg.js")
 
 /**
  * @class OMV.module.admin.storage.physicaldisk.Settings
@@ -159,7 +159,7 @@ Ext.define("OMV.module.admin.storage.physicaldisk.Devices", {
 		"OMV.Rpc",
 		"OMV.data.Store",
 		"OMV.data.Model",
-		"OMV.data.proxy.Rpc"
+		"OMV.data.proxy.RpcBg"
 	],
 	uses: [
 		"OMV.module.admin.storage.physicaldisk.Settings",
@@ -173,6 +173,7 @@ Ext.define("OMV.module.admin.storage.physicaldisk.Devices", {
 	stateful: true,
 	stateId: "5e5cc148-c1e7-11e0-99e1-00221568ca88",
 	columns: [{
+		xtype: "textcolumn",
 		text: _("Device"),
 		sortable: true,
 		dataIndex: "devicefile",
@@ -230,10 +231,10 @@ Ext.define("OMV.module.admin.storage.physicaldisk.Devices", {
 					]
 				}),
 				proxy: {
-					type: "rpc",
+					type: "rpcbg",
 					rpcData: {
 						service: "DiskMgmt",
-						method: "getList"
+						method: "getListBg"
 					}
 				},
 				remoteSort: true,
@@ -253,8 +254,7 @@ Ext.define("OMV.module.admin.storage.physicaldisk.Devices", {
 			id: me.getId() + "-wipe",
 			xtype: "button",
 			text: _("Wipe"),
-			icon: "images/erase.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-eraser",
 			handler: me.onWipebutton,
 			scope: me,
 			disabled: true,
@@ -271,8 +271,7 @@ Ext.define("OMV.module.admin.storage.physicaldisk.Devices", {
 			id: me.getId() + "-scan",
 			xtype: "button",
 			text: _("Scan"),
-			icon: "images/search.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-search",
 			handler: me.onScanButton,
 			scope: me
 		}]);
@@ -400,9 +399,8 @@ Ext.define("OMV.module.admin.storage.physicaldisk.Devices", {
 OMV.WorkspaceManager.registerNode({
 	id: "physicaldisk",
 	path: "/storage",
-	text: _("Physical Disks"),
-	icon16: "images/hdd.png",
-	iconSvg: "images/hdd.svg",
+	text: _("Disks"),
+	iconCls: "mdi mdi-harddisk",
 	position: 10
 });
 

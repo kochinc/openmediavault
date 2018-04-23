@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 06:19+0100\n"
-"PO-Revision-Date: 2016-12-06 05:21+0000\n"
+"POT-Creation-Date: 2018-01-21 11:50+0100\n"
+"PO-Revision-Date: 2018-01-21 10:50+0000\n"
 "Last-Translator: Volker <votdev@gmx.de>\n"
 "Language-Team: Norwegian (http://www.transifex.com/votdev/openmediavault/language/no/)\n"
 "MIME-Version: 1.0\n"
@@ -44,6 +44,9 @@ msgstr "1 - Minste strømforbruk uten standby (spindown)"
 msgid "1 day"
 msgstr "1 dag"
 
+msgid "1 minute"
+msgstr ""
+
 msgid "1 month"
 msgstr "1 måned"
 
@@ -72,6 +75,9 @@ msgstr "127 - Gjennomsnittlig strømforbruk med standby"
 msgid "128 - Minimum power usage without standby (no spindown)"
 msgstr "128 - Minste strømforbruk uten standby (ingen spindown)"
 
+msgid "15 minutes"
+msgstr ""
+
 msgid "15 years"
 msgstr "15 år"
 
@@ -83,6 +89,9 @@ msgstr "192 - Gjennomsnittlig strømforbruk uten standby"
 
 msgid "2 days"
 msgstr "2 dager"
+
+msgid "2 minutes"
+msgstr ""
 
 msgid "2 weeks"
 msgstr "2 uker"
@@ -111,6 +120,9 @@ msgstr "255 - Deaktivert"
 msgid "3 days"
 msgstr "3 dager"
 
+msgid "3 minutes"
+msgstr ""
+
 msgid "3 months"
 msgstr "3 måneder"
 
@@ -131,6 +143,9 @@ msgstr ""
 
 msgid "4 days"
 msgstr "4 dager"
+
+msgid "4 minutes"
+msgstr ""
 
 msgid "4 years"
 msgstr "4 år"
@@ -295,21 +310,12 @@ msgstr "Algeri"
 msgid "All"
 msgstr "Alle"
 
-msgid "Allow client access to accounts that have null passwords"
-msgstr "Tillat klienttilang til kontoer uten passord"
-
 msgid ""
 "Allow clients to attempt to store OS/2 style extended attributes on a share."
 msgstr "Tillat klienter å forsøke å lagre OS/2 stilede attributter på et delt område."
 
 msgid "Allow clients to resume interrupted uploads and downloads"
 msgstr "Tillat klienter å gjenopta avbrutte ned- og opplastninger"
-
-msgid "Allow new files"
-msgstr "Tillat nye filer"
-
-msgid "Allow new files to be created."
-msgstr "Tillat at nye filer blir opprettet."
 
 msgid ""
 "Allow this server to advertise itself as a time server to Windows clients"
@@ -418,25 +424,19 @@ msgstr "Autentisert bruker ID"
 msgid "Authentication"
 msgstr "Godkjenning"
 
-msgid "Authentication and no privacy"
-msgstr "Autentisering og ingen kryptering"
-
-msgid "Authentication and privacy"
-msgstr "Autentisering og kryptering"
-
 msgid "Authentication method"
 msgstr "Autentiseringsmetode"
-
-msgid "Authentication passphrase"
-msgstr "Godkjenningspassord"
 
 msgid "Authentication required"
 msgstr "Autentisering kreves"
 
-msgid "Authentication type"
-msgstr "Autentiseringstype"
-
 msgid "Auto"
+msgstr ""
+
+msgid "Auto logout"
+msgstr ""
+
+msgid "Auto logout after the specified idle period."
 msgstr ""
 
 msgid "Automatic Acoustic Management"
@@ -493,9 +493,6 @@ msgstr "Binær"
 msgid "Block layer cache [%s, %s]"
 msgstr ""
 
-msgid "Blocksize"
-msgstr "Blokkstørrelse"
-
 msgid "Bolivia"
 msgstr "Bolivia"
 
@@ -540,9 +537,6 @@ msgstr "Burkina Faso"
 
 msgid "Burundi"
 msgstr "Burundi"
-
-msgid "By default, only files that already exist are allowed to be uploaded."
-msgstr "Som standard kan kun filer som allerede eksisterer laste opp."
 
 msgid "CPU usage"
 msgstr "CPU belastning"
@@ -649,9 +643,6 @@ msgstr "Kommentar"
 msgid "Common Name"
 msgstr "Fellesnavn"
 
-msgid "Community"
-msgstr "Community"
-
 msgid "Community-maintained updates."
 msgstr ""
 
@@ -696,14 +687,6 @@ msgstr "Kongo"
 
 msgid "Connections"
 msgstr "Tilkoblinger"
-
-msgid "Contact"
-msgstr "Kontakt"
-
-msgid ""
-"Contact information, e.g. name or email address of the person responsible "
-"for this system."
-msgstr "Kontaktinformasjon, f.eks. navn eller epostadresse til personen ansvarlig for dette systemet."
 
 msgid "Conveyance self-test"
 msgstr "Conveyance selvtest"
@@ -834,11 +817,6 @@ msgstr "Målmappe"
 msgid "Detail"
 msgstr "Detaljer"
 
-msgid ""
-"Determine the default timeout, in microseconds, before the first packet is "
-"retransmitted."
-msgstr "Sett standard timeout i millisekunder, før den første pakken er sendt på nytt."
-
 msgid "Device"
 msgstr "Enhet"
 
@@ -899,8 +877,14 @@ msgstr "Hindre brukeren fra å endre kontoen"
 msgid "Disk usage"
 msgstr "Diskbruk"
 
+msgid "Disks"
+msgstr ""
+
 msgid "Displaying items {0} - {1} of {2}"
 msgstr "Viser {0} - {1} av {2}"
+
+msgid "Displaying {0} - {1} of {2}"
+msgstr ""
 
 msgid "Djibouti"
 msgstr "Djibouti"
@@ -1064,6 +1048,9 @@ msgstr "Rediger planlagt oppgave"
 msgid "Edit scheduled test"
 msgstr "Endre planlagt test"
 
+msgid "Edit service"
+msgstr ""
+
 msgid "Edit share"
 msgstr "Endre delt område"
 
@@ -1191,6 +1178,9 @@ msgstr "Feil"
 
 msgid "Error #"
 msgstr "Feil #"
+
+msgid "Errors"
+msgstr ""
 
 msgid "Estonia"
 msgstr "Estland"
@@ -1323,6 +1313,9 @@ msgstr "Brannmur"
 
 msgid "Firmware version"
 msgstr "Firmwareversjon"
+
+msgid "First Page"
+msgstr ""
 
 msgid "Flags"
 msgstr ""
@@ -1766,6 +1759,9 @@ msgstr "Språk"
 msgid "Laos"
 msgstr "Laos"
 
+msgid "Last Page"
+msgstr ""
+
 msgid "Latvia"
 msgstr "Latvia"
 
@@ -1824,9 +1820,6 @@ msgstr "Lokal master browser"
 
 msgid "Location"
 msgstr "Plassering"
-
-msgid "Location information, e.g. physical location of this system."
-msgstr "Plasseringsinformasjon, f.eks. den fysiske plasseringen av dette systemet."
 
 msgid "Log level"
 msgstr "Loggnivået"
@@ -2114,6 +2107,9 @@ msgstr "Ny-Caledonia"
 msgid "New Zealand"
 msgstr "New Zealand"
 
+msgid "Next Page"
+msgstr ""
+
 msgid "Nicaragua"
 msgstr "Nicaragua"
 
@@ -2135,14 +2131,14 @@ msgstr "Ingen tilgang"
 msgid "No action"
 msgstr "Ingen handling"
 
-msgid "No authentication and no privacy"
-msgstr "Ingen autentisering og ingen kryptering"
-
 msgid "No certificate request"
 msgstr "Sertifikat kreves ikke"
 
 msgid "No connections"
 msgstr "Ingen tilkoblinger"
+
+msgid "No data to display"
+msgstr ""
 
 msgid "No items to display"
 msgstr "Ingen elementer å vise"
@@ -2200,9 +2196,6 @@ msgstr "Varslinger"
 
 msgid "November"
 msgstr "November"
-
-msgid "Null passwords"
-msgstr "Ingen passord"
 
 msgid "Num"
 msgstr "Num"
@@ -2266,6 +2259,9 @@ msgstr "USAs stillehavsprotektorat"
 
 msgid "Package information"
 msgstr "Pakkeinformasjon"
+
+msgid "Page"
+msgstr ""
 
 msgid "Page not found"
 msgstr ""
@@ -2354,9 +2350,6 @@ msgstr "Peru"
 msgid "Philippines"
 msgstr "Filippinene"
 
-msgid "Physical Disks"
-msgstr "Fysiske disker"
-
 msgid "Physical disk properties"
 msgstr ""
 
@@ -2367,12 +2360,6 @@ msgid ""
 "Please check the <a href='http://linux.die.net/man/5/exports' "
 "target='_blank'>manual page</a> for more details."
 msgstr "Vennligst sjekk <a href='http://linux.die.net/man/5/exports' target='_blank'> brukermanual</a> for flere detaljer."
-
-msgid ""
-"Please check the <a href='http://www.openbsd.org/cgi-"
-"bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>manual page</a> for"
-" more details."
-msgstr "Vennligst sjekk <a href='http://www.openbsd.org/cgi-bin/man.cgi?query=sshd_config&sektion=5' target='_blank'> brukermanual</a> for flere detaljer."
 
 msgid ""
 "Please check the <a href='http://www.proftpd.org/docs/contrib/mod_tls.html' "
@@ -2406,15 +2393,15 @@ msgid ""
 "target='_blank'>manual page</a> for more details."
 msgstr "Vennligst sjekk <a href='http://www.samba.org/samba/docs/man/manpages-3/smb.conf.5.html' target='_blank'>brukermanualen</a> for flere detaljer."
 
+msgid ""
+"Please check the <a href='https://man.openbsd.org/sshd_config.5' "
+"target='_blank'>manual page</a> for more details."
+msgstr ""
+
 msgid "Please choose the method to wipe the device or 'Cancel' to abort."
 msgstr "Velg en metode for å rense enheten eller 'Avbryt' for å avbryte."
 
 msgid "Please first select a device."
-msgstr ""
-
-msgid ""
-"Please make sure that the shared folder is publicly writable if new files "
-"are allowed."
 msgstr ""
 
 msgid ""
@@ -2441,9 +2428,6 @@ msgstr "Polen"
 
 msgid "Port"
 msgstr "Port"
-
-msgid "Port to listen on."
-msgstr "Port å lytte på."
 
 msgid "Portugal"
 msgstr "Portugal"
@@ -2488,17 +2472,14 @@ msgid ""
 " not what you want.</li></ul>"
 msgstr "Hindre en disk fra å være spunnet opp når den er periodisk forespurt.<br/><ul><li>Aldri - Spørr (kontroller) enheten uavhengig av strømtilstand. Dette kan føre til at en disk som er spunnet ned blir spunnet opp for å kontrolleres.</li><li>Sover - Kontroller enheten med mindre den er i SOVEMODUS.</li><li>Ventemodus - Kontroller enheten med mindre den er i VENTE- eller SOVEMODUS. I disse modusene står de fleste disker stille, så hvis du ønsker å hindre en disk dra å spinne opp ved hver kontroll er det sannsynligvis dette du ønsker.</li><li>Inaktiv - Kotroller enheten med mindre den er i SOVE, VENTE eller INAKTIV modus. I inaktivt modus spinner fortsatt de fleste disker så dette er sannsynligvis ikke det du vil.</li></ul>"
 
+msgid "Previous Page"
+msgstr ""
+
 msgid "Primary"
 msgstr "Primær"
 
 msgid "Primary email"
 msgstr "Primær epost"
-
-msgid "Privacy passphrase"
-msgstr "Passord for kryptering"
-
-msgid "Privacy type"
-msgstr "Krypteringstype"
 
 msgid "Private key"
 msgstr "Privat nøkkel"
@@ -2704,9 +2685,6 @@ msgstr ""
 msgid "Resume"
 msgstr "Gjenopta"
 
-msgid "Retry timeout"
-msgstr "Forsøk tidsavbrudd på nytt"
-
 msgid "Reunion"
 msgstr "Gjenforening"
 
@@ -2769,15 +2747,6 @@ msgstr "SMTP server"
 
 msgid "SMTP settings"
 msgstr "SMTP instillinger"
-
-msgid "SNMP"
-msgstr "SNMP"
-
-msgid "SNMP version 1/2c"
-msgstr "SNMP versjon 1/2c"
-
-msgid "SNMP version 3"
-msgstr "SNMP versjon 3"
 
 msgid "SSH"
 msgstr "SSH"
@@ -2865,9 +2834,6 @@ msgstr "Sikker"
 
 msgid "Secure connection"
 msgstr "Sikker tikobling"
-
-msgid "Security level"
-msgstr "Sikkerhetsnivå"
 
 msgid "Select a SSH certificate ..."
 msgstr ""
@@ -2982,9 +2948,6 @@ msgstr "Sesjon utgått."
 
 msgid "Session not authenticated."
 msgstr "Sesjon ikke autentisert."
-
-msgid "Session timeout"
-msgstr "Tidsavbrudd for sesjonen"
 
 msgid "Set browseable"
 msgstr "Sett søkbar"
@@ -3139,11 +3102,6 @@ msgid ""
 "disable this option."
 msgstr "Spesifiser tiden, i sekunder, mellom kontroll og oppdatering av masquerade adresse ved å løse IP adressen. Sett verdien til 0 for å slå av denne funksjonen."
 
-msgid ""
-"Specifies the maximum permitted block size. The permitted range for this "
-"parameter is from 512 to 65464."
-msgstr "Angir maksimalt tillat blokk størrelse. Det tillatte området for denne parameteren er fra 512 til 65464."
-
 msgid "Specifies the time in hh:mm:ss after which the ban expires."
 msgstr "Angir tiden i tt:mm:ss hvoretter forbudet utløper."
 
@@ -3276,9 +3234,6 @@ msgstr "TAR"
 
 msgid "TCP forwarding"
 msgstr "TCP videresending"
-
-msgid "TFTP"
-msgstr "TFTP"
 
 msgid "Taiwan"
 msgstr "Taiwan"
@@ -3414,9 +3369,11 @@ msgid ""
 "for data connections is not required."
 msgstr "Kravet om at SSL-økt fra kontrolltilkobling gjenbrukes for datatilkoblinger er ikke nødvendig."
 
-msgid ""
-"The session timeout time in minutes. Set to 0 to disable automatic logout."
-msgstr "Sesjonens timeout i minutter. Sett til 0 for å deaktivere automatisk utlogging."
+msgid "The session IP address has been changed."
+msgstr ""
+
+msgid "The session user no longer exists."
+msgstr ""
 
 msgid ""
 "The source remote server, e.g. [USER@]HOST:SRC, [USER@]HOST::SRC or "
@@ -3540,8 +3497,14 @@ msgstr "Dette feltet skal kun inneholde tall"
 msgid "This field should only contain numbers separated by <,> or <;>"
 msgstr ""
 
+msgid "This field should only contain options separated by <,>"
+msgstr ""
+
 msgid ""
 "This field should only contain ports (0 - 65535) separated by <,> or <;>"
+msgstr ""
+
+msgid "This field should only contain strings separated by <,>"
 msgstr ""
 
 msgid "This field should only contain strings separated by <,> or <;>"
@@ -3701,9 +3664,6 @@ msgstr "Overføringstid"
 
 msgid "Transfer type"
 msgstr "Overføringstype"
-
-msgid "Traps"
-msgstr "Traps"
 
 msgid "Treshold"
 msgstr "Terskel"
@@ -4010,6 +3970,9 @@ msgstr "Kun skrive"
 msgid "Write/Execute"
 msgstr ""
 
+msgid "Xen virtual disk device"
+msgstr ""
+
 msgid "Yearly"
 msgstr ""
 
@@ -4018,6 +3981,9 @@ msgstr "Jemen"
 
 msgid "Yes"
 msgstr "Ja"
+
+msgid "You need to commit or cancel your changes"
+msgstr ""
 
 msgid "Zambia"
 msgstr "Sambia"
@@ -4048,6 +4014,9 @@ msgstr "minutter"
 
 msgid "n/a"
 msgstr "n/a"
+
+msgid "of {0}"
+msgstr ""
 
 msgid "old-age"
 msgstr ""

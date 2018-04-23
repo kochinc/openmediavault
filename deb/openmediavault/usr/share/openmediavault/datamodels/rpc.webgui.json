@@ -31,7 +31,7 @@
 			"timeout": {
 				"type": "integer",
 				"minimum": 0,
-				"maximum": 30,
+				"maximum": 1440,
 				"required": true
 			}
 		}

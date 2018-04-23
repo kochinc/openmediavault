@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ require_once("openmediavault/functions.inc");
  * @ingroup api
  */
 class Rpc {
-	use \OMV\Debugable;
+	use \OMV\DebugTrait;
 
 	const MODE_LOCAL = 0x1;
 	const MODE_REMOTE = 0x2;
@@ -200,6 +200,39 @@ class Rpc {
 				  $error['trace']);
 			}
 			return $response['response'];
+		}
+	}
+
+	/**
+	 * Execute the given RPC as background process.
+	 * @param string $service The name of the service.
+	 * @param string $method The name of the method.
+	 * @param mixed $params The parameters hash object to be passed to
+	 *   the method of the given service.
+	 * @param object $context The context hash object of the caller containing
+	 *   the fields \em username and \em role.
+	 * @return object The RPC response.
+	 */
+	public static function callBg($service, $method, $params, $context) {
+		$rpcServiceMngr = &\OMV\Rpc\ServiceManager::getInstance();
+		if (FALSE !== ($rpcService = $rpcServiceMngr->getService($service))) {
+			if (TRUE === $rpcService->hasMethod($method)) {
+				// Restore server and execution environment information
+				// if exists.
+				if (array_key_exists("_SERVER", $context)) {
+					foreach ($context['_SERVER'] as $key => $value) {
+						$_SERVER[$key] = $value;
+					}
+					unset($context['_SERVER']);
+				}
+				// Execute the RPC service method as a background process.
+				return $rpcService->callMethodBg($method, $params, $context);
+			} else {
+				throw new Exception("The method '%s' does not exist ".
+					"for the RPC service '%s'.", $method, $service);
+			}
+		} else {
+			throw new Exception("RPC service '%s' not found.", $service);
 		}
 	}
 }

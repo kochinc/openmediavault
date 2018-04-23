@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -212,9 +212,7 @@ class Module(openmediavault.firstaid.IModule):
 							backtitle=self.description,
 							height=5, width=32)
 						continue
-					try:
-						ipaddress.ip_address(netmask6)
-					except:
+					if int(netmask6) < 0 or int(netmask6) > 128:
 						netmask6 = None
 						d.msgbox("Please enter a valid netmask.",
 							backtitle=self.description,

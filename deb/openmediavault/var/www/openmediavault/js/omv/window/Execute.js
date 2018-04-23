@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
 // require("js/omv/Rpc.js")
 // require("js/omv/window/Window.js")
 // require("js/omv/window/MessageBox.js")
+// require("js/omv/toolbar/Tip.js")
 
 /**
  * @class OMV.window.Execute
@@ -56,7 +57,8 @@ Ext.define("OMV.window.Execute", {
 	extend: "OMV.window.Window",
 	uses: [
 		"OMV.Rpc",
-		"OMV.window.MessageBox"
+		"OMV.window.MessageBox",
+		"OMV.toolbar.Tip"
 	],
 
 	title: _("Execute command"),
@@ -79,6 +81,7 @@ Ext.define("OMV.window.Execute", {
 	progressText: _("Please wait ..."),
 	scrollBottom: true,
 	welcomeText: "",
+	infoText: "",
 
 	cmdIsRunning: false,
 	getContentAllowed: false,
@@ -115,10 +118,11 @@ Ext.define("OMV.window.Execute", {
 				value: me.welcomeText
 			});
 		} else {
-			me.height = 58;
+			me.height = 90;
 			me.content = "";
 			me.contentCtrl = Ext.create("Ext.ProgressBar", {
-				text: me.progressText
+				text: me.progressText,
+				margin: "10 10 10 10"
 			});
 		}
 		Ext.apply(me, {
@@ -155,6 +159,14 @@ Ext.define("OMV.window.Execute", {
 				ui: "footer",
 				text: me.infoText
 			});
+		}
+		// Hide the button toolbar if a progress bar is displayed.
+		if (true === me.progress) {
+			var selector = "toolbar[dock='bottom'][xtype='toolbar']";
+			var dockedItems = me.getDockedItems(selector);
+			if (dockedItems.length > 0) {
+				dockedItems[0].hide();
+			}
 		}
 	},
 
@@ -270,6 +282,15 @@ Ext.define("OMV.window.Execute", {
 							  this.setLoading(false);
 						  // Update the command content.
 						  this.appendValue(response.output);
+						  // Update button states.
+						  if (true === this.adaptButtonState) {
+							  this.setButtonDisabled("start",
+								this.cmdIsRunning);
+							  this.setButtonDisabled("stop",
+								!this.cmdIsRunning);
+							  this.setButtonDisabled("close",
+								this.cmdIsRunning);
+						  }
 						  // If command is still running then do another RPC
 						  // request.
 						  if (this.cmdIsRunning === true) {
@@ -281,15 +302,6 @@ Ext.define("OMV.window.Execute", {
 							  else
 								  this.setLoading(false);
 							  this.fireEvent("finish", this, response);
-						  }
-						  // Update button states.
-						  if (true === this.adaptButtonState) {
-							  this.setButtonDisabled("start",
-								this.cmdIsRunning);
-							  this.setButtonDisabled("stop",
-								!this.cmdIsRunning);
-							  this.setButtonDisabled("close",
-								this.cmdIsRunning);
 						  }
 					  } else {
 						  var ignore = false;
@@ -355,8 +367,10 @@ Ext.define("OMV.window.Execute", {
 	getValue: function() {
 		var me = this;
 		var value = "";
-		if(false === me.progress) {
-			value = me.contentCtrl.getValue();
+		if (false === me.progress) {
+			if (me.contentCtrl && me.contentCtrl.isComponent) {
+				value = me.contentCtrl.getValue();
+			}
 		} else {
 			value = me.content;
 		}
@@ -366,16 +380,19 @@ Ext.define("OMV.window.Execute", {
 	/**
 	 * Set the content displayed in the dialog.
 	 * @param value The value to be displayed in the dialog.
-	 * @return None
+	 * @return void
 	 */
 	setValue: function(value, scrollBottom) {
 		var me = this;
-		if(false === me.progress) {
-			me.contentCtrl.setValue(value);
-			if(true === me.scrollBottom) {
-				var el = me.contentCtrl.inputEl;
-				if(el && el.dom)
-					el.dom.scrollTop = el.dom.scrollHeight
+		if (false === me.progress) {
+			if (me.contentCtrl && me.contentCtrl.isComponent) {
+				me.contentCtrl.setValue(value);
+				if (true === me.scrollBottom) {
+					var el = me.contentCtrl.inputEl;
+					if (el && el.dom) {
+						el.dom.scrollTop = el.dom.scrollHeight
+					}
+				}
 			}
 		} else {
 			me.content = value;
@@ -385,7 +402,7 @@ Ext.define("OMV.window.Execute", {
 	/**
 	 * Appends the given value to the displayed content.
 	 * @param value The value to be appended to the displayed content.
-	 * @return None
+	 * @return void
 	 */
 	appendValue: function(value) {
 		var me = this;

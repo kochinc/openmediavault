@@ -4,23 +4,24 @@
 # 
 # Translators:
 # Cyryl Sochacki <>, 2012
-# Cyryl Sochacki <cyrylsochacki@gmail.com>, 2012-2016
+# Cyryl Sochacki <cyrylsochacki@gmail.com>, 2012-2017
 # Jacek Niedziółka <>, 2012
 # jacekniedziolka71 <lucas71@interia.pl>, 2012
 # Jakub Górny <jakub@world.pl>, 2012
+# jacekniedziolka71 <lucas71@interia.pl>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 06:19+0100\n"
-"PO-Revision-Date: 2016-12-09 13:40+0000\n"
-"Last-Translator: Cyryl Sochacki <cyrylsochacki@gmail.com>\n"
+"POT-Creation-Date: 2018-01-21 11:50+0100\n"
+"PO-Revision-Date: 2018-01-21 10:50+0000\n"
+"Last-Translator: Volker <votdev@gmx.de>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/votdev/openmediavault/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl_PL\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>=14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #, javascript-format
 msgid "% completed ..."
@@ -46,6 +47,9 @@ msgstr "1 - Minimalne zużycie energii w trybie czuwania  (spindown)"
 
 msgid "1 day"
 msgstr "1 dzień"
+
+msgid "1 minute"
+msgstr "minuta"
 
 msgid "1 month"
 msgstr "1 miesiąc"
@@ -75,6 +79,9 @@ msgstr "127 - Średnie zużycie energii w trybie czuwania"
 msgid "128 - Minimum power usage without standby (no spindown)"
 msgstr "128 - Minimalne zużycie energii bez czuwania (bez zwalniania wirowania)"
 
+msgid "15 minutes"
+msgstr "15 minut"
+
 msgid "15 years"
 msgstr "15 lat"
 
@@ -86,6 +93,9 @@ msgstr "192 - Średnie zużycie energii bez czuwania "
 
 msgid "2 days"
 msgstr "2 dni"
+
+msgid "2 minutes"
+msgstr "2 minuty"
 
 msgid "2 weeks"
 msgstr "2 tygodnie"
@@ -114,6 +124,9 @@ msgstr "255 - Wyłączony"
 msgid "3 days"
 msgstr "3 dni"
 
+msgid "3 minutes"
+msgstr "3 minuty"
+
 msgid "3 months"
 msgstr "3 miesiące"
 
@@ -134,6 +147,9 @@ msgstr "330 minut"
 
 msgid "4 days"
 msgstr "4 dni"
+
+msgid "4 minutes"
+msgstr "4 minuty"
 
 msgid "4 years"
 msgstr "4 lata"
@@ -298,21 +314,12 @@ msgstr "Algeria"
 msgid "All"
 msgstr "Wszystkie"
 
-msgid "Allow client access to accounts that have null passwords"
-msgstr "Zezwalaj na dostęp klientów do kont, które mają puste hasła"
-
 msgid ""
 "Allow clients to attempt to store OS/2 style extended attributes on a share."
 msgstr "Zezwól klientom na próby zapisu rozszerzonych atrybutów typu OS/2 na zasobie."
 
 msgid "Allow clients to resume interrupted uploads and downloads"
 msgstr "Zezwól klientom dokończyć przerwane transfery"
-
-msgid "Allow new files"
-msgstr "Zezwalaj na nowe pliki"
-
-msgid "Allow new files to be created."
-msgstr "Pozwala tworzyć nowe pliki"
 
 msgid ""
 "Allow this server to advertise itself as a time server to Windows clients"
@@ -421,26 +428,20 @@ msgstr "ID Uwierzytelnionego użytkownika"
 msgid "Authentication"
 msgstr "Uwierzytelnienie"
 
-msgid "Authentication and no privacy"
-msgstr "Uwierzytelnianie i brak prywatności"
-
-msgid "Authentication and privacy"
-msgstr "Uwierzytelnianie i prywatność"
-
 msgid "Authentication method"
 msgstr "Metoda uwierzytelniania"
-
-msgid "Authentication passphrase"
-msgstr "Hasło uwierzytelniające"
 
 msgid "Authentication required"
 msgstr "Wymagane uwierzytelnianie"
 
-msgid "Authentication type"
-msgstr "Typ uwierzytelniania"
-
 msgid "Auto"
 msgstr "Auto"
+
+msgid "Auto logout"
+msgstr "Automatyczne wylogowanie"
+
+msgid "Auto logout after the specified idle period."
+msgstr "Automatyczne wylogowanie po upływie określonego czasu"
 
 msgid "Automatic Acoustic Management"
 msgstr "Automatyczne zarządzanie akustyką"
@@ -496,9 +497,6 @@ msgstr "Binarnie"
 msgid "Block layer cache [%s, %s]"
 msgstr "Blok pamięci podręcznej [%s, %s]"
 
-msgid "Blocksize"
-msgstr "Wielkość bloku"
-
 msgid "Bolivia"
 msgstr "Bolivia"
 
@@ -543,9 +541,6 @@ msgstr "Burkina Faso"
 
 msgid "Burundi"
 msgstr "Burundi"
-
-msgid "By default, only files that already exist are allowed to be uploaded."
-msgstr "Domyślnie, tylko pliki już istniejące mają zezwolenie na to, by je wysyłać."
 
 msgid "CPU usage"
 msgstr "użycie CPU"
@@ -652,9 +647,6 @@ msgstr "Komentarz"
 msgid "Common Name"
 msgstr "Wspólna nazwa"
 
-msgid "Community"
-msgstr "Społeczność"
-
 msgid "Community-maintained updates."
 msgstr "Wspólnota utrzymuje aktualizacje."
 
@@ -699,14 +691,6 @@ msgstr "Congo (Kinshasa)"
 
 msgid "Connections"
 msgstr "Połączenia"
-
-msgid "Contact"
-msgstr "Kontakt"
-
-msgid ""
-"Contact information, e.g. name or email address of the person responsible "
-"for this system."
-msgstr "Informacje kontaktowe, np imię lub adres elektroniczny osoby odpowiedzialnej za system."
 
 msgid "Conveyance self-test"
 msgstr "Przemieszczenie auto-testu"
@@ -837,11 +821,6 @@ msgstr "Docelowy katalog współdzielony"
 msgid "Detail"
 msgstr "Szczegóły"
 
-msgid ""
-"Determine the default timeout, in microseconds, before the first packet is "
-"retransmitted."
-msgstr "Określa domyślny limit czasu, w mikrosekundach, zanim pierwszy pakiet będzie ponownie wysłany."
-
 msgid "Device"
 msgstr "Urządzenie"
 
@@ -902,8 +881,14 @@ msgstr "Odmów użytkownikowi na modyfikację jego konta."
 msgid "Disk usage"
 msgstr "Użycie dysku"
 
+msgid "Disks"
+msgstr ""
+
 msgid "Displaying items {0} - {1} of {2}"
 msgstr "Wyświetla elementy {0} - {1} z {2}"
+
+msgid "Displaying {0} - {1} of {2}"
+msgstr "Wyświetla [0] - [1] z [2]"
 
 msgid "Djibouti"
 msgstr "Djibouti"
@@ -1067,6 +1052,9 @@ msgstr "Edytuj zaplanowane zadanie"
 msgid "Edit scheduled test"
 msgstr "Edycja zaplanowanego testu"
 
+msgid "Edit service"
+msgstr "Edytuj serwisy"
+
 msgid "Edit share"
 msgstr "Edytuj udział"
 
@@ -1194,6 +1182,9 @@ msgstr "Błąd"
 
 msgid "Error #"
 msgstr "Błąd #"
+
+msgid "Errors"
+msgstr "Błedy"
 
 msgid "Estonia"
 msgstr "Estonia"
@@ -1326,6 +1317,9 @@ msgstr "Firewall"
 
 msgid "Firmware version"
 msgstr "Wersja Firmware"
+
+msgid "First Page"
+msgstr "Pierwsza strona"
 
 msgid "Flags"
 msgstr "Flagi"
@@ -1769,6 +1763,9 @@ msgstr "Język"
 msgid "Laos"
 msgstr "Laos"
 
+msgid "Last Page"
+msgstr "Ostatnia strona"
+
 msgid "Latvia"
 msgstr "Latvia"
 
@@ -1827,9 +1824,6 @@ msgstr "Głowna lokalna przegladarka"
 
 msgid "Location"
 msgstr "Lokalizacja"
-
-msgid "Location information, e.g. physical location of this system."
-msgstr "Informacje o lokalizacji, np. fizycznej lokalizacji tego systemu."
 
 msgid "Log level"
 msgstr "Poziom logów"
@@ -2117,6 +2111,9 @@ msgstr "New Caledonia"
 msgid "New Zealand"
 msgstr "New Zealand"
 
+msgid "Next Page"
+msgstr "Następna strona"
+
 msgid "Nicaragua"
 msgstr "Nicaragua"
 
@@ -2138,14 +2135,14 @@ msgstr "Brak dostępu"
 msgid "No action"
 msgstr "Brak akcji"
 
-msgid "No authentication and no privacy"
-msgstr "Brak uwierzytelniania i prywatności"
-
 msgid "No certificate request"
 msgstr "Brak żądania certyfikatu"
 
 msgid "No connections"
 msgstr "Brak połączeń"
+
+msgid "No data to display"
+msgstr "Brak danych do wyświetlania"
 
 msgid "No items to display"
 msgstr "Brak elementów do wyświetlenia"
@@ -2203,9 +2200,6 @@ msgstr "Powiadomienia"
 
 msgid "November"
 msgstr "Listopad"
-
-msgid "Null passwords"
-msgstr "Puste hasło"
 
 msgid "Num"
 msgstr "Num"
@@ -2269,6 +2263,9 @@ msgstr "Pacific Islands Trust Territory"
 
 msgid "Package information"
 msgstr "Informacja o pakiecie"
+
+msgid "Page"
+msgstr "Strona"
 
 msgid "Page not found"
 msgstr "Strony nie znaleziono"
@@ -2357,9 +2354,6 @@ msgstr "Peru"
 msgid "Philippines"
 msgstr "Philippines"
 
-msgid "Physical Disks"
-msgstr "Dyski fizyczne"
-
 msgid "Physical disk properties"
 msgstr "Właściwości fizycznego dysku"
 
@@ -2370,12 +2364,6 @@ msgid ""
 "Please check the <a href='http://linux.die.net/man/5/exports' "
 "target='_blank'>manual page</a> for more details."
 msgstr "Więcej informacji w instrukcji <a href='http://linux.die.net/man/5/exports' target='_blank'>manual page</a>."
-
-msgid ""
-"Please check the <a href='http://www.openbsd.org/cgi-"
-"bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>manual page</a> for"
-" more details."
-msgstr "Więcej informacji na <a href='http://www.openbsd.org/cgi-bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>manual page</a>."
 
 msgid ""
 "Please check the <a href='http://www.proftpd.org/docs/contrib/mod_tls.html' "
@@ -2409,16 +2397,16 @@ msgid ""
 "target='_blank'>manual page</a> for more details."
 msgstr "Więcej informacji na <a href='http://www.samba.org/samba/docs/man/manpages-3/smb.conf.5.html' target='_blank'>manual page</a>."
 
+msgid ""
+"Please check the <a href='https://man.openbsd.org/sshd_config.5' "
+"target='_blank'>manual page</a> for more details."
+msgstr ""
+
 msgid "Please choose the method to wipe the device or 'Cancel' to abort."
 msgstr "Wybierz metodę do czyszczenia urządzenia lub wybierz \"Anuluj\", aby anulować."
 
 msgid "Please first select a device."
 msgstr "Proszę najpierw wybrać urządzenie."
-
-msgid ""
-"Please make sure that the shared folder is publicly writable if new files "
-"are allowed."
-msgstr "Upewnij się, że folder udostępniony publicznie są do zapisu jeśli nowe pliki są dozwolone."
 
 msgid ""
 "Please note that no communication with the system is possible during this "
@@ -2444,9 +2432,6 @@ msgstr "Polska"
 
 msgid "Port"
 msgstr "Port"
-
-msgid "Port to listen on."
-msgstr "Port nasłuchiwania."
 
 msgid "Portugal"
 msgstr "Portugal"
@@ -2491,17 +2476,14 @@ msgid ""
 " not what you want.</li></ul>"
 msgstr "Zapobiegaj przed obracaniem dysku, kiedy jest okresowo sprawdzany.<br/><ul><li>Nigdy - (sprawdź) w zależności czy urządzenie jest w trybie zasilania. To może spowodować, że urządzenie zostanie uruchomione podczas sprawdzania.</li><li>Uśpienie - Sprawdzaj urządzenie do momentu kiedy jest w trybie uśpienia.</li><li>Czuwanie - Sprawdzaj urządzenie do momentu kiedy jest w trybie uśpienia lub czuwania. W tych trybach większość dysków nie obracają się, więc jeśli chcesz zapobiec obracaniu się dysku przy każdym odpytywaniu, jest to tryb, którego potrzebujesz.</li><li>Bezczynny - Sprawdzaj urządzenie do momentu kiedy jest w trybie uśpienia, czuwania lub bezczynności. W tym stanie większość dysków obraca się ciągle, więc prawdopodobnie to nie jest to, czego potrzebujesz.</li></ul>"
 
+msgid "Previous Page"
+msgstr "Poprzednia strona"
+
 msgid "Primary"
 msgstr "Podstawowy"
 
 msgid "Primary email"
 msgstr "Podstawowy email"
-
-msgid "Privacy passphrase"
-msgstr "Prywatne hasło"
-
-msgid "Privacy type"
-msgstr "Typ prywatności"
 
 msgid "Private key"
 msgstr "Klucz prywatny"
@@ -2707,9 +2689,6 @@ msgstr "Wynik"
 msgid "Resume"
 msgstr "Dokończ"
 
-msgid "Retry timeout"
-msgstr "Limit czasu powtórzeń"
-
 msgid "Reunion"
 msgstr "Reunion"
 
@@ -2772,15 +2751,6 @@ msgstr "serwer SMTP"
 
 msgid "SMTP settings"
 msgstr "Ustawienia SMTP"
-
-msgid "SNMP"
-msgstr "SNMP"
-
-msgid "SNMP version 1/2c"
-msgstr "SNMP wersja 1/2c"
-
-msgid "SNMP version 3"
-msgstr "SNMP wersja 3"
 
 msgid "SSH"
 msgstr "SSH"
@@ -2868,9 +2838,6 @@ msgstr "Bezpieczeństwo"
 
 msgid "Secure connection"
 msgstr "Bezpieczne połączenie"
-
-msgid "Security level"
-msgstr "Poziom bezpieczeństwa"
 
 msgid "Select a SSH certificate ..."
 msgstr "Wybierz certyfikat SSH ..."
@@ -2985,9 +2952,6 @@ msgstr "Sesja wygasa."
 
 msgid "Session not authenticated."
 msgstr "Sesja nie uwierzytelniona."
-
-msgid "Session timeout"
-msgstr "Sesja wygasła"
 
 msgid "Set browseable"
 msgstr "Ustaw możliwość przeglądania"
@@ -3142,11 +3106,6 @@ msgid ""
 "disable this option."
 msgstr "Określa czas, w sekundach, między sprawdzaniem i aktualizowaniem adresu maskującego przez przetłumaczenie adresu IP. Wartość tę należy ustawić na 0, aby wyłączyć tę opcję."
 
-msgid ""
-"Specifies the maximum permitted block size. The permitted range for this "
-"parameter is from 512 to 65464."
-msgstr "Określa rozmiar maksymalny dozwolony bloku. Zakres dozwolone dla tego parametru od 512 do 65464."
-
 msgid "Specifies the time in hh:mm:ss after which the ban expires."
 msgstr "Określa czas w gg:mm:ss po którym ban wygasa."
 
@@ -3279,9 +3238,6 @@ msgstr "TAR"
 
 msgid "TCP forwarding"
 msgstr "Przekazywanie TCP"
-
-msgid "TFTP"
-msgstr "TFTP"
 
 msgid "Taiwan"
 msgstr "Taiwan"
@@ -3417,9 +3373,11 @@ msgid ""
 "for data connections is not required."
 msgstr "Wymagaj połączenia SSL z panelem konfiguracyjnym, użycie dla połączeń danych nie jest wymagane."
 
-msgid ""
-"The session timeout time in minutes. Set to 0 to disable automatic logout."
-msgstr "Czas limit sesji w minutach. Ustaw na 0, aby wyłączyć automatyczne wylogowanie."
+msgid "The session IP address has been changed."
+msgstr "Adres IP sesji został zmieniony"
+
+msgid "The session user no longer exists."
+msgstr "Użytkownik sesji już nie istnieje"
 
 msgid ""
 "The source remote server, e.g. [USER@]HOST:SRC, [USER@]HOST::SRC or "
@@ -3543,9 +3501,15 @@ msgstr "To pole powinno zawierać wyłącznie cyfry"
 msgid "This field should only contain numbers separated by <,> or <;>"
 msgstr "To pole powinno zawierać tylko liczby oddzielone <,> lub <;>"
 
+msgid "This field should only contain options separated by <,>"
+msgstr ""
+
 msgid ""
 "This field should only contain ports (0 - 65535) separated by <,> or <;>"
 msgstr "To pole powinno zawierać tylko porty (0 - 65535) oddzielone  <,> lub <;>"
+
+msgid "This field should only contain strings separated by <,>"
+msgstr ""
 
 msgid "This field should only contain strings separated by <,> or <;>"
 msgstr "To pole powinno zawierać tylko ciągi znaków oddzielone <,> lub <;>"
@@ -3704,9 +3668,6 @@ msgstr "Czas transferu"
 
 msgid "Transfer type"
 msgstr "Typ transferu"
-
-msgid "Traps"
-msgstr "Pułapki"
 
 msgid "Treshold"
 msgstr "Rozgraniczanie"
@@ -4013,6 +3974,9 @@ msgstr "Tyko zapis"
 msgid "Write/Execute"
 msgstr "Zapis/Wykonanie"
 
+msgid "Xen virtual disk device"
+msgstr "Urządzenie wirtualnego dysku XEN"
+
 msgid "Yearly"
 msgstr "Roczne"
 
@@ -4021,6 +3985,9 @@ msgstr "Yemen"
 
 msgid "Yes"
 msgstr "Tak"
+
+msgid "You need to commit or cancel your changes"
+msgstr "Musisz zatwierdzić albo anulować zmiany"
 
 msgid "Zambia"
 msgstr "Zambia"
@@ -4051,6 +4018,9 @@ msgstr "minut"
 
 msgid "n/a"
 msgstr "n/a"
+
+msgid "of {0}"
+msgstr "z {0}"
 
 msgid "old-age"
 msgstr "stary"

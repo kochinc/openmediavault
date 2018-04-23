@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,6 +33,13 @@ Ext.define("OMV.workspace.dashboard.Dashboard", {
 	border: false,
 	stateful: true,
 	stateId: "68f8e3e8-c288-11e4-98d4-0002b3a176b4",
+	plugins: "responsive",
+	responsiveConfig: {
+		// On phone only one column is used.
+		"phone": {
+			maxColumns: 1,
+		}
+	},
 	columnWidths: [
 		0.50,
 		0.50
@@ -77,11 +84,21 @@ Ext.define("OMV.workspace.dashboard.Dashboard", {
 			var part = Ext.create(alias);
 			if (!Ext.isObject(part) || !part.isPart)
 				return;
-			menuItems.push({
+			var menuItem = {
 				text: part.getTitle(),
-				icon: part.getIcon(),
 				type: part.getType()
-			});
+			};
+			if (!Ext.isEmpty(part.getIcon())) {
+				Ext.apply(menuItem, {
+					icon: part.getIcon(),
+					iconCls: Ext.baseCSSPrefix + "menu-item-icon-16x16"
+				});
+			} else if (!Ext.isEmpty(part.getIconCls())) {
+				Ext.apply(menuItem, {
+					iconCls: part.getIconCls()
+				});
+			}
+			menuItems.push(menuItem);
 		});
 		Ext.Array.sort(menuItems, function(a, b) {
 			return a.text > b.text ? 1 : (a.text < b.text ? -1 : 0);
@@ -90,11 +107,8 @@ Ext.define("OMV.workspace.dashboard.Dashboard", {
 		Ext.Array.insert(items, 0, [{
 			id: me.getId() + "-add",
 			text: _("Add"),
-			icon: "images/add.png",
+			iconCls: "x-fa fa-plus",
 			menu: Ext.create("Ext.menu.Menu", {
-				defaults: {
-					iconCls: Ext.baseCSSPrefix + "menu-item-icon-16x16"
-				},
 				items: menuItems,
 				listeners: {
 					scope: me,

@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ namespace OMV\System\Storage\Backend;
  */
 class RDB extends BackendAbstract {
 	function getType() {
-		return OMV_STORAGE_DEVICE_TYPE_HDD;
+		return OMV_STORAGE_DEVICE_TYPE_DISK;
 	}
 
 	/**
@@ -69,8 +69,8 @@ class RDB extends BackendAbstract {
 	/**
 	 * See interface definition.
 	 */
-	function fsDeviceFile($deviceFile) {
+	function fsDeviceFile($deviceFile, $partition = 1) {
 		// E.g. /dev/rbd2p1
-		return sprintf("%sp1", $deviceFile);
+		return sprintf("%sp%d", $deviceFile, $partition);
 	}
 }

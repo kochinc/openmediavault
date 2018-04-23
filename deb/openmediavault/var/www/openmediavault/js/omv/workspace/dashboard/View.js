@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,17 +32,20 @@ Ext.define("OMV.workspace.dashboard.View", {
 		refreshInterval: 0
 	},
 
-	border: false,
+	border: true,
 	layout: "fit",
 	height: 200,
 
 	onBoxReady: function() {
 		var me = this;
-		if ((me.getRefreshInterval() > 0) && Ext.isEmpty(me.refreshTask)) {
+		var interval = me.getRefreshInterval();
+		if ((interval > 0) && !Ext.isDefined(me.refreshTask) &&
+			Ext.isFunction(me.doRefresh))
+		{
 			me.refreshTask = Ext.util.TaskManager.newTask({
 				run: me.doRefresh,
 				scope: me,
-				interval: me.getRefreshInterval(),
+				interval: interval,
 				fireOnStart: true
 			});
 			me.refreshTask.start();
@@ -53,7 +56,7 @@ Ext.define("OMV.workspace.dashboard.View", {
 	destroy: function() {
 		var me = this;
 		// Stop a running task?
-		if (!Ext.isEmpty(me.refreshTask) && (me.refreshTask.isTask)) {
+		if (Ext.isDefined(me.refreshTask) && (me.refreshTask.isTask)) {
 			me.refreshTask.destroy();
 			me.refreshTask = null;
 		}

@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,10 +45,18 @@ OMV.util.i18n = function() {
 			}
 		},
 
+		/**
+		 * Get the locale stored in the brower cookie or by the browser
+		 * setting. Defaults to 'en' if no cookie is set or the browser
+		 * locale can't be detected.
+		 */
 		getLocale: function() {
 			return locale || "en";
 		},
 
+		/**
+		 * Set the locale and store it in a browser cookie.
+		 */
 		setLocale: function(v) {
 			locale = v;
 			// Store the locale setting in a browser cookie which will expire

@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,6 +36,7 @@ Ext.define("OMV.workspace.node.Node", {
 		icon16: null,
 		icon32: null,
 		iconSvg: null,
+		iconCls: null,
 		childNodes: null,
 		parentNode: null,
 		leaf: false,
@@ -103,7 +104,7 @@ Ext.define("OMV.workspace.node.Node", {
 		var me = this;
 		// Append default values.
 		config = Ext.apply({
-			id: Ext.id(),
+			internalId: Ext.id(),
 			childNodes: new Ext.util.MixedCollection()
 		}, config);
 		me.initConfig(config);
@@ -288,12 +289,20 @@ Ext.define("OMV.workspace.node.Node", {
 			break;
 		case "raster":
 			result = !Ext.isEmpty(me.getIcon16()) || !Ext.isEmpty(
-			  me.getIcon32());
+				me.getIcon32());
+			break;
+		case "svg|raster16":
+			result = (!Ext.isEmpty(me.getIconSvg()) && Ext.supports.Svg) ||
+				!Ext.isEmpty(me.getIcon16());
+			break;
+		case "svg|raster32":
+			result = (!Ext.isEmpty(me.getIconSvg()) && Ext.supports.Svg) ||
+				!Ext.isEmpty(me.getIcon32());
 			break;
 		default:
 			result = !Ext.isEmpty(me.getIcon16()) || !Ext.isEmpty(
-			  me.getIcon32()) || (!Ext.isEmpty(me.getIconSvg()) &&
-			  Ext.supports.Svg);
+				me.getIcon32()) || (!Ext.isEmpty(me.getIconSvg()) &&
+				Ext.supports.Svg);
 			break;
 		}
 		return result;
@@ -310,11 +319,11 @@ Ext.define("OMV.workspace.node.Node", {
 		return me.self.buildUri([ me.getPath(), me.getId() ], separator);
 	},
 
-    /**
-     * Flattens all the nodes into an array.
-     * @return The flattened nodes.
-     */
-    flatten: function() {
+	/**
+	 * Flattens all the nodes into an array.
+	 * @return The flattened nodes.
+	 */
+	flatten: function() {
 		var me = this;
 		var fn = function(node) {
 			var childNodes = [];

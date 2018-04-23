@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,6 +35,7 @@ class OMVRpcServiceDiskMgmt extends \OMV\Rpc\ServiceAbstract {
 	public function initialize() {
 		$this->registerMethod("enumerateDevices");
 		$this->registerMethod("getList");
+		$this->registerMethod("getListBg");
 		$this->registerMethod("getHdParm");
 		$this->registerMethod("setHdParm");
 		$this->registerMethod("wipe");
@@ -61,7 +62,7 @@ class OMVRpcServiceDiskMgmt extends \OMV\Rpc\ServiceAbstract {
 		$rootDeviceFile = \OMV\System\System::getRootDeviceFile();
 		// Get all existing devices except software RAID devices.
 		if (FALSE === ($devs = \OMV\System\Storage\StorageDevice::enumerate(
-		  OMV_STORAGE_DEVICE_TYPE_HDD | OMV_STORAGE_DEVICE_TYPE_HBA))) {
+		  OMV_STORAGE_DEVICE_TYPE_DISK | OMV_STORAGE_DEVICE_TYPE_HBA))) {
 			throw new \OMV\Exception(
 			  "Failed to get list of hard disks and hardware RAID devices.");
 		}
@@ -77,7 +78,7 @@ class OMVRpcServiceDiskMgmt extends \OMV\Rpc\ServiceAbstract {
 				continue;
 			$objects[] = [
 				"devicename" => $sd->getDeviceName(),
-				"devicefile" => $sd->getCanonicalDeviceFile(),
+				"devicefile" => $sd->getPreferredDeviceFile(),
 				"devicelinks" => $sd->getDeviceFileSymlinks(),
 				"model" => $sd->getModel(),
 				"size" => $sd->getSize(),
@@ -97,15 +98,15 @@ class OMVRpcServiceDiskMgmt extends \OMV\Rpc\ServiceAbstract {
 	 * added to the hard disk objects if there exists additional hard disk
 	 * parameters (e.g. S.M.A.R.T. or AAM) that can be defined individually
 	 * per hard disk.
-	 * @param params An array containing the following fields:
+	 * @param object $params An object containing the following fields:
 	 *   \em start The index where to start.
 	 *   \em limit The number of objects to process.
 	 *   \em sortfield The name of the column used to sort.
 	 *   \em sortdir The sort direction, ASC or DESC.
-	 * @param context The context of the caller.
-	 * @return An array containing the requested objects. The field \em total
-	 *   contains the total number of objects, \em data contains the object
-	 *   array. An exception will be thrown in case of an error.
+	 * @param object $context The context of the caller.
+	 * @return object An array containing the requested objects. The field
+	 *   \em total contains the total number of objects, \em data contains
+	 *   the object array. An exception will be thrown in case of an error.
 	 */
 	public function getList($params, $context) {
 		// Validate the RPC caller context.
@@ -136,6 +137,13 @@ class OMVRpcServiceDiskMgmt extends \OMV\Rpc\ServiceAbstract {
 		// Filter result.
 		return $this->applyFilter($objects, $params['start'],
 			$params['limit'], $params['sortfield'], $params['sortdir']);
+	}
+
+	/**
+	 * Execute the getList() RPC as background process.
+	 */
+	public function getListBg($params, $context) {
+		return $this->callMethodBg("getList", $params, $context);
 	}
 
 	/**
@@ -222,10 +230,10 @@ class OMVRpcServiceDiskMgmt extends \OMV\Rpc\ServiceAbstract {
 				$cmdArgs[] = escapeshellarg($params['devicefile']);
 				$cmd = new \OMV\System\Process("shred", $cmdArgs);
 				$cmd->setRedirect2to1();
-				if (0 !== $this->exec($cmd->getCommandLine(), $output,
-				  $bgOutputFilename)) {
+				if (0 !== ($exitStatus = $this->exec($cmd->getCommandLine(),
+					$output, $bgOutputFilename))) {
 					throw new \OMV\ExecException($cmd->getCommandLine(),
-					  $output);
+						$output, $exitStatus);
 				}
 			} else {
 				// Quick wipe the device (see omv-initfs).
@@ -234,10 +242,10 @@ class OMVRpcServiceDiskMgmt extends \OMV\Rpc\ServiceAbstract {
 				$cmdArgs[] = escapeshellarg($params['devicefile']);
 				$cmd = new \OMV\System\Process("sgdisk", $cmdArgs);
 				$cmd->setRedirect2to1();
-				if (0 !== $this->exec($cmd->getCommandLine(), $output,
-				  $bgOutputFilename)) {
+				if (0 !== ($exitStatus = $this->exec($cmd->getCommandLine(),
+					$output, $bgOutputFilename))) {
 					throw new \OMV\ExecException($cmd->getCommandLine(),
-					  $output);
+						$output, $exitStatus);
 				}
 				// To make sure really everything is wiped ...
 				$cmdArgs = [];
@@ -248,10 +256,10 @@ class OMVRpcServiceDiskMgmt extends \OMV\Rpc\ServiceAbstract {
 				$cmdArgs[] = "count=1";
 				$cmd = new \OMV\System\Process("dd", $cmdArgs);
 				$cmd->setRedirect2to1();
-				if (0 !== $this->exec($cmd->getCommandLine(), $output,
-				  $bgOutputFilename)) {
+				if (0 !== ($exitStatus = $this->exec($cmd->getCommandLine(),
+					$output, $bgOutputFilename))) {
 					throw new \OMV\ExecException($cmd->getCommandLine(),
-					  $output);
+						$output, $exitStatus);
 				}
 			}
 			// Reread partition table.
@@ -260,9 +268,11 @@ class OMVRpcServiceDiskMgmt extends \OMV\Rpc\ServiceAbstract {
 			$cmdArgs[] = escapeshellarg($params['devicefile']);
 			$cmd = new \OMV\System\Process("blockdev", $cmdArgs);
 			$cmd->setRedirect2to1();
-			$cmdLine = $cmd->getCommandLine();
-			if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename))
-				throw new \OMV\ExecException($cmdLine, $output);
+			if (0 !== ($exitStatus = $this->exec($cmd->getCommandLine(),
+				$output, $bgOutputFilename))) {
+				throw new \OMV\ExecException($cmd->getCommandLine(), $output,
+					$exitStatus);
+			}
 			return $output;
 		});
 	}
@@ -271,7 +281,7 @@ class OMVRpcServiceDiskMgmt extends \OMV\Rpc\ServiceAbstract {
 	 * Rescan SCSI bus.
 	 * @param params The method parameters.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function rescan($params, $context) {
@@ -283,7 +293,13 @@ class OMVRpcServiceDiskMgmt extends \OMV\Rpc\ServiceAbstract {
 		$script = new \OMV\System\ShellScript(
 		  "[ -x /sys/class/scsi_host ] && for hostdir in ".
 		  "\$(find /sys/class/scsi_host -iname \"host*\" -type l); ".
-		  "do echo \"- - -\" | tee \${hostdir}/scan >/dev/null; done");
+		  "do echo \"- - -\" > \${hostdir}/scan; done");
+		$script->execute();
+		// Execute shell script to detect SCSI device size changes.
+		$script = new \OMV\System\ShellScript(
+		  "[ -x /sys/class/scsi_device ] && for devicedir in ".
+		  "\$(find /sys/class/scsi_device -iname \"*:*\" -type l); ".
+		  "do echo 1 > \${devicedir}/device/rescan; done");
 		$script->execute();
 	}
 }

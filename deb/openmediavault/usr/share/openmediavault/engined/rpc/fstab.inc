@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -174,39 +174,26 @@ class OMVRpcServiceFsTab extends \OMV\Rpc\ServiceAbstract {
 		// Add function parameter to search argument list.
 		$args = [];
 		$args[] = $params['fsname'];
-		// If the function parameter is a device file, then try to get the
-		// file system UUID and add it to the search argument list. This is
-		// done to increase the probability to find the fstab config object.
-		if (is_devicefile($params['fsname'])) {
-			$fs = \OMV\System\Filesystem\Filesystem::getImpl($params['fsname']);
-			if (!is_null($fs) && $fs->exists() && $fs->hasUuid())
+		// Get all existing device files and the UUID of the file system to
+		// add them to the search argument list. This is done to increase the
+		// probability to find the mount point configuration object.
+		$fs = \OMV\System\Filesystem\Filesystem::getImpl($params['fsname']);
+		if (!is_null($fs) && $fs->exists()) {
+			$args = array_merge($args, $fs->getDeviceFileSymlinks());
+			if (TRUE === $fs->hasUuid())
 				$args[] = $fs->getUuid();
+			// Remove duplicates and re-index the array.
+			$args = array_values(array_unique($args));
 		}
 		// Try to find the configuration object matching the given search
 		// arguments. Note, the field 'fsname' may contain a device file
 		// or a file system UUID.
 		$result = FALSE;
 		foreach ($objects as $objectk => $objectv) {
-			foreach ($args as $argk => $argv) {
-				// Device files must be handled seperate because the device
-				// may contain partitions.
-				if (is_devicefile($argv)) {
-					// Check the name of the device special file, e.g.
-					// - /dev/sdd1
-					// - /dev/disk/by-uuid/4B04EA317E4AA567
-					if (FALSE !== strpos($objectv['fsname'], $argv)) {
-						$result = $objectv;
-						break;
-					}
-				} else {
-					if ($argv === $objectv['fsname']) {
-						$result = $objectv;
-						break;
-					}
-				}
-			}
-			if (FALSE !== $result)
+			if (TRUE === in_array($objectv['fsname'], $args)) {
+				$result = $objectv;
 				break;
+			}
 		}
 		return $result;
 	}

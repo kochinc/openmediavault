@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -261,16 +261,13 @@ Ext.define("OMV.module.admin.service.clamav.Jobs", {
 	stateful: true,
 	stateId: "f8a8cf1c-a107-11e1-a5a0-00221568ca88",
 	columns: [{
-		xtype: "booleaniconcolumn",
+		xtype: "enabledcolumn",
 		text: _("Enabled"),
 		sortable: true,
 		dataIndex: "enable",
-		stateId: "enable",
-		align: "center",
-		width: 80,
-		resizable: false,
-		iconCls:  Ext.baseCSSPrefix + "grid-cell-booleaniconcolumn-switch"
+		stateId: "enable"
 	},{
+		xtype: "textcolumn",
 		text: _("Shared folder"),
 		sortable: true,
 		dataIndex: "sharedfoldername",
@@ -329,6 +326,7 @@ Ext.define("OMV.module.admin.service.clamav.Jobs", {
 		stateId: "dayofweek",
 		renderer: OMV.util.Format.arrayRenderer(Date.mapDayOfWeek)
 	},{
+		xtype: "textcolumn",
 		text: _("Comment"),
 		sortable: true,
 		dataIndex: "comment",
@@ -382,8 +380,7 @@ Ext.define("OMV.module.admin.service.clamav.Jobs", {
 			id: me.getId() + "-run",
 			xtype: "button",
 			text: _("Run"),
-			icon: "images/play.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-play",
 			handler: Ext.Function.bind(me.onRunButton, me, [ me ]),
 			scope: me,
 			disabled: true,
@@ -398,7 +395,7 @@ Ext.define("OMV.module.admin.service.clamav.Jobs", {
 	onAddButton: function() {
 		var me = this;
 		Ext.create("OMV.module.admin.service.clamav.Job", {
-			title: _("Add job"),
+			title: _("Add scheduled job"),
 			uuid: OMV.UUID_UNDEFINED,
 			listeners: {
 				scope: me,
@@ -413,7 +410,7 @@ Ext.define("OMV.module.admin.service.clamav.Jobs", {
 		var me = this;
 		var record = me.getSelected();
 		Ext.create("OMV.module.admin.service.clamav.Job", {
-			title: _("Edit job"),
+			title: _("Edit scheduled job"),
 			uuid: record.get("uuid"),
 			listeners: {
 				scope: me,
@@ -442,8 +439,8 @@ Ext.define("OMV.module.admin.service.clamav.Jobs", {
 	onRunButton: function() {
 		var me = this;
 		var record = me.getSelected();
-		Ext.create("OMV.window.Execute", {
-			title: _("Execute cron job"),
+		var wnd = Ext.create("OMV.window.Execute", {
+			title: _("Execute scheduled job"),
 			rpcService: "ClamAV",
 			rpcMethod: "executeJob",
 			rpcParams: {
@@ -451,6 +448,9 @@ Ext.define("OMV.module.admin.service.clamav.Jobs", {
 			},
 			listeners: {
 				scope: me,
+				finish: function(wnd, response) {
+					wnd.appendValue(_("Done ..."));
+				},
 				exception: function(wnd, error) {
 					OMV.MessageBox.error(null, error);
 				}
@@ -462,7 +462,7 @@ Ext.define("OMV.module.admin.service.clamav.Jobs", {
 OMV.WorkspaceManager.registerPanel({
 	id: "jobs",
 	path: "/service/clamav",
-	text: _("Jobs"),
-	position: 20,
+	text: _("Scheduled Jobs"),
+	position: 30,
 	className: "OMV.module.admin.service.clamav.Jobs"
 });

@@ -2,7 +2,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,7 +24,8 @@ OMV_PRODUCTINFO_FILE="/usr/share/openmediavault/productinfo.xml"
 OMV_SCRIPTS_DIR="/usr/share/openmediavault/scripts"
 OMV_DATAMODELS_DIR="/usr/share/openmediavault/datamodels"
 OMV_I18N_LOCALE_DIR="/usr/share/openmediavault/locale"
-OMV_MOUNT_DIR="/media"
+OMV_MOUNT_DIR="/srv"
+OMV_SHAREDFOLDERS_DIR="/sharedfolders"
 OMV_NFSD_EXPORT_DIR="/export"
 OMV_CACHE_DIR="/var/cache/openmediavault"
 OMV_LOG_DIR="/var/log/openmediavault"

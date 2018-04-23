@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the openmediavault package.
 # 
 # Translators:
-# Quim Farriol <quim@iscinformatica.cat>, 2017
+# Quim Farriol <quim@iscinformatica.cat>, 2017-2018
 # Quim Farriol <quim@iscinformatica.cat>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 06:19+0100\n"
-"PO-Revision-Date: 2017-02-12 14:10+0000\n"
-"Last-Translator: Quim Farriol <quim@iscinformatica.cat>\n"
+"POT-Creation-Date: 2018-01-21 11:50+0100\n"
+"PO-Revision-Date: 2018-01-21 10:50+0000\n"
+"Last-Translator: Volker <votdev@gmx.de>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/votdev/openmediavault/language/ca_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,6 +44,9 @@ msgstr "1 - Consum mínim en repos (spindown)"
 msgid "1 day"
 msgstr "1 dia"
 
+msgid "1 minute"
+msgstr "1 minut"
+
 msgid "1 month"
 msgstr "1 mes"
 
@@ -72,6 +75,9 @@ msgstr "127 - Consum mig en repòs"
 msgid "128 - Minimum power usage without standby (no spindown)"
 msgstr "128 - Consum mínim sense repòs (no spindown)"
 
+msgid "15 minutes"
+msgstr "15 minuts"
+
 msgid "15 years"
 msgstr "15 anys"
 
@@ -83,6 +89,9 @@ msgstr "192 - Consum mig sense repòs"
 
 msgid "2 days"
 msgstr "2 dies"
+
+msgid "2 minutes"
+msgstr "2 minuts"
 
 msgid "2 weeks"
 msgstr "2 setmanes"
@@ -111,6 +120,9 @@ msgstr "255 - Deshabilitat"
 msgid "3 days"
 msgstr "3 dies"
 
+msgid "3 minutes"
+msgstr "3 minuts"
+
 msgid "3 months"
 msgstr "3 mesos"
 
@@ -131,6 +143,9 @@ msgstr "330 minuts"
 
 msgid "4 days"
 msgstr "4 dies"
+
+msgid "4 minutes"
+msgstr "4 minuts"
 
 msgid "4 years"
 msgstr "4 anys"
@@ -295,21 +310,12 @@ msgstr "Algèria"
 msgid "All"
 msgstr "Tots"
 
-msgid "Allow client access to accounts that have null passwords"
-msgstr "Permetre l’accés encara que la contrasenya sigui nul·la/buida"
-
 msgid ""
 "Allow clients to attempt to store OS/2 style extended attributes on a share."
 msgstr "Permetre que s’intenti gravar atributs estesos del tipus OS/2 en el compartit."
 
 msgid "Allow clients to resume interrupted uploads and downloads"
 msgstr "Permetre reprendre pujades / baixades interrompudes"
-
-msgid "Allow new files"
-msgstr "Permetre nous arxius"
-
-msgid "Allow new files to be created."
-msgstr "Permetre la creació de nous arxius."
 
 msgid ""
 "Allow this server to advertise itself as a time server to Windows clients"
@@ -418,26 +424,20 @@ msgstr "ID de l’usuari autenticat"
 msgid "Authentication"
 msgstr "Autentificació"
 
-msgid "Authentication and no privacy"
-msgstr "Autentificació sense privacitat"
-
-msgid "Authentication and privacy"
-msgstr "Autentificació i privacitat"
-
 msgid "Authentication method"
 msgstr "Mètode d’autenticació"
-
-msgid "Authentication passphrase"
-msgstr "Contrasenya per a Autentificació"
 
 msgid "Authentication required"
 msgstr "Cal autentificació"
 
-msgid "Authentication type"
-msgstr "Tipus d’autentificació"
-
 msgid "Auto"
 msgstr "Auto"
+
+msgid "Auto logout"
+msgstr "Sortida automàtica"
+
+msgid "Auto logout after the specified idle period."
+msgstr "Sortida automàtica després del període inactiu especificat."
 
 msgid "Automatic Acoustic Management"
 msgstr "AAM Ajust del soroll produït"
@@ -493,9 +493,6 @@ msgstr "Binari"
 msgid "Block layer cache [%s, %s]"
 msgstr "Block layer cache [%s, %s]"
 
-msgid "Blocksize"
-msgstr "Mida del bloc"
-
 msgid "Bolivia"
 msgstr "Bolívia"
 
@@ -540,9 +537,6 @@ msgstr "Burkina Faso"
 
 msgid "Burundi"
 msgstr "Burundi"
-
-msgid "By default, only files that already exist are allowed to be uploaded."
-msgstr "Per defecte, només es permet pujar arxius existents."
 
 msgid "CPU usage"
 msgstr "Ús de la CPU"
@@ -649,9 +643,6 @@ msgstr "Comentari"
 msgid "Common Name"
 msgstr "Nom propi"
 
-msgid "Community"
-msgstr "Comunitat"
-
 msgid "Community-maintained updates."
 msgstr "Actualitzacions de la comunitat"
 
@@ -696,14 +687,6 @@ msgstr "Congo (Kinshasa)"
 
 msgid "Connections"
 msgstr "Connexions"
-
-msgid "Contact"
-msgstr "Contacte"
-
-msgid ""
-"Contact information, e.g. name or email address of the person responsible "
-"for this system."
-msgstr "Informació de contacte, p.e.: Nom o e-mail del responsable d’aquest sistema."
 
 msgid "Conveyance self-test"
 msgstr "Auto prova de transferència"
@@ -834,11 +817,6 @@ msgstr "Carpeta compartida de destí"
 msgid "Detail"
 msgstr "Detall"
 
-msgid ""
-"Determine the default timeout, in microseconds, before the first packet is "
-"retransmitted."
-msgstr "Determina el temps per defecte en microsegons, abans que el primer paquet es transmeti."
-
 msgid "Device"
 msgstr "Dispositiu"
 
@@ -899,8 +877,14 @@ msgstr "No permetre l’usuari modificar la seva pròpia compta"
 msgid "Disk usage"
 msgstr "Ús del disc"
 
+msgid "Disks"
+msgstr "Discs"
+
 msgid "Displaying items {0} - {1} of {2}"
 msgstr "Vegeu {0} - {1} of {2}"
+
+msgid "Displaying {0} - {1} of {2}"
+msgstr "Vegeu  {0} - {1} de {2}"
 
 msgid "Djibouti"
 msgstr "Djibouti"
@@ -1064,6 +1048,9 @@ msgstr "Editar tasca programada"
 msgid "Edit scheduled test"
 msgstr "Editar prova programada"
 
+msgid "Edit service"
+msgstr "Edita el servei"
+
 msgid "Edit share"
 msgstr "Editar compartit"
 
@@ -1191,6 +1178,9 @@ msgstr "Error"
 
 msgid "Error #"
 msgstr "Error #"
+
+msgid "Errors"
+msgstr "Errors"
 
 msgid "Estonia"
 msgstr "Estònia"
@@ -1323,6 +1313,9 @@ msgstr "Firewall"
 
 msgid "Firmware version"
 msgstr "Versió del Firmware"
+
+msgid "First Page"
+msgstr "Primera pàgina"
 
 msgid "Flags"
 msgstr "Banderes"
@@ -1766,6 +1759,9 @@ msgstr "Idioma"
 msgid "Laos"
 msgstr "Laos"
 
+msgid "Last Page"
+msgstr "Última pàgina"
+
 msgid "Latvia"
 msgstr "Letònia"
 
@@ -1824,9 +1820,6 @@ msgstr "Local master browser"
 
 msgid "Location"
 msgstr "Ubicació"
-
-msgid "Location information, e.g. physical location of this system."
-msgstr "Informació de la ubicació, p.e: casa, despatx"
 
 msgid "Log level"
 msgstr "Nivell de Log"
@@ -2114,6 +2107,9 @@ msgstr "Nova Caledònia"
 msgid "New Zealand"
 msgstr "Nova Zelanda"
 
+msgid "Next Page"
+msgstr "Pàgina següent"
+
 msgid "Nicaragua"
 msgstr "Nicaragua"
 
@@ -2135,14 +2131,14 @@ msgstr "Sense accés"
 msgid "No action"
 msgstr "Sense acció"
 
-msgid "No authentication and no privacy"
-msgstr "Sense autenticació i sense privacitat"
-
 msgid "No certificate request"
 msgstr "No es demana certificat"
 
 msgid "No connections"
 msgstr "Sense connexions"
+
+msgid "No data to display"
+msgstr "No hi ha dades per a mostrar"
 
 msgid "No items to display"
 msgstr "Res a mostrar"
@@ -2200,9 +2196,6 @@ msgstr "Avisos"
 
 msgid "November"
 msgstr "Novembre"
-
-msgid "Null passwords"
-msgstr "Contrasenyes en blanc"
 
 msgid "Num"
 msgstr "Número"
@@ -2266,6 +2259,9 @@ msgstr "Territori en Fideïcomís de les Illes del Pacífic"
 
 msgid "Package information"
 msgstr "Informació del paquet"
+
+msgid "Page"
+msgstr "Pàgina"
 
 msgid "Page not found"
 msgstr "Pàgina no trobada"
@@ -2354,9 +2350,6 @@ msgstr "Perú"
 msgid "Philippines"
 msgstr "Filipines"
 
-msgid "Physical Disks"
-msgstr "Discos fixos"
-
 msgid "Physical disk properties"
 msgstr "Propietats del disc"
 
@@ -2367,12 +2360,6 @@ msgid ""
 "Please check the <a href='http://linux.die.net/man/5/exports' "
 "target='_blank'>manual page</a> for more details."
 msgstr "Per favor vegi: <a href='http://linux.die.net/man/5/exports' target='_blank'>pàgina del manual</a> per a més detalls."
-
-msgid ""
-"Please check the <a href='http://www.openbsd.org/cgi-"
-"bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>manual page</a> for"
-" more details."
-msgstr "Per favor vegi: <a href='http://www.openbsd.org/cgi-bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>pàgina del manual</a> per a més detalls."
 
 msgid ""
 "Please check the <a href='http://www.proftpd.org/docs/contrib/mod_tls.html' "
@@ -2406,16 +2393,16 @@ msgid ""
 "target='_blank'>manual page</a> for more details."
 msgstr "Per favor vegi: <a href='http://www.samba.org/samba/docs/man/manpages-3/smb.conf.5.html' target='_blank'>pàgina del manual</a> per a més detalls."
 
+msgid ""
+"Please check the <a href='https://man.openbsd.org/sshd_config.5' "
+"target='_blank'>manual page</a> for more details."
+msgstr ""
+
 msgid "Please choose the method to wipe the device or 'Cancel' to abort."
 msgstr "Per favor trii el mètode per a esborrar el dispositiu o premi 'Cancel·lar' per sortir."
 
 msgid "Please first select a device."
 msgstr "Seleccioni primer un dispositiu"
-
-msgid ""
-"Please make sure that the shared folder is publicly writable if new files "
-"are allowed."
-msgstr "Per favor verifiqui que la carpeta compartida té permisos d’escriptura per si calguessin nous arxius."
 
 msgid ""
 "Please note that no communication with the system is possible during this "
@@ -2441,9 +2428,6 @@ msgstr "Polònia"
 
 msgid "Port"
 msgstr "Port"
-
-msgid "Port to listen on."
-msgstr "Port d’escolta."
 
 msgid "Portugal"
 msgstr "Portugal"
@@ -2488,17 +2472,14 @@ msgid ""
 " not what you want.</li></ul>"
 msgstr "Evita que un disc sigui posat en marxa quan sigui periòdicament interrogat. <br/> <br/> <Ul> <li> MAI - Interroga (comprova) el dispositiu amb independència del seu mode d'energia. Pot provocar que un disc que estigui frenant sigui accelerat a comprovar-ho. </ li> <li> SLEEP - Comprova el dispositiu tret que estigui en mode SLEEP. </ li> <li> REPÒS - Comprova el dispositiu tret que estigui en SLEEP o en REPÒS . en aquests modes la majoria dels discos no estan girant, per la qual cosa si el que vol és evitar que comenci a girar en cada comprovació, això és el que probablement vol. </ li> <li> INACTIU - Comprova el dispositiu tret que estigui en REPÒS, REPÒS o INACTIU. en mode INACTIU la majoria dels discos encara girant, pel que això probablement no és el que vol. </ li> </ ul> "
 
+msgid "Previous Page"
+msgstr "Pàgina anterior"
+
 msgid "Primary"
 msgstr "Primari"
 
 msgid "Primary email"
 msgstr "E-mail principal"
-
-msgid "Privacy passphrase"
-msgstr "Contrasenya"
-
-msgid "Privacy type"
-msgstr "Tipus de privacitat"
 
 msgid "Private key"
 msgstr "Clau privada"
@@ -2704,9 +2685,6 @@ msgstr "Resultat"
 msgid "Resume"
 msgstr "Continuar"
 
-msgid "Retry timeout"
-msgstr "Temps de reintent"
-
 msgid "Reunion"
 msgstr "Reunió"
 
@@ -2769,15 +2747,6 @@ msgstr "Servidor SMTP"
 
 msgid "SMTP settings"
 msgstr "Opcions SMTP"
-
-msgid "SNMP"
-msgstr "SNMP"
-
-msgid "SNMP version 1/2c"
-msgstr "SNMP versió 1/2c"
-
-msgid "SNMP version 3"
-msgstr "SNMP versió 3"
 
 msgid "SSH"
 msgstr "SSH"
@@ -2865,9 +2834,6 @@ msgstr "Segur"
 
 msgid "Secure connection"
 msgstr "Connexió segura"
-
-msgid "Security level"
-msgstr "Nivell de seguretat"
 
 msgid "Select a SSH certificate ..."
 msgstr "Seleccionar certificat SSH ..."
@@ -2982,9 +2948,6 @@ msgstr "Sessió expirada"
 
 msgid "Session not authenticated."
 msgstr "Sesió no autenticada"
-
-msgid "Session timeout"
-msgstr "Caducitat de la sesió"
 
 msgid "Set browseable"
 msgstr "Establir com a navegable"
@@ -3139,11 +3102,6 @@ msgid ""
 "disable this option."
 msgstr "Especifica la quantitat de temps en segons, entre la comprovació i la actualització de la mascara, per a resoldre una adreça IP.\n\"0\" per a deshabilitar l’opció."
 
-msgid ""
-"Specifies the maximum permitted block size. The permitted range for this "
-"parameter is from 512 to 65464."
-msgstr "Mida màx. de bloc permès. El rang permès és de 512 a 65464"
-
 msgid "Specifies the time in hh:mm:ss after which the ban expires."
 msgstr "Especifica el temps en hh:mm:ss perquè expiri la prohibició (ban)"
 
@@ -3276,9 +3234,6 @@ msgstr "TAR"
 
 msgid "TCP forwarding"
 msgstr "Reenviament TCP"
-
-msgid "TFTP"
-msgstr "TFTP"
 
 msgid "Taiwan"
 msgstr "Taiwan"
@@ -3414,9 +3369,11 @@ msgid ""
 "for data connections is not required."
 msgstr "Els requeriments de la sessió SSL no són necessaris per a la connexió de dades"
 
-msgid ""
-"The session timeout time in minutes. Set to 0 to disable automatic logout."
-msgstr "Duració de la sessió en minuts. seleccionar \"0\" para deshabilitar el logout automàtic."
+msgid "The session IP address has been changed."
+msgstr "S'ha canviat l'adreça IP de la sessió."
+
+msgid "The session user no longer exists."
+msgstr "L'usuari de la sessió ja no existeix."
 
 msgid ""
 "The source remote server, e.g. [USER@]HOST:SRC, [USER@]HOST::SRC or "
@@ -3540,9 +3497,15 @@ msgstr "Ha de contenir només números"
 msgid "This field should only contain numbers separated by <,> or <;>"
 msgstr "Aquest camp ha de contenir només números separats per <,> o <;>"
 
+msgid "This field should only contain options separated by <,>"
+msgstr ""
+
 msgid ""
 "This field should only contain ports (0 - 65535) separated by <,> or <;>"
 msgstr "Aquest camp ha de contenir només ports (0-65535) separats per <,> o <;>"
+
+msgid "This field should only contain strings separated by <,>"
+msgstr ""
 
 msgid "This field should only contain strings separated by <,> or <;>"
 msgstr "Aquest camp ha de contenir només cadenes separades per <,> o <;>"
@@ -3701,9 +3664,6 @@ msgstr "Temps de transferència"
 
 msgid "Transfer type"
 msgstr "Tipus de transferència"
-
-msgid "Traps"
-msgstr "Excepció"
 
 msgid "Treshold"
 msgstr "Llindar"
@@ -4010,6 +3970,9 @@ msgstr "Només escriptura"
 msgid "Write/Execute"
 msgstr "Escriure/Executar"
 
+msgid "Xen virtual disk device"
+msgstr "Dispositiu de disc virtual Xen"
+
 msgid "Yearly"
 msgstr "Anualment"
 
@@ -4018,6 +3981,9 @@ msgstr "Iemen"
 
 msgid "Yes"
 msgstr "Si"
+
+msgid "You need to commit or cancel your changes"
+msgstr "Heu de confirmar o cancel·lar els canvis"
 
 msgid "Zambia"
 msgstr "Zàmbia"
@@ -4048,6 +4014,9 @@ msgstr "minuts"
 
 msgid "n/a"
 msgstr "n/d"
+
+msgid "of {0}"
+msgstr "de {0}"
 
 msgid "old-age"
 msgstr "Etat"

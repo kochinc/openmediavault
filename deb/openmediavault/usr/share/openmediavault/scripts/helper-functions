@@ -2,7 +2,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 # Helper makro for 'xmlstarlet' to get the shared folder path for a
 # given 'sharedfolderref'. The 'sharedfolderref' element must be a child
 # of the current processed node.
-# @return The shared folder path, e.g /media/85732966-949a-4d8b-87d7-d7e6681f787e/data.
+# @return The shared folder path, e.g /srv/85732966-949a-4d8b-87d7-d7e6681f787e/data.
 OMV_XMLSTARLET_GET_SHAREDFOLDER_PATH=${OMV_XMLSTARLET_GET_SHAREDFOLDER_PATH=-m "//system/shares/sharedfolder[uuid=current()/sharedfolderref]" -v "concat(//system/fstab/mntent[uuid=current()/mntentref]/dir,'/',reldirpath)" -b}
 
 # Helper makro for 'xmlstarlet' to get the shared folder name for a
@@ -34,7 +34,7 @@ OMV_XMLSTARLET_GET_SHAREDFOLDER_NAME=${OMV_XMLSTARLET_GET_SHAREDFOLDER_NAME=-m "
 # Helper makro for 'xmlstarlet' to get the shared folders mount directory for
 # a given 'sharedfolderref'. The 'sharedfolderref' element must be a child
 # of the current processed node.
-# @return The shared folder path, e.g /media/85732966-949a-4d8b-87d7-d7e6681f787e/data.
+# @return The shared folder path, e.g /srv/85732966-949a-4d8b-87d7-d7e6681f787e/data.
 OMV_XMLSTARLET_GET_SHAREDFOLDER_MOUNT_DIR=${OMV_XMLSTARLET_GET_SHAREDFOLDER_PATH=-m "//system/shares/sharedfolder[uuid=current()/sharedfolderref]" -v "//system/fstab/mntent[uuid=current()/mntentref]/dir" -b}
 
 # omv_isnumber <value>
@@ -313,7 +313,7 @@ omv_exec_rpc() {
 omv_get_if() {
 	case $1 in
 	[Aa][Uu][Tt][Oo])
-		ifconfig -s | tail -n +2 | head -n 1 | awk '{print $1}'
+		ls -1 /sys/class/net | head -n 1
 		;;
 	*)
 		echo -n "$1"
@@ -324,25 +324,25 @@ omv_get_if() {
 # omv_get_ipaddr <interface>
 # Get the IPv4 address from the given network interface.
 omv_get_ipaddr() {
-	export LANG=C; ip -4 addr show $1 | sed -n 's/^\s\+inet \([0-9\.]\+\)\/[0-9]\+ brd.\+/\1/p'
+	export LANG=C; ip -4 addr show $1 2>/dev/null | sed -n 's/^\s\+inet \([0-9\.]\+\)\/[0-9]\+ brd.\+/\1/p'
 }
 
 # omv_get_ipaddr6 <interface>
 # Get the IPv6 address from the given network interface.
 omv_get_ipaddr6() {
-	export LANG=C; ip -6 addr show $1 | sed -n 's/^\s\+inet6 \([a-f0-9:]\+\)\/[0-9]\+ scope global/\1/p'
+	export LANG=C; ip -6 addr show $1 2>/dev/null | sed -n 's/^\s\+inet6 \([a-f0-9:]\+\)\/[0-9]\+ scope global/\1/p'
 }
 
 # omv_get_gateway <interface>
 # Get the default IPv4 gateway for the given network interface.
 omv_get_gateway() {
-	export LANG=C; ip -4 route show dev $1 | sed -n 's/default via \([0-9\.]\+\)/\1/p'
+	export LANG=C; ip -4 route show dev $1 2>/dev/null | sed -n 's/default via \([0-9\.]\+\)/\1/p'
 }
 
 # omv_get_gateway6 <interface>
 # Get the default IPv6 gateway for the given network interface.
 omv_get_gateway6() {
-	export LANG=C; ip -6 route show dev $1 | sed -n 's/default via \([a-f0-9:]\+\)/\1/p'
+	export LANG=C; ip -6 route show dev $1 2>/dev/null | sed -n 's/default via \([a-f0-9:]\+\)/\1/p'
 }
 
 # omv_config_exists <xpath>
@@ -436,7 +436,7 @@ omv_config_get_count() {
 # omv_config_add_node "/config/system" "email"
 # @param xpath The XPath to use.
 # @param name The name of the node.
-# @return None
+# @return void
 omv_config_add_node() {
 	local xpath name tmpfile
 
@@ -474,7 +474,7 @@ omv_config_add_node() {
 # @param name The name of the key.
 # @param value The value of the key. Note, special XML characters
 #   MUST be escaped.
-# @return None
+# @return void
 omv_config_add_key() {
 	local xpath name value tmpfile
 
@@ -510,7 +510,7 @@ omv_config_add_key() {
 # @param xpath The XPath to use.
 # @param name The name of the node.
 # @param data The XML data of the node. Special XML characters MUST be escaped.
-# @return None
+# @return void
 omv_config_add_node_data() {
 	local xpath name data tmpdata tmpfile
 
@@ -548,7 +548,7 @@ omv_config_add_node_data() {
 # @param name The name of the element to add
 # @param value The element value. Special XML characters MUST be escaped.
 # @param xml Set to TRUE when the value contains XML data. Defaults to FALSE.
-# @return None
+# @return void
 omv_config_add_element() {
 	local tmpfile xpath name value xml
 
@@ -592,7 +592,7 @@ omv_config_add_element() {
 # Rename the attribute at the given XPath in the configuration file.
 # @param xpath The XPath to use.
 # @param name The new name.
-# @return None
+# @return void
 omv_config_rename() {
 	local tmpfile xpath name
 
@@ -618,7 +618,7 @@ omv_config_rename() {
 # Move the given XPath to another one in the configuration file.
 # @param xpath1 The source XPath to use.
 # @param xpath2 The destination XPath to use.
-# @return None
+# @return void
 omv_config_move() {
 	local tmpfile xpath1 xpath2
 
@@ -645,7 +645,7 @@ omv_config_move() {
 # @param xpath The XPath to use
 # @param value The element value. Special XML characters MUST be escaped.
 # @param xml Set to true when the value contains XML data. Defaults to false.
-# @return None
+# @return void
 omv_config_update() {
 	local tmpfile xpath value xml
 
@@ -684,7 +684,7 @@ omv_config_update() {
 # omv_config_delete <xpath>
 # Delete the elements at the given XPath in the configuration file.
 # @param xpath The XPath to use
-# @return None
+# @return void
 omv_config_delete() {
 	local tmpfile xpath
 
@@ -794,7 +794,7 @@ omv_is_gateway4() {
 omv_is_ipaddr6() {
 	local _valid
 #	perl -ne "use Socket qw(AF_INET6 inet_pton); print inet_pton(AF_INET6, '$1');"
-	_valid=$(php -n -r "filter_var('$1', FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? print 0 : print 1;")
+	_valid=$(php7.0 -n -r "filter_var('$1', FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? print 0 : print 1;")
 	return ${_valid}
 }
 
@@ -814,7 +814,7 @@ omv_is_netmask6() {
 omv_is_gateway6() {
 	local _valid
 #	perl -ne "use Socket qw(AF_INET6 inet_pton); print inet_pton(AF_INET6, '$1');"
-	_valid=$(php -n -r "filter_var('$1', FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? print 0 : print 1;")
+	_valid=$(php7.0 -n -r "filter_var('$1', FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? print 0 : print 1;")
 	return ${_valid}
 }
 
@@ -822,7 +822,7 @@ omv_is_gateway6() {
 # Check if IPv6 is enabled.
 # @return 0 if enabled, otherwise 1.
 omv_is_ipv6_enabled() {
-	[ -s /proc/net/if_inet6 ] && return 0
+	[ -e /proc/net/if_inet6 -a $(grep --count --invert-match 'lo$' /proc/net/if_inet6) -gt 0 ] && return 0
 	return 1
 }
 
@@ -846,7 +846,7 @@ omv_get_sharedfolder_name() {
 # omv_get_sharedfolder_path <uuid>
 # Get the path of the given shared folder. Trailing slashes will be removed.
 # @param The UUID of the shared folder
-# @return The shared folder path, e.g /media/85732966-949a-4d8b-87d7-d7e6681f787e/data.
+# @return The shared folder path, e.g /srv/85732966-949a-4d8b-87d7-d7e6681f787e/data.
 omv_get_sharedfolder_path() {
 	xmlstarlet sel -t -m "//system/shares/sharedfolder[uuid='$1']" \
 	  -v "//system/fstab/mntent[uuid=current()/mntentref]/dir" \
@@ -879,7 +879,7 @@ omv_mkdir_sharedfolder() {
 # Get the mount directory of the given shared folder. The field 'dir' of
 # the associated mount point configuration object is returned.
 # @param The UUID of the shared folder configuration object.
-# @return The directory path, e.g /media/85732966-949a-4d8b-87d7-d7e6681f787e
+# @return The directory path, e.g /srv/85732966-949a-4d8b-87d7-d7e6681f787e
 omv_get_sharedfolder_mount_dir() {
 	xmlstarlet sel -t -m "//system/shares/sharedfolder[uuid='$1']" \
 	  -v "//system/fstab/mntent[uuid=current()/mntentref]/dir" \
@@ -887,25 +887,15 @@ omv_get_sharedfolder_mount_dir() {
 }
 
 # omv_build_mount_dir <id>
-# Build the mount directory for the given device file or filesystem UUID.
-# Note, if the device file is given, it is necessary that the filesystem is
+# Build the mount directory for the given device file or file system UUID.
+# Note, if the device file is given, it is necessary that the file system is
 # available (e.g. mounted, USB device plugged in, ...), otherwise it is not
-# possible to get the filesystem UUID.
-# @param id The device file or the filesystem UUID.
-# @return The directory path, e.g /media/6c5be784-50a8-440c-9d25-aab99b9c6fb1
-#   or /media/3849-705A.
+# possible to get the file system UUID.
+# @param id The device file or the file system UUID.
+# @return The directory path, e.g /srv/6c5be784-50a8-440c-9d25-aab99b9c6fb1
+#   or /srv/_dev_disk_by-id_wwn-0x5000cca211cc703c-part1.
 omv_build_mount_dir() {
-	local fsuuid
-	if omv_is_devicefile "$1"; then
-		fsuuid=$(blkid -o value -s UUID $1)
-	else
-		fsuuid=${1}
-	fi
-	if [ -z "${fsuuid}" ]; then
-		omv_debug "omv_build_mount_dir: Filesystem '$1' does not have an UUID"
-		return 1
-	fi
-	echo -n "${OMV_MOUNT_DIR}/${fsuuid}"
+	echo -n "${OMV_MOUNT_DIR}/$(echo $1 | tr '/' '_')"
 	return 0
 }
 
@@ -954,7 +944,7 @@ omv_purge_internal_cache() {
 # @param value The environment variable value.
 # @param override Set to FALSE to do not override an existing variable.
 #   Defaults to TRUE.
-# @return None
+# @return void
 omv_set_default() {
 	local _key _value _override
 	_key=$1
@@ -1016,7 +1006,7 @@ omv_kill_children() {
 # Mark the given module as dirty.
 # @param name The name of the module.
 omv_module_set_dirty() {
-	php -c /etc/openmediavault <<EOF
+	php7.0 -c /etc/openmediavault <<EOF
 <?php
 require_once('openmediavault/autoloader.inc'); \
 \$moduleMngr = \OMV\Engine\Module\Manager::getInstance();
@@ -1029,7 +1019,7 @@ EOF
 # Check if any modules are marked as dirty.
 omv_module_is_dirty() {
 	local _dirty
-	_dirty=$(php -c /etc/openmediavault -r \
+	_dirty=$(php7.0 -c /etc/openmediavault -r \
 	  "require_once('openmediavault/autoloader.inc'); \
 	  \$moduleMngr = \OMV\Engine\Module\Manager::getInstance(); \
 	  \$dirtyModules = \$moduleMngr->getDirtyModules(); \
@@ -1083,7 +1073,7 @@ omv_is_proc_running_pid() {
 omv_is_device_nonrotational() {
 	local _rc
 	[ -z "$1" ] && return 1
-	_rc=$(php -c /etc/openmediavault <<EOF
+	_rc=$(php7.0 -c /etc/openmediavault <<EOF
 <?php
 require_once('openmediavault/autoloader.inc'); \
 \$result = TRUE;
@@ -1136,4 +1126,16 @@ omv_group_id_exists() {
 # Calculate the md5 hash of a string
 omv_md5() {
 	echo -n "$*" | md5sum - | cut -b-32
+}
+
+# omv_pwgen <length>
+# Generate a random password.
+omv_pwgen() {
+	local num tmpfile
+	num=$1
+	tmpfile=$(tempfile)
+	# Prevent "unable to write 'random state'" error messages in case of
+	# HOME and RANDFILE is not set.
+	RANDFILE="${tmpfile}" openssl rand -hex "${num}"
+	rm -f "${tmpfile}"
 }

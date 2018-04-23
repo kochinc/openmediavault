@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the openmediavault package.
 # 
 # Translators:
-# Kostas Moho <kgounaris@hotmail.com>, 2012-2016
+# Kostas Moho <kgounaris@hotmail.com>, 2012-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 06:19+0100\n"
-"PO-Revision-Date: 2016-12-06 16:28+0000\n"
+"POT-Creation-Date: 2018-01-21 11:50+0100\n"
+"PO-Revision-Date: 2018-01-22 07:28+0000\n"
 "Last-Translator: Kostas Moho <kgounaris@hotmail.com>\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/votdev/openmediavault/language/el_GR/)\n"
 "MIME-Version: 1.0\n"
@@ -43,6 +43,9 @@ msgstr "1 - Ελάχιστη κατανάλωση ενέργειας με στά
 msgid "1 day"
 msgstr "1 ημέρα"
 
+msgid "1 minute"
+msgstr "1 λεπτό"
+
 msgid "1 month"
 msgstr "1 μήνας"
 
@@ -71,6 +74,9 @@ msgstr "127 - Μέτρια κατανάλωση ενέργειας με στάσ
 msgid "128 - Minimum power usage without standby (no spindown)"
 msgstr "128 - Ελάχιστη κατανάλωση ενέργειας χωρίς στάση"
 
+msgid "15 minutes"
+msgstr "15 λεπτά"
+
 msgid "15 years"
 msgstr "15 έτη"
 
@@ -82,6 +88,9 @@ msgstr "192 - Μέτρια κατανάλωση ενέργειας χωρίς σ
 
 msgid "2 days"
 msgstr "2 ημέρες"
+
+msgid "2 minutes"
+msgstr "2 λεπτά"
 
 msgid "2 weeks"
 msgstr "2 εβδομάδες"
@@ -110,6 +119,9 @@ msgstr "255 - Ανενεργό"
 msgid "3 days"
 msgstr "3 έτη"
 
+msgid "3 minutes"
+msgstr "3 λεπτά"
+
 msgid "3 months"
 msgstr "3 μήνες"
 
@@ -130,6 +142,9 @@ msgstr "330 λεπτά"
 
 msgid "4 days"
 msgstr "4 ημέρες"
+
+msgid "4 minutes"
+msgstr "4 λεπτά"
 
 msgid "4 years"
 msgstr "4 έτη"
@@ -294,21 +309,12 @@ msgstr "Algeria"
 msgid "All"
 msgstr "Όλα"
 
-msgid "Allow client access to accounts that have null passwords"
-msgstr "Επιτρέπεται πρόσβαση σε χρήστες χωρίς κωδικό"
-
 msgid ""
 "Allow clients to attempt to store OS/2 style extended attributes on a share."
 msgstr "Να επιτρέπεται στους πελάτες να αποθηκεύουν εκτεταμένες ιδιότητες OS/2 στα κοινόχρηστα"
 
 msgid "Allow clients to resume interrupted uploads and downloads"
 msgstr "Να επιτρέπεται στους πελάτες να συνεχίζουν μεταφορές που διακόπηκαν"
-
-msgid "Allow new files"
-msgstr "Επιτρέπονται νέα αρχεία"
-
-msgid "Allow new files to be created."
-msgstr "Επιτρέπεται η δημιουργία καινούργιων αρχείων"
 
 msgid ""
 "Allow this server to advertise itself as a time server to Windows clients"
@@ -417,26 +423,20 @@ msgstr "Πιστοποιημένο αναγνωριστικό χρήστη"
 msgid "Authentication"
 msgstr "Πιστοποίηση"
 
-msgid "Authentication and no privacy"
-msgstr "Πιστοποίηση χωρίς ιδιωτικότητα"
-
-msgid "Authentication and privacy"
-msgstr "Πιστοποίηση με ιδιωτικότητα"
-
 msgid "Authentication method"
 msgstr "Μέθοδος πιστοποίησης"
-
-msgid "Authentication passphrase"
-msgstr "Κωδικός πιστοποίησης"
 
 msgid "Authentication required"
 msgstr "Απαιτείται πιστοποίηση"
 
-msgid "Authentication type"
-msgstr "Τύπος πιστοποίησης"
-
 msgid "Auto"
 msgstr "Αυτόματο"
+
+msgid "Auto logout"
+msgstr "Αυτόματη αποσύνδεση"
+
+msgid "Auto logout after the specified idle period."
+msgstr "Αυτόματη αποσύνδεση μετά από ορισμένο χρόνο αδράνειας."
 
 msgid "Automatic Acoustic Management"
 msgstr "Αυτόματη Ακουστική Διαχείριση"
@@ -492,9 +492,6 @@ msgstr "Δυαδικό"
 msgid "Block layer cache [%s, %s]"
 msgstr "Προσωρινή μνήμη [%s, %s]"
 
-msgid "Blocksize"
-msgstr "Μέγεθος τμήματος"
-
 msgid "Bolivia"
 msgstr "Bolivia"
 
@@ -539,9 +536,6 @@ msgstr "Burkina Faso"
 
 msgid "Burundi"
 msgstr "Burundi"
-
-msgid "By default, only files that already exist are allowed to be uploaded."
-msgstr "Εξ'ορισμού, επιτρέπεται να μεταφορτωθούν μόνο αρχεία που υπάρχουν ήδη"
 
 msgid "CPU usage"
 msgstr "Χρήση επεξεργαστή"
@@ -648,9 +642,6 @@ msgstr "Σχόλιο"
 msgid "Common Name"
 msgstr "Κοινό όνομα"
 
-msgid "Community"
-msgstr "Κοινότητα"
-
 msgid "Community-maintained updates."
 msgstr "Ενημερώσεις συντηρούμενες από την κοινότητα."
 
@@ -695,14 +686,6 @@ msgstr "Congo (Kinshasa)"
 
 msgid "Connections"
 msgstr "Συνδέσεις"
-
-msgid "Contact"
-msgstr "Επικοινωνία"
-
-msgid ""
-"Contact information, e.g. name or email address of the person responsible "
-"for this system."
-msgstr "Στοιχεία επικοινωνίας, π.χ. όνομα ή διεύθυνση ηλεκτρονικού ταχυδρομείου για τον διαχειριστή αυτού του συστήματος."
 
 msgid "Conveyance self-test"
 msgstr "Έλεγχος μετάδοσης"
@@ -833,11 +816,6 @@ msgstr "Kοινόχρηστος φάκελος προορισμού"
 msgid "Detail"
 msgstr "Λεπτομέρια"
 
-msgid ""
-"Determine the default timeout, in microseconds, before the first packet is "
-"retransmitted."
-msgstr "Καθορισμός προθεσμίας, σε εκατομμυριοστά του δευτερολέπτου, πριν την επανάληψη αποστολής του πρώτου πακέτου."
-
 msgid "Device"
 msgstr "Συσκευή"
 
@@ -898,8 +876,14 @@ msgstr "Δεν επιτρέπεται στον χρήστη να τροποπο�
 msgid "Disk usage"
 msgstr "Χρήση δίσκου"
 
+msgid "Disks"
+msgstr "Δίσκοι"
+
 msgid "Displaying items {0} - {1} of {2}"
 msgstr "Εμφάνιση εγγραφών {0} - {1} από {2}"
+
+msgid "Displaying {0} - {1} of {2}"
+msgstr "Εμφάνιση {0} - {1} από {2}"
 
 msgid "Djibouti"
 msgstr "Djibouti"
@@ -1063,6 +1047,9 @@ msgstr "Επεξεργασία προγραμματισμένης εργασία
 msgid "Edit scheduled test"
 msgstr "Μεταβολή προγραμματισμένου ελέγχου"
 
+msgid "Edit service"
+msgstr "Επεξεργασία υπηρεσίας"
+
 msgid "Edit share"
 msgstr "Μεταβολή κοινόχρηστου"
 
@@ -1190,6 +1177,9 @@ msgstr "Σφάλμα"
 
 msgid "Error #"
 msgstr "Σφάλμα #"
+
+msgid "Errors"
+msgstr "Σφάλματα"
 
 msgid "Estonia"
 msgstr "Estonia"
@@ -1322,6 +1312,9 @@ msgstr "Κανόνες ασφαλείας"
 
 msgid "Firmware version"
 msgstr "Έκδοση λογισμικού"
+
+msgid "First Page"
+msgstr "Πρώτη Σελίδα"
 
 msgid "Flags"
 msgstr "Σημάνσεις"
@@ -1765,6 +1758,9 @@ msgstr "Γλώσσα"
 msgid "Laos"
 msgstr "Laos"
 
+msgid "Last Page"
+msgstr "Τελευταία Σελίδα"
+
 msgid "Latvia"
 msgstr "Latvia"
 
@@ -1823,9 +1819,6 @@ msgstr "Κεντρικός τοπικός περιηγητής"
 
 msgid "Location"
 msgstr "Τοποθεσία"
-
-msgid "Location information, e.g. physical location of this system."
-msgstr "Πληροφορίες τοποθεσίας συστήματος"
 
 msgid "Log level"
 msgstr "Επίπεδο καταγραφής"
@@ -2113,6 +2106,9 @@ msgstr "New Caledonia"
 msgid "New Zealand"
 msgstr "New Zealand"
 
+msgid "Next Page"
+msgstr "Επόμενη Σελίδα"
+
 msgid "Nicaragua"
 msgstr "Nicaragua"
 
@@ -2134,14 +2130,14 @@ msgstr "Καμία πρόσβαση"
 msgid "No action"
 msgstr "Αδράνεια"
 
-msgid "No authentication and no privacy"
-msgstr "Χωρίς πιστοποίηση και χωρίς ιδιοτικότητα"
-
 msgid "No certificate request"
 msgstr "Δεν απαιτείται πιστοποιητικό"
 
 msgid "No connections"
 msgstr "Χωρίς συνδέσεις"
+
+msgid "No data to display"
+msgstr "Δεν υπάρχουν δεδομένα προς εμφάνιση"
 
 msgid "No items to display"
 msgstr "Δεν υπάρχει τίποτα προς εμφάνιση"
@@ -2199,9 +2195,6 @@ msgstr "Ειδοποιήσεις"
 
 msgid "November"
 msgstr "Νοέμβριος"
-
-msgid "Null passwords"
-msgstr "Κενοί κωδικοί"
 
 msgid "Num"
 msgstr "Αριθμός"
@@ -2265,6 +2258,9 @@ msgstr "Pacific Islands Trust Territory"
 
 msgid "Package information"
 msgstr "Πληροφορίες πακέτου"
+
+msgid "Page"
+msgstr "Σελίδα"
 
 msgid "Page not found"
 msgstr "Η σελίδα δεν βρέθηκε"
@@ -2353,9 +2349,6 @@ msgstr "Peru"
 msgid "Philippines"
 msgstr "Philippines"
 
-msgid "Physical Disks"
-msgstr "Φυσικοί Δίσκοι"
-
 msgid "Physical disk properties"
 msgstr "Ιδιότητες φυσικού δίσκου"
 
@@ -2366,12 +2359,6 @@ msgid ""
 "Please check the <a href='http://linux.die.net/man/5/exports' "
 "target='_blank'>manual page</a> for more details."
 msgstr "Για περισσότερες λεπτομέρειες : <a href='http://linux.die.net/man/5/exports' target='_blank'>εδώ</a>."
-
-msgid ""
-"Please check the <a href='http://www.openbsd.org/cgi-"
-"bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>manual page</a> for"
-" more details."
-msgstr "Για περισσότερες λεπτομέρειες : <a href='http://www.openbsd.org/cgi-bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>εδώ</a>."
 
 msgid ""
 "Please check the <a href='http://www.proftpd.org/docs/contrib/mod_tls.html' "
@@ -2405,16 +2392,16 @@ msgid ""
 "target='_blank'>manual page</a> for more details."
 msgstr "Please check the <a href='http://www.samba.org/samba/docs/man/manpages-3/smb.conf.5.html' target='_blank'>manual page</a> for more details."
 
+msgid ""
+"Please check the <a href='https://man.openbsd.org/sshd_config.5' "
+"target='_blank'>manual page</a> for more details."
+msgstr "Διαβάστε το <a href='https://man.openbsd.org/sshd_config.5' target='_blank'>εγχειρίδιο</a> για περισσότερες πληροφορίες."
+
 msgid "Please choose the method to wipe the device or 'Cancel' to abort."
 msgstr "Επιλογή μεθόδου εκκένωσης της συσκευής η 'Ακύρωση' για έξοδο."
 
 msgid "Please first select a device."
 msgstr "Πρέπει πρώτα να επιλεγεί μια συσκευή."
-
-msgid ""
-"Please make sure that the shared folder is publicly writable if new files "
-"are allowed."
-msgstr "Βεβαιωθείτε πως ο κοινόχρηστος φάκελος είναι δημόσια εγγράψιμος αν επιτρέπονται νέα αρχεία."
 
 msgid ""
 "Please note that no communication with the system is possible during this "
@@ -2440,9 +2427,6 @@ msgstr "Poland"
 
 msgid "Port"
 msgstr "Θύρα"
-
-msgid "Port to listen on."
-msgstr "Θύρα για ακρόαση."
 
 msgid "Portugal"
 msgstr "Portugal"
@@ -2487,17 +2471,14 @@ msgid ""
 " not what you want.</li></ul>"
 msgstr "Να μην εκκινείται ο δίσκος κατα τον περιοδικό του έλεγχο.<br/><ul><li>Ποτέ - Να ελέγχεται (περιοδικά) η συσκευή ανεξάρτητα από την κατάστασή της. Έτσι μπορεί να εκκινείται κατά τον έλεγχο κάποιος δίσκος που είχε σταματήσει.</li><li>Ύπνος - Να ελέγχεται η συσκευή εκτος αν βρίσκεται σε κατάσταση ύπνου.</li><li>Αναμονή - Να ελέγχεται η συσκευή εκτός αν βρίσκεται σε κατάσταση ύπνου ή αναμονής. Σε αυτές τις καταστάσεις οι περισσότεροι δίσκοι είναι ήδη σταματημένοι, συνεπώς αν στόχος είναι να μην ξεκινάνε κατά τον έλεγχο, αυτή η επιλογή είναι η προτεινόμενη.</li><li>Αδράνεια - Να ελέγχεται η συσκευή, εκτός αν βρίσκεται σε κατάσταση ύπνου, αναμονής ή αδράνειας. Σε κατάσταση αδράνειας οι περισσότεροι δίσκοι είναι ακόμα ενεργοί, συνεπώς αυτή η επιλογή δεν προτείνεται.</li></ul>"
 
+msgid "Previous Page"
+msgstr "Προηγούμενη Σελίδα"
+
 msgid "Primary"
 msgstr "Πρωτεύον"
 
 msgid "Primary email"
 msgstr "Κύρια διεύθυνση ηλεκτρονικού ταχυδρομείου"
-
-msgid "Privacy passphrase"
-msgstr "Φράση-κλειδί"
-
-msgid "Privacy type"
-msgstr "Τύπος ιδιοτικότητας"
 
 msgid "Private key"
 msgstr "Ιδιωτικό κλειδί"
@@ -2703,9 +2684,6 @@ msgstr "Αποτέλεσμα"
 msgid "Resume"
 msgstr "Συνέχιση"
 
-msgid "Retry timeout"
-msgstr "Προθεσμία επανάληψης προσπάθειας."
-
 msgid "Reunion"
 msgstr "Επανένωση"
 
@@ -2768,15 +2746,6 @@ msgstr "Διακομιστής SMTP"
 
 msgid "SMTP settings"
 msgstr "Ρυθμίσεις SMTP"
-
-msgid "SNMP"
-msgstr "SNMP"
-
-msgid "SNMP version 1/2c"
-msgstr "SNMP έκδοση 1/2c"
-
-msgid "SNMP version 3"
-msgstr "SNMP έκδοση 3"
 
 msgid "SSH"
 msgstr "SSH"
@@ -2864,9 +2833,6 @@ msgstr "Ασφαλής"
 
 msgid "Secure connection"
 msgstr "Ασφαλής σύνδεση"
-
-msgid "Security level"
-msgstr "Επίπεδο ασφάλειας"
 
 msgid "Select a SSH certificate ..."
 msgstr "Επιλογή πιστοποιητικού SSH ..."
@@ -2981,9 +2947,6 @@ msgstr "Η σύνδεση έληξε."
 
 msgid "Session not authenticated."
 msgstr "Η σύνδεση δεν πιστοποιήθηκε."
-
-msgid "Session timeout"
-msgstr "Χρονικό όριο συνεδρίας"
 
 msgid "Set browseable"
 msgstr "Ορισμός ως πλοηγήσιμο"
@@ -3138,11 +3101,6 @@ msgid ""
 "disable this option."
 msgstr "Ο χρόνος σε δευτερόλεπτα ανάμεσα στον έλεγχο και την ενημέρωση της μασκαρεμένης διεύθυνσης με επίλυση ΙΡ. Με 0 απενεργοποιείται."
 
-msgid ""
-"Specifies the maximum permitted block size. The permitted range for this "
-"parameter is from 512 to 65464."
-msgstr "Χρήση του ορισμένου διακομιστή WINS."
-
 msgid "Specifies the time in hh:mm:ss after which the ban expires."
 msgstr "Ορίζει τον χρόνο διάρκειας (ωω:λλ:δδ) του αποκλεισμού."
 
@@ -3275,9 +3233,6 @@ msgstr "TAR"
 
 msgid "TCP forwarding"
 msgstr "Προώθηση TCP"
-
-msgid "TFTP"
-msgstr "TFTP"
 
 msgid "Taiwan"
 msgstr "Taiwan"
@@ -3413,9 +3368,11 @@ msgid ""
 "for data connections is not required."
 msgstr "Δεν θα είναι απαραίτητο να χρησιμοποιείται για την σύνδεση δεδομένων η συνεδρία SSL της σύνδεσης ελέγχου."
 
-msgid ""
-"The session timeout time in minutes. Set to 0 to disable automatic logout."
-msgstr "Ο χρόνος λήξης της συνεδρίας σε λεπτά. Με 0 απενεργοποιείται."
+msgid "The session IP address has been changed."
+msgstr "Η διεύθυνση ΙΡ της συνεδρίας έχει αλλάξει."
+
+msgid "The session user no longer exists."
+msgstr "Ο χρήστης της συνεδρίας δεν υπάρχει πλέον."
 
 msgid ""
 "The source remote server, e.g. [USER@]HOST:SRC, [USER@]HOST::SRC or "
@@ -3539,9 +3496,15 @@ msgstr "Το πεδίο πρέπει να περιέχει μόνο αριθμο
 msgid "This field should only contain numbers separated by <,> or <;>"
 msgstr "Το πεδίο πρέπει να περιέχει μόνο αριθμούς χωρισμένους με <,> ή <;>"
 
+msgid "This field should only contain options separated by <,>"
+msgstr "Το πεδίο πρέπει να περιέχει μόνο επιλογές χωρισμένες με <,>"
+
 msgid ""
 "This field should only contain ports (0 - 65535) separated by <,> or <;>"
 msgstr "Το πεδίο πρέπει να περιέχει μόνο θύρες (0 - 65535) χωρισμένες με <,> ή <;>"
+
+msgid "This field should only contain strings separated by <,>"
+msgstr "Το πεδίο πρέπει να περιέχει μόνο λέξεις χωρισμένες με <,>"
 
 msgid "This field should only contain strings separated by <,> or <;>"
 msgstr "Το πεδίο πρέπει να περιέχει μόνο λέξεις χωρισμένες με <,> ή <;>"
@@ -3700,9 +3663,6 @@ msgstr "Χρόνος μεταφοράς"
 
 msgid "Transfer type"
 msgstr "Είδος μεταφοράς"
-
-msgid "Traps"
-msgstr "Διεγέρσεις"
 
 msgid "Treshold"
 msgstr "Κατώφλι"
@@ -4009,6 +3969,9 @@ msgstr "Μόνο εγγραφή"
 msgid "Write/Execute"
 msgstr "Εγγραφή/Εκτέλεση"
 
+msgid "Xen virtual disk device"
+msgstr "Συσκευή εικονικού δίσκου Xen"
+
 msgid "Yearly"
 msgstr "Ετήσια"
 
@@ -4017,6 +3980,9 @@ msgstr "Yemen"
 
 msgid "Yes"
 msgstr "Ναι"
+
+msgid "You need to commit or cancel your changes"
+msgstr "Πρέπει να εφαρμόσετε ή να ακυρώσετε τις αλλαγές"
 
 msgid "Zambia"
 msgstr "Zambia"
@@ -4047,6 +4013,9 @@ msgstr "λεπτά"
 
 msgid "n/a"
 msgstr "τίποτα"
+
+msgid "of {0}"
+msgstr "από {0}"
 
 msgid "old-age"
 msgstr "old-age"

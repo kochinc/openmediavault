@@ -480,19 +480,6 @@
 				-->
 			</scheduledtests>
 		</smart>
-		<tftp>
-			<!--
-			<blocksize>[512-65464]</blocksize>
-			<sharedfolderref>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</sharedfolderref>
-			-->
-			<enable>0</enable>
-			<port>69</port>
-			<retransmit>1000000</retransmit>
-			<blocksize>512</blocksize>
-			<allownewfiles>0</allownewfiles>
-			<sharedfolderref></sharedfolderref>
-			<extraoptions></extraoptions>
-		</tftp>
 		<smb>
 			<enable>0</enable>
 			<workgroup>WORKGROUP</workgroup>
@@ -500,7 +487,6 @@
 			<loglevel>0</loglevel>
 			<usesendfile>1</usesendfile>
 			<aio>1</aio>
-			<nullpasswords>0</nullpasswords>
 			<localmaster>1</localmaster>
 			<timeserver>0</timeserver>
 			<winssupport>0</winssupport>
@@ -576,8 +562,14 @@
 					<sendemail>0|1<sendemail>
 					<comment>xxx</comment>
 					<type>local|remote</type>
-					<src>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx|xxx</src>
-					<dest>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx|xxx</dest>
+					<src>
+						<sharedfolderref>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</sharedfolderref>
+						<uri>xxx</uri>
+					</src>
+					<dest>
+						<sharedfolderref>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</sharedfolderref>
+						<uri>xxx</uri>
+					</dest>
 					<minute>[00-59|*]</minute>
 					<everynminute>0|1</everynminute>
 					<hour>[00-23|*]</hour>
@@ -608,32 +600,6 @@
 				-->
 			</jobs>
 		</rsync>
-		<snmp>
-			<!--
-			<version>2c|3</version>
-			<securitylevel>noauth|auth|priv</securitylevel>
-			<authtype>MD5|SHA</authtype>
-			<privtype>DES|AES</privtype>
-			-->
-			<enable>0</enable>
-			<community>public</community>
-			<syslocation></syslocation>
-			<syscontact></syscontact>
-			<version>2c</version>
-			<username></username>
-			<securitylevel>noauth</securitylevel>
-			<authtype>MD5</authtype>
-			<authpassphrase></authpassphrase>
-			<privtype>DES</privtype>
-			<privpassphrase></privpassphrase>
-			<extraoptions></extraoptions>
-			<trap>
-				<enable>0</enable>
-				<community>public</community>
-				<host>localhost</host>
-				<port>162</port>
-			</trap>
-		</snmp>
 		<zeroconf>
 			<services>
 				<!--
@@ -667,12 +633,6 @@
 					<id>ftp</id>
 					<enable>1</enable>
 					<name>%h - FTP</name>
-				</service>
-				<service>
-					<uuid>1e70f7f8-f4db-11e5-9e90-000c2972b176</uuid>
-					<id>tftp</id>
-					<enable>1</enable>
-					<name>%h - TFTP</name>
 				</service>
 				<service>
 					<uuid>06e1e0b6-f4db-11e5-98f1-000c2972b176</uuid>

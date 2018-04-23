@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,8 @@ require_once("openmediavault/functions.inc");
  */
 class StorageDeviceLvm extends StorageDeviceDM {
 	protected $uuid = "";
-	protected $attr = "";
+	protected $lvAttr = "";
+	protected $vgAttr = "";
 	protected $kernelMajor = "";
 	protected $kernelMinor = "";
 	protected $lvName = "";
@@ -37,38 +38,63 @@ class StorageDeviceLvm extends StorageDeviceDM {
 	private $dataCached = FALSE;
 
 	/**
+	 * Constructor
+	 * @param deviceFile Specifies the device file, e.g. /dev/dm-1,
+	 *   /dev/vg0/lv0 or /dev/mapper/vg0-lv0.
+	 */
+	public function __construct($deviceFile) {
+		// Call parent constructor.
+		parent::__construct($deviceFile);
+		// Any devices of the form /dev/dm-n are for internal use only
+		// and should never be used.
+		//
+		// Example:
+		// # lvdisplay --noheadings --separator ... --unit b /dev/dm-0
+		//   Volume group "dm-0" not found
+		//   Skipping volume group dm-0
+		//
+		// Because of that we simply use device files that look like
+		// /dev/mapper/<xyz>.
+		if (1 == preg_match("/^\/dev\/dm-\d+$/", $this->deviceFile)) {
+			if (NULL !== ($name = $this->getDeviceMapperName()))
+				$this->deviceFile = sprintf("/dev/mapper/%s", $name);
+		}
+	}
+
+	/**
 	 * Get the logical volume detailed information.
 	 * @private
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	private function getData() {
 		if (FALSE !== $this->dataCached)
 			return;
 
-		// Parse command output:
-		// VOSP6y-Lw75-pbTs-3v8A-6Qek-XBKJ-Md2G1q|vltest|test|12582912B
 		$cmdArgs = [];
 		$cmdArgs[] = "--noheadings";
 		$cmdArgs[] = "--separator '|'";
 		$cmdArgs[] = "-C";
 		$cmdArgs[] = "-o lv_uuid,lv_name,vg_name,lv_size,lv_attr,".
-		  "lv_kernel_major,lv_kernel_minor";
+		  "lv_kernel_major,lv_kernel_minor,vg_attr";
 		$cmdArgs[] = "--unit b";
 		$cmdArgs[] = escapeshellarg($this->getDeviceFile());
 		$cmd = new \OMV\System\Process("lvdisplay", $cmdArgs);
 		$cmd->setRedirect2toFile("/dev/null");
 		$cmd->execute($output);
 
+		// Parse command output:
+		// CRMY9K-pnVP-oxNv-bimZ-1WoX-FoAe-yLgGwk|lv01_snapshot_20170412-150418|vg01|569410322432B|swi-aos---|253|1
 		$output = explode("|", trim($output[0]));
 
 		$this->uuid = $output[0];
 		$this->lvName = $output[1];
 		$this->vgName = $output[2];
 		$this->size = substr($output[3], 0, -1);
-		$this->attr = $output[4];
+		$this->lvAttr = $output[4];
 		$this->kernelMajor = intval($output[5]);
 		$this->kernelMinor = intval($output[6]);
+		$this->vgAttr = $output[7];
 
 		// Set flag to mark information has been successfully read.
 		$this->dataCached = TRUE;
@@ -76,7 +102,7 @@ class StorageDeviceLvm extends StorageDeviceDM {
 
 	/**
 	 * Refresh the cached information.
-	 * @return None.
+	 * @return void
 	 */
 	public function refresh() {
 		$this->dataCached = FALSE;
@@ -94,6 +120,23 @@ class StorageDeviceLvm extends StorageDeviceDM {
 			return FALSE;
 		}
 		return !empty($this->uuid);
+	}
+
+	/**
+	 * Get the device file to present in the UI, e.g.:
+	 * <ul>
+	 * \li /dev/disk/by-id/xxx
+	 * \li /dev/disk/by-path/xxx
+	 * \li /dev/xxx
+	 * </ul>
+	 * @return Returns a device file.
+	 */
+	public function getPreferredDeviceFile() {
+		// If the logical volume is inactive, then return the device
+		// file as is, otherwise return the canonical device file.
+		if (FALSE === $this->IsMediaAvailable())
+			return $this->getDeviceFile();
+		return $this->getCanonicalDeviceFile();
 	}
 
 	/**
@@ -143,6 +186,74 @@ class StorageDeviceLvm extends StorageDeviceDM {
 	}
 
 	/**
+	 * Get the logical volume attributes.
+	 * @see http://www.unixarena.com/2013/08/redhat-linux-lvm-volume-attributes.html
+	 * @return Returns an array with the attribtes.
+	 */
+	public function getAttributes() {
+		$this->getData();
+		// ToDo: Add all the other attributes on demand.
+		// Example:
+		// - owi-aos---
+		// - swi-a-s---
+		return [
+			"origin" => ("o" == substr($this->lvAttr, 0, 1)),
+			"snapshot" => ("s" == substr($this->lvAttr, 0, 1)),
+			"invalidsnapshot" => ("S" == substr($this->lvAttr, 0, 1)),
+			"mirrored" => ("m" == substr($this->lvAttr, 0, 1)),
+			"virtual" => ("v" == substr($this->lvAttr, 0, 1)),
+			"pvmove" => ("p" == substr($this->lvAttr, 0, 1)),
+			"state" => [
+				"active" => ("a" == substr($this->lvAttr, 4, 1)),
+				"suspended" => ("s" == substr($this->lvAttr, 4, 1)),
+				"invalidsnapshot" => ("I" == substr($this->lvAttr, 4, 1)),
+				"invalidsuspendedsnapshot" => ("S" == substr($this->lvAttr, 4, 1))
+			],
+			"device" => [
+				"open" => ("o" == substr($this->lvAttr, 5, 1)),
+				"unknown" => ("X" == substr($this->lvAttr, 5, 1))
+			]
+		];
+	}
+
+	/**
+	 * Get the volume group attributes.
+	 * @see http://www.unixarena.com/2013/08/redhat-linux-lvm-volume-attributes.html
+	 * @return Returns an array with the attribtes.
+	 */
+	public function getVGAttributes() {
+		$this->getData();
+		// Example:
+		// - wz--n-
+		return [
+			"access" => [
+				"read" => ("r" == substr($this->vgAttr, 0, 1)),
+				"write" => ("w" == substr($this->vgAttr, 0, 1))
+			],
+			"resizeable" => ("z" == substr($this->vgAttr, 1, 1)),
+			"exported" => ("x" == substr($this->vgAttr, 2, 1)),
+			"partial" => ("p" == substr($this->vgAttr, 3, 1)),
+			"allocationpolicy" => [
+				"contiguous" => ("c" == substr($this->vgAttr, 4, 1)),
+				"cling" => ("l" == substr($this->vgAttr, 4, 1)),
+				"normal" => ("n" == substr($this->vgAttr, 4, 1)),
+				"anywhere" => ("a" == substr($this->vgAttr, 4, 1)),
+				"inherited" => ("i" == substr($this->vgAttr, 4, 1)),
+			],
+			"cluster" => ("c" == substr($this->vgAttr, 5, 1)),
+		];
+	}
+
+	/**
+	 * Check if a medium is available.
+	 * @return Set to FALSE if no medium is available.
+	 */
+	public function IsMediaAvailable() {
+		$attr = $this->getAttributes();
+		return $attr['state']['active'];
+	}
+
+	/**
 	 * Get the description of the logical volume.
 	 * @return The logical volume description.
 	 */
@@ -156,11 +267,10 @@ class StorageDeviceLvm extends StorageDeviceDM {
 	/**
 	 * Create the logical volume.
 	 * @param name The name for the new logical volume.
-	 * @param size Gives the size of bytes to allocate for the new
-	 *   logical volume.
+	 * @param size The size of bytes to allocate for the new logical volume.
 	 * @param vgName The name of the volume group where to create the
 	 *   logical volume.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function create($name, $size, $vgName) {
@@ -174,8 +284,26 @@ class StorageDeviceLvm extends StorageDeviceDM {
 	}
 
 	/**
+	 * Create a snapshot of a logical volume.
+	 * @param name The name for the snapshot.
+	 * @param size The size of the snapshot in bytes.
+	 * @return void
+	 * @throw \OMV\ExecException
+	 */
+	public function createSnapshot($name, $size) {
+		$cmdArgs = [];
+		$cmdArgs[] = "--snapshot";
+		$cmdArgs[] = sprintf("--name %s", escapeshellarg($name));
+		$cmdArgs[] = sprintf("--size %sK", binary_convert($size, "B", "KiB"));
+		$cmdArgs[] = escapeshellarg($this->getDeviceFile());
+		$cmd = new \OMV\System\Process("lvcreate", $cmdArgs);
+		$cmd->setRedirect2to1();
+		$cmd->execute();
+	}
+
+	/**
 	 * Remove the logical volume.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function remove() {
@@ -190,7 +318,7 @@ class StorageDeviceLvm extends StorageDeviceDM {
 	/**
 	 * Rename the logical volume.
 	 * @param name The new logical volume path/name.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function rename($name) {
@@ -206,7 +334,7 @@ class StorageDeviceLvm extends StorageDeviceDM {
 	/**
 	 * Extend the logical volume.
 	 * @param size Gives the size of bytes to extend the logical volume.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function extend($size) {
@@ -222,7 +350,7 @@ class StorageDeviceLvm extends StorageDeviceDM {
 	/**
 	 * Reduce the logical volume.
 	 * @param size Gives the size of bytes to extend the logical volume.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function reduce($size) {

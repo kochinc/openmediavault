@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ Ext.define("OMV.module.admin.system.powermanagement.schedule.Job", {
 	plugins: [{
 		ptype: "configobject"
 	}],
-	height: 330,
+	height: 450,
 
 	/**
 	 * The class constructor.
@@ -54,10 +54,11 @@ Ext.define("OMV.module.admin.system.powermanagement.schedule.Job", {
 
 	getFormConfig: function() {
 		return {
-			layout: {
-				type: "vbox",
-				align: "stretch"
-			},
+// ToDo: EXTJS-13864 bug, see http://www.sencha.com/forum/showthread.php?286026-4.2.2-Form-field-height-incorrect-with-afterSubTpl-flex-and-layout-vbox&p=1046055&viewfull=1#post1046055
+//			layout: {
+//				type: "vbox",
+//				align: "stretch"
+//			},
 			plugins: [{
 				ptype: "linkedfields",
 				correlations: [{
@@ -282,15 +283,11 @@ Ext.define("OMV.module.admin.system.powermanagement.schedule.Jobs", {
 	stateful: true,
 	stateId: "7db7131c-a7ec-4048-88de-606fd587af8e",
 	columns: [{
-		xtype: "booleaniconcolumn",
+		xtype: "enabledcolumn",
 		text: _("Enabled"),
 		sortable: true,
 		dataIndex: "enable",
-		stateId: "enable",
-		align: "center",
-		width: 80,
-		resizable: false,
-		iconCls:  Ext.baseCSSPrefix + "grid-cell-booleaniconcolumn-switch"
+		stateId: "enable"
 	},{
 		xtype: "mapcolumn",
 		text: _("Type"),
@@ -308,6 +305,7 @@ Ext.define("OMV.module.admin.system.powermanagement.schedule.Jobs", {
 		sortable: true,
 		stateId: "scheduling"
 	},{
+		xtype: "textcolumn",
 		text: _("Comment"),
 		sortable: true,
 		dataIndex: "comment",

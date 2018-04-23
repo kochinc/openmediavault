@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,8 @@
  * You should have received a copy of the GNU General Public License
  * along with OpenMediaVault. If not, see <http://www.gnu.org/licenses/>.
  */
+require_once("openmediavault/functions.inc");
+
 class OMVRpcServiceUsbBackup extends \OMV\Rpc\ServiceAbstract {
 	/**
 	 * Get the RPC service name.
@@ -66,17 +68,17 @@ class OMVRpcServiceUsbBackup extends \OMV\Rpc\ServiceAbstract {
 			if (\OMV\System\System::isRootDeviceFile($objectv['devicefile']))
 				continue;
 			// Get the filesystem backend.
-			$fsbMngr->assertBackendExistsByType($objectv['type']);
 			$fsb = $fsbMngr->getBackendByType($objectv['type']);
 			// Skip filesystems that support union mounts, e.g. UnionFS,
 			// aufs or mhddfs. Such filesystems do not have a device file
 			// which is required to write the UDEV rule.
-			if (!$fsb->hasDeviceFile())
+			if (FALSE === $fsb->hasDeviceFile())
 				continue;
 			// Get the filesystem implementation.
 			$fs = $fsb->getImpl($objectv['devicefile']);
 			// Get the parent storage device containing the filesystem.
-			if (FALSE === ($parentDeviceFile = $fs->getParentDeviceFile()))
+			$parentDeviceFile = $fs->getParentDeviceFile();
+			if (FALSE === is_devicefile($parentDeviceFile))
 				continue;
 			\OMV\System\Storage\StorageDevice::assertStorageDeviceExists(
 			  $parentDeviceFile);
@@ -89,7 +91,7 @@ class OMVRpcServiceUsbBackup extends \OMV\Rpc\ServiceAbstract {
 			// Prepare result object.
 			$result[] = [
 				"uuid" => $objectv['uuid'],
-				"devicefile" => $fs->getDeviceFileById(),
+				"devicefile" => $fs->getPredictableDeviceFile(),
 				"label" => $objectv['label'],
 				"type" => $objectv['type'],
 				"description" => $sd->getDescription()

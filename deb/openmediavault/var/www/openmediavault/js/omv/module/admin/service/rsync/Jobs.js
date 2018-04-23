@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -608,15 +608,11 @@ Ext.define("OMV.module.admin.service.rsync.Jobs", {
 	stateful: true,
 	stateId: "31924bfb-8e25-4ada-82f4-99a3a5c9e9a5",
 	columns: [{
-		xtype: "booleaniconcolumn",
+		xtype: "enabledcolumn",
 		text: _("Enabled"),
 		sortable: true,
 		dataIndex: "enable",
-		stateId: "enable",
-		align: "center",
-		width: 80,
-		resizable: false,
-		iconCls:  Ext.baseCSSPrefix + "grid-cell-booleaniconcolumn-switch"
+		stateId: "enable"
 	},{
 		xtype: "mapcolumn",
 		text: _("Type"),
@@ -628,16 +624,19 @@ Ext.define("OMV.module.admin.service.rsync.Jobs", {
 			"remote": _("Remote")
 		}
 	},{
+		xtype: "textcolumn",
 		text: _("Source"),
 		sortable: true,
 		dataIndex: "srcname",
 		stateId: "srcname"
 	},{
+		xtype: "textcolumn",
 		text: _("Destination"),
 		sortable: true,
 		dataIndex: "destname",
 		stateId: "destname"
 	},{
+		xtype: "textcolumn",
 		text: _("Comment"),
 		sortable: true,
 		dataIndex: "comment",
@@ -685,8 +684,7 @@ Ext.define("OMV.module.admin.service.rsync.Jobs", {
 			id: me.getId() + "-run",
 			xtype: "button",
 			text: _("Run"),
-			icon: "images/play.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-play",
 			handler: Ext.Function.bind(me.onRunButton, me, [ me ]),
 			scope: me,
 			disabled: true,
@@ -746,7 +744,7 @@ Ext.define("OMV.module.admin.service.rsync.Jobs", {
 	onRunButton: function() {
 		var me = this;
 		var record = me.getSelected();
-		Ext.create("OMV.window.Execute", {
+		var wnd = Ext.create("OMV.window.Execute", {
 			title: _("Execute rsync job"),
 			rpcService: "Rsync",
 			rpcMethod: "execute",
@@ -755,6 +753,9 @@ Ext.define("OMV.module.admin.service.rsync.Jobs", {
 			},
 			listeners: {
 				scope: me,
+				finish: function(wnd, response) {
+					wnd.appendValue(_("Done ..."));
+				},
 				exception: function(wnd, error) {
 					OMV.MessageBox.error(null, error);
 				}

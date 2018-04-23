@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,8 +40,12 @@ Ext.define("OMV.workspace.node.tree.Panel", {
 	cls: Ext.baseCSSPrefix + "workspace-node-tree",
 	stateful: true,
 	stateId: "ee299152-4534-11e3-bbea-0002b3a176b4",
-	stateEvents: [ "afteritemcollapse", "afteritemexpand",
-	  "collapse", "expand" ],
+	stateEvents: [
+		"afteritemcollapse",
+		"afteritemexpand",
+		"collapse",
+		"expand"
+	],
 	rootVisible: false,
 
 	constructor: function(config) {
@@ -94,20 +98,21 @@ Ext.define("OMV.workspace.node.tree.Panel", {
 			var treeNode = {
 				id: Ext.id(),
 				text: node.getText(),
-				iconCls: Ext.baseCSSPrefix + "tree-icon-16x16",
+				iconCls: node.getIconCls(),
 				node: node,
 				leaf: node.isLeaf(),
 				children: []
 			};
-			if(node.hasChildNodes()) {
+			if (Ext.isEmpty(treeNode.iconCls) && node.hasChildNodes()) {
 				Ext.apply(treeNode, {
 					cls: "folder",
 					expanded: true
 				});
 			}
-			if(node.hasIcon("raster16")) {
+			if (node.hasIcon("svg|raster16")) {
 				Ext.apply(treeNode, {
-					icon: node.getProperIcon16()
+					icon: node.getProperIcon16(),
+					iconCls: Ext.baseCSSPrefix + "tree-icon-16x16"
 				});
 			}
 			node.eachChild(function(childNode) {
@@ -116,9 +121,15 @@ Ext.define("OMV.workspace.node.tree.Panel", {
 					text: childNode.getText(),
 					leaf: true,
 					node: childNode,
-					icon: childNode.getProperIcon16(),
-					iconCls: Ext.baseCSSPrefix + "tree-icon-16x16"
+					iconCls: childNode.getIconCls()
 				};
+				if (Ext.isEmpty(treeChildNode.iconCls) && childNode.hasIcon(
+						"svg|raster16")) {
+					Ext.apply(treeChildNode, {
+						icon: childNode.getProperIcon16(),
+						iconCls: Ext.baseCSSPrefix + "tree-icon-16x16"
+					});
+				}
 				treeNode.children.push(treeChildNode);
 			});
 			root.appendChild(treeNode);

@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -91,8 +91,8 @@ Ext.define("OMV.workspace.node.panel.Category", {
 					'<div class="',Ext.baseCSSPrefix,'workspace-node-view-category">',
 						'<div class="',Ext.baseCSSPrefix,'workspace-node-view-category-items">',
 							'<tpl for=".">',
-								'<div class="thumb-wrap" id="{uri:stripTags}">',
-									'<div class="thumb"><img src="{[this.renderIcon(values)]}" title="{[this.renderText(values)]}"></div>',
+								'<div class="thumb-wrap" id="{internalId}">',
+									'<div class="thumb">{[this.renderIcon(values)]}</div>',
 									'<span>{[this.renderText(values)]}</span>',
 								'</div>',
 							'</tpl>',
@@ -104,7 +104,16 @@ Ext.define("OMV.workspace.node.panel.Category", {
 							return Ext.String.htmlEncode(node.getText());
 						},
 						renderIcon: function(node) {
-							return node.getProperIcon32();
+							var html = Ext.String.format(
+								"<div class='thumb-icon {0}'></div>",
+								node.getIconCls());
+							if (Ext.isEmpty(node.iconCls) && node.hasIcon(
+									"svg|raster32")) {
+								html = Ext.String.format(
+									"<img class='thumb-icon' src='{0}'>",
+									node.getProperIcon32());
+							}
+							return html;
 						}
 					}
 				),

@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +24,9 @@
  */
 
 Ext.ns("OMV");
+
+// The base prefix.
+OMV.baseCSSPrefix = "omv-";
 
 // Configure the dynamic dependency loading capability.
 Ext.Loader.setConfig({
@@ -55,6 +58,8 @@ OMV.languages = [
 	[ "no_NO","Norsk" ], // Norwegian
 	[ "sv_SV","Svenska" ], // Swedish
 	[ "pt_PT","Português" ], // Portuguese
+	[ "bg_BG","​Български" ], // Bulgarian
+	[ "sl_SI","Slovenski" ], // Slovenian
 	[ "zh_CN","简体中文" ], // Chinese (Simplified Chinese)
 	[ "zh_TW","繁體中文" ], // Chinese (Taiwan)
 	[ "ja_JP","日本語" ], // Japanese (Japan)

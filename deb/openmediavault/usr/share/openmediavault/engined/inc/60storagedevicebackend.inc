@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,8 +24,8 @@ namespace OMV\System\Storage\Backend;
 ///////////////////////////////////////////////////////////////////////////////
 // Register default storage device backends.
 ///////////////////////////////////////////////////////////////////////////////
-$backends = [ "Bcache", "CCISS", "CDROM", "DM", "FIO", "HDD", "I2O",
-  "Loop", "LVM", "Mdadm", "MMC", "NVM", "RDB", "Virtio" ];
+$backends = [ "Bcache", "CCISS", "CDROM", "DM", "FIO", "HD", "I2O",
+  "Loop", "LVM", "Mdadm", "MMC", "NVM", "RDB", "SD", "Virtio", "Xen" ];
 $mngr = Manager::getInstance();
 foreach ($backends as $backendk => $backendv) {
 	$className = sprintf("%s\%s", __NAMESPACE__, $backendv);

@@ -1,15 +1,15 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-clamav package.
 # 
 # Translators:
-# zubr139, 2013-2014,2016
+# zubr139, 2013-2014,2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-23 19:15+0200\n"
-"PO-Revision-Date: 2016-08-21 15:35+0000\n"
+"POT-Creation-Date: 2017-11-18 11:05+0100\n"
+"PO-Revision-Date: 2017-12-23 19:49+0000\n"
 "Last-Translator: zubr139\n"
 "Language-Team: Ukrainian (http://www.transifex.com/votdev/openmediavault/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -18,8 +18,11 @@ msgstr ""
 "Language: uk\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-msgid "Add job"
-msgstr "Додати завдання"
+msgid "Add on-access scan"
+msgstr "Додати сканування в режимі он-лайн"
+
+msgid "Add scheduled job"
+msgstr "Додати заплановане завдання"
 
 msgid "Algorithmic detection"
 msgstr "Алгоритмічне виявлення"
@@ -56,8 +59,14 @@ msgstr "Виявлення PUA"
 msgid "Detect broken executables"
 msgstr "Виявлення пошкоджених виконуваних файлів"
 
-msgid "Edit job"
-msgstr "Редагувати завдання"
+msgid "Done ..."
+msgstr "Виконано ..."
+
+msgid "Edit on-access scan"
+msgstr "Редагувати сканування доступу до системи"
+
+msgid "Edit scheduled job"
+msgstr "Редагувати заплановане завдання"
 
 msgid "Enable"
 msgstr "Увімкнути"
@@ -103,8 +112,8 @@ msgstr "Кожну N годину"
 msgid "Every N minute"
 msgstr "Кожну N хвилину"
 
-msgid "Execute cron job"
-msgstr "Виконати завдання Cron"
+msgid "Execute scheduled job"
+msgstr "Виконати заплановану роботу"
 
 msgid "Extra options"
 msgstr "Додаткові опції"
@@ -130,9 +139,6 @@ msgstr "Година"
 msgid "Infected files"
 msgstr "Заражені файли"
 
-msgid "Jobs"
-msgstr "Завдання"
-
 msgid "Log clean files"
 msgstr "Записувати у лоґ чисті файли"
 
@@ -157,6 +163,9 @@ msgstr "Мульти сканування"
 msgid "Number of database update checks per day. Set to 0 to disable."
 msgstr "Кількість перевірок оновлень бази даних в день. Встановіть 0, щоб відключити."
 
+msgid "On Access Scans"
+msgstr "На сканування доступу"
+
 msgid "On-access"
 msgstr "При доступі"
 
@@ -164,9 +173,10 @@ msgid "Perform a deeper analysis of executable files."
 msgstr "Провести глибокий аналіз виконуваних файлів."
 
 msgid ""
-"Please check the <a href='http://linux.die.net/man/5/clamd.conf' "
-"target='_blank'>manual page</a> for more details."
-msgstr "Будь ласка, відвідайте <a href='http://linux.die.net/man/5/clamd.conf' target='_blank'>сторінка керівництва</a> для більш докладної інформації."
+"Please check the <a href='https://github.com/vrtadmin/clamav-"
+"faq/raw/master/manual/clamdoc.pdf' target='_blank'>manual page</a> for more "
+"details."
+msgstr "Будь ласка, перевірте <a href='https://github.com/vrtadmin/clamav-faq/raw/master/manual/clamdoc.pdf' target='_blank'>сторінку керівництва</a> для більш докладної інформації."
 
 msgid "Quarantine"
 msgstr "Карантин"
@@ -195,6 +205,9 @@ msgstr "Сканувати архіви"
 msgid "Scan the directory contents in parallel using available threads."
 msgstr "Сканування вмісту каталогу паралельно, використовуючи доступні потоки."
 
+msgid "Scheduled Jobs"
+msgstr "Заплановані завдання"
+
 msgid "Send command output via email"
 msgstr "Відправити висновок команди по електронній пошті"
 
@@ -206,6 +219,9 @@ msgstr "Налаштування"
 
 msgid "Shared folder"
 msgstr "Спільна тека"
+
+msgid "The location of the files to scan on-access."
+msgstr "Розташування файлів для сканування доступу."
 
 msgid "The location of the files to scan."
 msgstr "Розташування файлів для сканування."

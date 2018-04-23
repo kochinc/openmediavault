@@ -1,3 +1,86 @@
+openmediavault-lvm2 (4.0.5-1) stable; urgency=low
+
+  * Update locales.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Sat, 03 Mar 2018 07:22:28 +0100
+
+openmediavault-lvm2 (4.0.4-1) stable; urgency=low
+
+  * Adapt to new API.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Fri, 23 Feb 2018 17:53:59 +0100
+
+openmediavault-lvm2 (4.0.3-1) stable; urgency=low
+
+  * Update locales.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Sat, 18 Nov 2017 10:04:53 +0100
+
+openmediavault-lvm2 (4.0.2-1) stable; urgency=low
+
+  * Update locales.
+  * Use Font Awesome icons.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Wed, 15 Nov 2017 12:30:10 +0100
+
+openmediavault-lvm2 (4.0.1-1) stable; urgency=low
+
+  * Update locales.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Wed, 01 Nov 2017 10:16:26 +0100
+
+openmediavault-lvm2 (4.0-1) stable; urgency=low
+
+  * Adapt to Debian 9 (Stretch).
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Sun, 20 Aug 2017 14:34:15 +0200
+
+openmediavault-lvm2 (3.2.5) stable; urgency=low
+
+  * Fix issue when getting the VG device file.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Wed, 01 Nov 2017 10:05:01 +0100
+
+openmediavault-lvm2 (3.2.4) stable; urgency=low
+
+  * Update locales.
+  * Display logical volume status.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Fri, 14 Jul 2017 19:43:53 +0200
+
+openmediavault-lvm2 (3.2.3) stable; urgency=low
+
+  * Various improvements and small bugfixes.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Mon, 10 Jul 2017 21:41:56 +0200
+
+openmediavault-lvm2 (3.2.2) stable; urgency=low
+
+  * Mantis 0001761: Can not create a lv.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Wed, 14 Jun 2017 08:05:25 +0200
+
+openmediavault-lvm2 (3.2.1) stable; urgency=low
+
+  * Update locales.
+  * Various API improvements.
+  * Display the devicefile of the PV/VG/LV in the WebUI.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Thu, 20 Apr 2017 23:04:03 +0200
+
+openmediavault-lvm2 (3.2) stable; urgency=low
+
+  * Update locales.
+  * Add ability to create snapshots.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Wed, 12 Apr 2017 17:57:05 +0200
+
+openmediavault-lvm2 (3.1.5) stable; urgency=low
+
+  * Various improvements.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Fri, 31 Mar 2017 20:22:19 +0200
+
 openmediavault-lvm2 (3.1.4) stable; urgency=low
 
   * Update locales.

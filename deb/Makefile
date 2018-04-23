@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,9 +25,12 @@
 OMV_SUBDIRS := $(shell find . -maxdepth 1 -name 'openmediavault*' -type d)
 
 # Targets to process all OpenMediaVault plugin packages.
-clean binary omv_pull_po omv_push_pot omv_build_pot:
+clean binary omv_tx_pull_po omv_tx_push_pot omv_build_pot:
 	for dir in $(OMV_SUBDIRS); do \
 		cd $(CURDIR)/$$dir && fakeroot debian/rules $@; \
 	done
 
-.PHONY: clean binary omv_pull_po omv_push_pot omv_build_pot
+install_build_tools:
+	sudo apt-get install debhelper fakeroot gettext
+
+.PHONY: install_build_tools clean binary omv_tx_pull_po omv_tx_push_pot omv_build_pot

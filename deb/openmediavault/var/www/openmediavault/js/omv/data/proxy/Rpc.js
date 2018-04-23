@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -65,27 +65,35 @@ Ext.define("OMV.data.proxy.Rpc", {
 		});
 	},
 
-	doRequest: function(operation, callback, scope) {
+	doRequest: function(operation) {
 		var me = this;
 		var request = me.buildRequest(operation);
 		Ext.apply(request, {
-			timeout: me.timeout,
 			scope: me,
-			callback: me.createRequestCallback(request, operation,
-			  callback, scope),
+			callback: me.createRequestCallback(request, operation),
 			method: me.getMethod(request),
 			disableCaching: false
 		});
+		// Apply the request to the given operation.
+		operation.setRequest(request);
+		// Finally execute the RPC request.
 		OMV.Rpc.request(request);
 		return request;
 	},
 
-	createRequestCallback: function(request, operation, callback, scope) {
+	createRequestCallback: function(request, operation) {
 		var me = this;
 		return function(id, success, response) {
-			me.processResponse(success, operation, request, response,
-			  callback, scope);
+			me.processResponse(success, operation, request, response);
 		};
+	},
+
+	setException: function(operation, response) {
+		operation.setException({
+			status: response.code,
+			statusText: response.message,
+			response: response
+		});
 	},
 
 	buildRequest: function(operation) {
@@ -103,7 +111,9 @@ Ext.define("OMV.data.proxy.Rpc", {
 			rpcData: rpcData,
 			relayErrors: true
 		});
-		operation.request = request;
+		// Use setTimeout() here because 'Ext.data.request.Base' uses
+		// the getter method to access the timeout config option.
+		request.setTimeout(me.timeout);
 		return request;
 	},
 

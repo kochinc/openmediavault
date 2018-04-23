@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,7 +49,7 @@ class OMVRpcServiceRrd extends \OMV\Rpc\ServiceAbstract {
 		// Create the background process.
 		return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
 		  use ($params) {
-			$cmd = new \OMV\System\Process("omv-mkgraph");
+			$cmd = new \OMV\System\Process("omv-mkrrdgraph");
 			$cmd->setRedirect2to1();
 			$cmd->execute($output);
 			return $output;

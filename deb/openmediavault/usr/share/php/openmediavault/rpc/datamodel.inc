@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -65,7 +65,7 @@ class DataModel extends \OMV\DataModel\DataModel {
 	/**
 	 * Validate the specified data against the data model.
 	 * @param data The JSON data to validate.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\Json\SchemaException
 	 * @throw \OMV\Json\SchemaValidationException
 	 */

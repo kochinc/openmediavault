@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +24,6 @@ OMV.WorkspaceManager.registerNode({
 	id: "certificate",
 	path: "/system",
 	text: _("Certificates"),
-	icon16: "images/certificate.png",
-	iconSvg: "images/certificate.svg",
+	iconCls: "mdi mdi-certificate",
 	position: 60
 });

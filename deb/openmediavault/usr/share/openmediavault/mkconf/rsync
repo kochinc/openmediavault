@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -57,10 +57,11 @@ xmlstarlet sel -t \
 
 	  case $type in
 	  local)
-		  srcsfref=$(omv_config_get "//services/rsync/jobs/job[uuid='${uuid}']/src")
+		  srcsfref=$(omv_config_get "//services/rsync/jobs/job[uuid='${uuid}']/src/sharedfolderref")
 		  srcuri="$(omv_get_sharedfolder_path "${srcsfref}")/"
 		  srcuriarg=$(omv_escapeshellarg "${srcuri}")
-		  destsfref=$(omv_config_get "//services/rsync/jobs/job[uuid='${uuid}']/dest")
+		  srcmntdir=$(omv_get_sharedfolder_mount_dir "${srcsfref}")
+		  destsfref=$(omv_config_get "//services/rsync/jobs/job[uuid='${uuid}']/dest/sharedfolderref")
 		  desturi=$(omv_get_sharedfolder_path "${destsfref}")
 		  desturiarg=$(omv_escapeshellarg "${desturi}")
 		  destmntdir=$(omv_get_sharedfolder_mount_dir "${destsfref}")
@@ -69,16 +70,17 @@ xmlstarlet sel -t \
 		  mode=$(omv_config_get "//services/rsync/jobs/job[uuid='${uuid}']/mode")
 		  case $mode in
 		  push)
-			  srcsfref=$(omv_config_get "//services/rsync/jobs/job[uuid='${uuid}']/src")
+			  srcsfref=$(omv_config_get "//services/rsync/jobs/job[uuid='${uuid}']/src/sharedfolderref")
 			  srcuri="$(omv_get_sharedfolder_path "${srcsfref}")/"
 			  srcuriarg=$(omv_escapeshellarg "${srcuri}")
-			  desturi=$(omv_config_get "//services/rsync/jobs/job[uuid='${uuid}']/dest")
+			  srcmntdir=$(omv_get_sharedfolder_mount_dir "${srcsfref}")
+			  desturi=$(omv_config_get "//services/rsync/jobs/job[uuid='${uuid}']/dest/uri")
 			  desturiarg=$(omv_escapeshellarg "${desturi}")
 			  ;;
 		  pull)
-			  srcuri=$(omv_config_get "//services/rsync/jobs/job[uuid='${uuid}']/src")
+			  srcuri=$(omv_config_get "//services/rsync/jobs/job[uuid='${uuid}']/src/uri")
 			  srcuriarg=$(omv_escapeshellarg "${srcuri}")
-			  destsfref=$(omv_config_get "//services/rsync/jobs/job[uuid='${uuid}']/dest")
+			  destsfref=$(omv_config_get "//services/rsync/jobs/job[uuid='${uuid}']/dest/sharedfolderref")
 			  desturi=$(omv_get_sharedfolder_path "${destsfref}")
 			  desturiarg=$(omv_escapeshellarg "${desturi}")
 			  destmntdir=$(omv_get_sharedfolder_mount_dir "${destsfref}")
@@ -98,15 +100,23 @@ xmlstarlet sel -t \
 		-o "  exit" -n \
 		-o "}" -n \
 		-o "[ -e ${runfile} ] && exit 1" -n \
+		-i "type[. = 'local'] or mode[. = 'push']" \
+		  -o "if ! omv_is_mounted \"${srcmntdir}\" ; then" -n \
+		  -o "    omv_error \"Source storage device not mounted at <${srcmntdir}>!\"" -n \
+		  -o "    exit 1" -n \
+		  -o "fi" -n \
+		-b \
 		-i "type[. = 'local'] or mode[. = 'pull']" \
 		  -o "if ! omv_is_mounted \"${destmntdir}\" ; then" -n \
-		  -o "    echo \"Destination storage device <${destmntdir}> not mounted!\"" -n \
+		  -o "    omv_error \"Destination storage device not mounted at <${destmntdir}>!\"" -n \
 		  -o "    exit 1" -n \
 		  -o "fi" -n \
 		-b \
 		-o "trap cleanup 0 1 2 5 15" -n \
 		-o "touch ${runfile}" -n \
-		-o "echo \"Please wait, syncing <${srcuri}> to <${desturi}> ...\n\"" -n \
+		-i "quiet = '0'" \
+		  -o "omv_log \"Please wait, syncing <${srcuri}> to <${desturi}> ...\n\"" -n \
+		-b \
 		-i "authentication = 'password'" \
 		  -i "string-length(password) > 0" -v "concat('env RSYNC_PASSWORD=\"',password,'\" ')" -b \
 		-b \
@@ -131,6 +141,9 @@ xmlstarlet sel -t \
 		-i "partial = '1'" -o " --partial" -b \
 		-i "string-length(extraoptions) > 0" -v "concat(' ',extraoptions)" -b \
 		-o " ${srcuriarg} ${desturiarg} & wait \$!" \
+		-i "quiet = '0'" \
+		  -n -o "omv_log \"\nThe synchronisation has completed successfully.\"" \
+		-b \
 		${OMV_CONFIG_FILE} | xmlstarlet unesc > ${filename}
 	  chmod ${OMV_RSYNC_CRONSCRIPT_MASK} ${filename}
   done

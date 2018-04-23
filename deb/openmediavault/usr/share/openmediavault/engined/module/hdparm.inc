@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,14 +35,6 @@ class OMVModuleHdParm extends \OMV\Engine\Module\ServiceAbstract
 		$cmd = new \OMV\System\Process("omv-mkconf", "hdparm");
 		$cmd->setRedirect2to1();
 		$cmd->execute();
-	}
-
-	/**
-	 * Start the managed service.
-	 */
-	public function startService() {
-		$systemCtl = new \OMV\System\SystemCtl("hdparm");
-		$systemCtl->reload();
 	}
 
 	/**

@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@
 // require("js/omv/data/Store.js")
 // require("js/omv/data/Model.js")
 // require("js/omv/data/proxy/Rpc.js")
+// require("js/omv/data/proxy/RpcBg.js")
 
 /**
  * @class OMV.module.admin.storage.smart.device.Settings
@@ -100,10 +101,10 @@ Ext.define("OMV.module.admin.storage.smart.device.information.Information", {
 	initComponent: function() {
 		var me = this;
 		Ext.apply(me, {
-			fieldDefaults: Ext.apply({}, {
+			defaults: {
 				editable: false,
 				readOnly: true
-			}, me.fieldDefaults),
+			},
 			rpcGetParams: {
 				devicefile: me.devicefile
 			}
@@ -157,6 +158,7 @@ Ext.define("OMV.module.admin.storage.smart.device.information.Attributes", {
 	stateful: true,
 	stateId: "70556b35-44c5-49d6-8d2e-29c045a57f9c",
 	columns: [{
+		xtype: "textcolumn",
 		text: _("ID"),
 		dataIndex: "id",
 		stateId: "id",
@@ -217,29 +219,29 @@ Ext.define("OMV.module.admin.storage.smart.device.information.Attributes", {
 		trueText: _("prefail"),
 		falseText: _("old-age")
 	},{
+		xtype: "fonticoncolumn",
 		text: _("Status"),
 		sortable: true,
 		dataIndex: "assessment",
 		stateId: "assessment",
 		align: "center",
+		resizable: false,
+		width: 80,
 		renderer: function(value, metaData, record) {
-			var ledColor = "gray";
+			var colorCls = Ext.baseCSSPrefix + "color-gray";
 			if (true === record.get("prefailure")) {
 				switch (value) {
 				case "GOOD":
-					ledColor = "green";
+					colorCls = Ext.baseCSSPrefix + "color-good";
 					break;
+				case "BAD_SECTOR":
 				case "BAD_ATTRIBUTE_NOW":
 				case "BAD_ATTRIBUTE_IN_THE_PAST":
-					ledColor = "red";
+					colorCls = Ext.baseCSSPrefix + "color-error";
 					break;
 				}
 			}
-			metaData.tdCls = Ext.String.format("{0} {1}-{2}",
-			  Ext.baseCSSPrefix + "grid-cell-iconcolumn",
-			  Ext.baseCSSPrefix + "grid-cell-iconcolumn-led",
-			  ledColor);
-			return "";
+			return ["mdi mdi-checkbox-blank-circle", colorCls];
 		}
 	}],
 
@@ -300,6 +302,7 @@ Ext.define("OMV.module.admin.storage.smart.device.information.SelfTestLogs", {
 	stateful: true,
 	stateId: "ac2859c4-fb88-4757-870c-794e5919c221",
 	columns: [{
+		xtype: "textcolumn",
 		text: _("Num"),
 		dataIndex: "num",
 		stateId: "num",
@@ -307,11 +310,13 @@ Ext.define("OMV.module.admin.storage.smart.device.information.SelfTestLogs", {
 		resizable: false,
 		align: "right"
 	},{
+		xtype: "textcolumn",
 		text: _("Test description"),
 		dataIndex: "description",
 		stateId: "description",
 		flex: 1
 	},{
+		xtype: "textcolumn",
 		text: _("Status"),
 		dataIndex: "status",
 		stateId: "status",
@@ -324,9 +329,10 @@ Ext.define("OMV.module.admin.storage.smart.device.information.SelfTestLogs", {
 		resizable: false,
 		align: "center",
 		renderer: function(value) {
-			return value + "%";
+			return Ext.String.htmlEncode(value) + "%";
 		}
 	},{
+		xtype: "textcolumn",
 		text: _("Lifetime"),
 		dataIndex: "lifetime",
 		stateId: "lifetime",
@@ -334,6 +340,7 @@ Ext.define("OMV.module.admin.storage.smart.device.information.SelfTestLogs", {
 		resizable: false,
 		align: "center"
 	},{
+		xtype: "textcolumn",
 		text: _("LBA of first error"),
 		dataIndex: "lbaoffirsterror",
 		stateId: "lbaoffirsterror"
@@ -447,7 +454,7 @@ Ext.define("OMV.module.admin.storage.smart.device.Devices", {
 	requires: [
 		"OMV.data.Store",
 		"OMV.data.Model",
-		"OMV.data.proxy.Rpc",
+		"OMV.data.proxy.RpcBg",
 	],
 	uses: [
 		"OMV.module.admin.storage.smart.device.Settings",
@@ -460,15 +467,11 @@ Ext.define("OMV.module.admin.storage.smart.device.Devices", {
 	stateful: true,
 	stateId: "103a18fd-df1c-4934-b5fd-e90b3e08fa91",
 	columns: [{
-		xtype: "booleaniconcolumn",
+		xtype: "enabledcolumn",
 		text: _("Monitor"),
 		sortable: true,
 		dataIndex: "monitor",
-		stateId: "monitor",
-		align: "center",
-		width: 80,
-		resizable: false,
-		iconCls:  Ext.baseCSSPrefix + "grid-cell-booleaniconcolumn-switch"
+		stateId: "monitor"
 	},{
 		text: _("Device"),
 		sortable: true,
@@ -512,45 +515,42 @@ Ext.define("OMV.module.admin.storage.smart.device.Devices", {
 		dataIndex: "temperature",
 		stateId: "temperature"
 	},{
+		xtype: "fonticoncolumn",
 		text: _("Status"),
 		sortable: true,
 		dataIndex: "overallstatus",
 		stateId: "overallstatus",
 		align: "center",
-		renderer: function(value, metaData) {
+		resizable: false,
+		width: 80,
+		getFontIconCls: function(value, metaData) {
+			var text = _("Unknown");
+			var colorCls = Ext.baseCSSPrefix + "color-gray";
 			switch (value) {
 			case "GOOD":
 				text = _("Good");
-				ledColor = "green";
+				colorCls = Ext.baseCSSPrefix + "color-good";
 				break;
 			case "BAD_ATTRIBUTE_NOW":
 				text = _("Device is being used outside design parameters");
-				ledColor = "red";
+				colorCls = Ext.baseCSSPrefix + "color-error";
 				break;
 			case "BAD_ATTRIBUTE_IN_THE_PAST":
 				text = _("Device was used outside of design parameters in the past");
-				ledColor = "red";
+				colorCls = Ext.baseCSSPrefix + "color-error";
 				break;
 			case "BAD_SECTOR":
 				text = _("Device has a few bad sectors");
-				ledColor = "red";
+				colorCls = Ext.baseCSSPrefix + "color-error";
 				break;
 			case "BAD_SECTOR_MANY":
 				text = _("Device has many bad sectors");
-				ledColor = "red";
-				break;
-			default:
-				text = _("Unknown");
-				ledColor = "gray";
+				colorCls = Ext.baseCSSPrefix + "color-error";
 				break;
 			}
-			metaData.tdCls = Ext.String.format("{0} {1}-{2}",
-			  Ext.baseCSSPrefix + "grid-cell-iconcolumn",
-			  Ext.baseCSSPrefix + "grid-cell-iconcolumn-led",
-			  ledColor);
 			metaData.tdAttr = Ext.String.format("data-qtip='{0}'",
 			  Ext.String.htmlEncode(text));
-			return "";
+			return ["mdi mdi-checkbox-blank-circle", colorCls];
 		}
 	}],
 
@@ -575,10 +575,10 @@ Ext.define("OMV.module.admin.storage.smart.device.Devices", {
 					]
 				}),
 				proxy: {
-					type: "rpc",
+					type: "rpcbg",
 					rpcData: {
 						service: "Smart",
-						method: "getList"
+						method: "getListBg"
 					}
 				},
 				remoteSort: true,
@@ -598,8 +598,7 @@ Ext.define("OMV.module.admin.storage.smart.device.Devices", {
 			id: me.getId() + "-information",
 			xtype: "button",
 			text: _("Information"),
-			icon: "images/details.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-info",
 			handler: Ext.Function.bind(me.onInformationButton, me, [ me ]),
 			scope: me,
 			disabled: true,

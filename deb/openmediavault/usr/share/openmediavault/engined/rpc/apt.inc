@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -176,6 +176,7 @@ class OMVRpcServiceApt extends \OMV\Rpc\ServiceAbstract {
 			$cmdArgs[] = "--yes";
 			$cmdArgs[] = "--allow-downgrades";
 			$cmdArgs[] = "--allow-change-held-packages";
+			$cmdArgs[] = "--fix-broken"; // Fix broken dependencies in place.
 			$cmdArgs[] = "--fix-missing";
 			$cmdArgs[] = "--auto-remove";
 			$cmdArgs[] = "--allow-unauthenticated";
@@ -186,9 +187,11 @@ class OMVRpcServiceApt extends \OMV\Rpc\ServiceAbstract {
 			$cmd = new \OMV\System\Process("apt-get", $cmdArgs);
 			$cmd->setRedirect2to1();
 			$cmd->setEnv("DEBIAN_FRONTEND", "noninteractive");
-			$cmdLine = $cmd->getCommandLine();
-			if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename))
-				throw new \OMV\ExecException($cmdLine, $output);
+			if (0 !== ($exitStatus = $this->exec($cmd->getCommandLine(),
+				$output, $bgOutputFilename))) {
+				throw new \OMV\ExecException($cmd->getCommandLine(), $output,
+					$exitStatus);
+			}
 			return $output;
 		});
 	}
@@ -212,9 +215,11 @@ class OMVRpcServiceApt extends \OMV\Rpc\ServiceAbstract {
 			// Update package database.
 			$cmd = new \OMV\System\Process("apt-get", "update");
 			$cmd->setRedirect2to1();
-			$cmdLine = $cmd->getCommandLine();
-			if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename))
-				throw new \OMV\ExecException($cmdLine, $output);
+			if (0 !== ($exitStatus = $this->exec($cmd->getCommandLine(),
+				$output, $bgOutputFilename))) {
+				throw new \OMV\ExecException($cmd->getCommandLine(), $output,
+					$exitStatus);
+			}
 			return $output;
 		});
 	}
@@ -225,7 +230,7 @@ class OMVRpcServiceApt extends \OMV\Rpc\ServiceAbstract {
 	 *   \em filename The original name of the file.
 	 *   \em filepath The path to the uploaded file.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 */
 	function upload($params, $context) {
 		// Validate the RPC caller context.
@@ -359,9 +364,11 @@ class OMVRpcServiceApt extends \OMV\Rpc\ServiceAbstract {
 			$cmd = new \OMV\System\Process("gzip", $cmdArgs);
 			$cmd->setInputFromFile($matches[0]);
 			$cmd->setRedirect2to1();
-			$cmdLine = $cmd->getCommandLine();
-			if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename))
-				throw new \OMV\ExecException($cmdLine, $output);
+			if (0 !== ($exitStatus = $this->exec($cmd->getCommandLine(),
+				$output, $bgOutputFilename))) {
+				throw new \OMV\ExecException($cmd->getCommandLine(), $output,
+					$exitStatus);
+			}
 			return $output;
 		});
 	}

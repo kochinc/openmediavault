@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -113,7 +113,7 @@ class PowerManagement {
 
 	/**
 	 * Reboot the machine.
-	 * @return None.
+	 * @return void
 	 */
 	public function reboot() {
 		$this->exec("reboot");
@@ -121,7 +121,7 @@ class PowerManagement {
 
 	/**
 	 * Shut down the machine.
-	 * @return None.
+	 * @return void
 	 */
 	public function shutdown() {
 		$this->exec("shutdown");
@@ -137,7 +137,7 @@ class PowerManagement {
 	 * \li Suspend to RAM (STR)
 	 * \li Shut down and turn of system
 	 * </ul>
-	 * @return None.
+	 * @return void
 	 */
 	public function standby() {
 		$action = "shutdown";
@@ -153,7 +153,7 @@ class PowerManagement {
 	/**
 	 * Put the machine into suspend to RAM (STR) mode. If this state is not
 	 * supported the system will be shut down.
-	 * @return None.
+	 * @return void
 	 */
 	public function suspend() {
 		$action = "shutdown";
@@ -165,7 +165,7 @@ class PowerManagement {
 	/**
 	 * Put the machine into suspend to disk (STD) mode. If this state is not
 	 * supported the system will be shut down.
-	 * @return None.
+	 * @return void
 	 */
 	public function hibernate() {
 		$action = "shutdown";
@@ -177,7 +177,7 @@ class PowerManagement {
 	/**
 	 * Put the machine into suspend-hybrid (STB) mode. If this state is not
 	 * supported the system will be shut down.
-	 * @return None.
+	 * @return void
 	 */
 	public function suspendHybrid() {
 		$action = "shutdown";

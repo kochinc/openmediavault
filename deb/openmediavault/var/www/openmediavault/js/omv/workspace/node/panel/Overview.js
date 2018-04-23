@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -101,30 +101,30 @@ Ext.define("OMV.workspace.node.panel.Overview", {
 					// data structure if the data view tems are out of
 					// order than they are stored in the store.
 					var nodes = this.all.elements,
-					    node,
-					    records = this.getViewRange(),
-					    i,
-					    myId = this.id;
+						node,
+						records = this.getViewRange(),
+						i,
+						myId = this.id;
 					startIndex = startIndex || 0;
 					endIndex = endIndex || ((endIndex === 0) ?
 					  0 : (nodes.length - 1));
 					for (i = startIndex; i <= endIndex; i++) {
-					    //node = nodes[i];
+						//node = nodes[i];
 						node = Ext.Array.findBy(nodes, function(item, index) {
-			        		return item.id == records[i].get("uri");
-			        	});
-					    node.setAttribute('data-recordIndex', i);
-					    node.setAttribute('data-recordId', records[i].internalId);
-					    node.setAttribute('data-boundView', myId);
+							return item.id == records[i].get("internalId");
+						});
+						node.setAttribute('data-recordIndex', i);
+						node.setAttribute('data-recordId', records[i].internalId);
+						node.setAttribute('data-boundView', myId);
 					}
-			    },
+				},
 				tpl: Ext.create("Ext.XTemplate",
 					'<div class="',Ext.baseCSSPrefix,'workspace-node-view-categories">',
 						'<tpl for=".">',
 							'<tpl if="values.header == true">',
 								'<div class="',Ext.baseCSSPrefix,'workspace-node-view-category">',
 									'<div class="',Ext.baseCSSPrefix,'workspace-node-view-category-header">',
-										'<div class="thumb-wrap" id="{uri:stripTags}">',
+										'<div class="thumb-wrap" id="{internalId}">',
 											'{[this.renderCategoryHeaderText(values)]}',
 										'</div>',
 									'</div>',
@@ -144,8 +144,8 @@ Ext.define("OMV.workspace.node.panel.Overview", {
 							var tpl = Ext.create("Ext.XTemplate",
 								'<tpl for=".">',
 									'<tpl if="this.isRenderNode(values)">',
-										'<div class="thumb-wrap" id="{uri:stripTags}">',
-											'<div class="thumb"><img src="{[this.renderIcon(values)]}" title="{[this.renderText(values)]}"></div>',
+										'<div class="thumb-wrap" id="{internalId}">',
+											'<div class="thumb">{[this.renderIcon(values)]}</div>',
 											'<span>{[this.renderText(values)]}</span>',
 										'</div>',
 									'</tpl>',
@@ -161,7 +161,16 @@ Ext.define("OMV.workspace.node.panel.Overview", {
 										  node.getText());
 									},
 									renderIcon: function(node) {
-										return node.getProperIcon32();
+										var html = Ext.String.format(
+											"<div class='thumb-icon {0}'></div>",
+											node.getIconCls());
+										if (Ext.isEmpty(node.iconCls) && node.hasIcon(
+												"svg|raster32")) {
+											html = Ext.String.format(
+												"<img class='thumb-icon' src='{0}'>",
+												node.getProperIcon32());
+										}
+										return html;
 									}
 								});
 							return tpl.apply(models);

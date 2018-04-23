@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,6 +45,9 @@ class Wireless extends BackendAbstract {
 	//   [P<domain>]p<bus>s<slot>[f<function>][n<phys_port_name>|d<dev_port>]
 	// - USB port number chain
 	//   [P<domain>]p<bus>s<slot>[f<function>][u<port>][..][c<config>][i<interface>]
+	//
+	// Understanding systemd’s predictable network device names:
+	// https://github.com/systemd/systemd/blob/master/src/udev/udev-builtin-net_id.c
 	protected $regex = "/^wlan[0-9]+|wl(b\d+|c\d+|o\d+(n\S+|d\d+)?|".
 		"s\d+(f\d+)?(n\S+|d\d+)?|".
 		"x[\da-f]{12}|(P\d+)?p\d+s\d+(f\d+)?(n\S+|d\d+)?|".

@@ -1,17 +1,17 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-lvm2 package.
 # 
 # Translators:
-# Volker <votdev@gmx.de>, 2014-2015
+# Volker <votdev@gmx.de>, 2014-2015,2017
 # Volker <votdev@gmx.de>, 2012
 # warhog <warhog@gmx.de>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-23 19:15+0200\n"
-"PO-Revision-Date: 2016-04-23 17:16+0000\n"
+"POT-Creation-Date: 2017-08-30 08:41+0200\n"
+"PO-Revision-Date: 2017-09-23 18:10+0000\n"
 "Last-Translator: Volker <votdev@gmx.de>\n"
 "Language-Team: German (http://www.transifex.com/votdev/openmediavault/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Active"
+msgstr "Aktiv"
 
 msgid "Add physical volume"
 msgstr "Füge ein physikalisches Volume hinzu"
@@ -120,6 +123,9 @@ msgstr "Laufwerk auswählen ..."
 
 msgid "Size"
 msgstr "Größe"
+
+msgid "Snapshot"
+msgstr "Snapshot"
 
 msgid "Used"
 msgstr "Benutzt"

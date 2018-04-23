@@ -1,15 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-usbbackup package.
 # 
 # Translators:
+# Quim Farriol <quim@iscinformatica.cat>, 2018
 # Quim Farriol <quim@iscinformatica.cat>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-23 19:15+0200\n"
-"PO-Revision-Date: 2017-02-03 21:07+0000\n"
+"POT-Creation-Date: 2017-11-18 11:05+0100\n"
+"PO-Revision-Date: 2018-01-01 19:23+0000\n"
 "Last-Translator: Quim Farriol <quim@iscinformatica.cat>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/votdev/openmediavault/language/ca_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -49,6 +50,9 @@ msgstr "Esborrar els fitxers de la banda receptora que no existeixin en la banda
 
 msgid "Device"
 msgstr "Dispositiu"
+
+msgid "Done ..."
+msgstr "Fet ..."
 
 msgid "Edit backup job"
 msgstr "Editar tasca de Backup"

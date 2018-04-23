@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -98,8 +98,7 @@ Ext.define("OMV.module.admin.system.notification.Settings", {
 			id: me.getId() + "-test",
 			xtype: "button",
 			text: _("Send a test email"),
-			icon: "images/mail.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-envelope",
 			disabled: true,
 			scope: me,
 			handler: function() {
@@ -158,7 +157,7 @@ Ext.define("OMV.module.admin.system.notification.Settings", {
 				name: "server",
 				fieldLabel: _("SMTP server"),
 				allowBlank: true,
-				vtype: "domainnameIP",
+				vtype: "smtpserver",
 				plugins: [{
 					ptype: "fieldinfo",
 					text: _("Outgoing SMTP mail server address, e.g. smtp.mycorp.com.")
@@ -271,7 +270,7 @@ Ext.define("OMV.module.admin.system.notification.Notifications", {
 		}
 	},{
 		xtype: "checkcolumn",
-		text: _("Enable"),
+		text: _("Enabled"),
 		groupable: false,
 		dataIndex: "enable",
 		stateId: "enable",
@@ -349,8 +348,7 @@ OMV.WorkspaceManager.registerNode({
 	id: "notification",
 	path: "/system",
 	text: _("Notification"),
-	icon16: "images/mail.png",
-	iconSvg: "images/mail.svg",
+	iconCls: "mdi mdi-email",
 	position: 40
 });
 

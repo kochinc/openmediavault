@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,6 +34,7 @@ class OMVRpcServiceSmart extends \OMV\Rpc\ServiceAbstract {
 		$this->registerMethod("enumerateDevices");
 		$this->registerMethod("enumerateMonitoredDevices");
 		$this->registerMethod("getList");
+		$this->registerMethod("getListBg");
 		$this->registerMethod("getSettings");
 		$this->registerMethod("setSettings");
 		$this->registerMethod("getDeviceSettings");
@@ -86,7 +87,7 @@ class OMVRpcServiceSmart extends \OMV\Rpc\ServiceAbstract {
 			// Prepare device object
 			$objects[] = [
 				"devicename" => $sd->getDeviceName(),
-				"devicefile" => $sd->getCanonicalDeviceFile(),
+				"devicefile" => $sd->getPreferredDeviceFile(),
 				"devicelinks" => $sd->getDeviceFileSymlinks(),
 				"model" => $sd->getModel(),
 				"size" => $sd->getSize(),
@@ -143,15 +144,15 @@ class OMVRpcServiceSmart extends \OMV\Rpc\ServiceAbstract {
 
 	/**
 	 * Get all devices supporting S.M.A.R.T.
-	 * @param params An array containing the following fields:
+	 * @param object $params An object containing the following fields:
 	 *   \em start The index where to start.
 	 *   \em limit The number of objects to process.
 	 *   \em sortfield The name of the column used to sort.
 	 *   \em sortdir The sort direction, ASC or DESC.
-	 * @param context The context of the caller.
-	 * @return An array containing the requested objects. The field \em total
-	 *   contains the total number of objects, \em data contains the object
-	 *   array. An exception will be thrown in case of an error.
+	 * @param object $context The context of the caller.
+	 * @return array An array containing the requested objects. The field
+	 *   \em total contains the total number of objects, \em data contains
+	 *   the object array. An exception will be thrown in case of an error.
 	 */
 	public function getList($params, $context) {
 		// Validate the RPC caller context.
@@ -190,6 +191,13 @@ class OMVRpcServiceSmart extends \OMV\Rpc\ServiceAbstract {
 		// Filter result.
 		return $this->applyFilter($objects, $params['start'],
 		  $params['limit'], $params['sortfield'], $params['sortdir']);
+	}
+
+	/**
+	 * Execute the getList() RPC as background process.
+	 */
+	public function getListBg($params, $context) {
+		return $this->callMethodBg("getList", $params, $context);
 	}
 
 	/**
@@ -295,16 +303,13 @@ class OMVRpcServiceSmart extends \OMV\Rpc\ServiceAbstract {
 		  $params['devicefile']);
 		// Ensure that the device has S.M.A.R.T. support.
 		$sd->assertHasSmartSupport();
-		// Try to get a /dev/disk/by-id device file.
-		if (TRUE === $sd->hasDeviceFileById())
-			$params['devicefile'] = $sd->getDeviceFileById();
 		// Prepare the configuration data.
 		$object = new \OMV\Config\ConfigObject(
 		  "conf.service.smartmontools.device");
 		$object->setAssoc([
 			"uuid" => $params['uuid'],
 			"enable" => $params['enable'],
-			"devicefile" => $params['devicefile'],
+			"devicefile" => $sd->getPredictableDeviceFile(),
 			"devicetype" => $sd->getSmartDeviceType()
 		]);
 		// Set the configuration object.
@@ -516,9 +521,8 @@ class OMVRpcServiceSmart extends \OMV\Rpc\ServiceAbstract {
 		  $params['devicefile']);
 		// Ensure that the device has S.M.A.R.T. support.
 		$sd->assertHasSmartSupport();
-		// Try to get a /dev/disk/by-id device file.
-		if (TRUE === $sd->hasDeviceFileById())
-			$params['devicefile'] = $sd->getDeviceFileById();
+		// Use a predictable device file.
+		$params['devicefile'] = $sd->getPredictableDeviceFile();
 		// Prepare the configuration data.
 		$object = new \OMV\Config\ConfigObject(
 		  "conf.service.smartmontools.job");
@@ -596,15 +600,18 @@ class OMVRpcServiceSmart extends \OMV\Rpc\ServiceAbstract {
 			$cmdArgs[] = $sd->getDeviceFile();
 			$cmd = new \OMV\System\Process("smartctl", $cmdArgs);
 			$cmd->setRedirect2to1();
-			$cmdLine = $cmd->getCommandLine();
 			// Execute the command.
-			$exitStatus = $this->exec($cmdLine, $output, $bgOutputFilename);
+			$exitStatus = $this->exec($cmd->getCommandLine(), $output,
+				$bgOutputFilename);
 			// Check the exit status:
 			// Bit 0: Command line did not parse
 			// Bit 1: Device open failed, or device did not return an
 			//        IDENTIFY DEVICE structure
-			if (($exitStatus !== 0) && (($exitStatus & 0) || ($exitStatus & 1)))
-				throw new \OMV\ExecException($cmdLine, $output, $exitStatus);
+			if (($exitStatus !== 0) && (($exitStatus & 0) ||
+				($exitStatus & 1))) {
+				throw new \OMV\ExecException($cmd->getCommandLine(), $output,
+					$exitStatus);
+			}
 			return $output;
 		});
 	}

@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -85,7 +85,7 @@ Ext.define("OMV.module.admin.service.ssh.Settings", {
 			allowBlank: true,
 			plugins: [{
 				ptype: "fieldinfo",
-				text: _("Please check the <a href='http://www.openbsd.org/cgi-bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>manual page</a> for more details."),
+				text: _("Please check the <a href='https://man.openbsd.org/sshd_config.5' target='_blank'>manual page</a> for more details."),
 			}]
 		}];
 	}
@@ -95,8 +95,7 @@ OMV.WorkspaceManager.registerNode({
 	id: "ssh",
 	path: "/service",
 	text: _("SSH"),
-	icon16: "images/terminal.png",
-	iconSvg: "images/terminal.svg"
+	iconCls: "mdi mdi-console"
 });
 
 OMV.WorkspaceManager.registerPanel({

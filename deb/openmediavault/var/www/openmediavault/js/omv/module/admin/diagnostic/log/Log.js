@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +24,6 @@ OMV.WorkspaceManager.registerNode({
 	id: "log",
 	path: "/diagnostic",
 	text: _("System Logs"),
-	icon16: "images/logs.png",
-	iconSvg: "images/logs.svg",
+	iconCls: "x-fa fa-pencil-square-o",
 	position: 60
 });

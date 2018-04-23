@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,14 +53,28 @@ class Manager implements \IteratorAggregate {
 	final public function registerBackend(BackendAbstract $backend) {
 		if (!isset($backend))
 			return FALSE;
-		$type = $backend->getType();
+		$type = strtolower($backend->getType());
 		// Check if the filesystem backend already exists.
 		if (NULL !== ($registeredBackend = $this->getBackendByType($type))) {
 			throw new \OMV\Exception("The filesystem backend (type=%s, ".
 			  "class=%s) is already registered (class=%s).", $type,
 			  get_class($backend), get_class($registeredBackend));
 		}
-		$this->map[strtolower($type)] = $backend;
+		$this->map[$type] = $backend;
+		ksort($this->map);
+		return TRUE;
+	}
+
+	/**
+	 * Unregister a filesystem backend.
+	 * @param type Specifies the filesystem type, e.g. 'ext3', 'vfat', ...
+	 * @return TRUE if successful, otherwise FALSE.
+	 */
+	final public function unregisterBackend($type) {
+		$type = strtolower($type);
+		if (NULL === $this->getBackendByType($type))
+			return FALSE;
+		unset($this->map[$type]);
 		ksort($this->map);
 		return TRUE;
 	}
@@ -118,9 +132,11 @@ class Manager implements \IteratorAggregate {
 			$found = FALSE;
 			if (is_devicefile($id)) {
 				// Compare the device file name. Use the canonical device
-				// file for an additional check.
-				$found = (($id == $enumv['devicefile']) ||
-				  (realpath($id) == $enumv['devicefile']));
+				// files for an additional check.
+				if ($id == $enumv['devicefile'])
+					$found = TRUE;
+				else if (realpath($id) == realpath($enumv['devicefile']))
+					$found = TRUE;
 			} else if (is_fs_uuid($id)) {
 				// Compare the filesystem UUID.
 				$found = ($id == $enumv['uuid']);
@@ -178,9 +194,11 @@ class Manager implements \IteratorAggregate {
 	 * @return An array of objects with the fields \em devicefile, \em uuid,
 	 *   \em label and \em type.
 	 * @throw \OMV\ExecException
+	 * @throw \UnexpectedValueException
 	 */
 	final public function enumerate() {
 		$result = [];
+		$blkidEnumsByType = [];
 		// Get all file systems that are identified by the block device
 		// identification library.
 		// !!! Note !!!
@@ -204,17 +222,19 @@ class Manager implements \IteratorAggregate {
 			// /dev/sr0: LABEL="Debian 7.5.0 amd64 1" TYPE="iso9660"
 			// /dev/sr0: UUID="2015-04-25-12-52-13-00" LABEL="Debian 8.0.0 amd64 1" TYPE="iso9660" PTUUID="5e97595e" PTTYPE="dos"
 			// /dev/sda1: LABEL="Music" UUID="54AF-0252" TYPE="exfat"
-			$regex = '/^(\S+): (.+)$/i';
+			// /dev/sdk: LABEL="TestFS" UUID="b7adba40-b980-4067-b33c-dd5c8ee17044" UUID_SUB="7b19094b-e7df-4a3e-a3db-57e2d4c548b3" TYPE="btrfs"
+			// /dev/sdl: LABEL="TestFS" UUID="b7adba40-b980-4067-b33c-dd5c8ee17044" UUID_SUB="ba1e2b16-5022-4cbd-ad35-6d609e9560e9" TYPE="btrfs"
+			$regex = '/^(\S+):\s*(.+)$/i';
 			unset($matches);
 			if (1 !== preg_match($regex, $outputv, $matches))
 				continue;
 			// Set default values and extract key/value pairs.
-			$data = array(
+			$data = [
 				"devicefile" => $matches[1],
 				"uuid" => "",
 				"label" => "",
 				"type" => ""
-			);
+			];
 			$parts = preg_split("/(\S+=\\\"[^\\\"]+\\\")|[\s]+/", $matches[2],
 			  -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 			foreach ($parts as $partk => $partv) {
@@ -223,29 +243,44 @@ class Manager implements \IteratorAggregate {
 					continue;
 				$data[strtolower($keyValue[0])] = substr($keyValue[1], 1, -1);
 			}
-			// Get the backend implementation. If the backend exists, then
-			// we are sure this filesystem is supported by this framework.
-			if (NULL == ($backend = $this->getBackendByType($data['type'])))
-				continue;
-			// Skip this backend if the filesystem is not detected via the
-			// block device identification library.
-			if (FALSE === $backend->isBlkidEnumerated())
-				continue;
-			$result[] = $data;
+			// Append the found filesystem to the list for further processing.
+			if (!array_key_exists($data['type'], $blkidEnumsByType))
+				$blkidEnumsByType[$data['type']] = [];
+			$blkidEnumsByType[$data['type']][] = $data;
 		}
-		// Get the filesystems that are not identified by the block device
-		// identification library.
+		// Now process all filesystems that are supported.
 		foreach ($this->map as $backendk => $backendv) {
-			// Skip this backend if the filesystem is detected via the block
-			// device identification library.
-			if (TRUE === $backendv->isBlkidEnumerated())
-				continue;
-			// Ask the backend implementation for candidates.
-			if (FALSE === ($data = $backendv->enumerate()))
-				continue;
-			if (empty($data))
-				continue;
-			$result = array_merge($result, $data);
+			$enums = [];
+			if (TRUE === $backendv->isBlkidEnumerated()) {
+				// Get the filesystem type handled by this backend, e.g.
+				// 'vfat', 'ntfs' or 'ext4'.
+				$type = $backendv->getType();
+				// Check if the 'blkid' command in the previous step has
+				// detected some filesystems of this type.
+				if (!array_key_exists($type, $blkidEnumsByType))
+					continue;
+				// Get the details of the filesystems that are detected by
+				// 'blkid'. This is an array of objects with (at least) the
+				// fields \em devicefile, \em uuid, \em label and \em type.
+				$blkidEnums = $blkidEnumsByType[$type];
+				// Finally let the backend process the list of detected
+				// filesystems.
+				$enums = $backendv->enumerateByBlkid($blkidEnums);
+			} else {
+				// Ask the backend for filesystem candidates.
+				$enums = $backendv->enumerate();
+			}
+			// Validate the filesystems to ensure that the associative
+			// array/dictionary contains at least the required fields.
+			foreach ($enums as $enumk => $enumv) {
+				$requiredKeys = ['devicefile', 'uuid', 'label', 'type'];
+				if (!array_keys_exists($requiredKeys, $enumv)) {
+					throw new \UnexpectedValueException(sprintf(
+						"The array does not contain the required keys %s.",
+						implode(", ", $requiredKeys)));
+				}
+				$result[] = $enumv;
+			}
 		}
 		return $result;
 	}

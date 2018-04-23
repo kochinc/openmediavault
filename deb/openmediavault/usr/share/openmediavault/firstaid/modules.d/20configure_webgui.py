@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -124,9 +124,12 @@ class Module(openmediavault.firstaid.IModule):
 		# Update the configuration.
 		print("Updating web control panel settings. Please wait ...")
 		openmediavault.rpc.call("WebGui", "setSettings", {
-			"port": port, "enablessl": enablessl, "sslport": sslport,
+			"port": port,
+			"enablessl": enablessl,
+			"sslport": sslport,
 			"forcesslonly": forcesslonly,
-			"sslcertificateref": sslcertificateref, "timeout": 5 })
+			"sslcertificateref": sslcertificateref,
+			"timeout": 5 })
 		# Apply the configuration changes.
 		openmediavault.rpc.call("Config", "applyChanges", {
 			"modules": [], "force": False })

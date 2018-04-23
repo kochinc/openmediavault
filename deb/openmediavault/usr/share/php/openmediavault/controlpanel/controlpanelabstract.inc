@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -116,17 +116,18 @@ EOF;
 		// Set core CSS files.
 		$cssList = [
 			"/extjs6/classic/theme-triton/resources/theme-triton-all.css",
-			"css/theme-all.css",
-			"css/theme-triton.css"
+			"css/theme-all.min.css",
+			"css/theme-triton.min.css",
+			"css/materialdesignicons.min.css"
 		];
 		// Add additional CSS files.
 		$cssList = array_merge($cssList, array_values(array_unique(
 		  $this->getCssIncludes())));
-		$fileName = "css/omv-custom.css";
+		$fileName = "css/theme-custom.css";
 		if (file_exists($fileName))
 			$cssList[] = $fileName;
 		foreach ($cssList as $cssListv) {
-			print "<link rel='stylesheet' type='text/css' href='{$cssListv}'/>\n";
+			print "<link rel='stylesheet' type='text/css' media='all' href='{$cssListv}'/>\n";
 		}
 
 		// Add core javascript files.
@@ -137,7 +138,7 @@ EOF;
 			"js/js-overrides.js",
 			"js/omv/globals.js"
 		];
-		if (TRUE === \OMV\Environment::getBoolean("OMV_DEBUG_EXTJS")) {
+		if (TRUE === \OMV\Environment::getBoolean("OMV_DEBUG_EXTJS", FALSE)) {
 			$jsList = array_merge([
 				"/extjs6/ext-all-debug.js",
 				"/extjs6/classic/theme-triton/theme-triton-debug.js"
@@ -192,11 +193,13 @@ EOF;
 
 		// Get the body code to be rendered
 		$bodyClass = $this->getBodyClass();
+		$bodyBaseContent = $this->getBaseBodyContent();
 		$bodyContent = $this->getBodyContent();
 
 		echo <<<EOF
 	</head>
 	<body class='{$bodyClass}'>
+{$bodyBaseContent}
 {$bodyContent}
 	</body>
 </html>
@@ -209,8 +212,14 @@ EOF;
 	 */
 	protected function getTitle() {
 		$prd = new \OMV\ProductInfo();
-		return sprintf("%s %s - %s", $prd->getName(), gettext("control panel"),
-		  \OMV\System\Net\Dns::getFqdn());
+		$title = sprintf("%s %s", $prd->getName(), gettext("control panel"));
+		try {
+			$fqdn = \OMV\System\Net\Dns::getFqdn();
+			$title = sprintf("%s - %s", $title, $fqdn);
+		} catch(\Exception $e) {
+			// Nothing to do here.
+		}
+		return $title;
 	}
 
 	/**
@@ -228,7 +237,43 @@ EOF;
 	abstract protected function getBodyClass();
 
 	/**
-	 * Get the HTML body code
+	 * Get the base HTML body code.
+	 */
+	protected function getBaseBodyContent() {
+		$prd = new \OMV\ProductInfo();
+		// Define global constants.
+		$globalDefs = sprintf(
+		  "OMV.UUID_UNDEFINED = '%s'; ".
+		  "OMV.ROLE_ADMINISTRATOR = %d; ".
+		  "OMV.HTTPREQUEST_TIMEOUT = %s; ".
+		  "OMV.PRODUCT_NAME = '%s'; ".
+		  "OMV.PRODUCT_URL = '%s'; ".
+		  "OMV.PRODUCT_COPYRIGHT = '%s'; ".
+		  "OMV.PRODUCT_PACKAGENAME = '%s';",
+		  \OMV\Environment::get("OMV_CONFIGOBJECT_NEW_UUID"),
+		  OMV_ROLE_ADMINISTRATOR,
+		  \OMV\Environment::get("OMV_HTTPREQUEST_TIMEOUT"),
+		  $prd->getName(), $prd->getURL(), $prd->getCopyright(),
+		  $prd->getPackageName());
+		// Process the RPC error codes.
+		$errorCodes = [];
+		$reflectionClass = new \ReflectionClass("\OMV\ErrorMsgException");
+		foreach ($reflectionClass->getConstants() as $kConst => $vConst) {
+			$errorCodes[] = sprintf("OMV.%s = %s;", $kConst, $vConst);
+		}
+		$errorCodes = implode(" ", $errorCodes);
+		return <<<EOF
+		<script type="application/javascript">
+			// Global defines
+			{$globalDefs}
+			// RPC error codes
+			{$errorCodes}
+		</script>
+EOF;
+	}
+
+	/**
+	 * Get the HTML body code.
 	 */
 	abstract protected function getBodyContent();
 

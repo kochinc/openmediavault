@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ class Manager {
 
 	/**
 	 * Load the data models.
-	 * @return None.
+	 * @return void
 	 */
 	final public function load() {
 		if ($this->isLoaded())
@@ -108,7 +108,7 @@ class Manager {
 	/**
 	 * Register a model.
 	 * @param model The model class to be registered.
-	 * @return None.
+	 * @return void
 	 */
 	final public function registerModel(DataModel $model) {
 		$ids = [];

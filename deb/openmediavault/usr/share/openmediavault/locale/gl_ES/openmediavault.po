@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 06:19+0100\n"
-"PO-Revision-Date: 2016-12-06 05:21+0000\n"
+"POT-Creation-Date: 2018-01-21 11:50+0100\n"
+"PO-Revision-Date: 2018-01-21 10:50+0000\n"
 "Last-Translator: Volker <votdev@gmx.de>\n"
 "Language-Team: Galician (Spain) (http://www.transifex.com/votdev/openmediavault/language/gl_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -46,6 +46,9 @@ msgstr "1 - Mínimo consumo de enerxía con repouso (parar o disco)"
 msgid "1 day"
 msgstr "1 día"
 
+msgid "1 minute"
+msgstr ""
+
 msgid "1 month"
 msgstr "1 mes"
 
@@ -74,6 +77,9 @@ msgstr "127 - Consumo intermedio de enerxía con repouso"
 msgid "128 - Minimum power usage without standby (no spindown)"
 msgstr "128 - Consumo mínimo de enerxía sen repouso (sen parar o disco)"
 
+msgid "15 minutes"
+msgstr ""
+
 msgid "15 years"
 msgstr "15 anos"
 
@@ -85,6 +91,9 @@ msgstr "192 - Consumo intermedio de enerxía sen repouso"
 
 msgid "2 days"
 msgstr "2 días"
+
+msgid "2 minutes"
+msgstr ""
 
 msgid "2 weeks"
 msgstr "2 semanas"
@@ -113,6 +122,9 @@ msgstr "255 - Desactivado"
 msgid "3 days"
 msgstr "3 días"
 
+msgid "3 minutes"
+msgstr ""
+
 msgid "3 months"
 msgstr "3 meses"
 
@@ -133,6 +145,9 @@ msgstr ""
 
 msgid "4 days"
 msgstr "4 días"
+
+msgid "4 minutes"
+msgstr ""
 
 msgid "4 years"
 msgstr "4 anos"
@@ -297,21 +312,12 @@ msgstr "Alxeria"
 msgid "All"
 msgstr "Todo"
 
-msgid "Allow client access to accounts that have null passwords"
-msgstr "Permitirlle aos clientes o acceso ás contas que teñen contrasinais nulos"
-
 msgid ""
 "Allow clients to attempt to store OS/2 style extended attributes on a share."
 msgstr "Permitir que os clientes tenten almacenar atributos estendidos estilo OS/2 nun recurso compartido."
 
 msgid "Allow clients to resume interrupted uploads and downloads"
 msgstr "Permitir que os clientes continúen cos envíos e descargas interrompidos "
-
-msgid "Allow new files"
-msgstr "Permitir ficheiros novos"
-
-msgid "Allow new files to be created."
-msgstr "Permitir que sexan creados ficheiros novos."
 
 msgid ""
 "Allow this server to advertise itself as a time server to Windows clients"
@@ -420,26 +426,20 @@ msgstr "ID de usuario autenticado"
 msgid "Authentication"
 msgstr "Autenticación"
 
-msgid "Authentication and no privacy"
-msgstr "Autenticación e sen intimidade"
-
-msgid "Authentication and privacy"
-msgstr "Autenticación e intimidade"
-
 msgid "Authentication method"
 msgstr "Método de autenticación"
-
-msgid "Authentication passphrase"
-msgstr "Contrasinal de autenticación"
 
 msgid "Authentication required"
 msgstr "Precisa autenticarse"
 
-msgid "Authentication type"
-msgstr "Tipo de autenticación"
-
 msgid "Auto"
 msgstr "Auto"
+
+msgid "Auto logout"
+msgstr ""
+
+msgid "Auto logout after the specified idle period."
+msgstr ""
 
 msgid "Automatic Acoustic Management"
 msgstr "Xestión acústica automática"
@@ -495,9 +495,6 @@ msgstr "Binario"
 msgid "Block layer cache [%s, %s]"
 msgstr "Bloquear o caché de capa [%s, %s]"
 
-msgid "Blocksize"
-msgstr "Tamaño do bloque"
-
 msgid "Bolivia"
 msgstr "Bolivia"
 
@@ -542,9 +539,6 @@ msgstr "Burquina Faso"
 
 msgid "Burundi"
 msgstr "Burundi"
-
-msgid "By default, only files that already exist are allowed to be uploaded."
-msgstr "De forma predeterminada, só poden cargarse os ficheiros que xa existen."
 
 msgid "CPU usage"
 msgstr "Uso da CPU"
@@ -651,9 +645,6 @@ msgstr "Comentario"
 msgid "Common Name"
 msgstr "Nome común"
 
-msgid "Community"
-msgstr "Comunidade"
-
 msgid "Community-maintained updates."
 msgstr "Actualizacións mantidas pola comunidade."
 
@@ -698,14 +689,6 @@ msgstr "República Democrática do Congo-Kinshasa"
 
 msgid "Connections"
 msgstr "Conexións"
-
-msgid "Contact"
-msgstr "Contacto"
-
-msgid ""
-"Contact information, e.g. name or email address of the person responsible "
-"for this system."
-msgstr "Información de contacto, p.ex. nome ou enderezo de correo da persoa responsábel deste sistema."
 
 msgid "Conveyance self-test"
 msgstr "Transporte de autocomprobación"
@@ -836,11 +819,6 @@ msgstr "Cartafol compartido de destino"
 msgid "Detail"
 msgstr "Detalle"
 
-msgid ""
-"Determine the default timeout, in microseconds, before the first packet is "
-"retransmitted."
-msgstr "Determinar o tempo de espera predeterminado, en microsegundos, antes de que o primeiro paquete sexa retransmitido."
-
 msgid "Device"
 msgstr "Dispositivo"
 
@@ -901,8 +879,14 @@ msgstr "Non permitir que o usuario modifique a súa conta."
 msgid "Disk usage"
 msgstr "Uso do disco"
 
+msgid "Disks"
+msgstr ""
+
 msgid "Displaying items {0} - {1} of {2}"
 msgstr "Amosando os elementos {0} - {1} de {2}"
+
+msgid "Displaying {0} - {1} of {2}"
+msgstr ""
 
 msgid "Djibouti"
 msgstr "Xibuti"
@@ -1066,6 +1050,9 @@ msgstr "Editar o traballo planificado"
 msgid "Edit scheduled test"
 msgstr "Editar proba planificada"
 
+msgid "Edit service"
+msgstr ""
+
 msgid "Edit share"
 msgstr "Editar a compartición"
 
@@ -1193,6 +1180,9 @@ msgstr "Erro"
 
 msgid "Error #"
 msgstr "Erro núm."
+
+msgid "Errors"
+msgstr ""
 
 msgid "Estonia"
 msgstr "Estonia"
@@ -1325,6 +1315,9 @@ msgstr "Devasa"
 
 msgid "Firmware version"
 msgstr "Versión do firmware"
+
+msgid "First Page"
+msgstr ""
 
 msgid "Flags"
 msgstr "Marcas"
@@ -1768,6 +1761,9 @@ msgstr "Idioma"
 msgid "Laos"
 msgstr "Laos"
 
+msgid "Last Page"
+msgstr ""
+
 msgid "Latvia"
 msgstr "Letonia"
 
@@ -1826,9 +1822,6 @@ msgstr "Explorador mestre local"
 
 msgid "Location"
 msgstr "Localización"
-
-msgid "Location information, e.g. physical location of this system."
-msgstr "Información da localización. p.ex. localización física deste sistema."
 
 msgid "Log level"
 msgstr "Nivel de rexistro"
@@ -2116,6 +2109,9 @@ msgstr "Nova Caledonia"
 msgid "New Zealand"
 msgstr "Nova Celandia"
 
+msgid "Next Page"
+msgstr ""
+
 msgid "Nicaragua"
 msgstr "Nicaragua"
 
@@ -2137,14 +2133,14 @@ msgstr "Sen acceso"
 msgid "No action"
 msgstr "Sen acción"
 
-msgid "No authentication and no privacy"
-msgstr "Sen autenticación e sen intimidade"
-
 msgid "No certificate request"
 msgstr "Sen solicitude de certificado"
 
 msgid "No connections"
 msgstr "Sen conexións"
+
+msgid "No data to display"
+msgstr ""
 
 msgid "No items to display"
 msgstr "Non hai elementos para presentar"
@@ -2202,9 +2198,6 @@ msgstr "Notificacións"
 
 msgid "November"
 msgstr "novembro"
-
-msgid "Null passwords"
-msgstr "Contrasinais nulos"
 
 msgid "Num"
 msgstr "Num."
@@ -2268,6 +2261,9 @@ msgstr "Illas do Pacífico (territorio en fideicomiso)"
 
 msgid "Package information"
 msgstr "Información do paquete"
+
+msgid "Page"
+msgstr ""
 
 msgid "Page not found"
 msgstr ""
@@ -2356,9 +2352,6 @@ msgstr "Perú"
 msgid "Philippines"
 msgstr "Filipinas"
 
-msgid "Physical Disks"
-msgstr "Discos físicos"
-
 msgid "Physical disk properties"
 msgstr "Propiedades fisicas do disco"
 
@@ -2369,12 +2362,6 @@ msgid ""
 "Please check the <a href='http://linux.die.net/man/5/exports' "
 "target='_blank'>manual page</a> for more details."
 msgstr "Consulte a <a href='http://linux.die.net/man/5/exports' target='_blank'>páxina do manual</a> para obter máis detalles."
-
-msgid ""
-"Please check the <a href='http://www.openbsd.org/cgi-"
-"bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>manual page</a> for"
-" more details."
-msgstr "Consulte a <a href='http://www.openbsd.org/cgi-bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>páxina do manual</a> para obter máis detalles."
 
 msgid ""
 "Please check the <a href='http://www.proftpd.org/docs/contrib/mod_tls.html' "
@@ -2408,16 +2395,16 @@ msgid ""
 "target='_blank'>manual page</a> for more details."
 msgstr "Consulte a <a href='http://www.samba.org/samba/docs/man/manpages-3/smb.conf.5.html' target='_blank'>páxina do manual</a> para obter máis detalles."
 
+msgid ""
+"Please check the <a href='https://man.openbsd.org/sshd_config.5' "
+"target='_blank'>manual page</a> for more details."
+msgstr ""
+
 msgid "Please choose the method to wipe the device or 'Cancel' to abort."
 msgstr "Escolla un método de varrido do dispositivo ou prema en «Cancelar» para interromper."
 
 msgid "Please first select a device."
 msgstr ""
-
-msgid ""
-"Please make sure that the shared folder is publicly writable if new files "
-"are allowed."
-msgstr "Asegúrese de que o cartafol compartido é de escritura pública se permite novos ficheiros"
 
 msgid ""
 "Please note that no communication with the system is possible during this "
@@ -2443,9 +2430,6 @@ msgstr "Polonia"
 
 msgid "Port"
 msgstr "Porto"
-
-msgid "Port to listen on."
-msgstr "Porto a empregar."
 
 msgid "Portugal"
 msgstr "Portugal"
@@ -2490,17 +2474,14 @@ msgid ""
 " not what you want.</li></ul>"
 msgstr "Evitar que o disco xire cando sexa comprobado periodicamente.<br/><ul><li>Nunca - Non revisar nunca o dispositivo independentemente do modo de enerxía seleccionado. Isto pode facer que o disco deixe de xirar e comece a xirar cando se comprobe.</li><li>Hibernar - Comproba o dispositivo a a non ser que estea no modo HIBERNAR.</li><li>Suspender - Comproba o dispositivo a non ser que estea no modo HIBERNAR ou SUSPENDER. Nestes modos a maioría dos discos non están xirando, así que se quere evitar que o disco xire en cada revisión, seguramente sexa iso o que ten que axustar.</li><li>Desocupado - Comproba o dispositivo a a non ser que estea no modo HIBERNAR, SUSPENDER ou DESOCUPADO, no caso DESOCUPADO a maioría dos discos están xirando, así que probablemente no sexa isto o que quere.</li></ul>"
 
+msgid "Previous Page"
+msgstr ""
+
 msgid "Primary"
 msgstr "Primario"
 
 msgid "Primary email"
 msgstr "Enderezo de correo primario"
-
-msgid "Privacy passphrase"
-msgstr "Contrasinal de intimidade"
-
-msgid "Privacy type"
-msgstr "Tipo de intimidade"
 
 msgid "Private key"
 msgstr "Chave privada"
@@ -2706,9 +2687,6 @@ msgstr "Resultado"
 msgid "Resume"
 msgstr "Continuar"
 
-msgid "Retry timeout"
-msgstr "Tentar de novo o tempo de espera"
-
 msgid "Reunion"
 msgstr "Reunión"
 
@@ -2771,15 +2749,6 @@ msgstr "Servidor SMTP"
 
 msgid "SMTP settings"
 msgstr "Configuración do SMTP"
-
-msgid "SNMP"
-msgstr "SNMP"
-
-msgid "SNMP version 1/2c"
-msgstr "SNMP versión 1/2c"
-
-msgid "SNMP version 3"
-msgstr "SNMP versión 3"
 
 msgid "SSH"
 msgstr "SSH"
@@ -2867,9 +2836,6 @@ msgstr "Seguro"
 
 msgid "Secure connection"
 msgstr "Conexión segura"
-
-msgid "Security level"
-msgstr "Nivel de seguranza"
 
 msgid "Select a SSH certificate ..."
 msgstr "Seleccione un certificado SSH ..."
@@ -2984,9 +2950,6 @@ msgstr "Caducou a sesión."
 
 msgid "Session not authenticated."
 msgstr "Sesión sen autenticar."
-
-msgid "Session timeout"
-msgstr "Tempo de espera da sesión excedido"
 
 msgid "Set browseable"
 msgstr "Estabelecer como navegábel"
@@ -3141,11 +3104,6 @@ msgid ""
 "disable this option."
 msgstr "Especifica a cantidade de tempo, en segundos, entre o control e a actualización do enderezo enmascarado para determinar o enderezo IP. Estabeleza este valor en 0 para desactivar isto"
 
-msgid ""
-"Specifies the maximum permitted block size. The permitted range for this "
-"parameter is from 512 to 65464."
-msgstr "Especifica o tamaño máximo permitido de bloques. O intervalo permitido para este parámetro é de 512 a 65464."
-
 msgid "Specifies the time in hh:mm:ss after which the ban expires."
 msgstr "Especifica a hora no formato hh:mm:ss despois de que caduque a prohibición."
 
@@ -3278,9 +3236,6 @@ msgstr "TAR"
 
 msgid "TCP forwarding"
 msgstr "Reenvío TCP"
-
-msgid "TFTP"
-msgstr "TFTP"
 
 msgid "Taiwan"
 msgstr "Taiwán"
@@ -3416,9 +3371,11 @@ msgid ""
 "for data connections is not required."
 msgstr "O requisito de que se volva a empregar a sesión SSL da conexión de control para conexións de datos non é necesario."
 
-msgid ""
-"The session timeout time in minutes. Set to 0 to disable automatic logout."
-msgstr "O tempo de espera de sesión en minutos. Estabelézao en 0 para desactivar a desconexión automática."
+msgid "The session IP address has been changed."
+msgstr ""
+
+msgid "The session user no longer exists."
+msgstr ""
 
 msgid ""
 "The source remote server, e.g. [USER@]HOST:SRC, [USER@]HOST::SRC or "
@@ -3542,8 +3499,14 @@ msgstr "Este campo só debe conter números"
 msgid "This field should only contain numbers separated by <,> or <;>"
 msgstr ""
 
+msgid "This field should only contain options separated by <,>"
+msgstr ""
+
 msgid ""
 "This field should only contain ports (0 - 65535) separated by <,> or <;>"
+msgstr ""
+
+msgid "This field should only contain strings separated by <,>"
 msgstr ""
 
 msgid "This field should only contain strings separated by <,> or <;>"
@@ -3703,9 +3666,6 @@ msgstr "Hora da transferencia"
 
 msgid "Transfer type"
 msgstr "Tipo de transferencia"
-
-msgid "Traps"
-msgstr "Trampas"
 
 msgid "Treshold"
 msgstr "Limiar"
@@ -4012,6 +3972,9 @@ msgstr "Só escritura"
 msgid "Write/Execute"
 msgstr "Escribir/executar"
 
+msgid "Xen virtual disk device"
+msgstr ""
+
 msgid "Yearly"
 msgstr "Cada ano"
 
@@ -4020,6 +3983,9 @@ msgstr "Iemen"
 
 msgid "Yes"
 msgstr "Si"
+
+msgid "You need to commit or cancel your changes"
+msgstr ""
 
 msgid "Zambia"
 msgstr "Zambia"
@@ -4050,6 +4016,9 @@ msgstr "minutos"
 
 msgid "n/a"
 msgstr "n/d"
+
+msgid "of {0}"
+msgstr ""
 
 msgid "old-age"
 msgstr ""

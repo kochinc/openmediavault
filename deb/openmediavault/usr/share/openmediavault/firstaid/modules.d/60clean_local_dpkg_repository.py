@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with OpenMediaVault. If not, see <http://www.gnu.org/licenses/>.
+import glob
+import os
 import sys
 import openmediavault
 import openmediavault.firstaid
@@ -31,13 +33,14 @@ class Module(openmediavault.firstaid.IModule):
 	def execute(self):
 		print("Clear out the local repository of uploaded package " \
 			"files. Please wait ...")
-		path = openmediavault.getenv("OMV_DPKGARCHIVE_DIR")
+		path = openmediavault.getenv("OMV_DPKGARCHIVE_DIR",
+			"/var/cache/openmediavault/archives")
+		for f in glob.glob("{}/*.deb".format(path)):
+			os.remove(f)
 		openmediavault.subprocess.check_call(
-			[ "rm", "-fv", "%s/*.deb" % path ])
-		openmediavault.subprocess.check_call(
-			"cd %s && apt-ftparchive packages > Packages" % path,
+			"cd {} && apt-ftparchive packages . > Packages".format(path),
 			shell=True)
-		openmediavault.subprocess.check_call([ "apt-get", "update" ])
+		openmediavault.subprocess.check_call(["apt-get", "update"])
 		return 0
 
 if __name__ == "__main__":

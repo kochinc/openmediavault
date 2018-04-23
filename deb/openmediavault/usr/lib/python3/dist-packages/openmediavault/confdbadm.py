@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,8 +26,10 @@ import argparse
 import shutil
 import json
 import re
+import sys
 import tempfile
 import openmediavault
+import openmediavault.config.datamodel
 import openmediavault.string
 
 class ICommand(metaclass=abc.ABCMeta):
@@ -66,7 +68,7 @@ class CommandHelper():
 		Unlink the backup of the configuration database.
 		"""
 		if self._backup_path is None:
-			raise RuntimeError("No configuration backup exists")
+			raise RuntimeError("No configuration backup exists.")
 		if not self._backup_path:
 			return
 		os.unlink(self._backup_path)
@@ -77,7 +79,7 @@ class CommandHelper():
 		Rollback all changes in the configuration database.
 		"""
 		if self._backup_path is None:
-			raise RuntimeError("No configuration backup exists")
+			raise RuntimeError("No configuration backup exists.")
 		if not self._backup_path:
 			return
 		shutil.copy(self._backup_path, openmediavault.getenv(
@@ -91,7 +93,7 @@ class CommandHelper():
 		:raises argparse.ArgumentTypeError:
 		"""
 		if not openmediavault.string.is_uuid4(arg):
-			raise argparse.ArgumentTypeError("No valid UUID4")
+			raise argparse.ArgumentTypeError("No valid UUID4.")
 		return arg
 
 	def argparse_is_json(self, arg):
@@ -102,8 +104,20 @@ class CommandHelper():
 		:raises argparse.ArgumentTypeError:
 		"""
 		if not openmediavault.string.is_json(arg):
-			raise argparse.ArgumentTypeError("No valid JSON")
+			raise argparse.ArgumentTypeError("No valid JSON.")
 		return json.loads(arg)
+
+	def argparse_is_json_stdin(self, arg):
+		"""
+		Check if the specified value is a valid JSON string. Loads the
+		data from STDIN if '-' is given.
+		:param arg:	The value to check.
+		:returns:	The specified value as Python dictionary.
+		:raises argparse.ArgumentTypeError:
+		"""
+		if arg == "-":
+			arg = sys.stdin.read()
+		return self.argparse_is_json(arg)
 
 	def argparse_is_datamodel_id(self, arg):
 		"""
@@ -114,5 +128,11 @@ class CommandHelper():
 		:raises argparse.ArgumentTypeError:
 		"""
 		if not re.match(r'^conf(\..+)?$', arg):
-			raise argparse.ArgumentTypeError("No valid data model ID")
+			raise argparse.ArgumentTypeError("No valid data model ID.")
+		if "conf" == arg:
+			return arg
+		try:
+			openmediavault.config.Datamodel(arg)
+		except Exception as e:
+			raise argparse.ArgumentTypeError(str(e))
 		return arg

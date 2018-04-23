@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,6 +31,11 @@ class CCISS extends BackendAbstract {
 	}
 
 	function enumerate() {
+		// major minor  #blocks  name
+		// 104     0  292935982 cciss/c0d0
+		// 104     1     265041 cciss/c0d0p1
+		// 104     2  292664137 cciss/c0d0p2
+		// 104    16  586029016 cciss/c0d1
 		return $this->enumerateProcFs("cciss\/c[0-9]+d[0-9]+");
 	}
 
@@ -50,8 +55,8 @@ class CCISS extends BackendAbstract {
 		return preg_replace("/(p\d+)$/", "", $deviceFile);
 	}
 
-	function fsDeviceFile($deviceFile) {
+	function fsDeviceFile($deviceFile, $partition = 1) {
 		// E.g. /dev/cciss/c0d0p1
-		return sprintf("%sp1", $deviceFile);
+		return sprintf("%sp%d", $deviceFile, $partition);
 	}
 }

@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,7 +45,6 @@ Ext.define("OMV.module.admin.service.nfs.Share", {
 	plugins: [{
 		ptype: "configobject"
 	}],
-	height: 280,
 
 	/**
 	 * The class constructor.
@@ -91,7 +90,8 @@ Ext.define("OMV.module.admin.service.nfs.Share", {
 			name: "extraoptions",
 			fieldLabel: _("Extra options"),
 			allowBlank: true,
-			value: "subtree_check,secure",
+			vtype: "nfsOptionList",
+			value: "subtree_check,insecure",
 			plugins: [{
 				ptype: "fieldinfo",
 				text: _("Please check the <a href='http://linux.die.net/man/5/exports' target='_blank'>manual page</a> for more details.")
@@ -129,11 +129,13 @@ Ext.define("OMV.module.admin.service.nfs.Shares", {
 	stateful: true,
 	stateId: "4da5f715-4381-4c6b-8c83-ab23d284d0e3",
 	columns: [{
+		xtype: "textcolumn",
 		text: _("Shared folder"),
 		sortable: true,
 		dataIndex: "sharedfoldername",
 		stateId: "sharedfoldername"
 	},{
+		xtype: "textcolumn",
 		text: _("Client"),
 		sortable: true,
 		dataIndex: "client",
@@ -152,6 +154,7 @@ Ext.define("OMV.module.admin.service.nfs.Shares", {
 			return value;
 		}
 	},{
+		xtype: "textcolumn",
 		text: _("Comment"),
 		sortable: true,
 		dataIndex: "comment",

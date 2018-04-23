@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the openmediavault package.
 # 
 # Translators:
-# Toshihiro Kan <kansuke4649@gmail.com>, 2014-2016
+# Toshihiro Kan <kansuke4649@gmail.com>, 2014-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 06:19+0100\n"
-"PO-Revision-Date: 2016-12-08 09:43+0000\n"
+"POT-Creation-Date: 2018-01-21 11:50+0100\n"
+"PO-Revision-Date: 2018-03-14 03:35+0000\n"
 "Last-Translator: Toshihiro Kan <kansuke4649@gmail.com>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/votdev/openmediavault/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
@@ -43,6 +43,9 @@ msgstr "1 - スタンバイ（スピンダウン）を使った最小の消費�
 msgid "1 day"
 msgstr "1 日"
 
+msgid "1 minute"
+msgstr "1分"
+
 msgid "1 month"
 msgstr "1 月"
 
@@ -71,6 +74,9 @@ msgstr "127 - スタンバイを使った中間的な電力消費"
 msgid "128 - Minimum power usage without standby (no spindown)"
 msgstr "128 - スタンバイ（スピンダウン）を使わない最小の消費電力"
 
+msgid "15 minutes"
+msgstr "15分"
+
 msgid "15 years"
 msgstr "15 年"
 
@@ -82,6 +88,9 @@ msgstr "192 - スタンバイを使わない中間的な電力消費"
 
 msgid "2 days"
 msgstr "2 日"
+
+msgid "2 minutes"
+msgstr "2分"
 
 msgid "2 weeks"
 msgstr "2 週間"
@@ -110,6 +119,9 @@ msgstr "255 - 無効"
 msgid "3 days"
 msgstr "3 日"
 
+msgid "3 minutes"
+msgstr "3分"
+
 msgid "3 months"
 msgstr "3 か月"
 
@@ -130,6 +142,9 @@ msgstr "330 分"
 
 msgid "4 days"
 msgstr "4 日"
+
+msgid "4 minutes"
+msgstr "4分"
 
 msgid "4 years"
 msgstr "4 年"
@@ -294,21 +309,12 @@ msgstr "アルジェリア"
 msgid "All"
 msgstr "すべて"
 
-msgid "Allow client access to accounts that have null passwords"
-msgstr "ヌルパスワードを持つアカウントへのクライアントアクセスを許可"
-
 msgid ""
 "Allow clients to attempt to store OS/2 style extended attributes on a share."
 msgstr "クライアントが共有に、OS/2スタイルの拡張属性を格納することを許可します。"
 
 msgid "Allow clients to resume interrupted uploads and downloads"
 msgstr "アップロードとダウンロードの中断時のレジュームをクライアントに許可"
-
-msgid "Allow new files"
-msgstr "新しいファイルを許可"
-
-msgid "Allow new files to be created."
-msgstr "新しいファイルの作成を許可"
 
 msgid ""
 "Allow this server to advertise itself as a time server to Windows clients"
@@ -417,26 +423,20 @@ msgstr "認証されたユーザーID"
 msgid "Authentication"
 msgstr "認証"
 
-msgid "Authentication and no privacy"
-msgstr "認証とプライバシーなし"
-
-msgid "Authentication and privacy"
-msgstr "認証とプライバシー"
-
 msgid "Authentication method"
 msgstr "認証方法"
-
-msgid "Authentication passphrase"
-msgstr "認証パスフレーズ"
 
 msgid "Authentication required"
 msgstr "認証の要求"
 
-msgid "Authentication type"
-msgstr "認証のタイプ"
-
 msgid "Auto"
 msgstr "自動"
+
+msgid "Auto logout"
+msgstr "自動的にログアウト"
+
+msgid "Auto logout after the specified idle period."
+msgstr "指定したアイドル時間が経過し後に自動的にログアウトします。"
 
 msgid "Automatic Acoustic Management"
 msgstr "Automatic Acoustic Management(AAM)"
@@ -492,9 +492,6 @@ msgstr "バイナリ"
 msgid "Block layer cache [%s, %s]"
 msgstr "ブロックレイヤキャッシュ [%s, %s]"
 
-msgid "Blocksize"
-msgstr "ブロックサイズ"
-
 msgid "Bolivia"
 msgstr "ボリビア"
 
@@ -539,9 +536,6 @@ msgstr "ブルキナファソ"
 
 msgid "Burundi"
 msgstr "ブルンジ"
-
-msgid "By default, only files that already exist are allowed to be uploaded."
-msgstr "デフォルトでは、すでに存在しているファイルだけをアップロードすることが許可されています。"
 
 msgid "CPU usage"
 msgstr "CPU使用率"
@@ -648,9 +642,6 @@ msgstr "コメント"
 msgid "Common Name"
 msgstr "コモンネーム"
 
-msgid "Community"
-msgstr "コミュニティ"
-
 msgid "Community-maintained updates."
 msgstr "コミュニティーによるメンテナンスアップデート。"
 
@@ -695,14 +686,6 @@ msgstr "コンゴ（キンシャサ）"
 
 msgid "Connections"
 msgstr "接続"
-
-msgid "Contact"
-msgstr "連絡先"
-
-msgid ""
-"Contact information, e.g. name or email address of the person responsible "
-"for this system."
-msgstr "連絡先情報 例)名前またはこのシステムの責任者の電子メールアドレス"
 
 msgid "Conveyance self-test"
 msgstr "コンベイアンスセルフテスト"
@@ -777,7 +760,7 @@ msgid "Date"
 msgstr "日付"
 
 msgid "Date & Time"
-msgstr "日付 & 時刻"
+msgstr "日付と時刻"
 
 msgid "Day of month"
 msgstr "月の日"
@@ -832,11 +815,6 @@ msgstr "送信先共有フォルダ"
 
 msgid "Detail"
 msgstr "詳細"
-
-msgid ""
-"Determine the default timeout, in microseconds, before the first packet is "
-"retransmitted."
-msgstr "最初のパケットが再送信される前に、マイクロ秒単位でデフォルトのタイムアウトを決定します。"
 
 msgid "Device"
 msgstr "デバイス"
@@ -898,8 +876,14 @@ msgstr "自分のアカウントの変更をユーザーに許可しない。"
 msgid "Disk usage"
 msgstr "ディスク使用量"
 
+msgid "Disks"
+msgstr "ディスク"
+
 msgid "Displaying items {0} - {1} of {2}"
 msgstr "表示中のアイテム {0} - {1} of {2}"
+
+msgid "Displaying {0} - {1} of {2}"
+msgstr "表示中 {2} 件中 {0} - {1}"
 
 msgid "Djibouti"
 msgstr "ジブチ"
@@ -1063,6 +1047,9 @@ msgstr "スケジュールされたジョブの編集"
 msgid "Edit scheduled test"
 msgstr "スケジュールされたテストの編集"
 
+msgid "Edit service"
+msgstr "サービスの編集"
+
 msgid "Edit share"
 msgstr "共有の編集"
 
@@ -1190,6 +1177,9 @@ msgstr "エラー"
 
 msgid "Error #"
 msgstr "エラー #"
+
+msgid "Errors"
+msgstr "エラー"
 
 msgid "Estonia"
 msgstr "エストニア"
@@ -1322,6 +1312,9 @@ msgstr "ファイアウォール"
 
 msgid "Firmware version"
 msgstr "ファームウェアのバージョン"
+
+msgid "First Page"
+msgstr "最初のページ"
 
 msgid "Flags"
 msgstr "フラグ"
@@ -1765,6 +1758,9 @@ msgstr "言語"
 msgid "Laos"
 msgstr "ラオス"
 
+msgid "Last Page"
+msgstr "最後のページ"
+
 msgid "Latvia"
 msgstr "ラトビア"
 
@@ -1823,9 +1819,6 @@ msgstr "ローカルマスタブラウザ"
 
 msgid "Location"
 msgstr "ロケーション"
-
-msgid "Location information, e.g. physical location of this system."
-msgstr "位置情報 例）このシステムの物理的な場所"
 
 msgid "Log level"
 msgstr "ログレベル"
@@ -2113,6 +2106,9 @@ msgstr "ニューカレドニア"
 msgid "New Zealand"
 msgstr "ニュージーランド"
 
+msgid "Next Page"
+msgstr "次のページ"
+
 msgid "Nicaragua"
 msgstr "ニカラグア"
 
@@ -2134,14 +2130,14 @@ msgstr "アクセスはありません"
 msgid "No action"
 msgstr "アクションはありません"
 
-msgid "No authentication and no privacy"
-msgstr "認証なしとプライバシーなし"
-
 msgid "No certificate request"
 msgstr "証明書要求はありません"
 
 msgid "No connections"
 msgstr "接続はありません"
+
+msgid "No data to display"
+msgstr "表示するデータがありません"
 
 msgid "No items to display"
 msgstr "表示できるアイテムはありません"
@@ -2199,9 +2195,6 @@ msgstr "通知"
 
 msgid "November"
 msgstr "11月"
-
-msgid "Null passwords"
-msgstr "ヌルパスワード"
 
 msgid "Num"
 msgstr "番号"
@@ -2265,6 +2258,9 @@ msgstr "太平洋諸島信託統治領"
 
 msgid "Package information"
 msgstr "パッケージ情報"
+
+msgid "Page"
+msgstr "ページ"
 
 msgid "Page not found"
 msgstr "ページがありません"
@@ -2353,9 +2349,6 @@ msgstr "ペルー"
 msgid "Philippines"
 msgstr "フィリピン"
 
-msgid "Physical Disks"
-msgstr "物理ディスク"
-
 msgid "Physical disk properties"
 msgstr "物理ディスクのプロパティ"
 
@@ -2366,12 +2359,6 @@ msgid ""
 "Please check the <a href='http://linux.die.net/man/5/exports' "
 "target='_blank'>manual page</a> for more details."
 msgstr "詳細については <a href='http://linux.die.net/man/5/exports' target='_blank'>マニュアルページ</a> を確認してください。"
-
-msgid ""
-"Please check the <a href='http://www.openbsd.org/cgi-"
-"bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>manual page</a> for"
-" more details."
-msgstr "詳細については <a href='http://www.openbsd.org/cgi-bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>マニュアルページ</a> を確認してください。"
 
 msgid ""
 "Please check the <a href='http://www.proftpd.org/docs/contrib/mod_tls.html' "
@@ -2405,16 +2392,16 @@ msgid ""
 "target='_blank'>manual page</a> for more details."
 msgstr "詳細については <a href='http://www.samba.org/samba/docs/man/manpages-3/smb.conf.5.html' target='_blank'>マニュアルページ</a> を確認してください。"
 
+msgid ""
+"Please check the <a href='https://man.openbsd.org/sshd_config.5' "
+"target='_blank'>manual page</a> for more details."
+msgstr "詳細については <a href='https://man.openbsd.org/sshd_config.5' target='_blank'> マニュアルページ </a> を確認してください。"
+
 msgid "Please choose the method to wipe the device or 'Cancel' to abort."
 msgstr "デバイスをワイプする方法を選択してください。中止する場合は'キャンセル'を選択してください。"
 
 msgid "Please first select a device."
 msgstr "最初にデバイスを選択してください。"
-
-msgid ""
-"Please make sure that the shared folder is publicly writable if new files "
-"are allowed."
-msgstr "新規ファイルの作成が許可されている場合、共有フォルダが公に書き込み可能かを確認してください。"
 
 msgid ""
 "Please note that no communication with the system is possible during this "
@@ -2440,9 +2427,6 @@ msgstr "ポーランド"
 
 msgid "Port"
 msgstr "ポート"
-
-msgid "Port to listen on."
-msgstr "待ちうけポート"
 
 msgid "Portugal"
 msgstr "ポルトガル"
@@ -2487,17 +2471,14 @@ msgid ""
 " not what you want.</li></ul>"
 msgstr "ポーリングによるディスクのスピンアップの防止方法。<br/><ul><li>Never - 電源モードに関わらず、デバイスをポーリング (チェック) します。これは、スピンダウンしているディスクに対してのチェックが行われる際にスピンアップする可能性があります。</li><li>Sleep - スリープモードで無い場合にデバイスをチェックします。</li><li>Standby - スリープ又はスタンバイモードで無い限り、デバイスをチェックします。これらのモードではディスクはほとんど回転しません。ラップトップで使用しているディスクでポーリングによるスピンアップを防止したい場合は望まれる選択肢です。</li><li>Idle - スリープ、スタンバイ、アイドルモードで無い場合にデバイスをチェックします。アイドル状態でもほとんどのディスクは回転しているので、これは望む選択肢ではないかもしれません。</li></ul>"
 
+msgid "Previous Page"
+msgstr "前のページ"
+
 msgid "Primary"
 msgstr "プライマリ"
 
 msgid "Primary email"
 msgstr "プライマリメール"
-
-msgid "Privacy passphrase"
-msgstr "プライバシーパスフレーズ"
-
-msgid "Privacy type"
-msgstr "プライバシータイプ"
 
 msgid "Private key"
 msgstr "プライベートキー"
@@ -2703,9 +2684,6 @@ msgstr "結果"
 msgid "Resume"
 msgstr "リジューム"
 
-msgid "Retry timeout"
-msgstr "リトライタイムアウト"
-
 msgid "Reunion"
 msgstr "レユニオン"
 
@@ -2768,15 +2746,6 @@ msgstr "SMTP サーバー"
 
 msgid "SMTP settings"
 msgstr "SMTP 設定"
-
-msgid "SNMP"
-msgstr "SNMP"
-
-msgid "SNMP version 1/2c"
-msgstr "SNMP version 1/2c"
-
-msgid "SNMP version 3"
-msgstr "SNMP version 3"
 
 msgid "SSH"
 msgstr "SSH"
@@ -2864,9 +2833,6 @@ msgstr "セキュア"
 
 msgid "Secure connection"
 msgstr "セキュアコネクション"
-
-msgid "Security level"
-msgstr "セキュリティレベル"
 
 msgid "Select a SSH certificate ..."
 msgstr "SSH証明書を選択 ..."
@@ -2981,9 +2947,6 @@ msgstr "セッションの期限が切れました。"
 
 msgid "Session not authenticated."
 msgstr "セッションは認証されていません。"
-
-msgid "Session timeout"
-msgstr "セッションタイムアウト"
 
 msgid "Set browseable"
 msgstr "参照可能に設定"
@@ -3138,11 +3101,6 @@ msgid ""
 "disable this option."
 msgstr "IPアドレスを名前解決してマスカレードアドレスのチェック、アップデートをする間隔を秒単位で指定します。"
 
-msgid ""
-"Specifies the maximum permitted block size. The permitted range for this "
-"parameter is from 512 to 65464."
-msgstr "許可するブロックサイズの最大値を指定します。このパラメータの有効範囲は 512 から 65464 です。"
-
 msgid "Specifies the time in hh:mm:ss after which the ban expires."
 msgstr "指定した時間を過ぎると期限切れとなります。hh:mm:ss 形式で時間を指定します。"
 
@@ -3275,9 +3233,6 @@ msgstr "TAR"
 
 msgid "TCP forwarding"
 msgstr "TCP転送"
-
-msgid "TFTP"
-msgstr "TFTP"
 
 msgid "Taiwan"
 msgstr "台湾"
@@ -3413,9 +3368,11 @@ msgid ""
 "for data connections is not required."
 msgstr "コントロールコネクションからのSSLセッションがデータ接続に再利用される場合は本要件は不要です。"
 
-msgid ""
-"The session timeout time in minutes. Set to 0 to disable automatic logout."
-msgstr "分単位でセッションタイムアウト値を設定します。自動ログアウトを無効にするには0を設定します。"
+msgid "The session IP address has been changed."
+msgstr "セッションのIPアドレスが変更されました。"
+
+msgid "The session user no longer exists."
+msgstr "セッションのユーザーは存在しません。"
 
 msgid ""
 "The source remote server, e.g. [USER@]HOST:SRC, [USER@]HOST::SRC or "
@@ -3539,9 +3496,15 @@ msgstr "このフィールドは数字のみである必要があります"
 msgid "This field should only contain numbers separated by <,> or <;>"
 msgstr "このフィールドは、<,>または<;>で区切られた数字である必要があります"
 
+msgid "This field should only contain options separated by <,>"
+msgstr "このフィールドには<,>で分割されたオプションのみを入力します"
+
 msgid ""
 "This field should only contain ports (0 - 65535) separated by <,> or <;>"
 msgstr "このフィールドは、<,>または<;>で区切られたポート(0 - 65535)である必要があります"
+
+msgid "This field should only contain strings separated by <,>"
+msgstr "このフィールドには<,>で分割された文字列のみを入力します"
 
 msgid "This field should only contain strings separated by <,> or <;>"
 msgstr "このフィールドは、<,>または<;>で区切られた文字列である必要があります"
@@ -3700,9 +3663,6 @@ msgstr "転送時間"
 
 msgid "Transfer type"
 msgstr "転送タイプ"
-
-msgid "Traps"
-msgstr "トラップ"
 
 msgid "Treshold"
 msgstr "しきい値"
@@ -4009,6 +3969,9 @@ msgstr "書き込み専用"
 msgid "Write/Execute"
 msgstr "書き込み/実行"
 
+msgid "Xen virtual disk device"
+msgstr "Xen仮想ディスクデバイス"
+
 msgid "Yearly"
 msgstr "毎年"
 
@@ -4017,6 +3980,9 @@ msgstr "イエメン"
 
 msgid "Yes"
 msgstr "はい"
+
+msgid "You need to commit or cancel your changes"
+msgstr "変更をコミットするかキャンセルする必要があります"
 
 msgid "Zambia"
 msgstr "ザンビア"
@@ -4047,6 +4013,9 @@ msgstr "分"
 
 msgid "n/a"
 msgstr "n/a"
+
+msgid "of {0}"
+msgstr "全体 {0}"
 
 msgid "old-age"
 msgstr "old-age"

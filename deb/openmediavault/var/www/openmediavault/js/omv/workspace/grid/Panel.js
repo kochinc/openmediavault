@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,16 +20,20 @@
  */
 // require("js/omv/grid/Panel.js")
 // require("js/omv/grid/column/BinaryUnit.js")
+// require("js/omv/grid/column/BooleanFontIcon.js")
 // require("js/omv/grid/column/BooleanIcon.js")
 // require("js/omv/grid/column/BooleanText.js")
 // require("js/omv/grid/column/CronScheduling.js")
 // require("js/omv/grid/column/DeviceFiles.js")
 // require("js/omv/grid/column/DeviceInfo.js")
 // require("js/omv/grid/column/Empty.js")
+// require("js/omv/grid/column/Enabled.js")
+// require("js/omv/grid/column/FontIcon.js")
 // require("js/omv/grid/column/Hyperlink.js")
 // require("js/omv/grid/column/UnixTimestamp.js")
 // require("js/omv/grid/column/WhiteSpace.js")
 // require("js/omv/grid/column/Map.js")
+// require("js/omv/grid/column/Text.js")
 // require("js/omv/grid/column/ToolTip.js")
 // require("js/omv/grid/column/NumberRange.js")
 // require("js/omv/window/MessageBox.js")
@@ -71,13 +75,13 @@
  * @param downButtonText The button text. Defaults to 'Down'.
  * @param applyButtonText The button text. Defaults to 'Save'.
  * @param refreshButtonText The button text. Defaults to 'Refresh'.
- * @param addButtonIcon The button icon.
- * @param editButtonIcon The button icon.
- * @param deleteButtonIcon The button icon.
- * @param upButtonIcon The button icon.
- * @param downButtonIcon The button icon.
- * @param applyButtonIcon The button icon.
- * @param refreshButtonIcon The button icon.
+ * @param addButtonIconCls The button icon CSS class.
+ * @param editButtonIconCls The button icon CSS class.
+ * @param deleteButtonIconCls The button icon CSS class.
+ * @param upButtonIconCls The button icon CSS class.
+ * @param downButtonIconCls The button icon CSS class.
+ * @param applyButtonIconCls The button icon CSS class.
+ * @param refreshButtonIconCls The button icon CSS class.
  * @param deletionConfirmRequired Set to TRUE to force the user to confirm
  *   the deletion request. Defaults to TRUE.
  * @param deletionWaitMsg The message displayed during the deletion process.
@@ -93,12 +97,15 @@ Ext.define("OMV.workspace.grid.Panel", {
 	requires: [
 		"OMV.window.MessageBox",
 		"OMV.grid.column.BinaryUnit",
+		"OMV.grid.column.BooleanFontIcon",
 		"OMV.grid.column.BooleanIcon",
 		"OMV.grid.column.BooleanText",
 		"OMV.grid.column.CronScheduling",
 		"OMV.grid.column.DeviceFiles",
 		"OMV.grid.column.DeviceInfo",
 		"OMV.grid.column.Empty",
+		"OMV.grid.column.Enabled",
+		"OMV.grid.column.FontIcon",
 		"OMV.grid.column.Hyperlink",
 		"OMV.grid.column.UnixTimestamp",
 		"OMV.grid.column.WhiteSpace",
@@ -132,13 +139,13 @@ Ext.define("OMV.workspace.grid.Panel", {
 	downButtonText: _("Down"),
 	applyButtonText: _("Save"),
 	refreshButtonText: _("Refresh"),
-	addButtonIcon: "images/add.png",
-	editButtonIcon: "images/edit.png",
-	deleteButtonIcon: "images/delete.png",
-	upButtonIcon: "images/arrow-up.png",
-	downButtonIcon: "images/arrow-down.png",
-	applyButtonIcon: "images/checkmark.png",
-	refreshButtonIcon: "images/refresh.png",
+	addButtonIconCls: "x-fa fa-plus",
+	editButtonIconCls: "x-fa fa-pencil",
+	deleteButtonIconCls: "x-fa fa-times",
+	upButtonIconCls: "x-fa fa-arrow-up",
+	downButtonIconCls: "x-fa fa-arrow-down",
+	applyButtonIconCls: "x-fa fa-check",
+	refreshButtonIconCls: "x-fa fa-refresh",
 	deletionConfirmRequired: true,
 	deletionWaitMsg: _("Deleting selected item(s)"),
 	mode: "remote",
@@ -183,9 +190,6 @@ Ext.define("OMV.workspace.grid.Panel", {
 					return;
 				// Remember the previously selected nodes.
 				me.previousSelected = selModel.getSelection();
-				// Deselect all nodes, otherwise the 'selectionchange' event
-				// will not be fired later.
-				selModel.deselectAll();
 			});
 			me.getView().on("refresh", function(view) {
 				if (Ext.isEmpty(me.previousSelected))
@@ -197,6 +201,9 @@ Ext.define("OMV.workspace.grid.Panel", {
 						select.push(record);
 				});
 				delete me.previousSelected;
+				// Deselect all nodes, otherwise the 'selectionchange' event
+				// will not be fired later.
+				selModel.deselectAll();
 				if (select.length > 0) {
 					selModel.select(select, false, false);
 					selModel.view.focusNode(select[0]);
@@ -226,8 +233,7 @@ Ext.define("OMV.workspace.grid.Panel", {
 			id: me.getId() + "-add",
 			xtype: "button",
 			text: me.addButtonText,
-			icon: me.addButtonIcon,
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: me.addButtonIconCls,
 			hidden: me.hideAddButton,
 			handler: Ext.Function.bind(me.onAddButton, me, [ me ]),
 			scope: me
@@ -235,8 +241,7 @@ Ext.define("OMV.workspace.grid.Panel", {
 			id: me.getId() + "-edit",
 			xtype: "button",
 			text: me.editButtonText,
-			icon: me.editButtonIcon,
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: me.editButtonIconCls,
 			hidden: me.hideEditButton,
 			handler: Ext.Function.bind(me.onEditButton, me, [ me ]),
 			scope: me,
@@ -249,8 +254,7 @@ Ext.define("OMV.workspace.grid.Panel", {
 			id: me.getId() + "-delete",
 			xtype: "button",
 			text: me.deleteButtonText,
-			icon: me.deleteButtonIcon,
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: me.deleteButtonIconCls,
 			hidden: me.hideDeleteButton,
 			handler: Ext.Function.bind(me.onDeleteButton, me, [ me ]),
 			scope: me,
@@ -273,8 +277,7 @@ Ext.define("OMV.workspace.grid.Panel", {
 			id: me.getId() + "-up",
 			xtype: "button",
 			text: me.upButtonText,
-			icon: me.upButtonIcon,
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: me.upButtonIconCls,
 			hidden: me.hideUpButton,
 			handler: Ext.Function.bind(me.onUpButton, me, [ me ]),
 			scope: me,
@@ -287,8 +290,7 @@ Ext.define("OMV.workspace.grid.Panel", {
 			id: me.getId() + "-down",
 			xtype: "button",
 			text: me.downButtonText,
-			icon: me.downButtonIcon,
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: me.downButtonIconCls,
 			hidden: me.hideDownButton,
 			handler: Ext.Function.bind(me.onDownButton, me, [ me ]),
 			scope: me,
@@ -301,7 +303,7 @@ Ext.define("OMV.workspace.grid.Panel", {
 			id: me.getId() + "-apply",
 			xtype: "button",
 			text: me.applyButtonText,
-			icon: me.applyButtonIcon,
+			iconCls: me.applyButtonIconCls,
 			hidden: me.hideApplyButton,
 			handler: Ext.Function.bind(me.onApplyButton, me, [ me ]),
 			scope: me
@@ -309,8 +311,7 @@ Ext.define("OMV.workspace.grid.Panel", {
 			id: me.getId() + "-refresh",
 			xtype: "button",
 			text: me.refreshButtonText,
-			icon: me.refreshButtonIcon,
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: me.refreshButtonIconCls,
 			hidden: me.hideRefreshButton,
 			handler: Ext.Function.bind(me.onRefreshButton, me, [ me ]),
 			scope: me
@@ -342,23 +343,29 @@ Ext.define("OMV.workspace.grid.Panel", {
 
 	/**
 	 * Load the grid content.
+	 * @return void
 	 */
 	doLoad: function() {
 		var me = this;
 		if (me.mode === "remote") {
-			if (me.store && Ext.isObject(me.store) && me.store.isStore)
-				me.store.load();
+			// Call parent of the current method if the store exists.
+			if (me.store && Ext.isObject(me.store) && me.store.isStore) {
+				me.callParent();
+			}
 		}
 	},
 
 	/**
 	 * Reload the grid content.
+	 * @return void
 	 */
 	doReload: function() {
 		var me = this;
 		if (me.mode === "remote") {
-			if (me.store && Ext.isObject(me.store) && me.store.isStore)
-				me.store.reload();
+			// Call parent of the current method if the store exists.
+			if (me.store && Ext.isObject(me.store) && me.store.isStore) {
+				me.callParent();
+			}
 		}
 	},
 

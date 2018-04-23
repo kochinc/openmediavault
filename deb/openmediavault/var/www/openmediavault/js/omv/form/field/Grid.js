@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -159,8 +159,8 @@ Ext.define("OMV.form.field.Grid", {
 		if(!me.disabled && me.submitValue && !me.isFileUpload()) {
 			var value = me.getValue();
 			data = {};
-			data[me.getName()] = Ext.isString(me.delimiter) ?
-			  value.join(me.delimiter) : value;
+			data[me.getName()] = (Ext.isString(me.delimiter) &&
+				Ext.isArray(value)) ? value.join(me.delimiter) : value;
 		}
 		return data;
 	},

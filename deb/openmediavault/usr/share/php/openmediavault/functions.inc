@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -95,7 +95,7 @@ function array_sort_key(array &$array, $key) {
 /**
  * Filter an array of by key and values.
  * @ingroup api
- * @param array $array The array to sort.
+ * @param array $array The array to process.
  * @param string $key The key used as filter criteria.
  * @param string $value The value used as filter criteria.
  * @return Returns the filtered array.
@@ -127,6 +127,26 @@ function array_filter_ex($array, $key, $value) {
 function array_keys_exists(array $keys, array $search, &$missing = NULL) {
 	$missing = array_values(array_diff($keys, array_keys($search)));
 	return !(count($missing) > 0);
+}
+
+/**
+ * Removes duplicate values from an multi-dimensional array.
+ * @param array $array The array to process.
+ * @param string $key The key used as filter criteria.
+ * @return Returns the filtered array or FALSE on failure.
+ */
+function array_unique_key(array $array, $key) {
+	if (!is_multi_array($array))
+		return FALSE;
+	$result = [];
+	$values = [];
+	foreach ($array as $arrayk => $arrayv) {
+		if (!in_array($arrayv[$key], $values)) {
+			$values[] = $arrayv[$key];
+			$result[] = $arrayv;
+		}
+	}
+	return $result;
 }
 
 /**
@@ -267,12 +287,12 @@ function is_fs_uuid($var) {
 }
 
 /**
- * Finds out whether a variable describes a devicefile, e.g. <ul>
+ * Finds out whether a variable describes a device file, e.g. <ul>
  * \li /dev/sda1.
  * </ul>
  * @ingroup api
  * @param string $var The variable being evaluated.
- * @return TRUE if the variable describes a devicefile, otherwise FALSE.
+ * @return TRUE if the variable describes a device file, otherwise FALSE.
  */
 function is_devicefile($var) {
 	if (FALSE === is_string($var))
@@ -281,7 +301,7 @@ function is_devicefile($var) {
 }
 
 /**
- * Finds out whether a variable describes a devicefile disk/by-xxx, e.g.
+ * Finds out whether a variable describes a device file disk/by-xxx, e.g.
  * <ul>
  * \li /dev/disk/by-uuid/ad3ee177-777c-4ad3-8353-9562f85c0895
  * \li /dev/disk/by-id/usb-Kingston_DataTraveler_G2_001CC0EC21ADF011C6A20E35-0:0-part1
@@ -289,7 +309,7 @@ function is_devicefile($var) {
  * </ul>
  * @ingroup api
  * @param string $var The variable being evaluated.
- * @return TRUE if the variable describes a devicefile, otherwise FALSE.
+ * @return TRUE if the variable describes a device file, otherwise FALSE.
  */
 function is_devicefile_by($var) {
 	if (FALSE === is_string($var))
@@ -298,13 +318,13 @@ function is_devicefile_by($var) {
 }
 
 /**
- * Finds out whether a variable describes a devicefile, e.g. <ul>
+ * Finds out whether a variable describes a device file, e.g. <ul>
  * \li /dev/disk/by-uuid/ad3ee177-777c-4ad3-8353-9562f85c0895
  * \li /dev/disk/by-uuid/2ED43920D438EC29 (NTFS)
  * </ul>
  * @ingroup api
  * @param string $var The variable being evaluated.
- * @return TRUE if the variable describes a devicefile, otherwise FALSE.
+ * @return TRUE if the variable describes a device file, otherwise FALSE.
  */
 function is_devicefile_by_uuid($var) {
 	if (FALSE === is_string($var))
@@ -313,12 +333,12 @@ function is_devicefile_by_uuid($var) {
 }
 
 /**
- * Finds out whether a variable describes a devicefile, e.g. <ul>
+ * Finds out whether a variable describes a device file, e.g. <ul>
  * \li /dev/disk/by-id/usb-Kingston_DataTraveler_G2_001CC0EC21ADF011C6A20E35-0:0-part1
  * </ul>
  * @ingroup api
  * @param string $var The variable being evaluated.
- * @return TRUE if the variable describes a devicefile, otherwise FALSE.
+ * @return TRUE if the variable describes a device file, otherwise FALSE.
  */
 function is_devicefile_by_id($var) {
 	if (FALSE === is_string($var))
@@ -327,17 +347,44 @@ function is_devicefile_by_id($var) {
 }
 
 /**
- * Finds out whether a variable describes a devicefile, e.g. <ul>
+ * Finds out whether a variable describes a device file, e.g. <ul>
  * \li /dev/disk/by-label/data
  * </ul>
  * @ingroup api
  * @param string $var The variable being evaluated.
- * @return TRUE if the variable describes a devicefile, otherwise FALSE.
+ * @return TRUE if the variable describes a device file, otherwise FALSE.
  */
 function is_devicefile_by_label($var) {
 	if (FALSE === is_string($var))
 		return FALSE;
 	return preg_match('/^\/dev\/disk\/by-label\/.+$/i', $var) ? TRUE : FALSE;
+}
+
+/**
+ * Finds out whether a variable describes a device file, e.g. <ul>
+ * \li /dev/disk/by-path/pci-0000:00:17.0-ata-3
+ * \li /dev/disk/by-path/pci-0000:00:17.0-ata-3-part2
+ * </ul>
+ * @ingroup api
+ * @param string $var The variable being evaluated.
+ * @return TRUE if the variable describes a device file, otherwise FALSE.
+ */
+function is_devicefile_by_path($var) {
+	if (FALSE === is_string($var))
+		return FALSE;
+	return preg_match('/^\/dev\/disk\/by-path\/.+$/i', $var) ? TRUE : FALSE;
+}
+
+/**
+ * Tells whether the given file is a block device.
+ * @ingroup api
+ * @deprecated
+ * @param string $filename Path to the file.
+ * @param bool $dereference Follow links. Defaults to TRUE.
+ * @return Returns TRUE if the file is a block device, FALSE otherwise.
+ */
+function is_block($filename, $dereference = TRUE) {
+	return is_block_device($filename, $dereference);
 }
 
 /**
@@ -347,7 +394,7 @@ function is_devicefile_by_label($var) {
  * @param bool $dereference Follow links. Defaults to TRUE.
  * @return Returns TRUE if the file is a block device, FALSE otherwise.
  */
-function is_block($filename, $dereference = TRUE) {
+function is_block_device($filename, $dereference = TRUE) {
 	if (FALSE === is_string($filename))
 		return FALSE;
 	if (FALSE === file_exists($filename))
@@ -356,6 +403,24 @@ function is_block($filename, $dereference = TRUE) {
 	if (TRUE === $dereference)
 		$filename = realpath($filename);
 	return ("block" == filetype($filename));
+}
+
+/**
+ * Tells whether the given file is a block device.
+ * @ingroup api
+ * @param string $filename Path to the file.
+ * @param bool $dereference Follow links. Defaults to TRUE.
+ * @return Returns TRUE if the file is a block device, FALSE otherwise.
+ */
+function is_char_device($filename, $dereference = TRUE) {
+	if (FALSE === is_string($filename))
+		return FALSE;
+	if (FALSE === file_exists($filename))
+		return FALSE;
+	clearstatcache(TRUE, $filename);
+	if (TRUE === $dereference)
+		$filename = realpath($filename);
+	return ("char" == filetype($filename));
 }
 
 /**
@@ -819,4 +884,59 @@ function get_declared_subclasses($class) {
 		$classNames[] = $className;
 	}
 	return $classNames;
+}
+
+/**
+ * Send a signal to a process and its children.
+ * @ingroup api
+ * @param pid The process identifier.
+ * @param sig One of the PCNTL signals constants.
+ * @return Returns TRUE on success or FALSE on failure.
+ */
+function posix_kill_ex($pid, $sig) {
+	exec("ps --no-headers -e -o pid,ppid", $output, $exitStatus);
+	if ($exitStatus)
+		return FALSE;
+	foreach ($output as $rowk => $rowv) {
+		if (1 !== preg_match('/^\s*(\d+)\s+(\d+)\s*$/', $rowv, $matches))
+			continue;
+		if (intval($matches[2]) !== $pid)
+			continue;
+		posix_kill_ex(intval($matches[1]), $sig);
+	}
+	return posix_kill($pid, $sig);
+}
+
+/**
+ * Escape a path to be used in a shell environment. Various characters will
+ * be replaced with their hexadecimal/octal representation, e.g. a whitespace
+ * will be replaced by \x20 or \040.
+ * Example:
+ * /srv/dev-disk-by-label-xx yy => /srv/dev-disk-by-label-xx\x20yy
+ * /srv/dev-disk-by-label-xx yy => /srv/dev-disk-by-label-xx\040yy
+ * @param string $var The variable that will be escaped.
+ * @param boolean $octal If TRUE, convert octal values, otherwise hexadecimal.
+ *   Defaults to FALSE.
+ * @return The escaped string.
+ */
+function escape_path($var, $octal = FALSE) {
+	$var = str_replace(" ", $octal ? "\\040" : "\\x20", $var);
+	return $var;
+}
+
+/**
+ * Unescape a path. Various hexadecimal/octal characters will be replaced
+ * with their ASCII representation, e.g. \x20 or \040 will be replaced by
+ * a whitespace.
+ * Example:
+ * /srv/dev-disk-by-label-xx\x20yy => /srv/dev-disk-by-label-xx yy
+ * /srv/dev-disk-by-label-xx\040yy => /srv/dev-disk-by-label-xx yy
+ * @param string $var The variable that will be unescaped.
+ * @param boolean $octal If TRUE, convert octal values, otherwise hexadecimal.
+ *   Defaults to FALSE.
+ * @return The unescaped string.
+ */
+function unescape_path($var, $octal = FALSE) {
+	$var = str_replace($octal ? "\\040" : "\\x20", " ", $var);
+	return $var;
 }

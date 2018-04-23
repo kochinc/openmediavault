@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,15 +24,14 @@ namespace OMV\System\Filesystem;
 class Jfs extends Filesystem {
 	/**
 	 * Grow the filesystem.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	final public function grow() {
 		$this->getData();
 		$cmdArgs = [];
 		$cmdArgs[] = "-o remount,resize";
-		$cmdArgs[] = escapeshellarg(\OMV\System\MountPoint::buildPath(
-			$this->getUuid()));
+		$cmdArgs[] = escapeshellarg($this->getDeviceFile());
 		$cmd = new \OMV\System\Process("mount", $cmdArgs);
 		$cmd->setRedirect2to1();
 		$cmd->execute();

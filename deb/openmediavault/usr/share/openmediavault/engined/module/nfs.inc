@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,8 +57,6 @@ class OMVModuleNfs extends \OMV\Engine\Module\ServiceAbstract
 	public function stopService() {
 		$systemCtl = new \OMV\System\SystemCtl("nfs-kernel-server");
 		$systemCtl->disable(TRUE);
-		$systemCtl = new \OMV\System\SystemCtl("nfs-common");
-		$systemCtl->disable(TRUE);
 	}
 
 	/**
@@ -69,8 +67,6 @@ class OMVModuleNfs extends \OMV\Engine\Module\ServiceAbstract
 		$object = $db->get("conf.service.nfs");
 		if (TRUE !== $object->get("enable"))
 			return;
-		$systemCtl = new \OMV\System\SystemCtl("nfs-common");
-		$systemCtl->enable(TRUE);
 		$systemCtl = new \OMV\System\SystemCtl("nfs-kernel-server");
 		$systemCtl->enable(TRUE);
 	}

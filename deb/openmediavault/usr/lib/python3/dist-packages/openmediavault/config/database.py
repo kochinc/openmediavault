@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -154,7 +154,11 @@ class Database(object):
 		"""
 		query = openmediavault.config.DatabaseGetByFilterQuery(id, filter)
 		query.execute()
-		return 0 < len(query.response)
+		if query.response is None:
+			return False
+		if isinstance(query.response, list) and 0 >= len(query.response):
+			return False
+		return True
 
 	def is_referenced(self, obj):
 		"""
@@ -281,13 +285,15 @@ class DatabaseQuery(metaclass=abc.ABCMeta):
 		"""
 		:param id: The data model identifier, e.g. 'conf.service.ftp.share'.
 		"""
-		# Create the data model object.
-		self._model = openmediavault.config.Datamodel(id)
 		# Get the path to the database.
 		self._database_file = openmediavault.getenv("OMV_CONFIG_FILE")
 		os.stat(self._database_file)
-		# Get the property names that must be handled as lists/arrays.
-		self._force_list = self._get_array_properties()
+		# Create the data model object.
+		self._model = openmediavault.config.Datamodel(id)
+		# Get the property names that must be handled as lists and dicts.
+		self._force_list_tags = []
+		self._force_dict_tags = []
+		self._parse_model()
 		# Set the default response value.
 		self._response = None
 		# The XML tree.
@@ -322,20 +328,27 @@ class DatabaseQuery(metaclass=abc.ABCMeta):
 		Execute the database query.
 		"""
 
-	def _get_array_properties(self):
+	def _parse_model(self):
 		"""
 		Parse the data model and get the properties that must be handled
-		as arrays/lists.
-		:returns:	Returns an array of properties that must be handled as
-					arrays/lists.
+		as lists and dicts.
 		"""
 		def callback(model, name, path, schema, user_data):
-			if "array" == schema['type']:
-				user_data.append(name)
+			if "array" == schema['type'] and name:
+				user_data['lists'].append(name)
+			if "object" == schema['type'] and name:
+				user_data['dicts'].append(name)
 
-		names = []
-		self.model.walk_schema("", callback, names)
-		return names
+		tags = {
+			"lists": [],
+			"dicts": []
+		}
+		# ToDo: Refactor the whole process of collecting and processing
+		# the special properties.
+		self.model.walk_schema("", callback, tags)
+		self._force_list_tags = tags['lists']
+		self._force_dict_tags = [ name for name in tags['dicts']
+			if name not in tags['lists'] ]
 
 	def _load(self):
 		"""
@@ -388,8 +401,10 @@ class DatabaseQuery(metaclass=abc.ABCMeta):
 				value = self._element_to_dict(child_element)
 			else:
 				value = child_element.text
+				# Empty strings are None, so convert them.
+				value = "" if value is None else value
 			tag = child_element.tag
-			if tag in self._force_list:
+			if tag in self._force_list_tags:
 				try:
 					# Add value to an existing list.
 					result[tag].append(value)
@@ -399,6 +414,9 @@ class DatabaseQuery(metaclass=abc.ABCMeta):
 				except KeyError:
 					# Add a new entry.
 					result[tag] = [ value ]
+			elif tag in self._force_dict_tags and value == "":
+				# Create an empty dictionary if value is an empty string.
+				result[tag] = {}
 			else:
 				result[tag] = value
 		return result
@@ -453,7 +471,7 @@ class DatabaseQuery(metaclass=abc.ABCMeta):
 				for sub_key, sub_value in value.items():
 					# Skip those properties that must be handled as an
 					# array/list and that are empty.
-					if sub_key in self._force_list and not sub_value:
+					if sub_key in self._force_list_tags and not sub_value:
 						continue
 					sub_element = lxml.etree.Element(sub_key)
 					element.append(sub_element)
@@ -493,6 +511,7 @@ class DatabaseQuery(metaclass=abc.ABCMeta):
 		| greater          | property name | value        |
 		| lessEqual        | property name | value        |
 		| greaterEqual     | property name | value        |
+		| distinct         | property name |              |
 		'-------------------------------------------------'
 		Example 1:
 		[type='bond' and devicename='bond0']
@@ -594,8 +613,8 @@ class DatabaseQuery(metaclass=abc.ABCMeta):
 				parts.append("%s='%s'" % (filter['arg0'], enumv))
 			result = "(%s)" % " or ".join(parts)
 		elif filter['operator'] in [ '!', 'not' ]:
-			result = "not(%s)" % DatabaseGetByFilterQuery(self.model.id,
-				DatabaseFilter(filter['arg0'])).xpath
+			result = "not(%s)" % (
+				self._build_predicate(DatabaseFilter(filter['arg0'])))
 		elif filter['operator'] in [ '<', 'less' ]:
 			result = "%s<%s" % (filter['arg0'], filter['arg1'])
 		elif filter['operator'] in [ '>', 'greater' ]:
@@ -604,6 +623,8 @@ class DatabaseQuery(metaclass=abc.ABCMeta):
 			result = "%s<=%s" % (filter['arg0'], filter['arg1'])
 		elif filter['operator'] in [ '>=', 'greaterEqual' ]:
 			result = "%s>=%s" % (filter['arg0'], filter['arg1'])
+		elif "distinct" == filter['operator']:
+			result = "not({0}=preceding-sibling::*/{0})".format(filter['arg0'])
 		else:
 			raise ValueError("The operator '%s' is not defined." %
 				filter['operator'])
@@ -611,7 +632,8 @@ class DatabaseQuery(metaclass=abc.ABCMeta):
 
 class DatabaseGetByFilterQuery(DatabaseQuery):
 	def __init__(self, id, filter):
-		assert(isinstance(filter, DatabaseFilter))
+		if not filter is None:
+			assert(isinstance(filter, DatabaseFilter))
 		self._filter = filter
 		super().__init__(id)
 
@@ -717,26 +739,43 @@ class DatabaseSetQuery(DatabaseQuery):
 		# Execute the query.
 		elements = self._execute_xpath()
 		# Validate the query result.
-		# If an identifier was set for an iterable object, then there MUST
-		# exist an element.
-		if self.model.is_iterable and not self.object.is_new:
-			if len(elements) == 0:
-				# Raise an exception.
-				raise DatabaseQueryNotFoundException(
-					self.xpath, self.object.model)
-		# Note, new iterable elements MUST be handled different.
-		if self.model.is_iterable and self.object.is_new:
-			# Create the new identifier if necessary.
-			self.object.create_id()
-			# A new iterable element MUST be append to the parent element.
-			append_element = True
+		if self.model.is_iterable:
+			# If an identifier was set for an iterable object, then there
+			# MUST exist at least one element.
+			if not self.object.is_new:
+				if 0 == len(elements):
+					raise DatabaseQueryNotFoundException(
+						self.xpath, self.object.model)
+			# Note, new iterable elements MUST be handled different.
+			if self.object.is_new:
+				# Create the new object identifier.
+				self.object.create_id()
+				# A new iterable element MUST be append to the parent element.
+				append_element = True
+		else:
+			# Handle non-iterable elements that do not exist until now.
+			if 0 == len(elements):
+				# Split the XPath to get the parent and the tag name.
+				xpath, tag = self.xpath.rsplit("/", 1)
+				# Get the first parent element that is found.
+				root_element = self._get_root_element()
+				parent = root_element.find(xpath)
+				assert(lxml.etree.iselement(parent))
+				# Append a new element to the XML tree.
+				element = lxml.etree.Element(tag)
+				parent.append(element)
+				# Append the element to the result list. Thus we can continue
+				# as normal.
+				elements.append(element)
 		# Put the configuration object.
 		for element in elements:
+			# Get the parent element.
+			parent = element.getparent()
+			assert(lxml.etree.iselement(parent))
 			# Create the clone of the element and set the new values.
 			new_element = lxml.etree.Element(element.tag)
 			self._dict_to_elements(self.object.get_dict(), new_element)
 			# Append/Update the element.
-			parent = element.getparent()
 			if append_element: # Add mode
 				# Append the new element to the parent element.
 				parent.append(new_element)

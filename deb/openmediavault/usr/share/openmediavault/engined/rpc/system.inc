@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -113,7 +113,7 @@ class OMVRpcServiceSystem extends \OMV\Rpc\ServiceAbstract {
 	 * @param params An array containing the following fields:
 	 *   \em delay The number of seconds to delay.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 */
 	public function reboot($params, $context) {
 		// Validate the RPC caller context.
@@ -141,7 +141,7 @@ class OMVRpcServiceSystem extends \OMV\Rpc\ServiceAbstract {
 	 * @param params An array containing the following fields:
 	 *   \em delay The number of seconds to delay.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 */
 	public function shutdown($params, $context) {
 		// Validate the RPC caller context.
@@ -176,7 +176,7 @@ class OMVRpcServiceSystem extends \OMV\Rpc\ServiceAbstract {
 	 * @param params An array containing the following fields:
 	 *   \em delay The number of seconds to delay.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 */
 	public function standby($params, $context) {
 		// Validate the RPC caller context.
@@ -204,7 +204,7 @@ class OMVRpcServiceSystem extends \OMV\Rpc\ServiceAbstract {
 	 * supported the system will be shut down.
 	 * @param params The method parameters.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 */
 	public function suspend($params, $context) {
 		// Validate the RPC caller context.
@@ -220,7 +220,7 @@ class OMVRpcServiceSystem extends \OMV\Rpc\ServiceAbstract {
 	 * supported the system will be shut down.
 	 * @param params The method parameters.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 */
 	public function hibernate($params, $context) {
 		// Validate the RPC caller context.
@@ -262,6 +262,7 @@ class OMVRpcServiceSystem extends \OMV\Rpc\ServiceAbstract {
 	 * @param params The method parameters.
 	 * @param context The context of the caller.
 	 * @return The stored configuration object.
+	 * @throw \OMV\Exception
 	 */
 	public function setTimeSettings($params, $context) {
 		// Validate the RPC caller context.
@@ -270,7 +271,13 @@ class OMVRpcServiceSystem extends \OMV\Rpc\ServiceAbstract {
 		]);
 		// Validate the parameters of the RPC service method.
 		$this->validateMethodParams($params, "rpc.system.settimesettings");
-		// Get the existing configuration object.
+		// Validate the time zone.
+		$tzList = $this->callMethod("getTimeZoneList", NULL, $context);
+		if (FALSE === in_array($params['timezone'], $tzList)) {
+			throw new \OMV\Exception("Invalid time zone '%s'",
+				$params['timezone']);
+		}
+		// Get and update the existing configuration object.
 		$db = \OMV\Config\Database::getInstance();
 		$object = $db->get("conf.system.time");
 		$object->set("timezone", $params['timezone']);
@@ -287,7 +294,7 @@ class OMVRpcServiceSystem extends \OMV\Rpc\ServiceAbstract {
 	 * @param params An array containing the following fields:
 	 *   \em timestamp The date to set as UNIX timestamp.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function setDate($params, $context) {
@@ -309,7 +316,7 @@ class OMVRpcServiceSystem extends \OMV\Rpc\ServiceAbstract {
 	 * Set the system date via NTP.
 	 * @param params The method parameters.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function setNtpDate($params, $context) {
@@ -337,8 +344,11 @@ class OMVRpcServiceSystem extends \OMV\Rpc\ServiceAbstract {
 		$this->validateMethodContext($context, [
 			"role" => OMV_ROLE_ADMINISTRATOR
 		]);
-		// Prepare list of time zone identifiers (for ComboBox store).
-		$timezoneIdentifiers = DateTimeZone::listIdentifiers();
+		// According to http://php.net/manual/en/timezones.others.php
+		// some of the time zones that the Debian installer supports are
+		// deprectated. To prevent errors we support them to (ALL_WITH_BC).
+		$timezoneIdentifiers = \DateTimeZone::listIdentifiers(
+			\DateTimeZone::ALL_WITH_BC);
 		sort($timezoneIdentifiers, SORT_NATURAL);
 		return $timezoneIdentifiers;
 	}
@@ -359,8 +369,7 @@ class OMVRpcServiceSystem extends \OMV\Rpc\ServiceAbstract {
 		$uname = posix_uname();
 		$memStats = \OMV\System\System::getMemoryStats();
 		$memStats['wobufferscache']['percentage'] = round(
-		  ($memStats['wobufferscache']['used'] * 100) /
-		  $memStats['mem']['total']);
+		  ($memStats['mem']['used'] * 100) / $memStats['mem']['total']);
 		$cpuStats = \OMV\System\System::getCpuStats();
 		$index = 0;
 		return [

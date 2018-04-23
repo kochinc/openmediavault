@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,8 +27,8 @@ require_once("openmediavault/functions.inc");
  * Class to get detailed information about a filesystem.
  * @ingroup api
  */
-class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
-  ISharedFolderCandidate {
+class Filesystem extends \OMV\System\BlockDevice
+		implements FilesystemInterface, SharedFolderCandidateInterface {
 	protected $uuid = "";
 	protected $type = "";
 	protected $label = "";
@@ -50,6 +50,8 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 	 *   \li /dev/disk/by-path/pci-0000:00:10.0-scsi-0:0:0:0-part2
 	 *   \li /dev/disk/by-uuid/ad3ee177-777c-4ad3-8353-9562f85c0895
 	 *   \li /dev/cciss/c0d0p2
+	 *   \li /dev/disk/by-id/md-name-vmpc01:data
+	 *   \li /dev/disk/by-id/md-uuid-75de9de9:6beca92e:8442575c:73eabbc9
 	 *   </ul>
 	 */
 	public function __construct($id) {
@@ -69,7 +71,7 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 	/**
 	 * Get the filesystem detailed information.
 	 * @private
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	protected function getData() {
@@ -168,7 +170,7 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 
 	/**
 	 * Refresh the cached information.
-	 * @return None.
+	 * @return void
 	 */
 	public function refresh() {
 		$this->setCached(FALSE);
@@ -204,7 +206,7 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 
 	/**
 	 * Assert that the filesystem has an UUID.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\AssertException
 	 */
 	public function assertUuid() {
@@ -237,7 +239,7 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 
 	/**
 	 * Assert that the filesystem has a label.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\AssertException
 	 */
 	public function assertLabel() {
@@ -270,7 +272,7 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 	/**
 	 * Get the partition scheme, e.g. 'gpt', 'mbr', 'apm' or 'dos'.
 	 * @deprecated
-	 * @return The filesystem type, otherwise FALSE.
+	 * @return The filesystem type, otherwise NULL.
 	 */
 	public function getPartitionType() {
 		return $this->getPartitionScheme();
@@ -278,7 +280,7 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 
 	/**
 	 * Get the partition scheme, e.g. 'gpt', 'mbr', 'apm' or 'dos'.
-	 * @return The filesystem type.
+	 * @return The filesystem type, otherwise NULL.
 	 */
 	public function getPartitionScheme() {
 		$this->getData();
@@ -297,7 +299,8 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 	/**
 	 * Get the partition entry information.
 	 * @return An array with the fields \em scheme, \em uuid, \em type,
-	 *   \em flags, \em number, \em offset, \em size and \em disk.
+	 *   \em flags, \em number, \em offset, \em size and \em disk,
+	 *   otherwise NULL.
 	 */
 	public function getPartitionEntry() {
 		$this->getData();
@@ -324,7 +327,7 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 		$this->getData();
 		$this->assertUuid();
 		$deviceFile = sprintf("/dev/disk/by-uuid/%s", $this->getUuid());
-		if (FALSE === is_block($deviceFile)) {
+		if (FALSE === is_block_device($deviceFile)) {
 			throw new \OMV\Exception(
 			  "Filesystem '%s' does not have a disk/by-uuid device file.",
 			  $this->getDeviceFile());
@@ -339,11 +342,11 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 	 */
 	public function hasDeviceFileByUuid() {
 		try {
-			$this->getDeviceFileByUuid();
+			$deviceFile = $this->getDeviceFileByUuid();
 		} catch(\Exception $e) {
 			return FALSE;
 		}
-		return TRUE;
+		return is_devicefile_by_uuid($deviceFile);
 	}
 
 	/**
@@ -355,7 +358,7 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 	public function getDeviceFileById() {
 		$this->getData();
 		$deviceFile = parent::getDeviceFileById();
-		if (FALSE === is_block($deviceFile)) {
+		if (FALSE === is_block_device($deviceFile)) {
 			throw new \OMV\Exception(
 			  "Filesystem '%s' does not have a disk/by-id device file.",
 			  $this->getDeviceFile());
@@ -370,11 +373,11 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 	 */
 	public function hasDeviceFileById() {
 		try {
-			$this->getDeviceFileById();
+			$deviceFile = $this->getDeviceFileById();
 		} catch(\Exception $e) {
 			return FALSE;
 		}
-		return TRUE;
+		return is_devicefile_by_id($deviceFile);
 	}
 
 	/**
@@ -386,8 +389,9 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 	public function getDeviceFileByLabel() {
 		$this->getData();
 		$this->assertLabel();
-		$deviceFile = sprintf("/dev/disk/by-label/%s", $this->getLabel());
-		if (FALSE === is_block($deviceFile)) {
+		$deviceFile = escape_path(sprintf("/dev/disk/by-label/%s",
+			$this->getLabel()));
+		if (FALSE === is_block_device($deviceFile)) {
 			throw new \OMV\Exception(
 			  "Filesystem '%s' does not have a disk/by-label device file.",
 			  $this->getDeviceFile());
@@ -402,11 +406,11 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 	 */
 	public function hasDeviceFileByLabel() {
 		try {
-			$this->getDeviceFileByLabel();
+			$deviceFile = $this->getDeviceFileByLabel();
 		} catch(\Exception $e) {
 			return FALSE;
 		}
-		return TRUE;
+		return is_devicefile_by_label($deviceFile);
 	}
 
 	/**
@@ -417,16 +421,15 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 	 * \li /dev/sdb1 => /dev/sdb
 	 * \li /dev/cciss/c0d0p2 => /dev/cciss/c0d0
 	 * </ul>
-	 * @return The device file of the underlying storage device.
+	 * @return The device file of the underlying storage device or NULL
+	 *   on failure.
 	 */
 	public function getParentDeviceFile() {
 		$this->getData();
-		$deviceFile = $this->getDeviceFile();
 		// The following line is not necessary but will be kept to be safe.
 		// If the device file looks like /dev/disk/by-(id|label|path|uuid)/*
 		// then it is necessary to get the /dev/xxx equivalent.
-		if (1 == preg_match("/^\/dev\/disk\/by-.+$/", $deviceFile))
-			$deviceFile = realpath($deviceFile);
+		$deviceFile = $this->getCanonicalDeviceFile();
 		// Truncate the partition appendix, e.g.:
 		// - /dev/sdb1 => /dev/sdb
 		// - /dev/cciss/c0d0p2 => /dev/cciss/c0d0
@@ -436,43 +439,32 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 		// - /dev/loop0 => /dev/loop0
 		$mngr = \OMV\System\Storage\Backend\Manager::getInstance();
 		if (NULL === ($backend = $mngr->getBackend($deviceFile)))
-			return FALSE;
+			return NULL;
 		$parentDeviceFile = $backend->baseDeviceFile($deviceFile);
-		if (FALSE === is_devicefile_by_id($parentDeviceFile)) {
-			// Get the storage device file of the filesystems parent device.
-			$sd = \OMV\System\Storage\StorageDevice::getStorageDevice(
-			  $parentDeviceFile);
-			if (FALSE === is_null($sd)) {
-				// Try to get the disk/by-id device file, e.g.
-				// - /dev/disk/by-id/ata-WDC_WD15EARS-00MBWR0_WD-WMAZA2574223
-				// - /dev/disk/by-id/wwn-0x50023ed655e21720
-				if (TRUE === $sd->hasDeviceFileById())
-					$parentDeviceFile = $sd->getDeviceFileById();
-			}
-		}
-		return $parentDeviceFile;
+		if (!is_devicefile($parentDeviceFile))
+			return NULL;
+		// Return the canonical device file.
+		return realpath($parentDeviceFile);
 	}
 
 	/**
-	 * Get the special device file to present in the UI instead of the
-	 * value of the getDeviceFile method.
-	 * Get the special device file in the following preferred order:
+	 * Get the device file in the following order:
 	 * <ul>
 	 * \li /dev/disk/by-label/xxx
-	 * \li /dev/disk/by-uuid/xxx
 	 * \li /dev/disk/by-id/xxx
+	 * \li /dev/disk/by-path/xxx
 	 * \li /dev/xxx
 	 * </ul>
-	 * @return Returns the device file.
+	 * @return Returns a device file.
 	 */
-	public function getPreferredDeviceFile() {
+	public function getPredictableDeviceFile() {
 		if (TRUE === $this->hasDeviceFileByLabel())
 			return $this->getDeviceFileByLabel();
-		else if (TRUE === $this->hasDeviceFileByUuid())
-			return $this->getDeviceFileByUuid();
 		else if (TRUE === $this->hasDeviceFileById())
 			return $this->getDeviceFileById();
-		return $this->getDeviceFile();
+		if (TRUE === $this->hasDeviceFileByPath())
+			return $this->getDeviceFileByPath();
+		return $this->getCanonicalDeviceFile();
 	}
 
 	/**
@@ -480,7 +472,7 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 	 * @return An array that contains the component devices of the filesystem.
 	 */
 	public function getDeviceFiles() {
-		return [ $this->getCanonicalDeviceFile() ];
+		return [ $this->getPreferredDeviceFile() ];
 	}
 
 	/**
@@ -513,7 +505,7 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 
 	/**
 	 * Grow the filesystem.
-	 * @return None.
+	 * @return void
 	 */
 	public function grow() {
 		// Nothing to do here.
@@ -521,7 +513,7 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 
 	/**
 	 * Shrink the filesystem.
-	 * @return None.
+	 * @return void
 	 */
 	public function shrink() {
 		// Nothing to do here.
@@ -529,7 +521,7 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 
 	/**
 	 * Remove the filesystem.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function remove() {
@@ -567,35 +559,41 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 		$this->getData();
 		$cmdArgs = [];
 		$cmdArgs[] = "-cnrv";
-		$cmdArgs[] = "-o SOURCE,UUID,TARGET";
+		$cmdArgs[] = "-o SOURCE,TARGET";
 		$cmd = new \OMV\System\Process("findmnt", $cmdArgs);
 		$cmd->setRedirect2to1();
 		$cmd->execute($output);
 		// Parse command output:
-		// sysfs  /sys
-		// proc  /proc
-		// udev  /dev
-		// devpts  /dev/pts
-		// tmpfs  /run
-		// /dev/sda1 df68201c-c816-4228-9bf9-5563b03e6bc1 /
-		// tmpfs  /run/lock
-		// tmpfs  /run/shm
-		// tmpfs  /tmp
-		// /dev/sde1 8c982ec2-8aa7-4fe2-a912-7478f0429e06 /media/8c982ec2-8aa7-4fe2-a912-7478f0429e06
-		// /dev/sdc1 ea792ccb-cce6-409d-ab9b-0e3fd2bfbfc4 /media/ea792ccb-cce6-409d-ab9b-0e3fd2bfbfc4
-		// /dev/md0 2853402e-fe8f-443b-abd5-c42892f25be1 /media/2853402e-fe8f-443b-abd5-c42892f25be1
-		// rpc_pipefs  /var/lib/nfs/rpc_pipefs
-		// /dev/sdf1 7A48-BA97 /media/7A48-BA97
+		// sysfs /sys
+		// proc /proc
+		// udev /dev
+		// devpts /dev/pts
+		// tmpfs /run
+		// /dev/sda1 /
+		// tmpfs /run/lock
+		// tmpfs /run/shm
+		// tmpfs /tmp
+		// /dev/sde1 /media/8c982ec2-8aa7-4fe2-a912-7478f0429e06
+		// /dev/sdc1 /media/ea792ccb-cce6-409d-ab9b-0e3fd2bfbfc4
+		// /dev/md0 /media/2853402e-fe8f-443b-abd5-c42892f25be1
+		// rpc_pipefs /var/lib/nfs/rpc_pipefs
+		// /dev/sdf1 /media/7A48-BA97
+		// /dev/mapper/vg01-lv01 /srv/_dev_disk_by-id_dm-name-vg01-lv01
+		// /dev/sdb1 /srv/dev-disk-by-label-xx\x20yy
 		$result = FALSE;
 		foreach ($output as $outputk => $outputv) {
+			// Split the line into parts.
+			$parts = preg_split("/[\s]+/", $outputv);
+			// Skip everything that does not contain two parts.
+			if (2 !== count($parts))
+				continue;
 			// Skip everything that does not look like '/dev/xxx'.
-			$regex = '/^(\/dev\/\S+)\s+(\S+)\s+(\S+)$/i';
-			if (1 !== preg_match($regex, $outputv, $matches))
+			if (FALSE === is_devicefile($parts[0]))
 				continue;
-			if ($matches[2] !== $this->getUuid())
-				continue;
-			$result = $matches[3];
-			break;
+			if (realpath($parts[0]) == $this->getCanonicalDeviceFile()) {
+				$result = unescape_path($parts[1]);
+				break;
+			}
 		}
 		return $result;
 	}
@@ -630,20 +628,23 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 		// tmpfs                                                  tmpfs         342320       0    342320       0% /run/shm
 		// tmpfs                                                  tmpfs         511768       4    511764       1% /tmp
 		// /dev/sdb1                                              ext4          100156    4164     95992       5% /media/b994e5e8-94ae-482c-ae54-70a0bbb2737e
+		// /dev/sdc1                                              ext4         1014660    2548    995728       1% /srv/dev-disk-by-label-xx yy
 		$result = FALSE;
 		foreach ($output as $outputk => $outputv) {
-			$matches = preg_split("/[\s,]+/", $outputv);
-			if (0 !== strcasecmp($mountPoint, $matches[6]))
+			$regex = '/^(\S+)\s+(\S+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)%\s+(.+)$/i';
+			if (1 !== preg_match($regex, $outputv, $matches))
+				continue;
+			if (0 !== strcasecmp($mountPoint, $matches[7]))
 				continue;
 			$result = [
 				"devicefile" => $this->deviceFile,
-				"type" => $matches[1],
-				"blocks" => $matches[2],
-				"size" => bcmul($matches[2], "1024", 0),
-				"used" => binary_convert($matches[3], "KiB", "B"),
-				"available" => binary_convert($matches[4], "KiB", "B"),
-				"percentage" => intval(trim($matches[5], "%")),
-				"mountpoint" => $matches[6]
+				"type" => $matches[2],
+				"blocks" => $matches[3],
+				"size" => bcmul($matches[3], "1024", 0),
+				"used" => binary_convert($matches[4], "KiB", "B"),
+				"available" => binary_convert($matches[5], "KiB", "B"),
+				"percentage" => intval(trim($matches[6], "%")),
+				"mountpoint" => $matches[7]
 			];
 			break;
 		}
@@ -659,7 +660,7 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 		$this->getData();
 		$cmdArgs = [];
 		$cmdArgs[] = "-cnrv";
-		$cmdArgs[] = "-o SOURCE,UUID";
+		$cmdArgs[] = "-o SOURCE";
 		$cmd = new \OMV\System\Process("findmnt", $cmdArgs);
 		$cmd->setRedirect2to1();
 		$cmd->execute($output);
@@ -669,26 +670,22 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 		// udev
 		// devpts
 		// tmpfs
-		// /dev/sda1 df68201c-c816-4228-9bf9-5563b03e6bc1
-		// /dev/sde1 8c982ec2-8aa7-4fe2-a912-7478f0429e06
-		// /dev/sdc1 ea792ccb-cce6-409d-ab9b-0e3fd2bfbfc4
-		// /dev/md0 2853402e-fe8f-443b-abd5-c42892f25be1
-		// /dev/sdf1 7A48-BA97
+		// /dev/sda1
+		// /dev/sde1
+		// /dev/sdc1
+		// /dev/md0
+		// /dev/sdf1
+		// /dev/mapper/vg01-lv01
 		$result = FALSE;
 		foreach ($output as $outputk => $outputv) {
-			// Split the line into parts.
-			$parts = preg_split("/[\s]+/", $outputv);
-			// Skip everything that does not contain two parts.
-			if (2 !== count($parts))
-				continue;
 			// Skip everything that does not look like '/dev/xxx'.
-			if (FALSE === is_devicefile($parts[0]))
+			if (FALSE === is_devicefile($outputv))
 				continue;
-			// Compare the filesystem UUID.
-			if ($parts[1] !== $this->getUuid())
-				continue;
-			$result = TRUE;
-			break;
+			// Compare the device files.
+			if (realpath($outputv) == $this->getCanonicalDeviceFile()) {
+				$result = TRUE;
+				break;
+			}
 		}
 		return $result;
 	}
@@ -698,7 +695,7 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 	 * @param options Additional mount options as array or string.
 	 *   Defaults to "".
 	 * @param dir The optional mount directory. Defaults to "".
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function mount($options = "", $dir = "") {
@@ -709,10 +706,13 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 				$options = [ $options ];
 			$cmdArgs[] = sprintf("-o %s", implode(",", $options));
 		}
-		if (TRUE === $this->hasUuid())
-			$cmdArgs[] = sprintf("-U %s", $this->getUuid());
-		else
-			$cmdArgs[] = escapeshellarg($this->getDeviceFile());
+		//if (TRUE === $this->hasUuid())
+		//	$cmdArgs[] = sprintf("-U %s", $this->getUuid());
+		//else
+		//	$cmdArgs[] = sprintf("--source %s", escapeshellarg(
+		//		$this->getDeviceFile()));
+		$cmdArgs[] = sprintf("--source %s", escapeshellarg(
+			$this->getPredictableDeviceFile()));
 		if (!empty($dir))
 			$cmdArgs[] = escapeshellarg($dir);
 		$cmd = new \OMV\System\Process("mount", $cmdArgs);
@@ -724,7 +724,7 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 	 * Unmount the filesystem.
 	 * @param force Set to TRUE to force unmount. Defaults to FALSE.
 	 * @param lazy Set to TRUE to lazy unmount. Defaults to FALSE.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function umount($force = FALSE, $lazy = FALSE) {
@@ -734,7 +734,7 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 			$cmdArgs[] = "-f";
 		if (TRUE === $lazy)
 			$cmdArgs[] = "-l";
-		$cmdArgs[] = escapeshellarg($this->getDeviceFile());
+		$cmdArgs[] = escapeshellarg($this->getPredictableDeviceFile());
 		$cmd = new \OMV\System\Process("umount", $cmdArgs);
 		$cmd->setRedirect2to1();
 		$cmd->execute();
@@ -777,19 +777,13 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 
 	/**
 	 * Check if the given device file contains a file system.
-	 * @param deviceFile The devicefile to check.
+	 * @param deviceFile The devicefile to check, e.g. /dev/sda.
 	 * @return TRUE if the devicefile has a file system, otherwise FALSE.
 	 */
 	public static function hasFileSystem($deviceFile) {
-		// An alternative implementation is:
-		// blkid -p -u filesystem <devicefile>
-		// Scan output for tag PTTYPE.
 		$cmdArgs = [];
-		$cmdArgs[] = "|";
-		$cmdArgs[] = "grep";
-		$cmdArgs[] = "-E";
-		$cmdArgs[] = escapeshellarg(sprintf("^%s.*:.+\sTYPE=.+$",
-		  $deviceFile));
+		$cmdArgs[] = "-u filesystem";
+		$cmdArgs[] = escapeshellarg($deviceFile);
 		$cmd = new \OMV\System\Process("blkid", $cmdArgs);
 		$cmd->setQuiet(TRUE);
 		$cmd->execute($output, $exitStatus);
@@ -881,7 +875,7 @@ class Filesystem extends \OMV\System\BlockDevice implements IFilesystem,
 			// /dev/sdb2 /home/ftp/data ext4 rw,noexec,relatime,user_xattr,acl,barrier=1,data=ordered,jqfmt=vfsv0,usrjquota=aquota.user,grpjquota=aquota.group 0 0
 			// /dev/sde1 /media/46607e80-dc8e-427e-9939-7909985dfe5b ext4 rw,noexec,relatime,user_xattr,acl,barrier=1,data=ordered,jqfmt=vfsv0,usrjquota=aquota.user,grpjquota=aquota.group 0 0
 			$parts = explode(" ", $rowv);
-			if ($parts[1] == $dir) {
+			if ($parts[1] == escape_path($dir, TRUE)) {
 				// Get the backend by the file system type (e.g. ext4, xfs,
 				// nfs, aufs, ...).
 				$mngr = Backend\Manager::getInstance();

@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -73,6 +73,7 @@ Ext.define("OMV.module.admin.system.update.Packages", {
 			_("Repository") + ': {[Ext.String.htmlEncode(values.repository)]}<br/>' +
 		  '</tpl>'
 	},{
+		xtype: "textcolumn",
 		text: _("Name"),
 		sortable: true,
 		dataIndex: "name",
@@ -80,6 +81,7 @@ Ext.define("OMV.module.admin.system.update.Packages", {
 		width: 180,
 		hidden: true
 	},{
+		xtype: "textcolumn",
 		text: _("Version"),
 		sortable: false,
 		dataIndex: "version",
@@ -87,6 +89,7 @@ Ext.define("OMV.module.admin.system.update.Packages", {
 		width: 120,
 		hidden: true
 	},{
+		xtype: "textcolumn",
 		text: _("Repository"),
 		sortable: true,
 		dataIndex: "repository",
@@ -94,6 +97,7 @@ Ext.define("OMV.module.admin.system.update.Packages", {
 		width: 160,
 		hidden: true
 	},{
+		xtype: "textcolumn",
 		text: _("Abstract"),
 		sortable: true,
 		dataIndex: "abstract",
@@ -117,6 +121,7 @@ Ext.define("OMV.module.admin.system.update.Packages", {
 		width: 80,
 		hidden: true
 	},{
+		xtype: "textcolumn",
 		text: _("Maintainer"),
 		sortable: true,
 		dataIndex: "maintainer",
@@ -175,24 +180,21 @@ Ext.define("OMV.module.admin.system.update.Packages", {
 			id: me.getId() + "-check",
 			xtype: "button",
 			text: _("Check"),
-			icon: "images/refresh.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-refresh",
 			handler: Ext.Function.bind(me.onCheckButton, me, [ me ]),
 			scope: me
 		},{
 			id: me.getId() + "-upload",
 			xtype: "button",
 			text: _("Upload"),
-			icon: "images/upload.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-upload",
 			handler: Ext.Function.bind(me.onUploadButton, me, [ me ]),
 			scope: me
 		},{
 			id: me.getId() + "-upgrade",
 			xtype: "button",
 			text: _("Upgrade"),
-			icon: "images/add.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-plus",
 			handler: Ext.Function.bind(me.onUpgradeButton, me, [ me ]),
 			scope: me,
 			disabled: true,
@@ -204,8 +206,7 @@ Ext.define("OMV.module.admin.system.update.Packages", {
 			id: me.getId() + "-changelog",
 			xtype: "button",
 			text: _("Show changelog"),
-			icon: "images/document.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-file-text",
 			handler: Ext.Function.bind(me.onChangelogButton, me, [ me ]),
 			scope: me,
 			disabled: true,

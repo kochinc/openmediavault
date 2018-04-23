@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,10 +29,14 @@ $prd = new \OMV\ProductInfo();
 		<title><?=$prd->getName();?></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
-		<link rel="stylesheet" type="text/css" href="css/omv.css"/>
+		<link rel="stylesheet" type="text/css" href="/extjs6/classic/theme-triton/resources/theme-triton-all.css"/>
+		<link rel="stylesheet" type="text/css" href="css/theme-all.min.css"/>
 	</head>
 	<body class="shutdown-page">
-		<a href='/'><div class="shutdown-icon"></div></a>
+		<span class="shutdown-icon x-fa fa-stack fa-2x">
+			<i class="x-color-red x-fa fa fa-stack-2x fa-circle"></i>
+			<i class="x-color-white x-fa fa fa-stack-1x fa-power-off"></i>
+		</span>
 		<a title='<?=$prd->getName();?>' href='<?=$prd->getURL();?>' target='_blank'><div class="product-logo"></div></a>
 	</body>
 </html>

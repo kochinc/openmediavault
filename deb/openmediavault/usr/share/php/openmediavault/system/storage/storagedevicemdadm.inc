@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ class StorageDeviceMdadm extends StorageDevice {
 	/**
 	 * Get the software RAID device detailed information.
 	 * @private
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	private function getData() {
@@ -56,13 +56,13 @@ class StorageDeviceMdadm extends StorageDevice {
 		$cmd = new \OMV\System\Process("mdadm", $cmdArgs);
 		$cmd->setRedirect2to1();
 		$cmd->execute($output);
-		$attributes = array(
+		$attributes = [
 			"name" => "",
 			"level" => "",
 			"num-devices" => -1,
 			"uuid" => "",
 			"devices" => ""
-		);
+		];
 		$output = explode(" ", implode(" ", $output));
 		foreach ($output as $outputk => &$outputv) {
 			$keyValue = explode("=", $outputv);
@@ -150,7 +150,7 @@ class StorageDeviceMdadm extends StorageDevice {
 
 	/**
 	 * Refresh the cached information.
-	 * @return None.
+	 * @return void
 	 */
 	public function refresh() {
 		$this->dataCached = FALSE;

@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -398,6 +398,13 @@ Ext.define("OMV.module.admin.storage.lvm.VolumeGroups", {
 	stateful: true,
 	stateId: "af0712c4-9f60-493a-9be4-c9658f958f99",
 	columns: [{
+		xtype: "textcolumn",
+		text: _("Device"),
+		sortable: true,
+		hidden: true,
+		dataIndex: "devicefile",
+		stateId: "devicefile",
+	},{
 		text: _("Name"),
 		sortable: true,
 		dataIndex: "name",
@@ -479,7 +486,7 @@ Ext.define("OMV.module.admin.storage.lvm.VolumeGroups", {
 			id: me.getId() + "-extend",
 			xtype: "button",
 			text: _("Extend"),
-			icon: "images/expand.png",
+			iconCls: "x-fa fa-expand",
 			handler: Ext.Function.bind(me.onExtendButton, me, [ me ]),
 			scope: me,
 			disabled: true,
@@ -491,7 +498,7 @@ Ext.define("OMV.module.admin.storage.lvm.VolumeGroups", {
 			id: me.getId() + "-reduce",
 			xtype: "button",
 			text: _("Reduce"),
-			icon: "images/shrink.png",
+			iconCls: "x-fa fa-compress",
 			handler: Ext.Function.bind(me.onReduceButton, me, [ me ]),
 			scope: me,
 			disabled: true,

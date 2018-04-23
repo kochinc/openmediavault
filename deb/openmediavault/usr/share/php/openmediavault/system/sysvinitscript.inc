@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -65,7 +65,7 @@ class SysVInitScript {
 	/**
 	 * Enable or remove a system init script.
 	 * @param disable Set TRUE to remove the system init script.
-	 * @return None.
+	 * @return void
 	 */
 	private function update($disable) {
 		if (!$this->update)

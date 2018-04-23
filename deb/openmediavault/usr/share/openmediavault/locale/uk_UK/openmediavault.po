@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Андрей Чапалда <ansilent@gmail.com>, 2012
-# zubr139, 2013-2016
+# zubr139, 2013-2017
 # Андрей Чапалда <ansilent@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 06:19+0100\n"
-"PO-Revision-Date: 2016-12-11 21:48+0000\n"
-"Last-Translator: zubr139\n"
+"POT-Creation-Date: 2018-01-21 11:50+0100\n"
+"PO-Revision-Date: 2018-01-21 10:50+0000\n"
+"Last-Translator: Volker <votdev@gmx.de>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/votdev/openmediavault/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,6 +45,9 @@ msgstr "1 - Мінімальне енергоспоживання в режим�
 msgid "1 day"
 msgstr "1 день"
 
+msgid "1 minute"
+msgstr "1 хвилина"
+
 msgid "1 month"
 msgstr " 1 місяць"
 
@@ -73,6 +76,9 @@ msgstr "127 - проміжне споживання енергії з очіку
 msgid "128 - Minimum power usage without standby (no spindown)"
 msgstr "128 - Мінімальне енергоспоживання без режиму очікування (no spindown)"
 
+msgid "15 minutes"
+msgstr "15 хвилин"
+
 msgid "15 years"
 msgstr "15 років"
 
@@ -84,6 +90,9 @@ msgstr "192 - проміжне споживання енергії без очі
 
 msgid "2 days"
 msgstr "2 дні"
+
+msgid "2 minutes"
+msgstr "2 хвилини"
 
 msgid "2 weeks"
 msgstr "2 тижні"
@@ -112,6 +121,9 @@ msgstr "255 - Вимкнено"
 msgid "3 days"
 msgstr "3 дні"
 
+msgid "3 minutes"
+msgstr "3 хвилини"
+
 msgid "3 months"
 msgstr "3 місяці"
 
@@ -132,6 +144,9 @@ msgstr "330 хвилин"
 
 msgid "4 days"
 msgstr "4 дні"
+
+msgid "4 minutes"
+msgstr "4 хвилини"
 
 msgid "4 years"
 msgstr "4 роки"
@@ -296,21 +311,12 @@ msgstr "Алжир"
 msgid "All"
 msgstr "Всі"
 
-msgid "Allow client access to accounts that have null passwords"
-msgstr "Дозволити клієнтам доступ до аккаунта з нульовим паролем"
-
 msgid ""
 "Allow clients to attempt to store OS/2 style extended attributes on a share."
 msgstr "Дозволити клієнтам спробувати зберігати розширені атрибути OS/2."
 
 msgid "Allow clients to resume interrupted uploads and downloads"
 msgstr "Дозволити клієнтам відновити перервані відвантаження та завантаження"
-
-msgid "Allow new files"
-msgstr "Дозволити нові файли"
-
-msgid "Allow new files to be created."
-msgstr "Дозволити створювати нові файли"
 
 msgid ""
 "Allow this server to advertise itself as a time server to Windows clients"
@@ -419,26 +425,20 @@ msgstr "Завірений ідентифікатор користувача"
 msgid "Authentication"
 msgstr "Аутентифікація"
 
-msgid "Authentication and no privacy"
-msgstr "Аутентифікація без конфіденційності"
-
-msgid "Authentication and privacy"
-msgstr "Аутентифікація і конфіденційність"
-
 msgid "Authentication method"
 msgstr "Метод перевірки автентичності"
-
-msgid "Authentication passphrase"
-msgstr "Перевірка достовірності пароля"
 
 msgid "Authentication required"
 msgstr "Потрібна аутентифікація"
 
-msgid "Authentication type"
-msgstr "Тип аутентифікації"
-
 msgid "Auto"
 msgstr "Авто"
+
+msgid "Auto logout"
+msgstr "Автоматичний вихід із системи"
+
+msgid "Auto logout after the specified idle period."
+msgstr "Авто вихід після вказаного періоду бездіяльності."
 
 msgid "Automatic Acoustic Management"
 msgstr "Автоматичний акустичний контроль"
@@ -494,9 +494,6 @@ msgstr "Двійковий"
 msgid "Block layer cache [%s, %s]"
 msgstr "Кеш шар блоку [%s, %s]"
 
-msgid "Blocksize"
-msgstr "Розмір блоку"
-
 msgid "Bolivia"
 msgstr "Болівія"
 
@@ -541,9 +538,6 @@ msgstr "Буркіна-Фасо"
 
 msgid "Burundi"
 msgstr "Бурунді"
-
-msgid "By default, only files that already exist are allowed to be uploaded."
-msgstr "Типово відображаються лише файли, які вже існують та доступні для завантаження."
 
 msgid "CPU usage"
 msgstr "Завантаження ЦП"
@@ -650,9 +644,6 @@ msgstr "Коментар"
 msgid "Common Name"
 msgstr "Загальне ім'я"
 
-msgid "Community"
-msgstr "Спільнота"
-
 msgid "Community-maintained updates."
 msgstr "Оновлення надані спільнотою."
 
@@ -697,14 +688,6 @@ msgstr "Конго (Кіншаса)"
 
 msgid "Connections"
 msgstr "З'єднання"
-
-msgid "Contact"
-msgstr "Контакт"
-
-msgid ""
-"Contact information, e.g. name or email address of the person responsible "
-"for this system."
-msgstr "Контактна інформація, наприклад, ім'я або адресу електронної пошти особи, відповідальної за цю систему."
 
 msgid "Conveyance self-test"
 msgstr "Тест для виявлення дефектів, що виникли при транспортуванні"
@@ -835,11 +818,6 @@ msgstr "Розташування спільної теки"
 msgid "Detail"
 msgstr "Деталі"
 
-msgid ""
-"Determine the default timeout, in microseconds, before the first packet is "
-"retransmitted."
-msgstr "Визначити час очікування типово, в мікросекундах, перш ніж перший пакет передається повторно."
-
 msgid "Device"
 msgstr "Пристрій"
 
@@ -900,8 +878,14 @@ msgstr "Заборонити користувачу редагувати акк�
 msgid "Disk usage"
 msgstr "Використання диску"
 
+msgid "Disks"
+msgstr "Диски"
+
 msgid "Displaying items {0} - {1} of {2}"
 msgstr "Показано значень {0} - {1} із {2}"
+
+msgid "Displaying {0} - {1} of {2}"
+msgstr "Відображення {0} - {1} of {2}"
 
 msgid "Djibouti"
 msgstr "Джібуті"
@@ -1065,6 +1049,9 @@ msgstr "Редагувати заплановане завдання"
 msgid "Edit scheduled test"
 msgstr "Редагувати запланований тест"
 
+msgid "Edit service"
+msgstr "Редагувати службу"
+
 msgid "Edit share"
 msgstr "Редагувати спільний ресурс"
 
@@ -1192,6 +1179,9 @@ msgstr "Помилка"
 
 msgid "Error #"
 msgstr "Помилка #"
+
+msgid "Errors"
+msgstr "Помилки"
 
 msgid "Estonia"
 msgstr "Естонія"
@@ -1324,6 +1314,9 @@ msgstr "Брандмауер"
 
 msgid "Firmware version"
 msgstr "Версія прошивки"
+
+msgid "First Page"
+msgstr "Перша сторінка"
 
 msgid "Flags"
 msgstr "Прапори"
@@ -1767,6 +1760,9 @@ msgstr "Мова"
 msgid "Laos"
 msgstr "Лаос"
 
+msgid "Last Page"
+msgstr "Остання Сторінка"
+
 msgid "Latvia"
 msgstr "Латвія"
 
@@ -1825,9 +1821,6 @@ msgstr "Головний локальний переглядач"
 
 msgid "Location"
 msgstr "Розташування"
-
-msgid "Location information, e.g. physical location of this system."
-msgstr "Розміщення інформації, наприклад фізичне місце розташування цієї системи."
 
 msgid "Log level"
 msgstr "Рівень входу"
@@ -2115,6 +2108,9 @@ msgstr "Нова Каледонія"
 msgid "New Zealand"
 msgstr "Нова Зеландія"
 
+msgid "Next Page"
+msgstr "Наступна Сторінка"
+
 msgid "Nicaragua"
 msgstr "Нікарагуа"
 
@@ -2136,14 +2132,14 @@ msgstr "Немає доступу"
 msgid "No action"
 msgstr "Жодних дій"
 
-msgid "No authentication and no privacy"
-msgstr "Без аутентифікації і конфіденційності"
-
 msgid "No certificate request"
 msgstr "Немає запиту сертифіката"
 
 msgid "No connections"
 msgstr "Немає з'єднання"
+
+msgid "No data to display"
+msgstr "Немає даних для відображення"
 
 msgid "No items to display"
 msgstr "Елементи для показу відсутні"
@@ -2201,9 +2197,6 @@ msgstr "Сповіщення"
 
 msgid "November"
 msgstr "Листопад"
-
-msgid "Null passwords"
-msgstr "Порожні паролі"
 
 msgid "Num"
 msgstr "Номер"
@@ -2267,6 +2260,9 @@ msgstr "Підопічна територія ООН Тихоокеанські 
 
 msgid "Package information"
 msgstr "Інформація про пакет"
+
+msgid "Page"
+msgstr "Сторінка"
 
 msgid "Page not found"
 msgstr "Сторінку не знайдено"
@@ -2355,9 +2351,6 @@ msgstr "Перу"
 msgid "Philippines"
 msgstr "Філіппіни"
 
-msgid "Physical Disks"
-msgstr "Фізичні диски"
-
 msgid "Physical disk properties"
 msgstr "Фізичні властивості диска"
 
@@ -2368,12 +2361,6 @@ msgid ""
 "Please check the <a href='http://linux.die.net/man/5/exports' "
 "target='_blank'>manual page</a> for more details."
 msgstr "Відвідайте <a href='http://linux.die.net/man/5/exports' target='_blank'>сторінку керівництва</a> для більш докладної інформації."
-
-msgid ""
-"Please check the <a href='http://www.openbsd.org/cgi-"
-"bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>manual page</a> for"
-" more details."
-msgstr "Відвідайте <a href='http://www.openbsd.org/cgi-bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>сторінку керівництва</a> для більш докладної інформації."
 
 msgid ""
 "Please check the <a href='http://www.proftpd.org/docs/contrib/mod_tls.html' "
@@ -2407,16 +2394,16 @@ msgid ""
 "target='_blank'>manual page</a> for more details."
 msgstr "Відвідайте <a href='http://www.samba.org/samba/docs/man/manpages-3/smb.conf.5.html' target='_blank'>сторінку керівництва</a> для більш докладної інформації."
 
+msgid ""
+"Please check the <a href='https://man.openbsd.org/sshd_config.5' "
+"target='_blank'>manual page</a> for more details."
+msgstr ""
+
 msgid "Please choose the method to wipe the device or 'Cancel' to abort."
 msgstr "Будь ласка, оберіть стерити пристрій, або \"Скасувати\", щоб перервати операцію."
 
 msgid "Please first select a device."
 msgstr "Будь ласка, спочатку оберіть пристрій."
-
-msgid ""
-"Please make sure that the shared folder is publicly writable if new files "
-"are allowed."
-msgstr "Будь ласка, переконайтеся, що спільна тека доступна для запису."
 
 msgid ""
 "Please note that no communication with the system is possible during this "
@@ -2442,9 +2429,6 @@ msgstr "Польща"
 
 msgid "Port"
 msgstr "Порт"
-
-msgid "Port to listen on."
-msgstr "Порт для прослуховування."
 
 msgid "Portugal"
 msgstr "Португалія"
@@ -2489,17 +2473,14 @@ msgid ""
 " not what you want.</li></ul>"
 msgstr "Запобігає розкручуванню диска при періодичних запитах. <br/><ul><li> Ніколи - Опитувати (перевіряти) пристрій незалежно від режиму живлення. Це може привести до того, що зупинений диск буде знову розкручений, коли буде перевірений.</li><li>Сон - Перевіряти пристрій, якщо він не знаходиться в режимі СОН.</li><li>Очікування - Перевіряти пристрій, якщо він не знаходиться в режимі СОН або ОЧІКУВАННЯ. У цих режимах більшість дисків не розкручуються, так що якщо Ви хочете запобігти розкручування диска при кожному запиті, швидше за все це той режим, який Вам потрібен.</li><li>Неактивний - Перевіряти пристрій, якщо він не знаходиться в режимі СОН, ОЧІКУВАННЯ або НЕАКТИВНИЙ. У режимі НЕАКТИВНИЙ більшість дисків продовжують розкручуватися, так що швидше за все це не той режим, який Вам потрібен.</li></ul>"
 
+msgid "Previous Page"
+msgstr "Попередня сторінка"
+
 msgid "Primary"
 msgstr "Первинний"
 
 msgid "Primary email"
 msgstr "Первинний email"
-
-msgid "Privacy passphrase"
-msgstr "Захист пароля"
-
-msgid "Privacy type"
-msgstr "Тип конфіденційності"
 
 msgid "Private key"
 msgstr "Приватний ключ"
@@ -2705,9 +2686,6 @@ msgstr "Результат"
 msgid "Resume"
 msgstr "Підсумок"
 
-msgid "Retry timeout"
-msgstr "Очікування повтору"
-
 msgid "Reunion"
 msgstr "Поновити з’єднання"
 
@@ -2770,15 +2748,6 @@ msgstr "SMTP сервер"
 
 msgid "SMTP settings"
 msgstr "Налаштування SMTP"
-
-msgid "SNMP"
-msgstr "SNMP"
-
-msgid "SNMP version 1/2c"
-msgstr "SNMP version 1/2c"
-
-msgid "SNMP version 3"
-msgstr "SNMP version 3"
 
 msgid "SSH"
 msgstr "SSH"
@@ -2866,9 +2835,6 @@ msgstr "Безпечно"
 
 msgid "Secure connection"
 msgstr "Безпечне з'єднання"
-
-msgid "Security level"
-msgstr "Рівень безпеки"
 
 msgid "Select a SSH certificate ..."
 msgstr "Оберіть сертифікат SSH ..."
@@ -2983,9 +2949,6 @@ msgstr "Сесія протермінована."
 
 msgid "Session not authenticated."
 msgstr "Сесія не пройшла перевірку автентичності."
-
-msgid "Session timeout"
-msgstr "Час  сесії закінчився"
 
 msgid "Set browseable"
 msgstr "Дозволити переглядати"
@@ -3140,11 +3103,6 @@ msgid ""
 "disable this option."
 msgstr "Визначає кількість часу в секундах, між перевіркою та оновленням маскараду адрес за допомогою дозволу IP-адреси. Встановіть це значення в 0, щоб відключити дану опцію."
 
-msgid ""
-"Specifies the maximum permitted block size. The permitted range for this "
-"parameter is from 512 to 65464."
-msgstr "Визначає максимальний дозволений розмір блоку. Допустимий діапазон значень для цього параметра від 512 до 65464."
-
 msgid "Specifies the time in hh:mm:ss after which the ban expires."
 msgstr "Визначає час дії бану у форматі гг:хв:сс."
 
@@ -3277,9 +3235,6 @@ msgstr "TAR"
 
 msgid "TCP forwarding"
 msgstr "TCP переадресація"
-
-msgid "TFTP"
-msgstr "TFTP"
 
 msgid "Taiwan"
 msgstr "Тайвань"
@@ -3415,9 +3370,11 @@ msgid ""
 "for data connections is not required."
 msgstr "Встановлення повторного використання сесії SSL керуючого з'єднання для передачі даних."
 
-msgid ""
-"The session timeout time in minutes. Set to 0 to disable automatic logout."
-msgstr "Час очікування сеансу у хвилинах. Встановіть 0 щоб відключити автоматичний вихід із системи."
+msgid "The session IP address has been changed."
+msgstr "IP-адреса сесії була змінена."
+
+msgid "The session user no longer exists."
+msgstr "Сеанс користувача більше не існує."
 
 msgid ""
 "The source remote server, e.g. [USER@]HOST:SRC, [USER@]HOST::SRC or "
@@ -3541,9 +3498,15 @@ msgstr "Це поле повинно містити тільки числа"
 msgid "This field should only contain numbers separated by <,> or <;>"
 msgstr "Це поле повинно містити тільки числа, розділені <,> або <;>"
 
+msgid "This field should only contain options separated by <,>"
+msgstr ""
+
 msgid ""
 "This field should only contain ports (0 - 65535) separated by <,> or <;>"
 msgstr "Це поле повинно містити тільки порти (0 - 65535), відокремлені <,> або <;>"
+
+msgid "This field should only contain strings separated by <,>"
+msgstr ""
 
 msgid "This field should only contain strings separated by <,> or <;>"
 msgstr "Це поле повинно містити тільки рядки, розділені <,> або <;>"
@@ -3702,9 +3665,6 @@ msgstr "Час передачі"
 
 msgid "Transfer type"
 msgstr "Тип передачі"
-
-msgid "Traps"
-msgstr "Пастки"
 
 msgid "Treshold"
 msgstr "Поріг"
@@ -4011,6 +3971,9 @@ msgstr "Лише для запису"
 msgid "Write/Execute"
 msgstr "Записати/Виконати"
 
+msgid "Xen virtual disk device"
+msgstr "Віртуальний дисковий пристрій Xen"
+
 msgid "Yearly"
 msgstr "Щороку"
 
@@ -4019,6 +3982,9 @@ msgstr "Ємен"
 
 msgid "Yes"
 msgstr "Так"
+
+msgid "You need to commit or cancel your changes"
+msgstr "Вам потрібно внести чи скасувати свої зміни"
 
 msgid "Zambia"
 msgstr "Замбія"
@@ -4049,6 +4015,9 @@ msgstr "хвилин"
 
 msgid "n/a"
 msgstr "н/д"
+
+msgid "of {0}"
+msgstr "з {0}"
 
 msgid "old-age"
 msgstr "Старі"

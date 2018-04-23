@@ -11,15 +11,21 @@
 			"type": "boolean",
 			"default": false
 		},
-		"quarantine_sharedfolderref": {
-			"type": "string",
-			"oneOf": [{
-				"type": "string",
-				"format": "uuidv4"
-			},{
-				"type": "string",
-				"maxLength": 0
-			}]
+		"quarantine": {
+			"type": "object",
+			"properties": {
+				"sharedfolderref": {
+					"type": "string",
+					"oneOf": [{
+						"type": "string",
+						"format": "uuidv4"
+					},{
+						"type": "string",
+						"maxLength": 0
+					}],
+					"default": ""
+				}
+			}
 		},
 		"clamd": {
 			"type": "object",
@@ -89,6 +95,31 @@
 					"minimum": 0,
 					"maximum": 50,
 					"default": 24
+				}
+			}
+		},
+		"onaccesspaths": {
+			"type": "object",
+			"properties": {
+				"onaccesspath": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"uuid": {
+								"type": "string",
+								"format": "uuidv4"
+							},
+							"enable": {
+								"type": "boolean",
+								"default": false
+							},
+							"sharedfolderref": {
+								"type": "string",
+								"format": "uuidv4"
+							}
+						}
+					}
 				}
 			}
 		},

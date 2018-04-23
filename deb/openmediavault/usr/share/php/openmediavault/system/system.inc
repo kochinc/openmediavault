@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ class System {
 		// Do not use /dev/root anymore because Debian has removed this
 		// symlink in Jessie. The OMV workaround to create this symlink
 		// during the boot process via an udev rule does not work reliable.
-		//if (is_block("/dev/root"))
+		//if (is_block_device("/dev/root"))
 		//	return realpath("/dev/root");
 		$cmd = new \OMV\System\Process("findmnt", "-f", "-n",
 		  "-o SOURCE", "/");
@@ -89,27 +89,44 @@ class System {
 		// #SYS_UID_MIN              100
 		// #SYS_UID_MAX              999
 		$file = new \OMV\Util\KeyValueFile("/etc/login.defs");
+		$file->setKeyValueDelimiter("\\s");
+		$file->setKeyCaseSensitiv(TRUE); // Do not lowercase keys.
 		return $file->getAssoc();
 	}
 
 	/**
-	 * Get the next free device name.
+	 * Get the next free device name, e.g. md3 or bond2.
+	 * Note, do not use this method combined with predictable network
+	 * device names.
 	 * @param type The type of the device, e.g. disk or iface
 	 * @param name The device name, e.g. sda, hda, md, eth or bond
-	 * @return The next free device name, e.g. md3
+	 * @return The next free device name, or FALSE on failure.
 	 */
 	public static function getNextDevice($type, $name) {
 		$cmdList = [
-			"disk" => "cat /proc/partitions | awk '{print $4}'",
-			"iface" => "export LANG=C; netstat -i | awk '{print $1}'"
+			"disk" => "awk '{print $4}' /proc/partitions",
+			"iface" => "awk -F: '/[:]/ {print $1}' /proc/net/dev"
 		];
-		$cmd = sprintf("%s | grep '^%s[0-9]\{1,\}$' | sort -r | " .
-		  "head -n 1", $cmdList[$type], $name);
-		$cmd = new \OMV\System\Process($cmd);
-		$deviceName = $cmd->execute();
-		$deviceName = strrev($deviceName);
-		return sprintf("%s%d", $name, !empty($deviceName) ?
-		  intval($deviceName[0]) + 1 : 0);
+		$cmd = new \OMV\System\Process($cmdList[$type]);
+		$cmd->execute($output);
+		$nums = [];
+		$regex = sprintf("/^%s(\d+)$/", $name);
+		foreach ($output as $itemk => $itemv) {
+			if (1 !== preg_match($regex, trim($itemv), $matches))
+				continue;
+			$nums[] = $matches[1];
+		}
+		// Try to find the next free number.
+		$num = -1;
+		for ($i = 0; $i <= 255; $i++) {
+			if (TRUE === in_array($i, $nums))
+				continue;
+			$num = $i;
+			break;
+		}
+		if (0 > $num)
+			return FALSE;
+		return sprintf("%s%d", $name, $num);
 	}
 
 	/**
@@ -203,7 +220,7 @@ class System {
 		$result['used'] = $result['total'] - $result['free'];
 		$result['percent'] = round(($result['used'] * 100) / $result['total']);
 */
-		$cmd = new \OMV\System\Process("free", "-b");
+		$cmd = new \OMV\System\Process("free", "-b", "-t", "-w");
 		$cmd->setRedirect2to1();
 		$cmd->execute($output);
 		$result = [
@@ -213,11 +230,8 @@ class System {
 				"free" => 0,
 				"shared" => 0,
 				"buffers" => 0,
-				"cached" => 0
-			],
-			"wobufferscache" => [
-				"used" => 0,
-				"free" => 0
+				"cache" => 0,
+				"available" => 0
 			],
 			"swap" => [
 				"total" => 0,
@@ -231,13 +245,12 @@ class System {
 			]
 		];
 		// Parse command output:
-		//              total       used       free     shared    buffers     cached
-		// Mem:     526987264  195010560  331976704          0   28565504  120373248
-		// -/+ buffers/cache:   46071808  480915456
-		// Swap:    401596416          0  401596416
-		// Total:   928583680  195137536  733446144
+		//               total        used        free      shared     buffers       cache   available
+		// Mem:     2101825536    98390016  1823117312    12967936    16809984   163508224  1844318208
+		// Swap:             0           0           0
+		// Total:   2101825536    98390016  1823117312
 		foreach ($output as $outputk => $outputv) {
-			if (preg_match('/^Mem:\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)$/',
+			if (preg_match('/^Mem:\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)$/',
 			  $outputv, $matches)) {
 				$result['mem'] = [
 					"total" => $matches[1],
@@ -245,13 +258,8 @@ class System {
 					"free" => $matches[3],
 					"shared" => $matches[4],
 					"buffers" => $matches[5],
-					"cached" => $matches[6]
-				];
-			} else if (preg_match('/^-\/\+ buffers\/cache:\s+(\d+)\s+(\d+)$/',
-			  $outputv, $matches)) {
-				$result['wobufferscache'] = [
-					"used" => $matches[1],
-					"free" => $matches[2]
+					"cache" => $matches[6],
+					"available" => $matches[7]
 				];
 			} else if (preg_match('/^Swap:\s+(\d+)\s+(\d+)\s+(\d+)$/',
 			  $outputv, $matches)) {
@@ -262,7 +270,7 @@ class System {
 				];
 			} else if (preg_match('/^Total:\s+(\d+)\s+(\d+)\s+(\d+)$/',
 			  $outputv, $matches)) {
-				$result['swap'] = [
+				$result['total'] = [
 					"total" => $matches[1],
 					"used" => $matches[2],
 					"free" => $matches[3]
@@ -312,6 +320,10 @@ class System {
 		// * iowait: waiting for I/O to complete
 		// * irq: servicing interrupts
 		// * softirq: servicing softirqs
+		//
+		// See also
+		// - https://serverfault.com/a/667250.
+		// - https://en.wikipedia.org/wiki/Load_(computing)
 		$tprev = file("/proc/stat");
 		sleep(1);
 		$tnow = file("/proc/stat");
@@ -324,10 +336,19 @@ class System {
 		$tnowTotal = array_sum($tnow);
 		// Calculate the CPU usage since we last checked.
 		$diffIdle = $tnow[3] - $tprev[3];
+		$diffIowait = $tnow[4] - $tprev[4];
 		$diffTotal = $tnowTotal - $tprevTotal;
 		// Get the processor name.
+		// Parse output:
+		// ...
+		// CPU part	: 0xd03
+		// CPU revision	: 4
+		//
+		// Hardware		: Allwinnersun50iw2Family
+		// Revision		: 0000
+		// Serial		: 0000000000000000
 		$modelName = gettext("n/a");
-		foreach ([ "modelname", "cpumodel", "Processor" ] as $key) {
+		foreach ([ "modelname", "cpumodel", "Processor", "Hardware" ] as $key) {
 			if (TRUE === $cpuInfo->exists($key)) {
 				$modelName = $cpuInfo->get($key);
 				break;
@@ -336,9 +357,9 @@ class System {
 		return [
 			"modelname" => $modelName,
 			"cpumhz" => $cpuInfo->exists("cpumhz") ?
-			  $cpuInfo->get("cpumhz") : gettext("n/a"),
-			"usage" => (0 == $diffTotal) ? 0 : (($diffTotal - $diffIdle) /
-			  $diffTotal) * 100
+				$cpuInfo->get("cpumhz") : gettext("n/a"),
+			"usage" => (0 == $diffTotal) ? 0 :
+				(($diffTotal - $diffIowait - $diffIdle) / $diffTotal) * 100
 		];
 	}
 }

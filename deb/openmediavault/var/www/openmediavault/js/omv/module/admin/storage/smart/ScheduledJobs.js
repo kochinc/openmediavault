@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -56,14 +56,15 @@ Ext.define("OMV.module.admin.storage.smart.schedule.Job", {
 	 * @param uuid The UUID of the database/configuration object. Required.
 	 */
 
-	getFormConfig: function() {
-		return {
-			layout: {
-				type: "vbox",
-				align: "stretch"
-			}
-		};
-	},
+// ToDo: EXTJS-13864 bug, see http://www.sencha.com/forum/showthread.php?286026-4.2.2-Form-field-height-incorrect-with-afterSubTpl-flex-and-layout-vbox&p=1046055&viewfull=1#post1046055
+//	getFormConfig: function() {
+//		return {
+//			layout: {
+//				type: "vbox",
+//				align: "stretch"
+//			}
+//		};
+//	},
 
 	getFormItems: function() {
 		return [{
@@ -241,20 +242,17 @@ Ext.define("OMV.module.admin.storage.smart.schedule.Jobs", {
 	stateful: true,
 	stateId: "ca86feba-53c1-42b4-8eea-5119f0244fb5",
 	columns: [{
-		xtype: "booleaniconcolumn",
+		xtype: "enabledcolumn",
 		text: _("Enabled"),
 		sortable: true,
 		dataIndex: "enable",
-		stateId: "enable",
-		align: "center",
-		width: 80,
-		resizable: false,
-		iconCls:  Ext.baseCSSPrefix + "grid-cell-booleaniconcolumn-switch"
+		stateId: "enable"
 	},{
 		xtype: "deviceinfocolumn",
 		text: _("Device"),
-		stateId: "device",
-		sortable: true
+		sortable: true,
+		dataIndex: "devicefile",
+		stateId: "device"
 	},{
 		xtype: "mapcolumn",
 		text: _("Type"),
@@ -268,6 +266,7 @@ Ext.define("OMV.module.admin.storage.smart.schedule.Jobs", {
 			"O": _("Offline immediate test")
 		}
 	},{
+		xtype: "textcolumn",
 		text: _("Hour"),
 		sortable: true,
 		dataIndex: "hour",
@@ -291,6 +290,7 @@ Ext.define("OMV.module.admin.storage.smart.schedule.Jobs", {
 		stateId: "dayofweek",
 		renderer: OMV.util.Format.arrayRenderer(Date.mapDayOfWeek)
 	},{
+		xtype: "textcolumn",
 		text: _("Comment"),
 		sortable: true,
 		dataIndex: "comment",
@@ -343,8 +343,7 @@ Ext.define("OMV.module.admin.storage.smart.schedule.Jobs", {
 			id: me.getId() + "-run",
 			xtype: "button",
 			text: _("Run"),
-			icon: "images/play.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-play",
 			handler: Ext.Function.bind(me.onRunButton, me, [ me ]),
 			scope: me,
 			disabled: true,

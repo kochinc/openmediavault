@@ -1,16 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-clamav package.
 # 
 # Translators:
 # Jan Štourač <wormsik666@gmail.com>, 2014
-# Pavel Borecki <pavel.borecki@gmail.com>, 2014-2016
+# Pavel Borecki <pavel.borecki@gmail.com>, 2014-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-23 19:15+0200\n"
-"PO-Revision-Date: 2016-10-10 13:35+0000\n"
+"POT-Creation-Date: 2017-11-18 11:05+0100\n"
+"PO-Revision-Date: 2017-11-18 19:08+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/votdev/openmediavault/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
@@ -19,8 +19,11 @@ msgstr ""
 "Language: cs_CZ\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-msgid "Add job"
-msgstr "Přidat úlohu"
+msgid "Add on-access scan"
+msgstr "Přidat kontrolu spouštěnou přístupem"
+
+msgid "Add scheduled job"
+msgstr "Přidat naplánovanou úlohu"
 
 msgid "Algorithmic detection"
 msgstr "Rozpoznávat dle algoritmu"
@@ -57,8 +60,14 @@ msgstr "Zjišťovat potenciálně nežádoucí aplikace"
 msgid "Detect broken executables"
 msgstr "Zjišťovat poškozené spustitelné"
 
-msgid "Edit job"
-msgstr "Upravit úlohu"
+msgid "Done ..."
+msgstr "Hotovo…"
+
+msgid "Edit on-access scan"
+msgstr "Upravit kontrolu spouštěnou přístupem"
+
+msgid "Edit scheduled job"
+msgstr "Upravit naplánovanou úlohu"
 
 msgid "Enable"
 msgstr "Zapnout"
@@ -104,8 +113,8 @@ msgstr "Každých N hodin"
 msgid "Every N minute"
 msgstr "Každých N minut"
 
-msgid "Execute cron job"
-msgstr "Spustit naplánovanou (cron) úlohu"
+msgid "Execute scheduled job"
+msgstr "Spustit naplánovanou úlohu"
 
 msgid "Extra options"
 msgstr "Rozšířené předvolby"
@@ -131,9 +140,6 @@ msgstr "Hodina"
 msgid "Infected files"
 msgstr "S infikovanými soubory"
 
-msgid "Jobs"
-msgstr "Úlohy"
-
 msgid "Log clean files"
 msgstr "Zaznamenávat i nenakažené"
 
@@ -158,6 +164,9 @@ msgstr "Skenovat paralelně"
 msgid "Number of database update checks per day. Set to 0 to disable."
 msgstr "Kolikrát za den zjišťovat případné aktualizace pro databázi virů. Nastavení na 0 (nula) automatickou aktualizaci vypne."
 
+msgid "On Access Scans"
+msgstr "Skenování spouštěné přístupem"
+
 msgid "On-access"
 msgstr "Kontrolovat při otevírání"
 
@@ -165,9 +174,10 @@ msgid "Perform a deeper analysis of executable files."
 msgstr "Provádět hloubkovou analýzu souborů ve formátu PE, včetně rozbalování jejich vnitřku."
 
 msgid ""
-"Please check the <a href='http://linux.die.net/man/5/clamd.conf' "
-"target='_blank'>manual page</a> for more details."
-msgstr "Další informace naleznete v <a href='http://linux.die.net/man/5/clamd.conf' target='_blank'>manuálové stránce</a> (v angličtině)."
+"Please check the <a href='https://github.com/vrtadmin/clamav-"
+"faq/raw/master/manual/clamdoc.pdf' target='_blank'>manual page</a> for more "
+"details."
+msgstr "Další podrobnosti naleznete v <a href='https://github.com/vrtadmin/clamav-faq/raw/master/manual/clamdoc.pdf' target='_blank'>manuálové stránce</a>."
 
 msgid "Quarantine"
 msgstr "Karanténa"
@@ -196,6 +206,9 @@ msgstr "Kontrolovat archivy"
 msgid "Scan the directory contents in parallel using available threads."
 msgstr "Kontrolovat vícero položek obsahu složky naráz, využitím dostupných výpočetních vláken."
 
+msgid "Scheduled Jobs"
+msgstr "Naplánované úlohy"
+
 msgid "Send command output via email"
 msgstr "Odeslat výstup příkazu e-mailem"
 
@@ -207,6 +220,9 @@ msgstr "Nastavení"
 
 msgid "Shared folder"
 msgstr "Sdílená složka"
+
+msgid "The location of the files to scan on-access."
+msgstr "Umístění souborů které skenovat při přístupu."
 
 msgid "The location of the files to scan."
 msgstr "Kde se nacházejí soubory, které zkontrolovat."

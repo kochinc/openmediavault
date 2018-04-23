@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -147,7 +147,7 @@ finish:
 			// Append user 'root'?
 			if ((0 == strcasecmp("root", $userInfo['name'])) &&
 			  (FALSE == \OMV\Environment::getBoolean(
-			  "OMV_USERMGMT_ENUMERATE_USER_ROOT")))
+			  "OMV_USERMGMT_ENUMERATE_USER_ROOT", TRUE)))
 				continue;
 			// Check if the current user is requested.
 			$append = FALSE;
@@ -576,7 +576,7 @@ finish:
 	 *   \em email The email address.
 	 *   \em comment The comment.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 */
 	function setUserByContext($params, $context) {
 		// Validate the RPC caller context.
@@ -653,7 +653,7 @@ finish:
 	 *   test2;1200;comment2;test2@xyz.com;foobarpwd2;adm,audio,www-data;0
 	 *   test3;;comment3;test3@xyz.com;foobarpwd3;ssh;1
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 */
 	function importUsers($params, $context) {
 		// Validate the RPC caller context.
@@ -930,7 +930,7 @@ finish:
 	 *   grp1;;comment1
 	 *   grp2;1200;comment2
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 */
 	function importGroups($params, $context) {
 		// Validate the RPC caller context.

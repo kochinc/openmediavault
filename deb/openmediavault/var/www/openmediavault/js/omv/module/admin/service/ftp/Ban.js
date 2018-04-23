@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -140,21 +140,25 @@ Ext.define("OMV.module.admin.service.ftp.BanRules", {
 	stateful: true,
 	stateId: "b145dd0c-8fe8-4570-947f-e4c0ee40b900",
 	columns: [{
+		xtype: "textcolumn",
 		text: _("Event"),
 		sortable: true,
 		dataIndex: "event",
 		stateId: "event"
 	},{
+		xtype: "textcolumn",
 		text: _("Occurrence"),
 		sortable: true,
 		dataIndex: "occurrence",
 		stateId: "occurrence"
 	},{
+		xtype: "textcolumn",
 		text: _("Time interval"),
 		sortable: true,
 		dataIndex: "timeinterval",
 		stateId: "timeinterval"
 	},{
+		xtype: "textcolumn",
 		text: _("Expire"),
 		sortable: true,
 		dataIndex: "expire",

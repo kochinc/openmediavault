@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -72,17 +72,30 @@ Ext.define("OMV.module.admin.system.general.Settings", {
 				allowBlank: false,
 				value: 80
 			},{
-				xtype: "numberfield",
+				xtype: "combo",
 				name: "timeout",
-				fieldLabel: _("Session timeout"),
-				minValue: 0,
-				maxValue: 30,
-				allowDecimals: false,
+				fieldLabel: _("Auto logout"),
+				queryMode: "local",
+				store: [
+					[ 0, _("Disabled") ],
+					[ 1, _("1 minute") ],
+					[ 2, _("2 minutes") ],
+					[ 3, _("3 minutes") ],
+					[ 4, _("4 minutes") ],
+					[ 5, _("5 minutes") ],
+					[ 10, _("10 minutes") ],
+					[ 15, _("15 minutes") ],
+					[ 30, _("30 minutes") ],
+					[ 60, _("60 minutes") ],
+					[ 1440, _("1 day") ]
+				],
 				allowBlank: false,
+				editable: false,
+				triggerAction: "all",
 				value: 5,
 				plugins: [{
 					ptype: "fieldinfo",
-					text: _("The session timeout time in minutes. Set to 0 to disable automatic logout.")
+					text: _("Auto logout after the specified idle period.")
 				}]
 			}]
 		},{

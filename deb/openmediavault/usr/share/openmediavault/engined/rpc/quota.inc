@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -208,6 +208,9 @@ class OMVRpcServiceQuota extends \OMV\Rpc\ServiceAbstract {
 			// filesystem we can simply use the first found object.
 			$object = $db->getByFilter("conf.system.filesystem.quota",
 			  $filter, 1);
+			// Reset the existing quotas.
+			$object->set("usrquota", []);
+			$object->set("grpquota", []);
 		} else {
 			// Create a new configuration object.
 			$object = new \OMV\Config\ConfigObject(

@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,7 +68,7 @@ Ext.apply(Ext.form.field.VTypes, {
 	IPText: _("This field should be an IP address"),
 	IPMask: /[0-9a-f\.:]/i,
 
-	IPList:  function(v) {
+	IPList: function(v) {
 		var valid = true;
 		// Split string into several IP addresses.
 		Ext.each(v.split(/[,;]/), function(ip) {
@@ -99,7 +99,7 @@ Ext.apply(Ext.form.field.VTypes, {
 	IPv4Text: _("This field should be an IPv4 address"),
 	IPv4Mask: /[\d\.]/i,
 
-	IPv4List:  function(v) {
+	IPv4List: function(v) {
 		var valid = true;
 		// Split string into several IPv4 addresses.
 		Ext.each(v.split(/[,;]/), function(ip) {
@@ -210,6 +210,12 @@ Ext.apply(Ext.form.field.VTypes, {
 	textListText: _("This field should only contain strings separated by <,> or <;>"),
 	textListMask: /[\w,;]/i,
 
+	textCommaList: function(v) {
+		return /^(\w+[,])*\w+$/.test(v);
+	},
+	textCommaListText: _("This field should only contain strings separated by <,>"),
+	textCommaListMask: /[\w,]/i,
+
 	portList: function(v) {
 		return /^((0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])[,;])*(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$/.test(v);
 	},
@@ -311,6 +317,19 @@ Ext.apply(Ext.form.field.VTypes, {
 	domainnameIPListText: _("This field should be a list of domain names or IP addresses"),
 	domainnameIPListMask: /[a-z0-9:\-\.,;]/i,
 
+	smtpserver: function(v) {
+		if (!Ext.isString(v))
+			return false;
+		v = v.replace(/[\[\]]/g, "");
+		if (Ext.form.field.VTypes.domainname(v))
+			return true;
+		if (Ext.form.field.VTypes.IP(v))
+			return true;
+		return false;
+	},
+	smtpserverText: _("This field should be a domain name or an IP address"),
+	smtpserverMask: /[a-z0-9:\[\]\-\.]/i,
+
 	groupname: function(v) {
 		return /^[a-zA-Z0-9\-\.]+$/.test(v);
 	},
@@ -389,7 +408,13 @@ Ext.apply(Ext.form.field.VTypes, {
 		return /^ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3}\s*([^@]+@[^@]+|.+)*$/.test(v);
 	},
 	sshPubKeyOpenSSHText: _("Invalid SSH public key"),
-	sshPubKeyOpenSSHMask: /[a-zA-Z0-9@+/=\- ]/
+	sshPubKeyOpenSSHMask: /[a-zA-Z0-9@+/=\- ]/,
+
+	nfsOptionList: function(v) {
+		return /^(([a-zA-Z_]+)(=([\w@:/]+))?[,])*([a-zA-Z_]+)(=([\w@:/]+))?$/.test(v);
+	},
+	nfsOptionListText: _("This field should only contain options separated by <,>"),
+	nfsOptionListMask: /[\w,@:/=]/i
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -452,6 +477,15 @@ Ext.apply(Ext.LoadMask.prototype, {
 });
 
 ////////////////////////////////////////////////////////////////////////////////
+// Ext.panel.Panel
+////////////////////////////////////////////////////////////////////////////////
+
+Ext.apply(Ext.panel.Panel.prototype, {
+	// Disable the shadow by default.
+	shadow: false
+});
+
+////////////////////////////////////////////////////////////////////////////////
 // Ext.view.AbstractView
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -470,6 +504,94 @@ Ext.apply(Ext.window.MessageBox.prototype, {
 		yes: _("Yes"),
 		no: _("No")
 	}
+});
+
+////////////////////////////////////////////////////////////////////////////////
+// Ext.grid.RowEditor
+////////////////////////////////////////////////////////////////////////////////
+
+Ext.apply(Ext.grid.RowEditor.prototype, {
+	saveBtnText: _("Save"),
+	cancelBtnText: _("Cancel"),
+	errorsText: _("Errors"),
+	dirtyText: _("You need to commit or cancel your changes")
+});
+
+// https://www.sencha.com/forum/showthread.php?107914-Row-Editor-Checkbox-alignment-problem
+// https://stackoverflow.com/a/23888701
+Ext.define("Ext.overrides.grid.RowEditor", {
+	override: "Ext.grid.RowEditor",
+	compatibility: "6.2.0.981",
+	requires: [
+		"Ext.grid.RowEditor"
+	],
+	addFieldsForColumn: function(column, initial) {
+		var me = this, i, len, field, style;
+		if (Ext.isArray(column)) {
+			for (i = 0, len = column.length; i < len; i++) {
+				me.addFieldsForColumn(column[i], initial);
+			}
+			return;
+		}
+		if (column.getEditor) {
+			field = column.getEditor(null, me.getDefaultFieldCfg());
+			if (column.align === 'right') {
+				style = field.fieldStyle;
+				if (style) {
+					if (Ext.isObject(style)) {
+						style = Ext.apply({}, style);
+					} else {
+						style = Ext.dom.Element.parseStyles(style);
+					}
+					if (!style.textAlign && !style['text-align']) {
+						style.textAlign = 'right';
+					}
+				} else {
+					style = 'text-align:right';
+				}
+				field.fieldStyle = style;
+			}
+			// ===> STARTFIX
+			if (column.align === 'center') {
+				field.fieldStyle = 'text-align:center';
+			}
+			// <=== ENDFIX
+			if (column.xtype === 'actioncolumn') {
+				field.fieldCls += ' ' + Ext.baseCSSPrefix + 'form-action-col-field';
+			}
+			if (me.isVisible() && me.context) {
+				if (field.is('displayfield')) {
+					me.renderColumnData(field, me.context.record, column);
+				} else {
+					field.suspendEvents();
+					field.setValue(me.context.record.get(column.dataIndex));
+					field.resumeEvents();
+				}
+			}
+			if (column.hidden) {
+				me.onColumnHide(column);
+			} else if (column.rendered && !initial) {
+				// Setting after initial render
+				me.onColumnShow(column);
+			}
+		}
+	}
+});
+
+////////////////////////////////////////////////////////////////////////////////
+// Ext.toolbar.Paging
+////////////////////////////////////////////////////////////////////////////////
+
+Ext.apply(Ext.toolbar.Paging.prototype, {
+	displayMsg: _("Displaying {0} - {1} of {2}"),
+	emptyMsg: _("No data to display"),
+	beforePageText: _("Page"),
+	afterPageText: _("of {0}"),
+	firstText: _("First Page"),
+	prevText: _("Previous Page"),
+	nextText: _("Next Page"),
+	lastText: _("Last Page"),
+	refreshText: _("Refresh")
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -633,6 +755,25 @@ Ext.apply(Ext.state.LocalStorageProvider.prototype, {
 		Ext.Array.each(keys, function(key) {
 			me.clear(key);
 		});
+	}
+});
+
+////////////////////////////////////////////////////////////////////////////////
+// Ext.form.Basic
+////////////////////////////////////////////////////////////////////////////////
+
+// When clicking very fast in the navigation tree this method fails because
+// of the missing ckeck if 'this.monitor' is defined.
+Ext.define("Ext.overrides.form.Basic", {
+	override: "Ext.form.Basic",
+	compatibility: "6.2.0.981",
+	requires: [
+		"Ext.form.Basic"
+	],
+	getFields: function() {
+		if (!Ext.isObject(this.monitor))
+			return new Ext.util.MixedCollection();
+		return this.monitor.getItems();
 	}
 });
 
@@ -894,6 +1035,56 @@ Ext.apply(Ext.String, {
 		chars = chars.replace(/([\[\]\(\)\.\?\/\*\{\}\+\$\^\:])/g,
 			"\\$1") || " \\s";
 		return s.replace(new RegExp("[" + chars + "]+$", "g"), "");
+	}
+});
+
+////////////////////////////////////////////////////////////////////////////////
+// Ext.dom.Element
+////////////////////////////////////////////////////////////////////////////////
+
+// https://www.sencha.com/forum/showthread.php?336762-Examples-don-t-work-in-Firefox-52-touchscreen&p=1174857&viewfull=1#post1174857
+Ext.define('EXTJS_23846.Element', {
+	override: 'Ext.dom.Element'
+}, function(Element) {
+	var supports = Ext.supports,
+		proto = Element.prototype,
+		eventMap = proto.eventMap,
+		additiveEvents = proto.additiveEvents;
+
+	if (Ext.os.is.Desktop && supports.TouchEvents && !supports.PointerEvents) {
+		eventMap.touchstart = 'mousedown';
+		eventMap.touchmove = 'mousemove';
+		eventMap.touchend = 'mouseup';
+		eventMap.touchcancel = 'mouseup';
+
+		additiveEvents.mousedown = 'mousedown';
+		additiveEvents.mousemove = 'mousemove';
+		additiveEvents.mouseup = 'mouseup';
+		additiveEvents.touchstart = 'touchstart';
+		additiveEvents.touchmove = 'touchmove';
+		additiveEvents.touchend = 'touchend';
+		additiveEvents.touchcancel = 'touchcancel';
+
+		additiveEvents.pointerdown = 'mousedown';
+		additiveEvents.pointermove = 'mousemove';
+		additiveEvents.pointerup = 'mouseup';
+		additiveEvents.pointercancel = 'mouseup';
+	}
+});
+
+////////////////////////////////////////////////////////////////////////////////
+// Ext.event.publisher.Gesture
+////////////////////////////////////////////////////////////////////////////////
+
+// https://www.sencha.com/forum/showthread.php?336762-Examples-don-t-work-in-Firefox-52-touchscreen&p=1174857&viewfull=1#post1174857
+Ext.define('EXTJS_23846.Gesture', {
+	override: 'Ext.event.publisher.Gesture'
+}, function(Gesture) {
+	var me = Gesture.instance;
+
+	if (Ext.supports.TouchEvents && !Ext.isWebKit && Ext.os.is.Desktop) {
+		me.handledDomEvents.push('mousedown', 'mousemove', 'mouseup');
+		me.registerEvents();
 	}
 });
 

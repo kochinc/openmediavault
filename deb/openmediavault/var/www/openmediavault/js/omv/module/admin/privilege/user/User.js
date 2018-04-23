@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,6 +34,7 @@
 // require("js/omv/data/Model.js")
 // require("js/omv/data/proxy/Rpc.js")
 // require("js/omv/data/reader/RpcArray.js")
+// require("js/omv/toolbar/Tip.js")
 
 /**
  * @class OMV.module.admin.privilege.user.user.General
@@ -191,12 +192,14 @@ Ext.define("OMV.module.admin.privilege.user.user.Groups", {
 		})
 	}],
 	columns: [{
+		xtype: "textcolumn",
 		text: _("Name"),
 		sortable: true,
 		dataIndex: "name",
 		stateId: "name",
 		flex: 2
 	},{
+		xtype: "textcolumn",
 		text: _("GID"),
 		sortable: true,
 		dataIndex: "gid",
@@ -302,6 +305,9 @@ Ext.define("OMV.module.admin.privilege.user.user.Groups", {
  */
 Ext.define("OMV.module.admin.privilege.user.user.sshpubkeys.PubKey", {
 	extend: "OMV.workspace.window.TextArea",
+	uses: [
+		"OMV.toolbar.Tip"
+	],
 
 	width: 500,
 	height: 250,
@@ -423,7 +429,7 @@ Ext.define("OMV.module.admin.privilege.user.User", {
 	rpcSetMethod: "setUser",
 
 	width: 420,
-	height: 300,
+	height: 450,
 
 	getTabItems: function() {
 		var me = this;
@@ -443,6 +449,9 @@ Ext.define("OMV.module.admin.privilege.user.User", {
  */
 Ext.define("OMV.module.admin.privilege.user.Import", {
 	extend: "OMV.workspace.window.TextArea",
+	uses: [
+		"OMV.toolbar.Tip"
+	],
 
 	title: _("Import users"),
 	width: 580,
@@ -499,6 +508,9 @@ Ext.define("OMV.module.admin.privilege.user.SharedFolderPrivileges", {
 	extend: "OMV.workspace.window.Grid",
 	requires: [
 		"OMV.grid.PrivilegesByRole"
+	],
+	uses: [
+		"OMV.toolbar.Tip"
 	],
 
 	rpcService: "ShareMgmt",
@@ -590,16 +602,19 @@ Ext.define("OMV.module.admin.privilege.user.Users", {
 	stateful: true,
 	stateId: "98d6fe31-8e12-407b-82f2-7e0acf4006c1",
 	columns: [{
+		xtype: "textcolumn",
 		text: _("Name"),
 		sortable: true,
 		dataIndex: "name",
 		stateId: "name"
 	},{
+		xtype: "textcolumn",
 		text: _("Email"),
 		sortable: true,
 		dataIndex: "email",
 		stateId: "email"
 	},{
+		xtype: "textcolumn",
 		text: _("Comment"),
 		sortable: true,
 		dataIndex: "comment",
@@ -657,8 +672,7 @@ Ext.define("OMV.module.admin.privilege.user.Users", {
 			id: me.getId() + "-add",
 			xtype: "splitbutton",
 			text: me.addButtonText,
-			icon: me.addButtonIcon,
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: me.addButtonIconCls,
 			handler: function(c) {
 				c.showMenu();
 			},
@@ -680,8 +694,7 @@ Ext.define("OMV.module.admin.privilege.user.Users", {
 			id: me.getId() + "-privileges",
 			xtype: "button",
 			text: _("Privileges"),
-			icon: "images/share.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-share-alt",
 			handler: me.onPrivilegesButton,
 			scope: me,
 			disabled: true,
@@ -767,8 +780,7 @@ OMV.WorkspaceManager.registerNode({
 	id: "user",
 	path: "/privilege",
 	text: _("User"),
-	icon16: "images/user.png",
-	iconSvg: "images/user.svg",
+	iconCls: "mdi mdi-account",
 	position: 10
 });
 

@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ class CDROM extends BackendAbstract {
 	protected $regex = "sr[0-9]+";
 
 	function getType() {
-		return OMV_STORAGE_DEVICE_TYPE_HDD;
+		return OMV_STORAGE_DEVICE_TYPE_DISK;
 	}
 
 	function enumerate() {

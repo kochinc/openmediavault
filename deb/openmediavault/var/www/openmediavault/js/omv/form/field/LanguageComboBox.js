@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,13 +53,21 @@ Ext.define("OMV.form.field.LanguageComboBox", {
 
 	initComponent: function() {
 		var me = this;
+		// Get the browser locale. If this is a not supported language, then
+		// set it to english by default.
+		var locale = OMV.util.i18n.getLocale();
+		if (false === Ext.Array.some(OMV.languages, function(item) {
+			return item[0] === locale;
+		})) {
+			locale = "en";
+		}
 		Ext.apply(me, {
 			store: {
 				type: "array",
-				fields: [ "value", "text" ],
+				fields: ["value", "text"],
 				data: OMV.languages
 			},
-			value: OMV.util.i18n.getLocale()
+			value: locale
 		});
 		me.callParent(arguments);
 		me.on("change", function(combo, newValue, oldValue, eOpts) {

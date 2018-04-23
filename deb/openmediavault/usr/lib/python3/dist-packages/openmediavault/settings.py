@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,10 +42,18 @@ class Environment(object):
 				if not m:
 					continue
 				# Append variable, e.g. SCRIPTS_DIR
-				Environment._values[m.group(2)] = m.group(4)
+				Environment.set(m.group(2), str(m.group(4)))
 				# !!! DEPRECATED !!!
 				# Append variable, e.g. OMV_SCRIPTS_DIR (equal to PHP OMV framework)
-				Environment._values[m.group(1)] = m.group(4)
+				Environment.set(m.group(1), str(m.group(4)))
+
+	@staticmethod
+	def as_dict():
+		"""
+		Get the environment variables as Python dictionary.
+		:returns: Returns the environment variables as Python dictionary.
+		"""
+		return Environment._values
 
 	@staticmethod
 	def get(key, default=None):
@@ -59,26 +67,30 @@ class Environment(object):
 
 	@staticmethod
 	def get_str(key, default=None):
-		value = __class__.get(key, default)
+		value = Environment.get(key, default)
 		return str(value)
 
 	@staticmethod
 	def get_bool(key, default=None):
-		value = __class__.get(key, default)
+		value = Environment.get(key, default)
 		return openmediavault.bool(value)
 
 	@staticmethod
 	def get_int(key, default=None):
-		value = __class__.get(key, default)
+		value = Environment.get(key, default)
 		return int(value)
 
 	@staticmethod
 	def get_float(key, default=None):
-		value = __class__.get(key, default)
+		value = Environment.get(key, default)
 		return float(value)
 
 	@staticmethod
 	def set(key, value):
+		"""
+		Set a new key/value pair.
+		:returns: Returns the old value if existing, otherwise None.
+		"""
 		result = None
 		if key in Environment._values:
 			result = Environment._values[key]

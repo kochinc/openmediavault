@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ namespace OMV\System;
  * @ingroup api
  */
 class Process {
-	use \OMV\Debugable;
+	use \OMV\DebugTrait;
 
 	private $cmdArgs = [];
 	private $redirect1toFile = FALSE;
@@ -33,10 +33,10 @@ class Process {
 	private $inputFromFile = FALSE;
 	private $quiet = FALSE;
 	private $background = FALSE;
-	private $env = array(
+	private $env = [
 		"PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin",
 		"LANG=C"
-	);
+	];
 
 	/**
 	 * Constructor
@@ -67,7 +67,7 @@ class Process {
 	 * Redirect STDOUT to the given file. Set to FALSE to do not redirect
 	 * STDOUT to a file.
 	 * @param file The file path, e.g. '/tmp/xyz'.
-	 * @return None.
+	 * @return void
 	 */
 	public function setRedirect1toFile($file) {
 		$this->redirect1toFile = $file;
@@ -75,7 +75,7 @@ class Process {
 
 	/**
 	 * Redirect STDERR to STDOUT.
-	 * @return None.
+	 * @return void
 	 */
 	public function setRedirect2to1() {
 		$this->setRedirect2toFile("&1");
@@ -85,7 +85,7 @@ class Process {
 	 * Redirect STDERR to the given file. Set to FALSE to do not redirect
 	 * STDERR to a file.
 	 * @param file The file path, e.g. '/dev/null' or '&1'.
-	 * @return None.
+	 * @return void
 	 */
 	public function setRedirect2toFile($file) {
 		$this->redirect2toFile = $file;
@@ -95,7 +95,7 @@ class Process {
 	 * Accept input from a file. Set to FALSE to do not accept input from
 	 * a file.
 	 * @param file The file path.
-	 * @return None.
+	 * @return void
 	 */
 	public function setInputFromFile($file) {
 		$this->inputFromFile = $file;
@@ -105,7 +105,7 @@ class Process {
 	 * Do not throw an error exception if the command execution fails.
 	 * @param quiet Set to TRUE to do not throw an exception.
 	 *   Defaults to TRUE.
-	 * @return None.
+	 * @return void
 	 */
 	public function setQuiet($quiet = TRUE) {
 		$this->quiet = $quiet;
@@ -116,7 +116,7 @@ class Process {
 	 * returns in this case.
 	 * @param background Set to TRUE to do execute the command in background.
 	 *   Defaults to TRUE.
-	 * @return None.
+	 * @return void
 	 */
 	public function setBackground($background = TRUE) {
 		$this->background = $background;
@@ -126,7 +126,7 @@ class Process {
 	 * Set an environment variable.
 	 * @param name The name of the environment variable.
 	 * @param value The value of the environment variable.
-	 * @return None.
+	 * @return void
 	 */
 	public function setEnv($name, $value) {
 		if (1 == func_num_args())

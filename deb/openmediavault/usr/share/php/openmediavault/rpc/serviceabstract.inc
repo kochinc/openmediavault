@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ require_once("openmediavault/functions.inc");
  * @ingroup api
  */
 abstract class ServiceAbstract {
-	use \OMV\Debugable;
+	use \OMV\DebugTrait;
 
 	private $registeredMethods = [];
 	private $registeredMethodSequences = [];
@@ -137,18 +137,26 @@ abstract class ServiceAbstract {
 	 * Call the given RPC service method in a background process.
 	 * Registered method hooks will be called after the origin method
 	 * has been successfully called.
-	 * @param name The name of the method.
-	 * @param params The method parameters.
-	 * @param context The context of the caller.
-	 * @return The name of the background process status file.
+	 * @param string name The name of the method.
+	 * @param object params The method parameters.
+	 * @param object context The context of the caller.
+	 * @return string The name of the background process status file.
 	 */
 	final public function callMethodBg($name, $params, $context) {
-		// Create the background process.
 		return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-		  use ($name, $params, $context) {
-			  // Execute the given RPC service method.
-			  return $this->callMethod($name, $params, $context);
-		  });
+			use ($name, $params, $context) {
+				// Execute the given RPC service method.
+				$result = $this->callMethod($name, $params, $context);
+				// Make sure the content of the background process output file
+				// is a strings, so convert arrays to JSON strings.
+				$content = $result;
+				if (is_array($content) || is_assoc_array($content)) {
+					$content = json_encode_safe($content);
+				}
+				// Write the RPC result to the background process output file.
+				$this->writeBgProcOutput($bgOutputFilename, $content);
+				return $result;
+			});
 	}
 
 	/**
@@ -159,7 +167,7 @@ abstract class ServiceAbstract {
 	 *   Can be given as UTF-8 encoded JSON or an associative array.
 	 *   Alternatively this can be the identifier of a data model used
 	 *   for validation.
-	 * @return None.
+	 * @return void
 	 */
 	final protected function validateMethodParams($params, $schema) {
 //		$this->debug(var_export(func_get_args(), TRUE));
@@ -174,7 +182,7 @@ abstract class ServiceAbstract {
 	 * Helper function to validate the method caller context.
 	 * @param context The caller context to be validated.
 	 * @param required The required context.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\Rpc\Exception
 	 */
 	final protected function validateMethodContext($context, $required) {
@@ -255,11 +263,11 @@ abstract class ServiceAbstract {
 	}
 
 	/**
-	 * Helper function to write a string to the background process output.
-	 * @param filename Path to the file where to write the content.
-	 * @param content The content to write.
-	 * @return This function returns the number of bytes that were written
-	 *   to the file, or FALSE on failure.
+	 * Helper function to write content to the background process output.
+	 * @param string $filename Path to the file where to write the content.
+	 * @param string $content The content to write.
+	 * @return boolean This function returns the number of bytes that were
+	 *   written to the file, or FALSE on failure.
 	 */
 	final protected function writeBgProcOutput($filename, $content) {
 		return file_put_contents($filename, $content, FILE_APPEND | LOCK_EX);
@@ -361,7 +369,7 @@ abstract class ServiceAbstract {
 	/**
 	 * Helper function to unlink the background process status file.
 	 * @param filename The name of the status file.
-	 * @return None.
+	 * @return void
 	 */
 	final protected function unlinkBgProcStatus($filename) {
 		$jsonFile = new \OMV\Json\File($filename);

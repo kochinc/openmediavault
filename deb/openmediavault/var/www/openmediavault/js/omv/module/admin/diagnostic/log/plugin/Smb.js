@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,45 +47,53 @@ Ext.define("OMV.module.admin.diagnostic.log.plugin.smb.Audit", {
 			return record.get("date");
 		}
 	},{
+		xtype: "textcolumn",
 		text: _("Hostname"),
 		hidden: true,
 		sortable: true,
 		dataIndex: "hostname",
 		stateId: "hostname"
 	},{
+		xtype: "textcolumn",
 		text: _("Username"),
 		sortable: true,
 		dataIndex: "username",
 		stateId: "username"
 	},{
+		xtype: "textcolumn",
 		text: _("Client address"),
 		sortable: true,
 		dataIndex: "clientipaddr",
 		stateId: "clientipaddr"
 	},{
+		xtype: "textcolumn",
 		text: _("Client NetBIOS name"),
 		hidden: true,
 		sortable: true,
 		dataIndex: "clientnetbiosname",
 		stateId: "clientnetbiosname"
 	},{
+		xtype: "textcolumn",
 		text: _("Shared folder path"),
 		sortable: true,
 		dataIndex: "servicerootdir",
 		stateId: "servicerootdir",
 		flex: 1
 	},{
+		xtype: "textcolumn",
 		text: _("Shared folder name"),
 		sortable: true,
 		dataIndex: "servicename",
 		stateId: "servicename"
 	},{
+		xtype: "textcolumn",
 		text: _("Filename"),
 		sortable: true,
 		dataIndex: "filename",
 		stateId: "filename",
 		flex: 1
 	},{
+		xtype: "textcolumn",
 		text: _("Operation"),
 		dataIndex: "operation",
 		stateId: "operation",

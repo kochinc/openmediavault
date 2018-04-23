@@ -53,14 +53,17 @@
 			"type": "string"
 		},
 		"dnsnameservers": {
-			"type": "string"
+			"type": "string",
+			"pattern": "/^((\\S+\\s+)*\\S+)?$/i"
 		},
 		"dnssearch": {
-			"type": "string"
+			"type": "string",
+			"pattern": "/^((\\S+\\s+)*\\S+)?$/i"
 		},
 		"mtu": {
 			"type": "integer",
 			"minimum": 0,
+			"maximum": 65535,
 			"default": 0
 		},
 		"wol": {

@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -46,6 +46,13 @@ class DatabaseTestCase(unittest.TestCase):
 	def test_constructor(self):
 		db = openmediavault.config.Database()
 		self.assertIsNotNone(db)
+
+	def test_empty_objects(self):
+		db = openmediavault.config.Database()
+		obj = db.get("conf.service.rsyncd")
+		self.assertIsInstance(obj.get("modules"), dict)
+		self.assertIsInstance(obj.get("modules.module"), list)
+		self.assertEqual(obj.get("modules.module"), [])
 
 	def test_get_1(self):
 		db = openmediavault.config.Database()
@@ -91,6 +98,16 @@ class DatabaseTestCase(unittest.TestCase):
 		self.assertIsInstance(objs, list)
 		self.assertEqual(len(objs), 5)
 
+	def test_get_by_filter_3(self):
+		db = openmediavault.config.Database()
+		objs = db.get_by_filter("conf.service.smartmontools.device",
+			openmediavault.config.DatabaseFilter({
+				'operator': 'distinct',
+				'arg0': 'enable'
+			}))
+		self.assertIsInstance(objs, list)
+		self.assertEqual(len(objs), 2)
+
 	def test_exists(self):
 		db = openmediavault.config.Database()
 		self.assertTrue(db.exists("conf.system.notification.notification",
@@ -100,9 +117,17 @@ class DatabaseTestCase(unittest.TestCase):
 				'arg1': 'smartmontools'
 			})))
 
-	def test_get_list_elements(self):
+	def test_get_list_tags(self):
 		query = openmediavault.config.DatabaseGetQuery("conf.service.rsyncd")
-		self.assertEqual(query._get_array_properties(), [ "module", "user" ])
+		# Attention, this is a private class member.
+		self.assertIsInstance(query._force_list_tags, list)
+		self.assertEqual(query._force_list_tags, [ "module", "user" ])
+
+	def test_get_dict_tags(self):
+		query = openmediavault.config.DatabaseGetQuery("conf.service.rsyncd")
+		# Attention, this is a private class member.
+		self.assertIsInstance(query._force_dict_tags, list)
+		self.assertEqual(query._force_dict_tags, [ "modules", "users" ])
 
 	def test_get_query(self):
 		query = openmediavault.config.DatabaseGetQuery("conf.system.time")

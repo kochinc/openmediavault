@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,6 +42,7 @@ Ext.define("OMV.workspace.node.Model", {
 		{ name: "icon16", type: "string" },
 		{ name: "icon32", type: "string" },
 		{ name: "iconSvg", type: "string" },
+		{ name: "iconCls", type: "string" },
 		{ name: "leaf", type: "boolean" },
 		{ name: "uri", type: "string", convert: function(v, rec) {
 			return OMV.workspace.node.Node.buildUri([ rec.get("path"),

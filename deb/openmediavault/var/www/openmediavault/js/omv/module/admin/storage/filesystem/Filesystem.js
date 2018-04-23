@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 // require("js/omv/Rpc.js")
 // require("js/omv/data/Store.js")
 // require("js/omv/data/Model.js")
-// require("js/omv/data/proxy/Rpc.js")
+// require("js/omv/data/proxy/RpcBg.js")
 // require("js/omv/util/Format.js")
 // require("js/omv/window/Execute.js")
 
@@ -39,7 +39,7 @@ Ext.define("OMV.module.admin.storage.filesystem.Create", {
 	requires: [
 		"OMV.data.Store",
 		"OMV.data.Model",
-		"OMV.data.proxy.Rpc",
+		"OMV.data.proxy.RpcBg",
 		"OMV.window.Execute"
 	],
 
@@ -86,11 +86,11 @@ Ext.define("OMV.module.admin.storage.filesystem.Create", {
 					]
 				}),
 				proxy: {
-					type: "rpc",
+					type: "rpcbg",
 					appendSortParams: false,
 					rpcData: {
 						service: "FileSystemMgmt",
-						method: "getCandidates"
+						method: "getCandidatesBg"
 					}
 				},
 				sorters: [{
@@ -190,8 +190,8 @@ Ext.define("OMV.module.admin.storage.filesystem.Quota", {
 	requires: [
 		"OMV.data.Store",
 		"OMV.data.Model",
-		"OMV.data.proxy.Rpc",
-		"OMV.workspace.window.plugin.ConfigObject"
+		"OMV.workspace.window.plugin.ConfigObject",
+		"Ext.grid.plugin.RowEditing"
 	],
 
 	rpcService: "Quota",
@@ -211,10 +211,12 @@ Ext.define("OMV.module.admin.storage.filesystem.Quota", {
 			border: false,
 			stateful: true,
 			stateId: "24f018e6-8de6-41e1-b6c4-db0edd49a73b",
-			plugins: Ext.create("Ext.grid.plugin.CellEditing", {
+			plugins: [{
+				ptype: "rowediting",
 				clicksToEdit: 1
-			}),
+			}],
 			columns: [{
+				xtype: "fonticoncolumn",
 				text: _("Type"),
 				sortable: true,
 				dataIndex: "type",
@@ -222,25 +224,13 @@ Ext.define("OMV.module.admin.storage.filesystem.Quota", {
 				align: "center",
 				width: 60,
 				resizable: false,
-				renderer: function(value, metaData, record) {
-					var iconCls, text;
-					switch (value) {
-					case "user":
-						text = _("User");
-						iconCls = "grid-cell-usergroupiconcolumn-user";
-						break;
-					case "group":
-						text = _("Group");
-						iconCls = "grid-cell-usergroupiconcolumn-group";
-						break;
-					}
-					metaData.tdAttr = "data-qtip='" + text + "'";
-					metaData.tdCls = Ext.baseCSSPrefix +
-					  "grid-cell-usergroupiconcolumn" + " " +
-					  Ext.baseCSSPrefix + iconCls;
-					return "";
+				getFontIconCls: function(value) {
+					if (value == "user")
+						return "mdi mdi-account";
+					return "mdi mdi-account-multiple";
 				}
 			},{
+				xtype: "textcolumn",
 				text: _("Name"),
 				sortable: true,
 				dataIndex: "name",
@@ -255,7 +245,7 @@ Ext.define("OMV.module.admin.storage.filesystem.Quota", {
 				renderer: function(value) {
 					if (value <= 0)
 						value = "--";
-					return value;
+					return Ext.String.htmlEncode(value);
 				}
 			},{
 				text: _("Quota"),
@@ -273,14 +263,14 @@ Ext.define("OMV.module.admin.storage.filesystem.Quota", {
 				renderer: function(value) {
 					if ((value <= 0) || Ext.isEmpty(value))
 						value = "--";
-					return value;
+					return Ext.String.htmlEncode(value);
 				}
 			},{
 				text: _("Unit"),
 				sortable: true,
 				dataIndex: "bunit",
 				stateId: "bunit",
-				width: 60,
+				width: 80,
 				resizable: false,
 				editor: {
 					xtype: "combo",
@@ -319,7 +309,7 @@ Ext.define("OMV.module.admin.storage.filesystem.Quota", {
 			listeners: {
 				scope: me,
 				beforeedit: function(editor, e, eOpts) {
-					switch(e.field) {
+					switch (e.field) {
 					case "bhardlimit":
 						// Display a empty number field if value is 0.
 						if (e.value == 0)
@@ -379,7 +369,7 @@ Ext.define("OMV.module.admin.storage.filesystem.Filesystems", {
 	requires: [
 		"OMV.data.Store",
 		"OMV.data.Model",
-		"OMV.data.proxy.Rpc"
+		"OMV.data.proxy.RpcBg"
 	],
 	uses: [
 		"OMV.module.admin.storage.filesystem.Create",
@@ -395,6 +385,13 @@ Ext.define("OMV.module.admin.storage.filesystem.Filesystems", {
 	stateful: true,
 	stateId: "efea99a0-95d1-4bc9-8207-d21fe514f069",
 	columns: [{
+		xtype: "textcolumn",
+		text: _("Device"),
+		sortable: true,
+		hidden: true,
+		dataIndex: "devicefile",
+		stateId: "devicefile"
+	},{
 		xtype: "devicefilescolumn",
 		text: _("Device(s)"),
 		sortable: true,
@@ -446,8 +443,10 @@ Ext.define("OMV.module.admin.storage.filesystem.Filesystems", {
 			var percentage = parseInt(record.get("percentage"));
 			if (-1 == percentage)
 				return _("n/a");
+			//var text = Ext.String.format("{0}% [{1}]",
+			//	percentage, value);
 			var renderer = OMV.util.Format.progressBarRenderer(
-			  percentage / 100, value);
+				percentage / 100, value, 0.85);
 			return renderer.apply(this, arguments);
 		}
 	},{
@@ -496,7 +495,7 @@ Ext.define("OMV.module.admin.storage.filesystem.Filesystems", {
 			store: Ext.create("OMV.data.Store", {
 				autoLoad: true,
 				model: OMV.data.Model.createImplicit({
-					idProperty: "id",
+					idProperty: "devicefile",
 					fields: [
 						{ name: "id", type: "string", persist: false },
 						{ name: "uuid", type: "string" },
@@ -522,29 +521,30 @@ Ext.define("OMV.module.admin.storage.filesystem.Filesystems", {
 					]
 				}),
 				proxy: {
-					type: "rpc",
+					type: "rpcbg",
 					rpcData: {
 						service: "FileSystemMgmt",
-						method: "getList",
+						method: "getListBg",
 						options: {
 							updatelastaccess: false
 						}
 					},
 					reader: {
 						type: "rpcjson",
-					    transform: {
-					        fn: function(data) {
-					            return data.data.map(function(item) {
-							// Convert the 'id' field value.
-							item.id = item.devicefile;
-							if (!Ext.isEmpty(item.uuid)) {
-								item.id = Ext.String.format(
-								  "UUID={0}", item.uuid);
+						transform: {
+							fn: function(data) {
+								data.data.map(function(item) {
+									// Convert the 'id' field value.
+									item.id = item.devicefile;
+									if (!Ext.isEmpty(item.uuid)) {
+										item.id = Ext.String.format(
+											"UUID={0}", item.uuid);
+									}
+									return item;
+								});
+								return data;
 							}
-					                return item;
-					            });
-					         }
-					      }
+						}
 					}
 				},
 				remoteSort: true,
@@ -564,8 +564,7 @@ Ext.define("OMV.module.admin.storage.filesystem.Filesystems", {
 			id: me.getId() + "-create",
 			xtype: "button",
 			text: _("Create"),
-			icon: "images/add.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-plus",
 			handler: Ext.Function.bind(me.onCreateButton, me, [ me ]),
 			scope: me,
 			disabled: false
@@ -573,8 +572,7 @@ Ext.define("OMV.module.admin.storage.filesystem.Filesystems", {
 			id: me.getId() + "-resize",
 			xtype: "button",
 			text: _("Resize"),
-			icon: "images/expand.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-expand",
 			handler: Ext.Function.bind(me.onResizeButton, me, [ me ]),
 			scope: me,
 			disabled: true
@@ -582,8 +580,7 @@ Ext.define("OMV.module.admin.storage.filesystem.Filesystems", {
 			id: me.getId() + "-quota",
 			xtype: "button",
 			text: _("Quota"),
-			icon: "images/group.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-users",
 			handler: Ext.Function.bind(me.onQuotaButton, me, [ me ]),
 			scope: me,
 			disabled: true
@@ -591,8 +588,7 @@ Ext.define("OMV.module.admin.storage.filesystem.Filesystems", {
 			id: me.getId() + "-mount",
 			xtype: "button",
 			text: _("Mount"),
-			icon: "images/play.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-play",
 			handler: Ext.Function.bind(me.onMountButton, me, [ me ]),
 			scope: me,
 			disabled: true
@@ -600,8 +596,7 @@ Ext.define("OMV.module.admin.storage.filesystem.Filesystems", {
 			id: me.getId() + "-unmount",
 			xtype: "button",
 			text: _("Unmount"),
-			icon: "images/eject.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-eject",
 			handler: Ext.Function.bind(me.onUnmountButton, me, [ me ]),
 			scope: me,
 			disabled: true
@@ -648,11 +643,6 @@ Ext.define("OMV.module.admin.storage.filesystem.Filesystems", {
 				tbarBtnDisabled["unmount"] = false;
 			} else {
 				tbarBtnDisabled["mount"] = false;
-				// Disable the 'Mount' button if the file system does not
-				// provide a UUID.
-				if(Ext.isEmpty(record.get("uuid"))) {
-					tbarBtnDisabled["mount"] = true;
-				}
 			}
 			// If the file system is in use, then also disable the unmount
 			// button.
@@ -778,7 +768,7 @@ Ext.define("OMV.module.admin.storage.filesystem.Filesystems", {
 				service: "FileSystemMgmt",
 				method: "mount",
 				params: {
-					id: record.get("uuid"),
+					id: record.get("devicefile"),
 					fstab: true
 				}
 			}
@@ -788,11 +778,6 @@ Ext.define("OMV.module.admin.storage.filesystem.Filesystems", {
 	onUnmountButton: function() {
 		var me = this;
 		var record = me.getSelected();
-		// Prefer the file system UUID, but in some cases a file system does
-		// not have a UUID, then use the devicefile instead.
-		var id = record.get("uuid");
-		if(Ext.isEmpty(id))
-			id = record.get("devicefile");
 		// Execute RPC.
 		OMV.Rpc.request({
 			scope: me,
@@ -804,7 +789,7 @@ Ext.define("OMV.module.admin.storage.filesystem.Filesystems", {
 				service: "FileSystemMgmt",
 				method: "umount",
 				params: {
-					id: id,
+					id: record.get("devicefile"),
 					fstab: true
 				}
 			}
@@ -862,8 +847,7 @@ OMV.WorkspaceManager.registerNode({
 	id: "filesystem",
 	path: "/storage",
 	text: _("File Systems"),
-	icon16: "images/filesystem.png",
-	iconSvg: "images/filesystem.svg",
+	iconCls: "mdi mdi-folder-multiple",
 	position: 40
 });
 

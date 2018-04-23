@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,15 +26,19 @@ import openmediavault.settings
 def bool(x):
 	"""
 	Get the boolean value of a variable. A boolean True will be returned for
-    the values 1, '1', 'on', 'yes', 'y' and 'true'.
+	the values 1, '1', 'on', 'yes', 'y' and 'true'.
+	>>> assert bool(True) == True
+	>>> assert bool("1") == True
+	>>> assert bool("true") == True
+	>>> assert bool("no") == False
+	>>> assert bool("False") == False
+	>>> assert bool(False) == False
 	"""
 	if type(x) == bool:
 		return x
-	result = False
-	# Boolean 'true' => '1'
-	if str(x).lower() in [ "1", "on", "yes", "y", "true" ]:
-		result = True
-	return result
+	if str(x).lower() in ["1", "on", "yes", "y", "true", "t"]:
+		return True
+	return False
 
 def getenv(key, default=None, type="str"):
 	"""

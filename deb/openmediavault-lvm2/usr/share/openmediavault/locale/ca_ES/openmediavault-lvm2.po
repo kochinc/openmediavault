@@ -1,15 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-lvm2 package.
 # 
 # Translators:
+# Quim Farriol <quim@iscinformatica.cat>, 2018
 # Quim Farriol <quim@iscinformatica.cat>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-23 19:15+0200\n"
-"PO-Revision-Date: 2017-02-03 20:49+0000\n"
+"POT-Creation-Date: 2017-08-30 08:41+0200\n"
+"PO-Revision-Date: 2018-01-01 19:11+0000\n"
 "Last-Translator: Quim Farriol <quim@iscinformatica.cat>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/votdev/openmediavault/language/ca_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Active"
+msgstr "Actiu"
 
 msgid "Add physical volume"
 msgstr "Afegir un volum físic"
@@ -118,6 +122,9 @@ msgstr "Selecciona un dispositiu"
 
 msgid "Size"
 msgstr "Mida"
+
+msgid "Snapshot"
+msgstr "Instantània"
 
 msgid "Used"
 msgstr "Utilitzat"

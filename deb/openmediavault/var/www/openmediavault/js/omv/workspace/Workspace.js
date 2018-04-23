@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -67,6 +67,7 @@ Ext.define("OMV.workspace.Workspace", {
 	mask: function(config) {
 		var me = this;
 		if(!Ext.isDefined(me.loadMask)) {
+			config = config || {};
 			Ext.apply(config, {
 				target: me,
 				useMsg: true
@@ -91,6 +92,7 @@ Ext.define("OMV.workspace.Workspace", {
 		var me = this;
 		return Ext.create("Ext.Component", {
 			region: "north",
+			cls: Ext.baseCSSPrefix + "workspace-header",
 			autoEl: {
 				tag: "div",
 				html: "<div id='header'><a title='" + OMV.PRODUCT_NAME +
@@ -107,20 +109,29 @@ Ext.define("OMV.workspace.Workspace", {
 	buildTree: function() {
 		var me = this;
 		return me.tp = Ext.create("OMV.workspace.node.tree.Panel", {
-//			plugins: "responsive",
-//			responsiveConfig: {
-				// On tablet/phone/touch devices the tree panel will not
-				// be displayed.
-//				"tablet || phone || touch": {
-//					hidden: true
-//				}
-//			},
+			plugins: "responsive",
+			responsiveConfig: {
+				// On phone/tablet the tree panel will not be displayed.
+				"phone || tablet": {
+					hidden: true
+				},
+				// On touch devices the tree panel is collapsed.
+				touch: {
+					// collapsed: true only work if collapsible
+					// is called
+					collapsible: true,
+					collapsed: true
+				},
+				// On desktop the tree is collapsible.
+				desktop: {
+					collapsible: true
+				}
+			},
 			region: "west",
 			split: true,
 			width: 210,
 			minSize: 150,
 			maxSize: 280,
-			collapsible: true,
 			layout: "fit",
 			border: true,
 			scrollable: true,
@@ -163,20 +174,14 @@ Ext.define("OMV.workspace.Workspace", {
 					xtype: "tbfill"
 				},{
 					xtype: "splitbutton",
-					icon: Ext.supports.Svg ? "images/more.svg" :
-					  "images/more.png",
-					iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+					iconCls: "x-fa fa-ellipsis-v",
 					handler: function() {
 						this.showMenu();
 					},
 					menu: Ext.create("Ext.menu.Menu", {
-						defaults: {
-							iconCls: Ext.baseCSSPrefix + "menu-item-icon-16x16"
-						},
 						items: [{
 							text: _("Language"),
-							icon: Ext.supports.Svg ? "images/globe.svg" :
-							  "images/globe.png",
+							iconCls: "x-fa fa-globe",
 							menu: {
 								items: function() {
 									var items = [];
@@ -208,40 +213,37 @@ Ext.define("OMV.workspace.Workspace", {
 							action: "resetdefaults",
 							msg: _("Do you really want to reset the UI settings to their default values, e.g. the order of the grid columns?"),
 							tooltip: _("Reset the UI settings to their default values, e.g. the order of the grid columns."),
-							icon: Ext.supports.Svg ? "images/refresh.svg" : "images/refresh.png"
+							iconCls: "x-fa fa-refresh"
 						},{
 							xtype: "menuseparator"
 						},{
 							text: _("Logout"),
 							action: "logout",
 							msg: _("Do you really want to logout?"),
-							icon: Ext.supports.Svg ? "images/logout.svg" :
-							  "images/logout.png"
+							iconCls: "x-fa fa-sign-out"
 						},{
 							text: _("Reboot"),
 							action: "reboot",
 							msg: _("Do you really want to reboot the system?"),
-							icon: Ext.supports.Svg ? "images/reboot.svg" :
-							  "images/reboot.png",
+							iconCls: "x-fa fa-repeat",
 							hidden: !OMV.SessionManager.isAdministrator()
 						},{
 							text: _("Standby"),
 							action: "standby",
 							msg: _("Do you really want to put the system into standby?"),
-							icon: Ext.supports.Svg ? "images/pause.svg" :
-							  "images/pause.png",
+							iconCls: "x-fa fa-pause",
 							hidden: !OMV.SessionManager.isAdministrator()
 						},{
 							text: _("Shutdown"),
 							action: "shutdown",
 							msg: _("Do you really want to shutdown the system?"),
-							icon: Ext.supports.Svg ? "images/shutdown.svg" :
-							  "images/shutdown.png",
+							iconCls: "x-fa fa-power-off",
 							hidden: !OMV.SessionManager.isAdministrator()
 						}],
 						listeners: {
 							click: function(menu, item, e, eOpts) {
-								if(!Ext.isDefined(item.action))
+								if (!(Ext.isObject(item) && Ext.isDefined(
+										item.action)))
 									return;
 								OMV.MessageBox.show({
 									title: _("Confirmation"),
@@ -448,6 +450,7 @@ Ext.define("OMV.workspace.Workspace", {
 				var config = {
 					xtype: "button",
 					cls: Ext.baseCSSPrefix + "workspace-node-toolbar-item",
+					iconCls: parentNode.getIconCls(),
 					handler: function() {
 						var iconView = (parentNode.getPath() == "/");
 						me.onSelectNode(parentNode, iconView);
@@ -458,7 +461,8 @@ Ext.define("OMV.workspace.Workspace", {
 						text: parentNode.getText()
 					});
 				}
-				if (parentNode.hasIcon("raster16")) {
+				if (Ext.isEmpty(parentNode.iconCls) && parentNode.hasIcon(
+						"svg|raster16")) {
 					Ext.apply(config, {
 						icon: parentNode.getProperIcon16(),
 						iconCls: Ext.baseCSSPrefix + "btn-icon-16x16"

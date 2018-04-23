@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the openmediavault package.
 # 
 # Translators:
-# Stefan Thrane Overby <stoverby@gmail.com>, 2012-2016
+# Stefan Thrane Overby <stoverby@gmail.com>, 2012-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 06:19+0100\n"
-"PO-Revision-Date: 2016-12-07 06:32+0000\n"
-"Last-Translator: Stefan Thrane Overby <stoverby@gmail.com>\n"
+"POT-Creation-Date: 2018-01-21 11:50+0100\n"
+"PO-Revision-Date: 2018-01-21 10:50+0000\n"
+"Last-Translator: Volker <votdev@gmx.de>\n"
 "Language-Team: Danish (http://www.transifex.com/votdev/openmediavault/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,6 +43,9 @@ msgstr "1 - Minimum strømforbrug med standby (spindown)"
 msgid "1 day"
 msgstr "1 dag"
 
+msgid "1 minute"
+msgstr ""
+
 msgid "1 month"
 msgstr "1 måned"
 
@@ -71,6 +74,9 @@ msgstr "127 - Mellemliggende strømforbrug med standby"
 msgid "128 - Minimum power usage without standby (no spindown)"
 msgstr "128 - Minimum strømforbrug uden standby (ingen spindown)"
 
+msgid "15 minutes"
+msgstr ""
+
 msgid "15 years"
 msgstr "15 år"
 
@@ -82,6 +88,9 @@ msgstr "192 - Mellemliggende strømforbrug uden standby"
 
 msgid "2 days"
 msgstr "2 dage"
+
+msgid "2 minutes"
+msgstr ""
 
 msgid "2 weeks"
 msgstr "2 uge"
@@ -110,6 +119,9 @@ msgstr "255 - Deaktiveret"
 msgid "3 days"
 msgstr "3 dage"
 
+msgid "3 minutes"
+msgstr ""
+
 msgid "3 months"
 msgstr "3 måneder"
 
@@ -130,6 +142,9 @@ msgstr "330 minutter"
 
 msgid "4 days"
 msgstr "4 dage"
+
+msgid "4 minutes"
+msgstr ""
 
 msgid "4 years"
 msgstr "4 år"
@@ -294,21 +309,12 @@ msgstr "Algeria"
 msgid "All"
 msgstr "Alle"
 
-msgid "Allow client access to accounts that have null passwords"
-msgstr "Tillad klient adgang til kontoer uden adgangskode"
-
 msgid ""
 "Allow clients to attempt to store OS/2 style extended attributes on a share."
 msgstr "Tillad klienter, at forsøge at gemme OS/2 stil udvidede attributter på en deling."
 
 msgid "Allow clients to resume interrupted uploads and downloads"
 msgstr "Tillad klienter, at genoptage afbrudte uploads og downloads"
-
-msgid "Allow new files"
-msgstr "Tillad nye filer"
-
-msgid "Allow new files to be created."
-msgstr "Tillad nye filer at blive oprettet."
 
 msgid ""
 "Allow this server to advertise itself as a time server to Windows clients"
@@ -417,26 +423,20 @@ msgstr "Godkendt bruger ID"
 msgid "Authentication"
 msgstr "Godkendelse"
 
-msgid "Authentication and no privacy"
-msgstr "Godkendelse og intet privatliv"
-
-msgid "Authentication and privacy"
-msgstr "Godkendelse og privatliv"
-
 msgid "Authentication method"
 msgstr "Godkendelses metode"
-
-msgid "Authentication passphrase"
-msgstr "Godkendelses løsen"
 
 msgid "Authentication required"
 msgstr "Godkendelse påkrævet"
 
-msgid "Authentication type"
-msgstr "Godkendelses type"
-
 msgid "Auto"
 msgstr "Auto"
+
+msgid "Auto logout"
+msgstr ""
+
+msgid "Auto logout after the specified idle period."
+msgstr ""
 
 msgid "Automatic Acoustic Management"
 msgstr "Automatisk Akustisk Håndtering"
@@ -492,9 +492,6 @@ msgstr "Binære"
 msgid "Block layer cache [%s, %s]"
 msgstr "Bloker lag cache [%s, %s]"
 
-msgid "Blocksize"
-msgstr "Blokstørrelse"
-
 msgid "Bolivia"
 msgstr "Bolivia"
 
@@ -539,9 +536,6 @@ msgstr "Burkina Faso"
 
 msgid "Burundi"
 msgstr "Burundi"
-
-msgid "By default, only files that already exist are allowed to be uploaded."
-msgstr "Som standard, har kun filer der allerede eksisterer lov til at blive uploadet."
 
 msgid "CPU usage"
 msgstr "CPU forbrug"
@@ -648,9 +642,6 @@ msgstr "Kommentar"
 msgid "Common Name"
 msgstr "Fælles Navn"
 
-msgid "Community"
-msgstr "Fællesskab"
-
 msgid "Community-maintained updates."
 msgstr "Fællesskab-vedligeholdes opdateringer."
 
@@ -695,14 +686,6 @@ msgstr "Congo (Kinshasa)"
 
 msgid "Connections"
 msgstr "Forbindelser"
-
-msgid "Contact"
-msgstr "Kontakt"
-
-msgid ""
-"Contact information, e.g. name or email address of the person responsible "
-"for this system."
-msgstr "Kontakt oplysninger, f.eks. navn eller email adresse på den person der er ansvarlig for systemet."
 
 msgid "Conveyance self-test"
 msgstr "Overførings selvtest"
@@ -833,11 +816,6 @@ msgstr "Destination delt mappe"
 msgid "Detail"
 msgstr "Detaljer"
 
-msgid ""
-"Determine the default timeout, in microseconds, before the first packet is "
-"retransmitted."
-msgstr "Bestem den standard timeout, i mikrosekunder, før den første pakke bliver gensendt."
-
 msgid "Device"
 msgstr "Enhed"
 
@@ -898,8 +876,14 @@ msgstr "Forbyd brugeren at ændre hans konto."
 msgid "Disk usage"
 msgstr "Disk forbrug"
 
+msgid "Disks"
+msgstr ""
+
 msgid "Displaying items {0} - {1} of {2}"
 msgstr "Viser emne {0} - {1} af {2}"
+
+msgid "Displaying {0} - {1} of {2}"
+msgstr "Viser {0} - {1} af {2}"
 
 msgid "Djibouti"
 msgstr "Djibouti"
@@ -1063,6 +1047,9 @@ msgstr "Rediger planlagt opgave"
 msgid "Edit scheduled test"
 msgstr "Rediger planlagt test"
 
+msgid "Edit service"
+msgstr "Rediger tjeneste"
+
 msgid "Edit share"
 msgstr "Rediger deling"
 
@@ -1190,6 +1177,9 @@ msgstr "Fejl"
 
 msgid "Error #"
 msgstr "Fejl #"
+
+msgid "Errors"
+msgstr "Fejl"
 
 msgid "Estonia"
 msgstr "Estonia"
@@ -1322,6 +1312,9 @@ msgstr "Firewall"
 
 msgid "Firmware version"
 msgstr "Firmware version"
+
+msgid "First Page"
+msgstr "Første Side"
 
 msgid "Flags"
 msgstr "Flag"
@@ -1765,6 +1758,9 @@ msgstr "Sprog"
 msgid "Laos"
 msgstr "Laos"
 
+msgid "Last Page"
+msgstr "Sidste Side"
+
 msgid "Latvia"
 msgstr "Latvia"
 
@@ -1823,9 +1819,6 @@ msgstr "Lokal master browser"
 
 msgid "Location"
 msgstr "Placering"
-
-msgid "Location information, e.g. physical location of this system."
-msgstr "Placerings oplysninger, f.eks. fysisk placering af dette system."
 
 msgid "Log level"
 msgstr "Log niveau"
@@ -2113,6 +2106,9 @@ msgstr "New Caledonia"
 msgid "New Zealand"
 msgstr "New Zealand"
 
+msgid "Next Page"
+msgstr "Næste Side"
+
 msgid "Nicaragua"
 msgstr "Nicaragua"
 
@@ -2134,14 +2130,14 @@ msgstr "Ingen adgang"
 msgid "No action"
 msgstr "Ingen handling"
 
-msgid "No authentication and no privacy"
-msgstr "Ingen godkendelse og intet privatliv"
-
 msgid "No certificate request"
 msgstr "Ingen certifikat forespørgsel"
 
 msgid "No connections"
 msgstr "Ingen forbindelser"
+
+msgid "No data to display"
+msgstr "Ingen data til visning"
 
 msgid "No items to display"
 msgstr "Ingen emner til visning"
@@ -2199,9 +2195,6 @@ msgstr "Underretninger"
 
 msgid "November"
 msgstr "November"
-
-msgid "Null passwords"
-msgstr "Ingen adgangskode"
 
 msgid "Num"
 msgstr "Num"
@@ -2265,6 +2258,9 @@ msgstr "Pacific Islands Trust Territory"
 
 msgid "Package information"
 msgstr "Pakke oplysninger"
+
+msgid "Page"
+msgstr "Side"
 
 msgid "Page not found"
 msgstr "Side ikke fundet"
@@ -2353,9 +2349,6 @@ msgstr "Peru"
 msgid "Philippines"
 msgstr "Philippines"
 
-msgid "Physical Disks"
-msgstr "Fysiske Diske"
-
 msgid "Physical disk properties"
 msgstr "Fysisk disk egenskaber"
 
@@ -2366,12 +2359,6 @@ msgid ""
 "Please check the <a href='http://linux.die.net/man/5/exports' "
 "target='_blank'>manual page</a> for more details."
 msgstr "Kontroller venligst <a href='http://linux.die.net/man/5/exports' target='_blank'>manual page</a> for flere detaljer."
-
-msgid ""
-"Please check the <a href='http://www.openbsd.org/cgi-"
-"bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>manual page</a> for"
-" more details."
-msgstr "Kontroller venligst <a href='http://www.openbsd.org/cgi-bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>manual page</a> for flere detaljer."
 
 msgid ""
 "Please check the <a href='http://www.proftpd.org/docs/contrib/mod_tls.html' "
@@ -2405,16 +2392,16 @@ msgid ""
 "target='_blank'>manual page</a> for more details."
 msgstr "Kontroller venligst <a href='http://www.samba.org/samba/docs/man/manpages-3/smb.conf.5.html' target='_blank'>manual page</a> for flere detaljer."
 
+msgid ""
+"Please check the <a href='https://man.openbsd.org/sshd_config.5' "
+"target='_blank'>manual page</a> for more details."
+msgstr ""
+
 msgid "Please choose the method to wipe the device or 'Cancel' to abort."
 msgstr "Vælg en metode til rydning af enheden eller tryk 'Annuller' for at afbryde."
 
 msgid "Please first select a device."
 msgstr "Vælg venligst først en enhed."
-
-msgid ""
-"Please make sure that the shared folder is publicly writable if new files "
-"are allowed."
-msgstr "Vær venligst sikker, at den delte mappe er offentlig skrivebar hvis nye filer er tilladt."
 
 msgid ""
 "Please note that no communication with the system is possible during this "
@@ -2440,9 +2427,6 @@ msgstr "Poland"
 
 msgid "Port"
 msgstr "Port"
-
-msgid "Port to listen on."
-msgstr "Port, der skal lyttes på."
 
 msgid "Portugal"
 msgstr "Portugal"
@@ -2487,17 +2471,14 @@ msgid ""
 " not what you want.</li></ul>"
 msgstr "Forhindre en disk i at blive spundet op, når den periodisk bliver adspurgt.<br/><ul><li>Aldrig - Spørg (kontroller) enheden uanset dens strøm tilstand. Dette kan medføre en disk, der er spundet ned i at blive spundet op, når den kontrolleres.</li><li>Dvale - Kontroller enheden medmindre den er i DVALE tilstand.</li><li>Standby - Kontroller enheden medmindre den er i DVALE eller STANDBY tilstand. I disse tilstande spinder de fleste diske ikke, så hvis du ønsker at forhindre en disk i at spinde op ved hver adspørgelse, er det nok det du vil.</li><li>Ledig - Kontroller enheden medmindre den er i DVALE, STANDBY eller LEDIG tilstand. I LEDIG tilstand, spinder de fleste diske stadig, så det er sandsynligvis nok ikke det du vil.</li></ul>"
 
+msgid "Previous Page"
+msgstr "Forrige Side"
+
 msgid "Primary"
 msgstr "Primær"
 
 msgid "Primary email"
 msgstr "Primær email"
-
-msgid "Privacy passphrase"
-msgstr "Fortroligheds løsen"
-
-msgid "Privacy type"
-msgstr "Fortroligheds type"
 
 msgid "Private key"
 msgstr "Privat nøgle"
@@ -2703,9 +2684,6 @@ msgstr "Resultat"
 msgid "Resume"
 msgstr "Genoptag"
 
-msgid "Retry timeout"
-msgstr "Forsøg timeout igen"
-
 msgid "Reunion"
 msgstr "Genforening"
 
@@ -2768,15 +2746,6 @@ msgstr "SMTP server"
 
 msgid "SMTP settings"
 msgstr "SMTP indstillinger"
-
-msgid "SNMP"
-msgstr "SNMP"
-
-msgid "SNMP version 1/2c"
-msgstr "SNMP version 1/2c"
-
-msgid "SNMP version 3"
-msgstr "SNMP version 3"
 
 msgid "SSH"
 msgstr "SSH"
@@ -2864,9 +2833,6 @@ msgstr "Sikkert"
 
 msgid "Secure connection"
 msgstr "Sikker forbindelse"
-
-msgid "Security level"
-msgstr "Sikkerhedsniveau"
 
 msgid "Select a SSH certificate ..."
 msgstr "Vælg et SSH certifikat ..."
@@ -2981,9 +2947,6 @@ msgstr "Session udløbet"
 
 msgid "Session not authenticated."
 msgstr "Session ikke godkendt"
-
-msgid "Session timeout"
-msgstr "Session udløbstid"
 
 msgid "Set browseable"
 msgstr "Gør søgebar"
@@ -3138,11 +3101,6 @@ msgid ""
 "disable this option."
 msgstr "Angiver mængden af tid, i sekunder, mellem kontrol og opdatering af den maskeret adresse ved at frigive IP adressen. Sæt værdien til 0 for at deaktivere denne valgmulighed."
 
-msgid ""
-"Specifies the maximum permitted block size. The permitted range for this "
-"parameter is from 512 to 65464."
-msgstr "Angiver den maksimale tilladte blokstørrelse. Det tilladte område for denne parameter er fra 512 til 65464."
-
 msgid "Specifies the time in hh:mm:ss after which the ban expires."
 msgstr "Angiver tiden i hh:mm:ss, hvorefter forbuddet udløber."
 
@@ -3275,9 +3233,6 @@ msgstr "TAR"
 
 msgid "TCP forwarding"
 msgstr "TCP forwarding"
-
-msgid "TFTP"
-msgstr "TFTP"
 
 msgid "Taiwan"
 msgstr "Taiwan"
@@ -3413,9 +3368,11 @@ msgid ""
 "for data connections is not required."
 msgstr "Kravet om, at SSL-sessionen fra kontrolforbindelsen bliver genanvendt til dataforbindelser er ikke nødvendig."
 
-msgid ""
-"The session timeout time in minutes. Set to 0 to disable automatic logout."
-msgstr "Session udløbstid i minutter. Sæt til 0 for at deaktivere automatisk log ud."
+msgid "The session IP address has been changed."
+msgstr "Sessionens IP adresse er blevet ændret."
+
+msgid "The session user no longer exists."
+msgstr "Sessionens bruger eksistere ikke mere."
 
 msgid ""
 "The source remote server, e.g. [USER@]HOST:SRC, [USER@]HOST::SRC or "
@@ -3539,9 +3496,15 @@ msgstr "Dette felt kan kun indeholde tal"
 msgid "This field should only contain numbers separated by <,> or <;>"
 msgstr "Dette felt kan kun indeholde tal adskilt af <,> eller <;>"
 
+msgid "This field should only contain options separated by <,>"
+msgstr ""
+
 msgid ""
 "This field should only contain ports (0 - 65535) separated by <,> or <;>"
 msgstr "Dette felt kan kun indeholde porte (0 - 65535) adskilt af <,> eller <;>"
+
+msgid "This field should only contain strings separated by <,>"
+msgstr ""
 
 msgid "This field should only contain strings separated by <,> or <;>"
 msgstr "Dette felt kan kun indeholde strenge adskilt af <,> eller <;>"
@@ -3700,9 +3663,6 @@ msgstr "Overførelses tid"
 
 msgid "Transfer type"
 msgstr "Overførelses type"
-
-msgid "Traps"
-msgstr "Fælder"
 
 msgid "Treshold"
 msgstr "Tærskel"
@@ -4009,6 +3969,9 @@ msgstr "Skriv kun"
 msgid "Write/Execute"
 msgstr "Skriv/Udfør"
 
+msgid "Xen virtual disk device"
+msgstr "Xen virtuel disk enhed"
+
 msgid "Yearly"
 msgstr "Årligt"
 
@@ -4017,6 +3980,9 @@ msgstr "Yemen"
 
 msgid "Yes"
 msgstr "Ja"
+
+msgid "You need to commit or cancel your changes"
+msgstr "Du skal kommentere eller annuller dine ændringer"
 
 msgid "Zambia"
 msgstr "Zambia"
@@ -4047,6 +4013,9 @@ msgstr "minutter"
 
 msgid "n/a"
 msgstr "n/a"
+
+msgid "of {0}"
+msgstr "af {0}"
 
 msgid "old-age"
 msgstr "ældre"

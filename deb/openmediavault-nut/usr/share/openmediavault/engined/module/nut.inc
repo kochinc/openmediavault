@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,6 +36,13 @@ class OMVModuleNetworkUPSTools extends \OMV\Engine\Module\ServiceAbstract
 	public function shouldStart() { return [ "monit" ]; }
 
 	/**
+	 * Defines the modules that if present should start after the service
+	 * provided by this module.
+	 * @return An array of modules.
+	 */
+	function startBefore() { return [ "collectd" ]; }
+
+	/**
 	 * Defines the modules that if present should be stopped after the
 	 * service provided by this module.
 	 * @return An array of modules.
@@ -64,6 +71,8 @@ class OMVModuleNetworkUPSTools extends \OMV\Engine\Module\ServiceAbstract
 		$systemCtl->disable(TRUE);
 		$systemCtl = new \OMV\System\SystemCtl("nut-server");
 		$systemCtl->disable(TRUE);
+		$systemCtl = new \OMV\System\SystemCtl("nut-driver");
+		$systemCtl->disable(TRUE);
 	}
 
 	/**
@@ -79,12 +88,13 @@ class OMVModuleNetworkUPSTools extends \OMV\Engine\Module\ServiceAbstract
 		$cmd->setRedirect2to1();
 		$cmd->execute();
 		// Start this service and enable the unit file.
+		$systemCtlDrv = new \OMV\System\SystemCtl("nut-driver");
+		$systemCtlDrv->enable(TRUE);
 		$systemCtlSrv = new \OMV\System\SystemCtl("nut-server");
 		$systemCtlSrv->enable(TRUE);
+		$systemCtlSrv->waitUntilActive(15);
 		$systemCtlMon = new \OMV\System\SystemCtl("nut-monitor");
 		$systemCtlMon->enable(TRUE);
-		// Wait to allow the service to start.
-		$systemCtlSrv->waitUntilActive(5);
 		// Enable monitoring of this service.
 		$monit = new \OMV\System\Monit("nut");
 		$monit->setGroup(TRUE);
@@ -97,12 +107,12 @@ class OMVModuleNetworkUPSTools extends \OMV\Engine\Module\ServiceAbstract
 	public function getStatus() {
 		$db = \OMV\Config\Database::getInstance();
 		$object = $db->get("conf.service.nut");
-		$monit = new \OMV\System\Monit("nut-monitor");
+		$systemCtl = new \OMV\System\SystemCtl("nut-server");
 		return [
 			"name" => $this->getName(),
 			"title" => gettext("UPS"),
 			"enabled" => $object->get("enable"),
-			"running" => $monit->isRunning()
+			"running" => $systemCtl->isActive()
 		];
 	}
 

@@ -3,8 +3,19 @@ Upstream-Contact: Volker Theile <volker.theile@openmediavault.org>
 Source: http://www.openmediavault.org
 
 Files: *
-Copyright: 2009-2017 Volker Theile <volker.theile@openmediavault.org>
+Copyright: 2009-2018 Volker Theile <volker.theile@openmediavault.org>
 License: GPL-3
+
+Files: /var/www/openmediavault/css/materialdesignicons.min.css
+       /var/www/openmediavault/fonts/materialdesignicons-webfont.eot
+       /var/www/openmediavault/fonts/materialdesignicons-webfont.svg
+       /var/www/openmediavault/fonts/materialdesignicons-webfont.ttf
+       /var/www/openmediavault/fonts/materialdesignicons-webfont.woff
+       /var/www/openmediavault/fonts/materialdesignicons-webfont.woff2
+Copyright: (c) 2014, Austin Andrews (http://materialdesignicons.com/),
+           with Reserved Font Name Material Design Icons.
+           (c) 2014, Google (http://www.google.com/design/)
+License: SIL-OPEN-FONT-LICENSE-and-CC-BY
 
 Files: /var/www/openmediavault/images/ftp.png
        /var/www/openmediavault/images/ftp.svg
@@ -160,11 +171,6 @@ Files: /var/www/openmediavault/images/arrow-down.png
 Copyright: WebHostingHub <http://www.webhostinghub.com>
 License: CC-BY-3.0
 
-Files: /var/www/openmediavault/images/snmp.png
-       /var/www/openmediavault/images/snmp.svg
-Copyright: David Ferreira (http://cargocollective.com/davidferreira)
-License: CC-BY-SA-3.0
-
 Files: /var/www/openmediavault/images/error.png
        /var/www/openmediavault/images/error.png
 Copyright: Volker Theile
@@ -200,12 +206,6 @@ Files: /var/www/openmediavault/images/raid.png
        /var/www/openmediavault/images/raid.svg
 Copyright: WebHostingHub <http://www.webhostinghub.com>
 License: CC-BY-3.0
-
-Files: /var/www/openmediavault/images/shutdown_64.png
-       /var/www/openmediavault/images/shutdown_64.png
-Copyright: Volker Theile
-License: CC-BY-3.0
-Comment: Based on shutdown.svg from WebHostingHub
 
 Files: /var/www/openmediavault/images/details.png
        /var/www/openmediavault/images/details.svg
@@ -298,13 +298,6 @@ Files: /var/www/openmediavault/images/erase.png
 Copyright: WebHostingHub <http://www.webhostinghub.com>
 License: CC-BY-3.0
 
-Files: /var/www/openmediavault/images/add-trigger.png
-       /var/www/openmediavault/images/folder-trigger.png
-       /var/www/openmediavault/images/password-trigger.png
-	   /var/www/openmediavault/images/copy-trigger.png
-Copyright: Volker Theile, based on WebHostingHub and ExtJS trigger template
-License: GPL
-
 Files: /var/www/openmediavault/images/wrench.png
        /var/www/openmediavault/images/wrench.png
 Copyright: Keyamoon <http://icomoon.io>
@@ -384,11 +377,6 @@ Files: /var/www/openmediavault/images/logs.png
        /var/www/openmediavault/images/logs.svg
 Copyright: WebHostingHub <http://www.webhostinghub.com>
 License: CC-BY-3.0
-
-Files: /var/www/openmediavault/images/tftp.png
-       /var/www/openmediavault/images/tftp.svg
-Copyright: David Ferreira (http://cargocollective.com/davidferreira)
-License: CC-BY-SA-3.0
 
 Files: /var/www/openmediavault/images/folder.png
        /var/www/openmediavault/images/folder.svg
@@ -489,20 +477,6 @@ Files: /var/www/openmediavault/images/loading.gif
        /var/www/openmediavault/images/wait.gif
 Copyright: <http://www.ajaxload.info>
 License: WTFPL
-
-Files: /var/www/openmediavault/images/rj45_yes.png
-       /var/www/openmediavault/images/rj45_yes.svg
-Copyright: Volker Theile
-License: permissive
- .Free for commercial use
-Comment: www.openmediavault.org
-
-Files: /var/www/openmediavault/images/rj45_no.png
-       /var/www/openmediavault/images/rj45_no.svg
-Copyright: Volker Theile
-License: permissive
- .Free for commercial use
-Comment: www.openmediavault.org
 
 Files: /var/www/openmediavault/images/tree-folder.png
        /var/www/openmediavault/images/tree-folder.svg

@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,6 +37,7 @@ Ext.define("OMV.workspace.panel.Panel", {
 	hideTopToolbar: true,
 	hideRefreshButton: false,
 	refreshButtonText: _("Refresh"),
+	refreshButtonIconCls: "x-fa fa-refresh",
 	autoLoadData: false,
 
 	border: false,
@@ -75,8 +76,7 @@ Ext.define("OMV.workspace.panel.Panel", {
 			id: me.getId() + "-refresh",
 			xtype: "button",
 			text: me.refreshButtonText,
-			icon: "images/refresh.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: me.refreshButtonIconCls,
 			hidden: me.hideRefreshButton,
 			handler: Ext.Function.bind(me.onRefreshButton, me, [ me ]),
 			scope: me

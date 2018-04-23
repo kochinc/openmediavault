@@ -1,3 +1,52 @@
+openmediavault-shairport (4.0.7-1) stable; urgency=low
+
+  * Fix monit configuration.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Mon, 19 Mar 2018 07:15:28 +0100
+
+openmediavault-shairport (4.0.6-1) stable; urgency=low
+
+  * Fix postrm script.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Tue, 06 Mar 2018 19:27:41 +0100
+
+openmediavault-shairport (4.0.5-1) stable; urgency=low
+
+  * Update locales.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Sat, 03 Mar 2018 07:23:54 +0100
+
+openmediavault-shairport (4.0.4-1) stable; urgency=low
+
+  * Various improvements.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Mon, 27 Nov 2017 07:39:00 +0100
+
+openmediavault-shairport (4.0.3-1) stable; urgency=low
+
+  * Remove configuration in database when package is purged.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Mon, 20 Nov 2017 19:25:17 +0100
+
+openmediavault-shairport (4.0.2-1) stable; urgency=low
+
+  * Update locales.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Sat, 18 Nov 2017 10:06:18 +0100
+
+openmediavault-shairport (4.0.1-1) stable; urgency=low
+
+  * Update locales.
+  * Use Material Design icons.
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Wed, 15 Nov 2017 22:19:49 +0100
+
+openmediavault-shairport (4.0-1) stable; urgency=low
+
+  * Adapt to Debian 9 (Stretch).
+
+ -- Volker Theile <volker.theile@openmediavault.org>  Tue, 22 Aug 2017 09:39:39 +0200
+
 openmediavault-shairport (3.2.8) stable; urgency=low
 
   * Fix first installation bug.

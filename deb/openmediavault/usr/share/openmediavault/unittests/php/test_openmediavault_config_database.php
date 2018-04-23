@@ -5,7 +5,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -101,6 +101,16 @@ class test_openmediavault_config_database extends \PHPUnit_Framework_TestCase {
 		]);
 		$this->assertInternalType("array", $objects);
 		$this->assertEquals(count($objects), 5);
+	}
+
+	public function testGetByFilter3() {
+		$db = new \OMV\Config\Database();
+		$objects = $db->getByFilter("conf.service.smartmontools.device", [
+			'operator' => 'distinct',
+			'arg0' => 'enable'
+		]);
+		$this->assertInternalType("array", $objects);
+		$this->assertEquals(count($objects), 2);
 	}
 
 	public function testExists() {

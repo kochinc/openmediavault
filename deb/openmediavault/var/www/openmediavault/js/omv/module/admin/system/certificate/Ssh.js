@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -74,7 +74,7 @@ Ext.define("OMV.module.admin.system.certificate.ssh.Edit", {
 			// certificate is processed.
 			hidden: !me.isNew(),
 			disabled: !me.isNew(),
-			height: 150,
+			minHeight: 150,
 			flex: 1,
 			plugins: [{
 				ptype: "fieldinfo",
@@ -122,6 +122,7 @@ Ext.define("OMV.module.admin.system.certificate.ssh.Certificates", {
 	stateful: true,
 	stateId: "bdd0b2ca-1016-11e5-be00-0002b3a176b4",
 	columns: [{
+		xtype: "textcolumn",
 		text: _("Comment"),
 		sortable: true,
 		dataIndex: "comment",
@@ -167,8 +168,7 @@ Ext.define("OMV.module.admin.system.certificate.ssh.Certificates", {
 			id: me.getId() + "-add",
 			xtype: "splitbutton",
 			text: _("Add"),
-			icon: "images/add.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-plus",
 			handler: function() {
 				this.showMenu();
 			},

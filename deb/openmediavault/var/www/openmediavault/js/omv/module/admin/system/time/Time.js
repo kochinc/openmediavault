@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -153,14 +153,12 @@ Ext.define("OMV.module.admin.system.time.Time", {
 					xtype: "datefield",
 					name: "date",
 					fieldLabel: _("Date"),
-					width: 100,
 					value: dtNow,
 					submitValue: false
 				},{
 					xtype: "compositefield",
 					name: "manualtime",
 					fieldLabel: _("Time"),
-					width: 200,
 					items: [{
 						xtype: "combo",
 						name: "hour",
@@ -169,7 +167,7 @@ Ext.define("OMV.module.admin.system.time.Time", {
 						readOnly: true,
 						editable: false,
 						triggerAction: "all",
-						width: 50,
+						flex: 1,
 						value: dtNow.getHours(),
 						submitValue: false,
 						reset: function() {
@@ -188,7 +186,7 @@ Ext.define("OMV.module.admin.system.time.Time", {
 						readOnly: true,
 						editable: false,
 						triggerAction: "all",
-						width: 50,
+						flex: 1,
 						value: dtNow.getMinutes(),
 						submitValue: false,
 						reset: function() {
@@ -207,7 +205,7 @@ Ext.define("OMV.module.admin.system.time.Time", {
 						readOnly: true,
 						editable: false,
 						triggerAction: "all",
-						width: 50,
+						flex: 1,
 						value: dtNow.getSeconds(),
 						submitValue: false,
 						reset: function() {
@@ -272,8 +270,7 @@ OMV.WorkspaceManager.registerNode({
 	id: "time",
 	path: "/system",
 	text: _("Date & Time"),
-	icon16: "images/clock.png",
-	iconSvg: "images/clock.svg",
+	iconCls: "mdi mdi-clock",
 	position: 20
 });
 

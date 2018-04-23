@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ class OMVModuleZeroconf extends \OMV\Engine\Module\ServiceAbstract
 	 */
 	public function stopService() {
 		// Only stop the service because it is always running.
-		// Note, it is necessary to stop the service instead of simply relead
+		// Note, it is necessary to stop the service instead of simply reload
 		// the configuration, otherwise the configuration is auto-reloaded
 		// in the meanwhile.
 		$systemCtl = new \OMV\System\SystemCtl("avahi-daemon");

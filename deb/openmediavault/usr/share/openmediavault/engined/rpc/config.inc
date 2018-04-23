@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -66,7 +66,7 @@ class OMVRpcServiceConfig extends \OMV\Rpc\ServiceAbstract {
 	 *   \em force Set to TRUE to update all modules, regardless if marked
 	 *   as dirty or not.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\Exception
 	 */
 	public function applyChanges($params, $context) {
@@ -83,6 +83,11 @@ class OMVRpcServiceConfig extends \OMV\Rpc\ServiceAbstract {
 		$jsonFile = new \OMV\Json\File(\OMV\Environment::get(
 		  "OMV_ENGINED_DIRTY_MODULES_FILE"));
 		$jsonFile->open("c+");
+		// Make sure we have a valid JSON file. Keep in mind that the file
+		// is empty if it was created by the \OMV\Json\File::open method.
+		if ($jsonFile->isEmpty())
+			$jsonFile->write([]);
+		// Read the file content.
 		$dirtyModules = $jsonFile->read();
 		// Remove non-existing modules from list. It may happen that the
 		// list contains entries from already deinstalled plugins.
@@ -214,7 +219,7 @@ class OMVRpcServiceConfig extends \OMV\Rpc\ServiceAbstract {
 	 *   \em filename The revision file. Set to empty to automatically detect
 	 *   the correct revision file.
 	 * @param context The context of the caller.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\Exception
 	 */
 	public function revertChanges($params, $context) {

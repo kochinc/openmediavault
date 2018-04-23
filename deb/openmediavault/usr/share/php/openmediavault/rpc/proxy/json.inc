@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -112,7 +112,7 @@ class Json {
 	/**
 	 * Validate the RPC parameters. An exception is thrown when
 	 * the validation fails.
-	 * @return None.
+	 * @return void
 	 */
 	protected function validate() {
 		$schema = new \OMV\Json\Schema('{
@@ -129,7 +129,7 @@ class Json {
 
 	/**
 	 * Do additional stuff before RPC is executed.
-	 * @return None.
+	 * @return void
 	 */
 	protected function preExecute() {
 		// Nothing to do here.
@@ -138,7 +138,7 @@ class Json {
 	/**
 	 * Do additional stuff after RPC has been executed.
 	 * @param response The RPC response
-	 * @return None.
+	 * @return void
 	 */
 	protected function postExecute(&$response) {
 		// Nothing to do here.
@@ -147,7 +147,7 @@ class Json {
 	/**
 	 * Print the RPC responce.
 	 * @param response The RPC response
-	 * @return None.
+	 * @return void
 	 */
 	protected function handleResponse($response) {
 		header("Content-Type: application/json");

@@ -1,16 +1,17 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-clamav package.
 # 
 # Translators:
-# Henrik Sandström <henrik.sandstroem@gmail.com>, 2012
+# Henrik Sandström <inactive+sandstroem@transifex.com>, 2012
+# Jonatan Nyberg, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-23 19:15+0200\n"
-"PO-Revision-Date: 2014-11-30 01:10+0000\n"
-"Last-Translator: Volker <votdev@gmx.de>\n"
+"POT-Creation-Date: 2017-11-18 11:05+0100\n"
+"PO-Revision-Date: 2017-12-11 19:50+0000\n"
+"Last-Translator: Jonatan Nyberg\n"
 "Language-Team: Swedish (http://www.transifex.com/votdev/openmediavault/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,8 +19,11 @@ msgstr ""
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Add job"
-msgstr "Skapa jobb"
+msgid "Add on-access scan"
+msgstr "Lägg till åtkomstsökning"
+
+msgid "Add scheduled job"
+msgstr "Lägg till schemalagt jobb"
 
 msgid "Algorithmic detection"
 msgstr "Algoritm för detektion"
@@ -56,8 +60,14 @@ msgstr "Detektera PUA"
 msgid "Detect broken executables"
 msgstr "Detektera trasiga körbara filer"
 
-msgid "Edit job"
-msgstr "Redigera jobb"
+msgid "Done ..."
+msgstr "Klar ..."
+
+msgid "Edit on-access scan"
+msgstr "Redigera åtkomstsökning"
+
+msgid "Edit scheduled job"
+msgstr "Redigera schemalagt jobb"
 
 msgid "Enable"
 msgstr "Aktivera"
@@ -72,12 +82,12 @@ msgid "Enable on-access virus scanning"
 msgstr "Aktivera \"vid åtkomst\"-virusskanning"
 
 msgid "Enable scanning of ELF files."
-msgstr "Aktivera skanning av ELF filer."
+msgstr "Aktivera skanning av ELF-filer."
 
 msgid ""
 "Enable scanning of OLE2 files, such as Microsoft Office documents and .msi "
 "files."
-msgstr "Aktivera skanning av OLE2 filer, såsom Microsoft Office-dokument och .msi-filer."
+msgstr "Aktivera skanning av OLE2-filer, såsom Microsoft Office-dokument och .msi-filer."
 
 msgid "Enable scanning within PDF files."
 msgstr "Aktivera innehållsskanning för PDF-filer."
@@ -95,7 +105,7 @@ msgid "Enabled"
 msgstr "Aktiverad"
 
 msgid "Every N day of month"
-msgstr "Varje N dag i månad"
+msgstr "Varje N dag i månaden"
 
 msgid "Every N hour"
 msgstr "Varje N timme"
@@ -103,8 +113,8 @@ msgstr "Varje N timme"
 msgid "Every N minute"
 msgstr "Varje N minut"
 
-msgid "Execute cron job"
-msgstr ""
+msgid "Execute scheduled job"
+msgstr "Utför schemalagt jobb"
 
 msgid "Extra options"
 msgstr "Extra inställningar"
@@ -128,25 +138,22 @@ msgid "Hour"
 msgstr "Timme"
 
 msgid "Infected files"
-msgstr ""
-
-msgid "Jobs"
-msgstr "Jobb"
+msgstr "Infekterade filer"
 
 msgid "Log clean files"
-msgstr ""
+msgstr "Logga rena filer"
 
 msgid "Log clean files. This drastically increases the log size."
-msgstr ""
+msgstr "Logga rena filer. Detta ökar loggstorleken kraftigt."
 
 msgid "Message"
-msgstr ""
+msgstr "Meddelande"
 
 msgid "Minute"
 msgstr "Minut"
 
 msgid "Monitor the shared folder and scan new or modified files."
-msgstr "Övervaka den utdelade mappen och sök efter nya eller ändrade filer."
+msgstr "Övervaka den delade mappen och sök efter nya eller ändrade filer."
 
 msgid "Month"
 msgstr "Månad"
@@ -157,6 +164,9 @@ msgstr "Multiskanning"
 msgid "Number of database update checks per day. Set to 0 to disable."
 msgstr "Antal databasuppdateringar per dag. Ange 0 för att inaktivera."
 
+msgid "On Access Scans"
+msgstr "På åtkomstsökning"
+
 msgid "On-access"
 msgstr "Vid åtkomst"
 
@@ -164,12 +174,13 @@ msgid "Perform a deeper analysis of executable files."
 msgstr "Genomför en djupare analys av körbara filer."
 
 msgid ""
-"Please check the <a href='http://linux.die.net/man/5/clamd.conf' "
-"target='_blank'>manual page</a> for more details."
-msgstr "Vänligen kontrollera <a href='http://linux.die.net/man/5/clamd.conf' target='_blank'>instruktionssidan</a> för fler detaljer."
+"Please check the <a href='https://github.com/vrtadmin/clamav-"
+"faq/raw/master/manual/clamdoc.pdf' target='_blank'>manual page</a> for more "
+"details."
+msgstr "Se <a href='https://github.com/vrtadmin/clamav-faq/raw/master/manual/clamdoc.pdf' target='_blank'>manualsidan</a> för mer detaljer."
 
 msgid "Quarantine"
-msgstr ""
+msgstr "Karantän"
 
 msgid "Run"
 msgstr "Kör"
@@ -195,6 +206,9 @@ msgstr "Skanna arkiv"
 msgid "Scan the directory contents in parallel using available threads."
 msgstr "Skanna mappinnehåll med tillgängliga trådar i paralell."
 
+msgid "Scheduled Jobs"
+msgstr "Schemalagda jobb"
+
 msgid "Send command output via email"
 msgstr "Skicka resultatet av kommandot via e-post"
 
@@ -207,17 +221,20 @@ msgstr "Inställningar"
 msgid "Shared folder"
 msgstr "Delad mapp"
 
+msgid "The location of the files to scan on-access."
+msgstr "Placeringen av filerna för att göra åtkomstsökning"
+
 msgid "The location of the files to scan."
-msgstr "Plats för filer att skanna."
+msgstr "Platsen för filerna som ska skannas."
 
 msgid "The location which is used as quarantine."
-msgstr ""
+msgstr "Platsen som används som karantän."
 
 msgid "The option, how to handle infected files."
-msgstr ""
+msgstr "Alternativet, hur man hanterar infekterade filer."
 
 msgid "Verbose"
 msgstr "Pratig"
 
 msgid "n/a"
-msgstr "n/a"
+msgstr "ingen uppgift"

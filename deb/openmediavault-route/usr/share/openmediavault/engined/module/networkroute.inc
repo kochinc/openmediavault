@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,8 +53,10 @@ class OMVModuleNetworkRoute extends \OMV\Engine\Module\ServiceAbstract
 		foreach ($objects as $objectk => $objectv) {
 			$cmdArgs = [];
 			$cmdArgs[] = "route";
-			$cmdArgs[] = sprintf("replace %s", $objectv->get("network"));
-			$cmdArgs[] = sprintf("via %s", $objectv->get("gateway"));
+			$cmdArgs[] = sprintf("replace %s", escapeshellarg(
+				$objectv->get("network")));
+			$cmdArgs[] = sprintf("via %s", escapeshellarg(
+				$objectv->get("gateway")));
 			$cmd = new \OMV\System\Process("ip", $cmdArgs);
 			$cmd->setRedirect2to1();
 			$cmd->execute();
@@ -66,7 +68,7 @@ class OMVModuleNetworkRoute extends \OMV\Engine\Module\ServiceAbstract
 	 * @param type The event message type.
 	 * @param path The event message path.
 	 * @param object The configuration object.
-	 * @return None.
+	 * @return void
 	 */
 	final public function onDelete($type, $path, $object) {
 		$this->addTask("delete", "deleteRoute", $object);
@@ -79,8 +81,8 @@ class OMVModuleNetworkRoute extends \OMV\Engine\Module\ServiceAbstract
 		// Delete the static route.
 		$cmdArgs = [];
 		$cmdArgs[] = "route";
-		$cmdArgs[] = sprintf("delete %s", $objectv['network']);
-		$cmdArgs[] = sprintf("via %s", $objectv['gateway']);
+		$cmdArgs[] = sprintf("delete %s", escapeshellarg($objectv['network']));
+		$cmdArgs[] = sprintf("via %s", escapeshellarg($objectv['gateway']));
 		$cmd = new \OMV\System\Process("ip", $cmdArgs);
 		$cmd->setRedirect2to1();
 		$cmd->setQuiet(TRUE);

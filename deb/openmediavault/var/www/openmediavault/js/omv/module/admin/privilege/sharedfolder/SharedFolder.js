@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -340,7 +340,7 @@ Ext.define("OMV.module.admin.privilege.sharedfolder.ACL", {
 
 	title: _("Modify shared folder ACL"),
 	width: 700,
-	height: 520,
+	height: 600,
 	layout: "border",
 	modal: true,
 	buttonAlign: "center",
@@ -442,7 +442,7 @@ Ext.define("OMV.module.admin.privilege.sharedfolder.ACL", {
 			split: true,
 			collapsible: true,
 			bodyPadding: "5 5 0",
-			border: true,
+			border: false,
 			items: [{
 				xtype: "compositefield",
 				fieldLabel: _("Owner"),
@@ -636,6 +636,7 @@ Ext.define("OMV.module.admin.privilege.sharedfolder.SharedFolders", {
 	stateful: true,
 	stateId: "9ab0d7f9-73e0-4815-8960-84157d4b85e5",
 	columns: [{
+		xtype: "textcolumn",
 		text: _("Name"),
 		sortable: true,
 		dataIndex: "name",
@@ -647,17 +648,20 @@ Ext.define("OMV.module.admin.privilege.sharedfolder.SharedFolders", {
 		dataIndex: "device",
 		stateId: "device"
 	},{
+		xtype: "textcolumn",
 		text: _("Relative Path"),
 		sortable: true,
 		dataIndex: "reldirpath",
 		stateId: "reldirpath"
 	},{
+		xtype: "textcolumn",
 		text: _("Absolute Path"),
 		sortable: true,
 		hidden: true,
 		dataIndex: "absdirpath",
 		stateId: "absdirpath"
 	},{
+		xtype: "textcolumn",
 		text: _("Comment"),
 		sortable: true,
 		dataIndex: "comment",
@@ -725,8 +729,7 @@ Ext.define("OMV.module.admin.privilege.sharedfolder.SharedFolders", {
 			id: me.getId() + "-privileges",
 			xtype: "button",
 			text: _("Privileges"),
-			icon: "images/share.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "mdi mdi-share-variant",
 			handler: me.onPrivilegesButton,
 			scope: me,
 			disabled: true,
@@ -738,8 +741,7 @@ Ext.define("OMV.module.admin.privilege.sharedfolder.SharedFolders", {
 			id: me.getId() + "-acl",
 			xtype: "button",
 			text: _("ACL"),
-			icon: "images/access.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-list",
 			handler: me.onACLButton,
 			scope: me,
 			disabled: true,
@@ -755,8 +757,7 @@ Ext.define("OMV.module.admin.privilege.sharedfolder.SharedFolders", {
 			id: me.getId() + "-delete2",
 			xtype: "splitbutton",
 			text: me.deleteButtonText,
-			icon: me.deleteButtonIcon,
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: me.deleteButtonIconCls,
 			scope: me,
 			disabled: true,
 			handler: function(c) {
@@ -899,8 +900,7 @@ OMV.WorkspaceManager.registerNode({
 	id: "sharedfolder",
 	path: "/privilege",
 	text: _("Shared Folders"),
-	icon16: "images/share.png",
-	iconSvg: "images/share.svg",
+	iconCls: "mdi mdi-share-variant",
 	position: 30
 });
 

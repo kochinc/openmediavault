@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -69,7 +69,6 @@ Ext.define("OMV.module.admin.storage.mdadm.device.Create", {
 	autoLoadData: false,
 	hideResetButton: true,
 	width: 550,
-	height: 260,
 
 	getFormConfig: function() {
 		return {
@@ -141,6 +140,7 @@ Ext.define("OMV.module.admin.storage.mdadm.device.Create", {
 			valueField: "devicefile",
 			minSelections: 3, // Min. number of devices for RAID5
 			useStringValue: true,
+			minHeight: 170,
 			flex: 1,
 			store: Ext.create("OMV.data.Store", {
 				autoLoad: true,
@@ -288,6 +288,7 @@ Ext.define("OMV.module.admin.storage.mdadm.device.Add", {
 			name: "devices",
 			fieldLabel: _("Devices"),
 			valueField: "devicefile",
+			minSelections: 1,
 			useStringValue: true,
 			height: 130,
 //			flex: 1, // Hides the field info due render error
@@ -658,8 +659,7 @@ Ext.define("OMV.module.admin.storage.mdadm.Devices", {
 			id: me.getId() + "-create",
 			xtype: "button",
 			text: _("Create"),
-			icon: "images/add.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-plus",
 			handler: me.onCreateButton,
 			scope: me,
 			disabled: false
@@ -667,8 +667,7 @@ Ext.define("OMV.module.admin.storage.mdadm.Devices", {
 			id: me.getId() + "-grow",
 			xtype: "button",
 			text: _("Grow"),
-			icon: "images/expand.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-expand",
 			handler: me.onGrowButton,
 			scope: me,
 			disabled: true,
@@ -688,8 +687,7 @@ Ext.define("OMV.module.admin.storage.mdadm.Devices", {
 			id: me.getId() + "-remove",
 			xtype: "button",
 			text: _("Remove"),
-			icon: "images/minus.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-minus",
 			handler: me.onRemoveButton,
 			scope: me,
 			disabled: true,
@@ -711,8 +709,7 @@ Ext.define("OMV.module.admin.storage.mdadm.Devices", {
 			id: me.getId() + "-recover",
 			xtype: "button",
 			text: _("Recover"),
-			icon: "images/aid.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-medkit",
 			handler: me.onRecoverButton,
 			scope: me,
 			disabled: true,
@@ -724,8 +721,7 @@ Ext.define("OMV.module.admin.storage.mdadm.Devices", {
 			id: me.getId() + "-detail",
 			xtype: "button",
 			text: _("Detail"),
-			icon: "images/details.png",
-			iconCls: Ext.baseCSSPrefix + "btn-icon-16x16",
+			iconCls: "x-fa fa-info",
 			handler: me.onDetailButton,
 			scope: me,
 			disabled: true,
@@ -837,8 +833,7 @@ OMV.WorkspaceManager.registerNode({
 	id: "mdadm",
 	path: "/storage",
 	text: _("RAID Management"),
-	icon16: "images/raid.png",
-	iconSvg: "images/raid.svg",
+	iconCls: "x-fa fa-database",
 	position: 30
 });
 

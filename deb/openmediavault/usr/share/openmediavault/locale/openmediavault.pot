@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 06:19+0100\n"
+"POT-Creation-Date: 2018-01-21 11:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,6 +42,9 @@ msgstr ""
 msgid "1 day"
 msgstr ""
 
+msgid "1 minute"
+msgstr ""
+
 msgid "1 month"
 msgstr ""
 
@@ -70,6 +73,9 @@ msgstr ""
 msgid "128 - Minimum power usage without standby (no spindown)"
 msgstr ""
 
+msgid "15 minutes"
+msgstr ""
+
 msgid "15 years"
 msgstr ""
 
@@ -80,6 +86,9 @@ msgid "192 - Intermediate power usage without standby"
 msgstr ""
 
 msgid "2 days"
+msgstr ""
+
+msgid "2 minutes"
 msgstr ""
 
 msgid "2 weeks"
@@ -109,6 +118,9 @@ msgstr ""
 msgid "3 days"
 msgstr ""
 
+msgid "3 minutes"
+msgstr ""
+
 msgid "3 months"
 msgstr ""
 
@@ -128,6 +140,9 @@ msgid "330 minutes"
 msgstr ""
 
 msgid "4 days"
+msgstr ""
+
+msgid "4 minutes"
 msgstr ""
 
 msgid "4 years"
@@ -289,19 +304,10 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-msgid "Allow client access to accounts that have null passwords"
-msgstr ""
-
 msgid "Allow clients to attempt to store OS/2 style extended attributes on a share."
 msgstr ""
 
 msgid "Allow clients to resume interrupted uploads and downloads"
-msgstr ""
-
-msgid "Allow new files"
-msgstr ""
-
-msgid "Allow new files to be created."
 msgstr ""
 
 msgid "Allow this server to advertise itself as a time server to Windows clients"
@@ -406,25 +412,19 @@ msgstr ""
 msgid "Authentication"
 msgstr ""
 
-msgid "Authentication and no privacy"
-msgstr ""
-
-msgid "Authentication and privacy"
-msgstr ""
-
 msgid "Authentication method"
-msgstr ""
-
-msgid "Authentication passphrase"
 msgstr ""
 
 msgid "Authentication required"
 msgstr ""
 
-msgid "Authentication type"
+msgid "Auto"
 msgstr ""
 
-msgid "Auto"
+msgid "Auto logout"
+msgstr ""
+
+msgid "Auto logout after the specified idle period."
 msgstr ""
 
 msgid "Automatic Acoustic Management"
@@ -481,9 +481,6 @@ msgstr ""
 msgid "Block layer cache [%s, %s]"
 msgstr ""
 
-msgid "Blocksize"
-msgstr ""
-
 msgid "Bolivia"
 msgstr ""
 
@@ -527,9 +524,6 @@ msgid "Burkina Faso"
 msgstr ""
 
 msgid "Burundi"
-msgstr ""
-
-msgid "By default, only files that already exist are allowed to be uploaded."
 msgstr ""
 
 msgid "CPU usage"
@@ -637,9 +631,6 @@ msgstr ""
 msgid "Common Name"
 msgstr ""
 
-msgid "Community"
-msgstr ""
-
 msgid "Community-maintained updates."
 msgstr ""
 
@@ -680,12 +671,6 @@ msgid "Congo (Kinshasa)"
 msgstr ""
 
 msgid "Connections"
-msgstr ""
-
-msgid "Contact"
-msgstr ""
-
-msgid "Contact information, e.g. name or email address of the person responsible for this system."
 msgstr ""
 
 msgid "Conveyance self-test"
@@ -814,9 +799,6 @@ msgstr ""
 msgid "Detail"
 msgstr ""
 
-msgid "Determine the default timeout, in microseconds, before the first packet is retransmitted."
-msgstr ""
-
 msgid "Device"
 msgstr ""
 
@@ -877,7 +859,13 @@ msgstr ""
 msgid "Disk usage"
 msgstr ""
 
+msgid "Disks"
+msgstr ""
+
 msgid "Displaying items {0} - {1} of {2}"
+msgstr ""
+
+msgid "Displaying {0} - {1} of {2}"
 msgstr ""
 
 msgid "Djibouti"
@@ -1030,6 +1018,9 @@ msgstr ""
 msgid "Edit scheduled test"
 msgstr ""
 
+msgid "Edit service"
+msgstr ""
+
 msgid "Edit share"
 msgstr ""
 
@@ -1151,6 +1142,9 @@ msgid "Error"
 msgstr ""
 
 msgid "Error #"
+msgstr ""
+
+msgid "Errors"
 msgstr ""
 
 msgid "Estonia"
@@ -1277,6 +1271,9 @@ msgid "Firewall"
 msgstr ""
 
 msgid "Firmware version"
+msgstr ""
+
+msgid "First Page"
 msgstr ""
 
 msgid "Flags"
@@ -1693,6 +1690,9 @@ msgstr ""
 msgid "Laos"
 msgstr ""
 
+msgid "Last Page"
+msgstr ""
+
 msgid "Latvia"
 msgstr ""
 
@@ -1748,9 +1748,6 @@ msgid "Local master browser"
 msgstr ""
 
 msgid "Location"
-msgstr ""
-
-msgid "Location information, e.g. physical location of this system."
 msgstr ""
 
 msgid "Log level"
@@ -2032,6 +2029,9 @@ msgstr ""
 msgid "New Zealand"
 msgstr ""
 
+msgid "Next Page"
+msgstr ""
+
 msgid "Nicaragua"
 msgstr ""
 
@@ -2053,13 +2053,13 @@ msgstr ""
 msgid "No action"
 msgstr ""
 
-msgid "No authentication and no privacy"
-msgstr ""
-
 msgid "No certificate request"
 msgstr ""
 
 msgid "No connections"
+msgstr ""
+
+msgid "No data to display"
 msgstr ""
 
 msgid "No items to display"
@@ -2117,9 +2117,6 @@ msgid "Notifications"
 msgstr ""
 
 msgid "November"
-msgstr ""
-
-msgid "Null passwords"
 msgstr ""
 
 msgid "Num"
@@ -2183,6 +2180,9 @@ msgid "Pacific Islands Trust Territory"
 msgstr ""
 
 msgid "Package information"
+msgstr ""
+
+msgid "Page"
 msgstr ""
 
 msgid "Page not found"
@@ -2272,9 +2272,6 @@ msgstr ""
 msgid "Philippines"
 msgstr ""
 
-msgid "Physical Disks"
-msgstr ""
-
 msgid "Physical disk properties"
 msgstr ""
 
@@ -2282,9 +2279,6 @@ msgid "Pitcairn"
 msgstr ""
 
 msgid "Please check the <a href='http://linux.die.net/man/5/exports' target='_blank'>manual page</a> for more details."
-msgstr ""
-
-msgid "Please check the <a href='http://www.openbsd.org/cgi-bin/man.cgi?query=sshd_config&sektion=5' target='_blank'>manual page</a> for more details."
 msgstr ""
 
 msgid "Please check the <a href='http://www.proftpd.org/docs/contrib/mod_tls.html' target='_blank'>manual page</a> for more details."
@@ -2305,13 +2299,13 @@ msgstr ""
 msgid "Please check the <a href='http://www.samba.org/samba/docs/man/manpages-3/smb.conf.5.html' target='_blank'>manual page</a> for more details."
 msgstr ""
 
+msgid "Please check the <a href='https://man.openbsd.org/sshd_config.5' target='_blank'>manual page</a> for more details."
+msgstr ""
+
 msgid "Please choose the method to wipe the device or 'Cancel' to abort."
 msgstr ""
 
 msgid "Please first select a device."
-msgstr ""
-
-msgid "Please make sure that the shared folder is publicly writable if new files are allowed."
 msgstr ""
 
 msgid "Please note that no communication with the system is possible during this test."
@@ -2333,9 +2327,6 @@ msgid "Poland"
 msgstr ""
 
 msgid "Port"
-msgstr ""
-
-msgid "Port to listen on."
 msgstr ""
 
 msgid "Portugal"
@@ -2371,16 +2362,13 @@ msgstr ""
 msgid "Prevent a disk from being spun-up when it is periodically polled.<br/><ul><li>Never - Poll (check) the device regardless of its power mode. This may cause a disk which is spun-down to be spun-up when it is checked.</li><li>Sleep - Check the device unless it is in SLEEP mode.</li><li>Standby - Check the device unless it is in SLEEP or STANDBY mode. In these modes most disks are not spinning, so if you want to prevent a disk from spinning up each poll, this is probably what you want.</li><li>Idle - Check the device unless it is in SLEEP, STANDBY or IDLE mode. In the IDLE state, most disks are still spinning, so this is probably not what you want.</li></ul>"
 msgstr ""
 
+msgid "Previous Page"
+msgstr ""
+
 msgid "Primary"
 msgstr ""
 
 msgid "Primary email"
-msgstr ""
-
-msgid "Privacy passphrase"
-msgstr ""
-
-msgid "Privacy type"
 msgstr ""
 
 msgid "Private key"
@@ -2581,9 +2569,6 @@ msgstr ""
 msgid "Resume"
 msgstr ""
 
-msgid "Retry timeout"
-msgstr ""
-
 msgid "Reunion"
 msgstr ""
 
@@ -2645,15 +2630,6 @@ msgid "SMTP server"
 msgstr ""
 
 msgid "SMTP settings"
-msgstr ""
-
-msgid "SNMP"
-msgstr ""
-
-msgid "SNMP version 1/2c"
-msgstr ""
-
-msgid "SNMP version 3"
 msgstr ""
 
 msgid "SSH"
@@ -2741,9 +2717,6 @@ msgid "Secure"
 msgstr ""
 
 msgid "Secure connection"
-msgstr ""
-
-msgid "Security level"
 msgstr ""
 
 msgid "Select a SSH certificate ..."
@@ -2858,9 +2831,6 @@ msgid "Session expired."
 msgstr ""
 
 msgid "Session not authenticated."
-msgstr ""
-
-msgid "Session timeout"
 msgstr ""
 
 msgid "Set browseable"
@@ -3007,9 +2977,6 @@ msgstr ""
 msgid "Specifies the amount of time, in seconds, between checking and updating the masquerade address by resolving the IP address. Set this value to 0 to disable this option."
 msgstr ""
 
-msgid "Specifies the maximum permitted block size. The permitted range for this parameter is from 512 to 65464."
-msgstr ""
-
 msgid "Specifies the time in hh:mm:ss after which the ban expires."
 msgstr ""
 
@@ -3133,9 +3100,6 @@ msgstr ""
 msgid "TCP forwarding"
 msgstr ""
 
-msgid "TFTP"
-msgstr ""
-
 msgid "Taiwan"
 msgstr ""
 
@@ -3250,7 +3214,10 @@ msgstr ""
 msgid "The requirement that the SSL session from the control connection is reused for data connections is not required."
 msgstr ""
 
-msgid "The session timeout time in minutes. Set to 0 to disable automatic logout."
+msgid "The session IP address has been changed."
+msgstr ""
+
+msgid "The session user no longer exists."
 msgstr ""
 
 msgid "The source remote server, e.g. [USER@]HOST:SRC, [USER@]HOST::SRC or rsync://[USER@]HOST[:PORT]/SRC."
@@ -3355,7 +3322,13 @@ msgstr ""
 msgid "This field should only contain numbers separated by <,> or <;>"
 msgstr ""
 
+msgid "This field should only contain options separated by <,>"
+msgstr ""
+
 msgid "This field should only contain ports (0 - 65535) separated by <,> or <;>"
+msgstr ""
+
+msgid "This field should only contain strings separated by <,>"
 msgstr ""
 
 msgid "This field should only contain strings separated by <,> or <;>"
@@ -3470,9 +3443,6 @@ msgid "Transfer time"
 msgstr ""
 
 msgid "Transfer type"
-msgstr ""
-
-msgid "Traps"
 msgstr ""
 
 msgid "Treshold"
@@ -3775,6 +3745,9 @@ msgstr ""
 msgid "Write/Execute"
 msgstr ""
 
+msgid "Xen virtual disk device"
+msgstr ""
+
 msgid "Yearly"
 msgstr ""
 
@@ -3782,6 +3755,9 @@ msgid "Yemen"
 msgstr ""
 
 msgid "Yes"
+msgstr ""
+
+msgid "You need to commit or cancel your changes"
 msgstr ""
 
 msgid "Zambia"
@@ -3812,6 +3788,9 @@ msgid "minutes"
 msgstr ""
 
 msgid "n/a"
+msgstr ""
+
+msgid "of {0}"
 msgstr ""
 
 msgid "old-age"

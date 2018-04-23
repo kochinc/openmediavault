@@ -4,7 +4,7 @@
 #
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    Volker Theile <volker.theile@openmediavault.org>
-# @copyright Copyright (c) 2009-2017 Volker Theile
+# @copyright Copyright (c) 2009-2018 Volker Theile
 #
 # OpenMediaVault is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -28,7 +28,6 @@ set -e
 . /usr/share/openmediavault/scripts/helper-functions
 
 OMV_RRDCACHED_DEFAULT=${OMV_RRDCACHED_DEFAULT:-"/etc/default/rrdcached"}
-OMV_RRDCACHED_DAEMON=${OMV_RRDCACHED_DAEMON:-"/usr/bin/rrdcached"}
 OMV_RRDCACHED_PIDFILE=${OMV_RRDCACHED_PIDFILE:-"/var/run/rrdcached.pid"}
 OMV_RRDCACHED_SOCKETFILE=${OMV_RRDCACHED_SOCKETFILE:-"/var/run/rrdcached.sock"}
 OMV_RRDCACHED_JOURNALDIR=${OMV_RRDCACHED_JOURNALDIR:-"/var/lib/rrdcached/journal/"}
@@ -40,9 +39,6 @@ OMV_RRDCACHED_BASEOPTIONS=${OMV_RRDCACHED_BASEOPTIONS:-"-B -F -f ${OMV_RRDCACHED
 # Create '/etc/default/rrdcached' file
 cat <<EOF > ${OMV_RRDCACHED_DEFAULT}
 # /etc/default file for RRD cache daemon
-
-# Full path to daemon
-DAEMON=${OMV_RRDCACHED_DAEMON}
 
 # Optional override flush interval, in seconds.
 WRITE_TIMEOUT=${OMV_RRDCACHED_WRITETIMEOUT}
@@ -57,7 +53,7 @@ BASE_PATH=${OMV_RRDCACHED_BASEDIR}
 JOURNAL_PATH=${OMV_RRDCACHED_JOURNALDIR}
 
 # FHS standard placement for process ID file.
-PIDFILE=/var/run/rrdcached.pid
+PIDFILE=${OMV_RRDCACHED_PIDFILE}
 
 # FHS standard placement for local control socket.
 SOCKFILE=${OMV_RRDCACHED_SOCKETFILE}

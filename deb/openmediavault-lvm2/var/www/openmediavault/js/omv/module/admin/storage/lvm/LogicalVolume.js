@@ -3,7 +3,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -76,7 +76,7 @@ Ext.define("OMV.module.admin.storage.lvm.lv.Create", {
 				model: OMV.data.Model.createImplicit({
 					idProperty: "devicefile",
 					fields: [
-						{ name: "devicefile", type: "string" },
+						{ name: "name", type: "string" },
 						{ name: "description", type: "string" },
 						{ name: "free", type: "string" }
 					]
@@ -91,11 +91,11 @@ Ext.define("OMV.module.admin.storage.lvm.lv.Create", {
 				},
 				sorters: [{
 					direction: "ASC",
-					property: "devicefile"
+					property: "name"
 				}]
 			}),
 			displayField: "description",
-			valueField: "devicefile",
+			valueField: "name",
 			allowBlank: false,
 			editable: false,
 			triggerAction: "all",
@@ -403,6 +403,13 @@ Ext.define("OMV.module.admin.storage.lvm.LogicalVolumes", {
 	stateful: true,
 	stateId: "87081dac-a91b-4a5e-901e-e69290b533ee",
 	columns: [{
+		xtype: "textcolumn",
+		text: _("Device"),
+		sortable: true,
+		hidden: true,
+		dataIndex: "devicefile",
+		stateId: "devicefile",
+	},{
 		text: _("Name"),
 		sortable: true,
 		dataIndex: "name",
@@ -418,6 +425,12 @@ Ext.define("OMV.module.admin.storage.lvm.LogicalVolumes", {
 		sortable: true,
 		dataIndex: "vgname",
 		stateId: "vgname"
+	},{
+		xtype: "booleantextcolumn",
+		text: _("Active"),
+		sortable: true,
+		dataIndex: "isavailable",
+		stateId: "isavailable"
 	}],
 
 	initComponent: function() {
@@ -433,6 +446,9 @@ Ext.define("OMV.module.admin.storage.lvm.LogicalVolumes", {
 						{ name: "name", type: "string" },
 						{ name: "size", type: "string" },
 						{ name: "vgname", type: "string" },
+						{ name: "attributes", type: "array" },
+						{ name: "vgattributes", type: "array" },
+						{ name: "isavailable", type: "boolean" },
 						{ name: "_used", type: "boolean" }
 					]
 				}),
@@ -458,29 +474,53 @@ Ext.define("OMV.module.admin.storage.lvm.LogicalVolumes", {
 		var items = me.callParent(arguments);
 		// Add additional buttons.
 		Ext.Array.insert(items, 2, [{
+			id: me.getId() + "-snapshot",
+			xtype: "button",
+			text: _("Snapshot"),
+			iconCls: "x-fa fa-camera",
+			handler: Ext.Function.bind(me.onSnapshotButton, me, [ me ]),
+			scope: me,
+			disabled: true,
+			selectionConfig: {
+				minSelections: 1,
+				maxSelections: 1,
+				enabledFn: function(c, records) {
+					var attr = records[0].get("attributes");
+					return !attr.snapshot;
+				}
+			}
+		},{
 			id: me.getId() + "-extend",
 			xtype: "button",
 			text: _("Extend"),
-			icon: "images/expand.png",
+			iconCls: "x-fa fa-expand",
 			handler: Ext.Function.bind(me.onExtendButton, me, [ me ]),
 			scope: me,
 			disabled: true,
 			selectionConfig: {
 				minSelections: 1,
-				maxSelections: 1
+				maxSelections: 1,
+				enabledFn: function(c, records) {
+					var attr = records[0].get("vgattributes");
+					return attr.resizeable;
+				}
 			}
 		},{
 			id: me.getId() + "-reduce",
 			xtype: "button",
 			text: _("Reduce"),
-			icon: "images/shrink.png",
+			iconCls: "x-fa fa-compress",
 			handler: Ext.Function.bind(me.onReduceButton, me, [ me ]),
 			scope: me,
 			disabled: true,
-			hidden: true, // Not supported at the moment
+			hidden: true, // 'Reduce' is not supported at the moment
 			selectionConfig: {
 				minSelections: 1,
-				maxSelections: 1
+				maxSelections: 1,
+				enabledFn: function(c, records) {
+					var attr = records[0].get("vgattributes");
+					return attr.resizeable;
+				}
 			}
 		}]);
 		return items;
@@ -533,6 +573,25 @@ Ext.define("OMV.module.admin.storage.lvm.LogicalVolumes", {
 
 	onReduceButton: function() {
 		// Not supported at the moment.
+	},
+
+	onSnapshotButton: function() {
+		var me = this;
+		var record = me.getSelected();
+		OMV.Rpc.request({
+			scope: me,
+			callback: function(id, success, response) {
+				this.doReload();
+			},
+			rpcData: {
+				service: "LogicalVolumeMgmt",
+				method: "createLogicalVolumeSnapshot",
+				params: {
+					devicefile: record.get("devicefile")
+				}
+			},
+			relayErrors: false
+		});
 	},
 
 	doDeletion: function(record) {

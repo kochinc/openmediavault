@@ -4,7 +4,7 @@
  *
  * @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
  * @author    Volker Theile <volker.theile@openmediavault.org>
- * @copyright Copyright (c) 2009-2017 Volker Theile
+ * @copyright Copyright (c) 2009-2018 Volker Theile
  *
  * OpenMediaVault is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,8 @@
  */
 namespace OMV\System\Storage\Lvm;
 
+require_once("openmediavault/functions.inc");
+
 /**
  * Class to handle a LVM volume group.
  */
@@ -36,6 +38,7 @@ class VolumeGroup {
 	protected $extentSize = "";
 	protected $extentCount = "";
 	protected $freeCount = "";
+	protected $attr = "";
 	private $dataCached = FALSE;
 
 	/**
@@ -49,7 +52,7 @@ class VolumeGroup {
 	/**
 	 * Get the volume group detailed informations.
 	 * @private
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	private function getData() {
@@ -63,7 +66,7 @@ class VolumeGroup {
 		$cmdArgs[] = "--separator '|'";
 		$cmdArgs[] = "-C";
 		$cmdArgs[] = "-o vg_uuid,vg_name,vg_size,vg_free,pv_count,lv_count,".
-		  "vg_extent_size,vg_extent_count,vg_free_count";
+		  "vg_extent_size,vg_extent_count,vg_free_count,vg_attr";
 		$cmdArgs[] = "--unit b";
 		$cmdArgs[] = escapeshellarg($this->getName());
 		$cmd = new \OMV\System\Process("vgdisplay", $cmdArgs);
@@ -81,6 +84,7 @@ class VolumeGroup {
 		$this->extentSize = substr($output[6], 0, -1);
 		$this->extentCount = $output[7];
 		$this->freeCount = $output[8];
+		$this->attr = $output[9];
 
 		// Get the names of the physical volumes.
 		$this->pvName = [];
@@ -124,7 +128,7 @@ class VolumeGroup {
 
 	/**
 	 * Refresh the cached informations.
-	 * @return None.
+	 * @return void
 	 */
 	public function refresh() {
 		$this->dataCached = FALSE;
@@ -146,7 +150,7 @@ class VolumeGroup {
 
 	/**
 	 * Assert that the volume group exists.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\AssertException
 	 */
 	public function assertExists() {
@@ -171,6 +175,36 @@ class VolumeGroup {
 	public function getDeviceFile() {
 		$this->getData();
 		return sprintf("/dev/%s", $this->name);
+	}
+
+	/**
+	 * Get the canonical device file, e.g. <ul>
+	 * \li /dev/mapper/vg0-lv0 -> /dev/dm-0
+	 * </ul>
+	 * @return Returns the canonical device file.
+	 */
+	public function getCanonicalDeviceFile() {
+		return realpath($this->getDeviceFile());
+	}
+
+	/**
+	 * Get the device file to present in the UI, e.g.:
+	 * <ul>
+	 * \li /dev/disk/by-id/xxx
+	 * \li /dev/disk/by-path/xxx
+	 * \li /dev/xxx
+	 * </ul>
+	 * @return Returns a device file.
+	 */
+	public function getPreferredDeviceFile() {
+		// Get the canonical device file.
+		$deviceFile = $this->getCanonicalDeviceFile();
+		// Note, if the VG does not contain a logical volume, then there
+		// is no device file. In that case simply return the /dev/xxx
+		// device file.
+		if (!is_block_device($deviceFile))
+			$deviceFile = $this->getDeviceFile();
+		return $deviceFile;
 	}
 
 	/**
@@ -265,20 +299,46 @@ class VolumeGroup {
 	}
 
 	/**
+	 * Get the volume group attributes.
+	 * @see http://www.unixarena.com/2013/08/redhat-linux-lvm-volume-attributes.html
+	 * @return Returns an array with the attribtes.
+	 */
+	public function getAttributes() {
+		$this->getData();
+		return [
+			"access" => [
+				"read" => ("r" == substr($this->vgAttr, 0, 1)),
+				"write" => ("w" == substr($this->vgAttr, 0, 1))
+			],
+			"resizeable" => ("z" == substr($this->vgAttr, 1, 1)),
+			"exported" => ("x" == substr($this->vgAttr, 2, 1)),
+			"partial" => ("p" == substr($this->vgAttr, 3, 1)),
+			"allocationpolicy" => [
+				"contiguous" => ("c" == substr($this->vgAttr, 4, 1)),
+				"cling" => ("l" == substr($this->vgAttr, 4, 1)),
+				"normal" => ("n" == substr($this->vgAttr, 4, 1)),
+				"anywhere" => ("a" == substr($this->vgAttr, 4, 1)),
+				"inherited" => ("i" == substr($this->vgAttr, 4, 1)),
+			],
+			"cluster" => ("c" == substr($this->vgAttr, 5, 1)),
+		];
+	}
+
+	/**
 	 * Get the description of the volume group.
 	 * @return The volume group description.
 	 */
 	public function getDescription() {
 		$this->getData();
-		return sprintf("LVM volume group [%s, %s, %s free]",
-		  $this->getDeviceFile(), binary_format($this->getSize()),
-		  binary_format($this->getFree()));
+		return sprintf("LVM volume group %s [%s, %s, %s free]",
+		  $this->getName(), $this->getPreferredDeviceFile(),
+		  binary_format($this->getSize()), binary_format($this->getFree()));
 	}
 
 	/**
 	 * Create the volume group.
 	 * @param devices An array containing the physical device paths.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function create($devices) {
@@ -292,7 +352,7 @@ class VolumeGroup {
 
 	/**
 	 * Remove the volume group.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function remove() {
@@ -307,7 +367,7 @@ class VolumeGroup {
 	/**
 	 * Rename the volume group.
 	 * @param name The new volume group path/name.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function rename($name) {
@@ -324,7 +384,7 @@ class VolumeGroup {
 	 * Extend the volume group.
 	 * @param devices An array containing the physical device paths to be
 	 *   added.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function extend($devices) {
@@ -340,7 +400,7 @@ class VolumeGroup {
 	 * Reduce the volume group.
 	 * @param devices An array containing the physical device paths to
 	 *   be removed.
-	 * @return None.
+	 * @return void
 	 * @throw \OMV\ExecException
 	 */
 	public function reduce($devices) {
